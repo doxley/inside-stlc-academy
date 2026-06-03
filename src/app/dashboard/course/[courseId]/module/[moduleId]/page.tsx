@@ -9,7 +9,7 @@ import { AssignmentSection } from '@/components/module/AssignmentSection';
 import { ResourceDownloads } from '@/components/module/ResourceDownloads';
 import { ModuleStartTracker } from '@/components/module/ModuleStartTracker';
 import { Clock, Target, Video, Download, ClipboardList, Upload, CheckCircle2 } from 'lucide-react';
-import type { Module, Quiz, Resource, Assignment, AssignmentSubmission, QuizAttempt } from '@/types';
+import type { Module, Quiz, QuizQuestion, QuizAnswer, Resource, Assignment, AssignmentSubmission, QuizAttempt } from '@/types';
 
 export default async function ModulePage({ params }: { params: Promise<{ courseId: string; moduleId: string }> }) {
   const { courseId, moduleId } = await params;
