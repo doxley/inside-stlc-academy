@@ -132,7 +132,7 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
                 {quizPassed && <Badge variant="green">Passed</Badge>}
               </div>
             </CardHeader>
-            <QuizSection quiz={quiz as Quiz} userId={user.id} bestAttempt={bestAttempt} quizPassed={quizPassed} />
+            <QuizSection quiz={quiz as Quiz & { quiz_questions: (QuizQuestion & { quiz_answers: QuizAnswer[] })[] }} userId={user.id} bestAttempt={bestAttempt} quizPassed={quizPassed} />
           </Card>
         )}
 
