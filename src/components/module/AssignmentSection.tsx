@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone, type FileRejection } from 'react-dropzone';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
@@ -26,7 +26,7 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
   const [uploadError, setUploadError] = useState('');
   const [uploaded, setUploaded] = useState(false);
 
-  const onDrop = useCallback((accepted: File[], rejected: { errors: { message: string }[] }[]) => {
+  const onDrop = useCallback((accepted: File[], rejected: FileRejection[]) => {
     setUploadError('');
     if (rejected.length > 0) {
       setUploadError(rejected[0].errors[0]?.message ?? 'File rejected.');
