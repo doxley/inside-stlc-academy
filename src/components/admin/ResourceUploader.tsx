@@ -12,15 +12,16 @@ import type { Module } from '@/types';
 interface Props {
   courseId: string;
   modules: Module[];
+  defaultModuleId?: string;
 }
 
 const CATEGORIES = ['beginner', 'templates', 'career', 'ai', 'general'];
 
-export function ResourceUploader({ courseId, modules }: Props) {
+export function ResourceUploader({ courseId, modules, defaultModuleId }: Props) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('general');
-  const [moduleId, setModuleId] = useState('');
+  const [moduleId, setModuleId] = useState(defaultModuleId ?? '');
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');

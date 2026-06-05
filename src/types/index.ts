@@ -25,8 +25,20 @@ export interface Course {
   description: string | null;
   thumbnail_url: string | null;
   status: CourseStatus;
+  drip_enabled: boolean;
+  drip_type: 'none' | 'days_after_enrolment' | 'manual';
+  default_module_gap_days: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface ModuleUnlock {
+  id: string;
+  user_id: string;
+  module_id: string;
+  unlocked_by: string | null;
+  unlocked_at: string;
+  note: string | null;
 }
 
 export interface Module {

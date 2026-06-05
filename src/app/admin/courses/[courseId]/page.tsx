@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { Card, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -59,6 +60,9 @@ export default async function AdminCourseDetailPage({ params }: { params: Promis
                   <Badge variant={mod.status === 'published' ? 'green' : mod.status === 'coming_soon' ? 'yellow' : 'gray'}>
                     {mod.status === 'published' ? 'Published' : mod.status === 'coming_soon' ? 'Coming Soon' : 'Draft'}
                   </Badge>
+                  <Link href={`/admin/courses/${courseId}/module/${mod.id}`} className="text-gray-400 hover:text-brand-600 transition-colors">
+                    <ExternalLink className="w-4 h-4" />
+                  </Link>
                   <ModuleEditor module={mod} courseId={courseId} />
                 </div>
               </div>

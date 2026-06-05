@@ -7,6 +7,9 @@ import { ProgressBar } from '@/components/ui/ProgressBar';
 import { EnrolStudentForm } from '@/components/admin/EnrolStudentForm';
 import { formatDate, getSubmissionStatusColour, getSubmissionStatusLabel } from '@/lib/utils';
 import { ArrowLeft, User } from 'lucide-react';
+import { ManualUnlockButton } from '@/components/admin/ManualUnlockButton';
+import { isModuleUnlocked } from '@/lib/drip';
+import type { Course, Enrolment, ModuleUnlock } from '@/types';
 import type { Module, ModuleProgress, AssignmentSubmission, Assignment } from '@/types';
 
 export default async function StudentDetailPage({ params }: { params: Promise<{ studentId: string }> }) {
@@ -24,17 +27,20 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
   let modules: Module[] = [];
   let progressList: ModuleProgress[] = [];
   let submissions: (AssignmentSubmission & { assignments: Assignment })[] = [];
+  let manualUnlockIds: string[] = [];
 
   if (enrolment) {
     const course = (enrolment as { courses: { id: string } }).courses;
-    const [{ data: mods }, { data: prog }, { data: subs }] = await Promise.all([
+    const [{ data: mods }, { data: prog }, { data: subs }, { data: unlocks }] = await Promise.all([
       db.from('modules').select('*').eq('course_id', course.id).order('module_number'),
       db.from('module_progress').select('*').eq('user_id', studentId).eq('course_id', course.id),
       db.from('assignment_submissions').select('*, assignments(title, module_id)').eq('user_id', studentId).order('submitted_at', { ascending: false }),
+      db.from('module_unlocks').select('module_id').eq('user_id', studentId),
     ]);
     modules = (mods ?? []) as Module[];
     progressList = (prog ?? []) as ModuleProgress[];
     submissions = (subs ?? []) as (AssignmentSubmission & { assignments: Assignment })[];
+    manualUnlockIds = (unlocks ?? []).map((u: { module_id: string }) => u.module_id);
   }
 
   const progressMap = new Map(progressList.map(p => [p.module_id, p]));
@@ -77,6 +83,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
               {modules.map(mod => {
                 const prog = progressMap.get(mod.id);
                 const status = prog?.status ?? 'not_started';
+                const alreadyUnlocked = manualUnlockIds.includes(mod.id);
                 return (
                   <div key={mod.id} className="flex items-center gap-3 py-1">
                     <span className="w-6 h-6 rounded-full bg-gray-100 text-xs flex items-center justify-center text-gray-500 font-medium flex-shrink-0">{mod.module_number}</span>
@@ -85,6 +92,9 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
                       {status === 'completed' ? 'Completed' : status === 'in_progress' ? 'In Progress' : 'Not Started'}
                     </Badge>
                     {prog?.completed_at && <span className="text-xs text-gray-400">{formatDate(prog.completed_at)}</span>}
+                    {status === 'not_started' && (
+                      <ManualUnlockButton studentId={studentId} moduleId={mod.id} moduleName={mod.title} alreadyUnlocked={alreadyUnlocked} />
+                    )}
                   </div>
                 );
               })}
