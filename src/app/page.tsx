@@ -14,6 +14,15 @@ const courses = [
     href: '/course/ai-for-qa-testers',
     cta: 'View Course',
   },
+  {
+    title: 'QA Interview Accelerator',
+    badge: 'Career',
+    description:
+      'Prepare for QA interviews with real questions, model answer structures, CV guidance, test task preparation and a final interview readiness pack.',
+    price: '£49',
+    href: '/course/qa-interview-accelerator',
+    cta: 'View Course',
+  },
 ];
 
 const modules = [
