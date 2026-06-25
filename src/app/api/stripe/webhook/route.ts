@@ -6,6 +6,8 @@ import { sendPurchaseConfirmation } from '@/lib/email';
 
 // Stripe must receive the raw request body to verify the signature,
 // so this route reads req.text() and never uses a JSON body parser.
+// Signature verification needs the Node.js runtime (not Edge).
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
