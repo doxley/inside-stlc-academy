@@ -31,10 +31,26 @@ export function EnrolButton({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug }),
       });
-      const data = await res.json();
-      if (!res.ok || !data.url) {
-        throw new Error(data.error || 'Could not start checkout');
+
+      // Parse defensively — an empty/non-JSON body should not throw a
+      // cryptic "Unexpected end of JSON input".
+      const raw = await res.text();
+      let data: { url?: string; error?: string } = {};
+      if (raw) {
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(`Unexpected response from checkout (HTTP ${res.status})`);
+        }
       }
+
+      if (!res.ok) {
+        throw new Error(data.error || `Could not start checkout (HTTP ${res.status})`);
+      }
+      if (!data.url) {
+        throw new Error('Checkout did not return a redirect URL');
+      }
+
       window.location.href = data.url;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
