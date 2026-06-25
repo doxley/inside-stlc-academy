@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { SiteNav } from '@/components/marketing/SiteNav';
 import { SiteFooter } from '@/components/marketing/SiteFooter';
+import { EnrolButton } from '@/components/marketing/EnrolButton';
 
 const PAGE_DESCRIPTION =
   'Prepare for software testing interviews with real QA questions, model answers, CV guidance, test task preparation, and practical interview confidence.';
@@ -196,12 +197,7 @@ export default function QaInterviewAcceleratorPage() {
           guidance, test task preparation, and practical interview confidence.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/register"
-            className="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
-          >
-            Enrol Now
-          </Link>
+          <EnrolButton slug="qa-interview-accelerator" />
           <Link
             href="#curriculum"
             className="border border-white/20 hover:border-white/40 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
@@ -390,12 +386,11 @@ export default function QaInterviewAcceleratorPage() {
                 </li>
               ))}
             </ul>
-            <Link
-              href="/register"
-              className="block w-full text-center bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
-            >
-              Enrol Now
-            </Link>
+            <EnrolButton
+              slug="qa-interview-accelerator"
+              containerClassName="flex w-full"
+              className="block w-full text-center bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            />
           </div>
         </div>
       </section>

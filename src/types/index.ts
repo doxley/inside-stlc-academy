@@ -155,6 +155,21 @@ export interface Certificate {
   issued_at: string | null;
 }
 
+export type PaymentStatus = 'pending' | 'completed' | 'refunded' | 'failed';
+
+export interface Payment {
+  id: string;
+  user_id: string;
+  course_id: string | null;
+  provider: string;
+  provider_payment_id: string | null;
+  stripe_session_id: string | null;
+  amount: number | null;
+  currency: string;
+  status: PaymentStatus;
+  created_at: string;
+}
+
 // Composite types used in the UI
 export interface ModuleWithProgress extends Module {
   progress?: ModuleProgress;
