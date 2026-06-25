@@ -29,7 +29,9 @@ const courses = [
     description:
       'A structured 12-module programme to take you from beginner to job-ready QA professional.',
     stats: ['12 Modules', '90 Days', 'Certificate'],
+    price: '£99',
     href: '/course/90-day-software-testing-career-roadmap',
+    enrolSlug: '90-day-software-testing-career-roadmap',
     cta: 'View Course',
   },
   {
@@ -38,7 +40,9 @@ const courses = [
     description:
       'Learn how to use AI tools professionally across test design, documentation, automation support, defect analysis, and QA workflows.',
     stats: ['12 Modules', '6 Assignments', 'Portfolio Project'],
+    price: '£99',
     href: '/course/ai-for-qa-testers',
+    enrolSlug: 'ai-for-qa-testers',
     cta: 'View Course',
   },
   {
@@ -47,7 +51,9 @@ const courses = [
     description:
       'Prepare for QA interviews with real questions, answer structures, CV guidance, test task preparation, and a final readiness pack.',
     stats: ['8 Modules', '50+ Questions', 'Certificate'],
+    price: '£49',
     href: '/course/qa-interview-accelerator',
+    enrolSlug: 'qa-interview-accelerator',
     cta: 'View Course',
   },
 ];

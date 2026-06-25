@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, BookOpen, FileText, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, BookOpen, FileText, CreditCard, LogOut, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
@@ -13,6 +13,7 @@ const nav = [
   { href: '/admin/students', label: 'Students', icon: Users },
   { href: '/admin/courses', label: 'Courses', icon: BookOpen },
   { href: '/admin/assignments', label: 'Assignments', icon: FileText },
+  { href: '/admin/purchases', label: 'Purchases', icon: CreditCard },
 ];
 
 export function AdminNav() {

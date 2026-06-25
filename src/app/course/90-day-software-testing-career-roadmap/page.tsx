@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { BookOpen, Users, Award } from 'lucide-react';
 import { SiteNav } from '@/components/marketing/SiteNav';
 import { SiteFooter } from '@/components/marketing/SiteFooter';
+import { EnrolButton } from '@/components/marketing/EnrolButton';
 
 const PAGE_DESCRIPTION =
   'A structured 12-module programme to take you from beginner to job-ready QA professional — in just 90 days.';
@@ -85,12 +86,7 @@ export default function NinetyDayRoadmapPage() {
           professional — in just 90 days.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/register"
-            className="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
-          >
-            Enrol Now
-          </Link>
+          <EnrolButton slug="90-day-software-testing-career-roadmap" />
           <Link
             href="#curriculum"
             className="border border-white/20 hover:border-white/40 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
@@ -149,12 +145,7 @@ export default function NinetyDayRoadmapPage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20 text-center">
         <h2 className="text-3xl font-bold mb-4">Ready to start your QA career?</h2>
         <p className="text-gray-400 mb-8">Join Inside STLC Academy and transform your career in 90 days.</p>
-        <Link
-          href="/register"
-          className="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors inline-block"
-        >
-          Get Started Today
-        </Link>
+        <EnrolButton slug="90-day-software-testing-career-roadmap" label="Get Started Today" />
       </section>
 
       <SiteFooter />

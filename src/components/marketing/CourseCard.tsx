@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { EnrolButton } from './EnrolButton';
 
 export interface CourseCardProps {
   title: string;
@@ -9,9 +10,20 @@ export interface CourseCardProps {
   stats?: string[];
   href: string;
   cta?: string;
+  /** When set, renders an "Enrol Now" Stripe Checkout button for this course slug. */
+  enrolSlug?: string;
 }
 
-export function CourseCard({ title, badge, description, price, stats, href, cta = 'View Course' }: CourseCardProps) {
+export function CourseCard({
+  title,
+  badge,
+  description,
+  price,
+  stats,
+  href,
+  cta = 'View Course',
+  enrolSlug,
+}: CourseCardProps) {
   return (
     <div className="flex flex-col h-full bg-white/5 border border-white/10 rounded-2xl p-6 transition-colors hover:border-brand-400/40">
       <div className="flex items-start justify-between gap-3 mb-4">
@@ -37,19 +49,23 @@ export function CourseCard({ title, badge, description, price, stats, href, cta 
         </div>
       )}
 
-      <div className="flex items-center justify-between gap-4 pt-4 border-t border-white/10">
-        {price ? (
-          <span className="text-2xl font-bold text-gold-500">{price}</span>
-        ) : (
-          <span aria-hidden className="sr-only" />
-        )}
-        <Link
-          href={href}
-          className={`inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors ${price ? '' : 'w-full'}`}
-        >
-          {cta}
-          <ArrowRight className="w-4 h-4" />
-        </Link>
+      <div className="pt-4 border-t border-white/10 space-y-3">
+        {price && <div className="text-2xl font-bold text-gold-500">{price}</div>}
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Link
+            href={href}
+            className="inline-flex flex-1 items-center justify-center gap-2 border border-white/20 hover:border-white/40 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors"
+          >
+            {cta}
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          {enrolSlug && (
+            <EnrolButton
+              slug={enrolSlug}
+              className="inline-flex flex-1 items-center justify-center bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            />
+          )}
+        </div>
       </div>
     </div>
   );

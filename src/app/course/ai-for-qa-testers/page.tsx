@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { SiteNav } from '@/components/marketing/SiteNav';
 import { SiteFooter } from '@/components/marketing/SiteFooter';
+import { EnrolButton } from '@/components/marketing/EnrolButton';
 
 const PAGE_DESCRIPTION =
   'Learn how to use ChatGPT, Claude, and modern AI tools to improve test design, test documentation, automation support, defect analysis, risk assessment, and QA productivity.';
@@ -177,12 +178,7 @@ export default function AiForQaTestersPage() {
           documentation, automation support, defect analysis, risk assessment, and QA productivity.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/register"
-            className="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
-          >
-            Enrol Now
-          </Link>
+          <EnrolButton slug="ai-for-qa-testers" />
           <Link
             href="#curriculum"
             className="border border-white/20 hover:border-white/40 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
@@ -354,12 +350,11 @@ export default function AiForQaTestersPage() {
               </li>
             ))}
           </ul>
-          <Link
-            href="/register"
-            className="block w-full text-center bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
-          >
-            Enrol Now
-          </Link>
+          <EnrolButton
+            slug="ai-for-qa-testers"
+            containerClassName="flex w-full"
+            className="block w-full text-center bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          />
         </div>
       </section>
 
@@ -393,12 +388,7 @@ export default function AiForQaTestersPage() {
           Join Inside STLC Academy and build a professional, AI-assisted testing workflow.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/register"
-            className="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
-          >
-            Enrol Now
-          </Link>
+          <EnrolButton slug="ai-for-qa-testers" />
           <Link
             href="#curriculum"
             className="border border-white/20 hover:border-white/40 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
