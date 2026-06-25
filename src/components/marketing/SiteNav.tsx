@@ -11,7 +11,7 @@ export function SiteNav() {
         <div className="flex items-center gap-4">
           <Link href="/login" className="text-sm text-gray-300 hover:text-white transition-colors">Log in</Link>
           <Link
-            href="/register"
+            href="/#courses"
             className="bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
             Get Started
