@@ -16,10 +16,40 @@ import {
 import { SiteNav } from '@/components/marketing/SiteNav';
 import { SiteFooter } from '@/components/marketing/SiteFooter';
 
+const PAGE_DESCRIPTION =
+  'Learn how to use ChatGPT, Claude, and modern AI tools to improve test design, test documentation, automation support, defect analysis, risk assessment, and QA productivity.';
+
 export const metadata: Metadata = {
   title: 'AI for QA Testers | Inside STLC Academy',
-  description:
-    'Learn how to use ChatGPT, Claude, and modern AI tools to improve test design, test documentation, automation support, defect analysis, risk assessment, and QA productivity.',
+  description: PAGE_DESCRIPTION,
+  openGraph: {
+    title: 'AI for QA Testers | Inside STLC Academy',
+    description: PAGE_DESCRIPTION,
+    type: 'website',
+    siteName: 'Inside STLC Academy',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI for QA Testers | Inside STLC Academy',
+    description: PAGE_DESCRIPTION,
+  },
+};
+
+const courseJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'AI for QA Testers',
+  description: PAGE_DESCRIPTION,
+  provider: {
+    '@type': 'Organization',
+    name: 'Inside STLC Academy',
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '99',
+    priceCurrency: 'GBP',
+    category: 'Professional Edition',
+  },
 };
 
 const stats = [
@@ -128,6 +158,10 @@ const faqs = [
 export default function AiForQaTestersPage() {
   return (
     <div className="min-h-screen bg-navy-900 text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
+      />
       <SiteNav />
 
       {/* 1. Hero */}
