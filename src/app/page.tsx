@@ -1,6 +1,20 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { CheckCircle, BookOpen, Award, Users } from 'lucide-react';
+import { BookOpen, Award, Users } from 'lucide-react';
+import { SiteNav } from '@/components/marketing/SiteNav';
+import { SiteFooter } from '@/components/marketing/SiteFooter';
+import { CourseCard } from '@/components/marketing/CourseCard';
+
+const courses = [
+  {
+    title: 'AI for QA Testers',
+    badge: 'New',
+    description:
+      'Learn how to use AI tools professionally across test design, documentation, automation support, defect analysis, and QA workflows.',
+    price: '£99',
+    href: '/course/ai-for-qa-testers',
+    cta: 'View Course',
+  },
+];
 
 const modules = [
   'Introduction to Software Testing',
@@ -20,18 +34,7 @@ const modules = [
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-navy-900 text-white">
-      {/* Nav */}
-      <nav className="border-b border-white/10 bg-navy-900/95 sticky top-0 z-50 backdrop-blur">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Image src="/logo.png" alt="Inside STLC Academy" width={160} height={48} className="h-10 w-auto" priority />
-          <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm text-gray-300 hover:text-white transition-colors">Log in</Link>
-            <Link href="/register" className="bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav />
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
@@ -109,6 +112,19 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Courses */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
+        <h2 className="text-3xl font-bold text-center mb-4">Our Courses</h2>
+        <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
+          Professional, practical training designed to advance your QA career.
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {courses.map((course) => (
+            <CourseCard key={course.href} {...course} />
+          ))}
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20 text-center">
         <h2 className="text-3xl font-bold mb-4">Ready to start your QA career?</h2>
@@ -118,16 +134,7 @@ export default function LandingPage() {
         </Link>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/10 bg-navy-900">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-          <Image src="/logo.png" alt="Inside STLC Academy" width={120} height={36} className="h-8 w-auto opacity-70" />
-          <div className="flex items-center gap-6">
-            <a href="mailto:support@insidestlc.com" className="hover:text-white transition-colors">support@insidestlc.com</a>
-            <Link href="/login" className="hover:text-white transition-colors">Log in</Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
