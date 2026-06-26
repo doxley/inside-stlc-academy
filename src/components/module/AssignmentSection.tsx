@@ -68,18 +68,27 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
       return;
     }
 
-    const { error: dbError } = await supabase.from('assignment_submissions').insert({
+    const { data: inserted, error: dbError } = await supabase.from('assignment_submissions').insert({
       assignment_id: assignment.id,
       user_id: userId,
       file_url: path,
       original_filename: file.name,
       status: 'submitted',
-    });
+    }).select('id').single();
 
     if (dbError) {
       setUploadError('Submission failed: ' + dbError.message);
       setUploading(false);
       return;
+    }
+
+    // Notify the admin (best-effort — never blocks the submission).
+    if (inserted?.id) {
+      fetch('/api/notifications/submission', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ submissionId: inserted.id }),
+      }).catch(() => {});
     }
 
     setUploaded(true);

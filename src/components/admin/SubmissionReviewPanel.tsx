@@ -42,6 +42,13 @@ export function SubmissionReviewPanel({ submission }: Props) {
       reviewed_at: new Date().toISOString(),
     }).eq('id', submission.id);
 
+    // Notify the learner that feedback is ready (best-effort).
+    fetch('/api/notifications/review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ submissionId: submission.id }),
+    }).catch(() => {});
+
     setSaved(true);
     setSaving(false);
     setTimeout(() => setSaved(false), 2000);
