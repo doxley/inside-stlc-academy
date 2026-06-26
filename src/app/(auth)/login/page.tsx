@@ -102,8 +102,8 @@ export default function LoginPage() {
 
         <p className="text-center text-xs text-gray-400 mt-6">
           Need help?{' '}
-          <a href="mailto:support@insidestlc.com" className="text-brand-600 hover:underline">
-            support@insidestlc.com
+          <a href="mailto:info@insidestlc.com" className="text-brand-600 hover:underline">
+            info@insidestlc.com
           </a>
         </p>
       </div>
