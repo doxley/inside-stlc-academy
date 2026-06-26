@@ -58,7 +58,7 @@ const modules = [
 ];
 
 const features = [
-  { icon: BookOpen, title: 'Structured Learning', desc: 'Video lessons, workbooks, and downloadable resources for every module.' },
+  { icon: BookOpen, title: 'Structured Learning', desc: 'Written lessons, workbooks, templates, and downloadable resources for every module.' },
   { icon: Users, title: 'Expert Feedback', desc: 'Submit assignments and receive personalised feedback from your tutor.' },
   { icon: Award, title: 'Certificate', desc: 'Earn a professional certificate upon completing all modules and assessments.' },
 ];
@@ -81,9 +81,13 @@ export default function NinetyDayRoadmapPage() {
           90-Day Software Testing<br />
           <span className="text-gold-500">Career Roadmap</span>
         </h1>
-        <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-10">
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-4">
           A structured 12-module training programme to take you from beginner to job-ready QA
           professional — in just 90 days.
+        </p>
+        <p className="text-base text-brand-300 max-w-2xl mx-auto mb-10">
+          Learn through structured written lessons, practical exercises, templates, checklists, and
+          portfolio-building tasks.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <EnrolButton slug="90-day-software-testing-career-roadmap" />

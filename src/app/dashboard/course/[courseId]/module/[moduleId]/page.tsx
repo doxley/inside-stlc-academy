@@ -7,9 +7,13 @@ import { Badge } from '@/components/ui/Badge';
 import { QuizSection } from '@/components/module/QuizSection';
 import { AssignmentSection } from '@/components/module/AssignmentSection';
 import { ResourceDownloads } from '@/components/module/ResourceDownloads';
+import { ResourceDownloadCard } from '@/components/module/ResourceDownloadCard';
 import { ModuleStartTracker } from '@/components/module/ModuleStartTracker';
-import { Clock, Target, Video, Download, ClipboardList, Upload, CheckCircle2 } from 'lucide-react';
-import type { Module, Quiz, QuizQuestion, QuizAnswer, Resource, Assignment, AssignmentSubmission, QuizAttempt } from '@/types';
+import { GuidedLessonLayout } from '@/components/module/GuidedLessonLayout';
+import { PracticalTaskCard } from '@/components/module/PracticalTaskCard';
+import { MarkCompleteButton } from '@/components/module/MarkCompleteButton';
+import { Download, Upload, HelpCircle, CheckCircle2, Circle } from 'lucide-react';
+import type { Module, Quiz, QuizQuestion, QuizAnswer, Resource, Assignment, AssignmentSubmission, QuizAttempt, Course } from '@/types';
 
 export default async function ModulePage({ params }: { params: Promise<{ courseId: string; moduleId: string }> }) {
   const { courseId, moduleId } = await params;
@@ -22,8 +26,9 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
   const { data: enrolment } = await db.from('enrolments').select('id').eq('user_id', user.id).eq('course_id', courseId).eq('status', 'active').single();
   if (!enrolment) notFound();
 
-  const [{ data: module }, { data: resources }, { data: quiz }, { data: progress }] = await Promise.all([
+  const [{ data: module }, { data: course }, { data: resources }, { data: quiz }, { data: progress }] = await Promise.all([
     db.from('modules').select('*').eq('id', moduleId).single(),
+    db.from('courses').select('title').eq('id', courseId).single(),
     db.from('resources').select('*').eq('module_id', moduleId).eq('visible_to_students', true).order('sort_order'),
     db.from('quizzes').select('*, quiz_questions(*, quiz_answers(*))').eq('module_id', moduleId).single(),
     db.from('module_progress').select('*').eq('user_id', user.id).eq('module_id', moduleId).single(),
@@ -42,6 +47,7 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
   }
 
   const mod = module as Module;
+  const courseName = (course as Pick<Course, 'title'> | null)?.title ?? 'Course';
 
   const [{ data: quizAttempts }, { data: assignment }, { data: submissions }] = await Promise.all([
     quiz ? db.from('quiz_attempts').select('*').eq('quiz_id', (quiz as Quiz).id).eq('user_id', user.id).order('attempted_at', { ascending: false }) : Promise.resolve({ data: [] }),
@@ -55,6 +61,15 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
   const latestSubmission = assignmentSubmissions[0] as AssignmentSubmission | undefined;
   const isCompleted = progress?.status === 'completed';
 
+  // Fall back to legacy fields so existing modules still read well.
+  const lessonOverview = mod.lesson_overview ?? mod.description;
+  const guidedNotes = mod.guided_notes
+    ?? ((mod.learning_objectives ?? []).length
+        ? `## What you'll learn\n${(mod.learning_objectives ?? []).map((o) => `- ${o}`).join('\n')}`
+        : null);
+
+  const checklist = mod.completion_checklist ?? [];
+
   return (
     <div className="p-6 lg:p-8 max-w-4xl mx-auto">
       <ModuleStartTracker moduleId={moduleId} courseId={courseId} currentStatus={progress?.status} />
@@ -67,87 +82,103 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
         <span className="text-gray-900 font-medium">Module {mod.module_number}</span>
       </div>
 
-      <div className="mb-8">
-        <div className="flex items-start justify-between gap-4 flex-wrap">
-          <div>
-            <p className="text-sm font-medium text-brand-600 mb-1">Module {mod.module_number}</p>
-            <h1 className="text-2xl font-bold text-gray-900">{mod.title}</h1>
-            {mod.description && <p className="text-gray-500 mt-2 max-w-2xl">{mod.description}</p>}
-            {mod.estimated_duration && (
-              <p className="text-sm text-gray-400 mt-2 flex items-center gap-1.5"><Clock className="w-4 h-4" />{mod.estimated_duration}</p>
-            )}
-          </div>
-          {isCompleted && <Badge variant="green" className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5" />Completed</Badge>}
-        </div>
-      </div>
-
-      <div className="space-y-6">
-        {(mod.learning_objectives ?? []).length > 0 && (
+      {/* Sections 1–3 (header, overview, guided notes) + dynamic sections below */}
+      <GuidedLessonLayout
+        moduleNumber={mod.module_number}
+        title={mod.title}
+        courseName={courseName}
+        estimatedTime={mod.estimated_duration}
+        isCompleted={isCompleted}
+        lessonOverview={lessonOverview}
+        guidedNotes={guidedNotes}
+      >
+        {/* Optional video — disabled by default. Video support may be added
+            later, but no video UI renders unless a module has a real
+            video_url value (never an empty placeholder). */}
+        {mod.video_url && (
           <Card>
-            <CardHeader>
-              <div className="flex items-center gap-2"><Target className="w-5 h-5 text-brand-600" /><CardTitle>Learning Objectives</CardTitle></div>
-            </CardHeader>
-            <ul className="space-y-2">
-              {(mod.learning_objectives ?? []).map((obj, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                  <CheckCircle2 className="w-4 h-4 text-brand-500 mt-0.5 flex-shrink-0" />{obj}
-                </li>
-              ))}
-            </ul>
-          </Card>
-        )}
-
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2"><Video className="w-5 h-5 text-brand-600" /><CardTitle>Video Lesson</CardTitle></div>
-          </CardHeader>
-          {mod.video_url ? (
             <div className="aspect-video rounded-lg overflow-hidden bg-black">
-              <iframe src={mod.video_url.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')} className="w-full h-full" allowFullScreen title={mod.title} />
+              <iframe
+                src={mod.video_url.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}
+                className="w-full h-full"
+                allowFullScreen
+                title={mod.title}
+              />
             </div>
-          ) : (
-            <div className="aspect-video rounded-lg bg-gray-100 flex items-center justify-center">
-              <div className="text-center text-gray-400">
-                <Video className="w-10 h-10 mx-auto mb-2 opacity-40" />
-                <p className="text-sm">Video lesson coming soon</p>
-              </div>
-            </div>
-          )}
-        </Card>
-
-        {(resources ?? []).length > 0 && (
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-2"><Download className="w-5 h-5 text-brand-600" /><CardTitle>Downloads</CardTitle></div>
-            </CardHeader>
-            <ResourceDownloads resources={resources as Resource[]} />
           </Card>
         )}
 
-        {quiz && (
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2"><ClipboardList className="w-5 h-5 text-brand-600" /><CardTitle>Module Quiz</CardTitle></div>
-                {quizPassed && <Badge variant="green">Passed</Badge>}
-              </div>
-            </CardHeader>
-            <QuizSection quiz={quiz as Quiz & { quiz_questions: (QuizQuestion & { quiz_answers: QuizAnswer[] })[] }} userId={user.id} bestAttempt={bestAttempt} quizPassed={quizPassed} />
-          </Card>
-        )}
+        {/* 4. Practical Activity */}
+        {mod.practical_task && <PracticalTaskCard task={mod.practical_task} />}
 
         {assignment && (
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2"><Upload className="w-5 h-5 text-brand-600" /><CardTitle>Assignment Submission</CardTitle></div>
+                <div className="flex items-center gap-2"><Upload className="w-5 h-5 text-brand-600" /><CardTitle>Practical Task — Submission</CardTitle></div>
                 {latestSubmission?.status === 'passed' && <Badge variant="green">Passed</Badge>}
               </div>
             </CardHeader>
             <AssignmentSection assignment={assignment as Assignment} userId={user.id} courseId={courseId} latestSubmission={latestSubmission} allSubmissions={assignmentSubmissions as AssignmentSubmission[]} />
           </Card>
         )}
-      </div>
+
+        {/* 5. Resources */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2"><Download className="w-5 h-5 text-brand-600" /><CardTitle>Resources</CardTitle></div>
+          </CardHeader>
+          {(resources ?? []).length > 0 && <ResourceDownloads resources={resources as Resource[]} />}
+          <div className="mt-3">
+            <ResourceDownloadCard
+              title="Resource Library"
+              description="All templates, prompts, checklists and downloads for your courses"
+              href="/dashboard/resources"
+            />
+          </div>
+        </Card>
+
+        {/* 6. Reflection / Knowledge Check */}
+        {(mod.reflection_question || checklist.length > 0 || quiz) && (
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2"><HelpCircle className="w-5 h-5 text-brand-600" /><CardTitle>Reflection &amp; Knowledge Check</CardTitle></div>
+                {quizPassed && <Badge variant="green">Passed</Badge>}
+              </div>
+            </CardHeader>
+
+            {mod.reflection_question && (
+              <p className="text-sm text-gray-700 leading-relaxed mb-4">{mod.reflection_question}</p>
+            )}
+
+            {checklist.length > 0 && (
+              <ul className="space-y-2 mb-4">
+                {checklist.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                    <Circle className="w-4 h-4 text-brand-400 mt-0.5 flex-shrink-0" />{item}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {quiz && (
+              <QuizSection quiz={quiz as Quiz & { quiz_questions: (QuizQuestion & { quiz_answers: QuizAnswer[] })[] }} userId={user.id} bestAttempt={bestAttempt} quizPassed={quizPassed} />
+            )}
+          </Card>
+        )}
+
+        {/* 7. Mark as Complete */}
+        <Card>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <CheckCircle2 className="w-4 h-4 text-brand-600" />
+              Finished this module? Mark it complete to track your progress.
+            </div>
+            <MarkCompleteButton moduleId={moduleId} courseId={courseId} isCompleted={isCompleted} />
+          </div>
+        </Card>
+      </GuidedLessonLayout>
     </div>
   );
 }

@@ -192,9 +192,13 @@ export default function QaInterviewAcceleratorPage() {
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
           QA Interview <span className="text-gold-500">Accelerator</span>
         </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-4">
           Prepare for software testing interviews with real QA questions, model answers, CV
           guidance, test task preparation, and practical interview confidence.
+        </p>
+        <p className="text-base text-brand-300 max-w-3xl mx-auto mb-10">
+          Learn through structured written lessons, practical exercises, templates, checklists, and
+          portfolio-building tasks.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <EnrolButton slug="qa-interview-accelerator" />

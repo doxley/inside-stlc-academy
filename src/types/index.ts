@@ -50,6 +50,14 @@ export interface Module {
   description: string | null;
   learning_objectives: string[] | null;
   estimated_duration: string | null;
+  // Guided written-lesson content. Courses are practical written programmes;
+  // video_url is OPTIONAL and disabled by default — no video renders unless a
+  // module has a real video_url value.
+  lesson_overview: string | null;
+  guided_notes: string | null;
+  practical_task: string | null;
+  reflection_question: string | null;
+  completion_checklist: string[] | null;
   video_url: string | null;
   status: ModuleStatus;
   unlock_day: number;
