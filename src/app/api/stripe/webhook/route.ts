@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { getStripe, getSiteUrl } from '@/lib/stripe';
 import { createAdminClient } from '@/lib/supabase/admin';
-import { sendPurchaseConfirmation } from '@/lib/email';
+import { sendPurchaseConfirmation, sendAdminEnrolmentNotification } from '@/lib/email';
 
 // Stripe must receive the raw request body to verify the signature,
 // so this route reads req.text() and never uses a JSON body parser.
@@ -118,11 +118,25 @@ async function fulfilCheckout(session: Stripe.Checkout.Session) {
     { onConflict: 'user_id,course_id' }
   );
 
-  await sendPurchaseConfirmation({
-    to: email,
-    courseTitle: course.title,
-    dashboardUrl: `${getSiteUrl()}/dashboard`,
-  });
+  const siteUrl = getSiteUrl();
+  const amountLabel =
+    session.amount_total != null
+      ? `${(session.currency ?? 'gbp').toUpperCase()} ${(session.amount_total / 100).toFixed(2)}`
+      : undefined;
+
+  await Promise.all([
+    sendPurchaseConfirmation({
+      to: email,
+      courseTitle: course.title,
+      dashboardUrl: `${siteUrl}/dashboard`,
+    }),
+    sendAdminEnrolmentNotification({
+      studentEmail: email,
+      courseTitle: course.title,
+      amountLabel,
+      adminUrl: `${siteUrl}/admin/purchases`,
+    }),
+  ]);
 }
 
 // ─────────────────────────────────────────────────────────────
