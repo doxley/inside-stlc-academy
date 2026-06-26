@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, FileText, Library, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, FileText, Library, LifeBuoy, LogOut, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
@@ -53,6 +53,9 @@ export function StudentNav({ firstName }: Props) {
 
         <div className="p-4 border-t border-white/10">
           <div className="text-xs text-gray-500 mb-3">Signed in as {firstName ?? 'Student'}</div>
+          <a href="mailto:info@insidestlc.com" className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-3">
+            <LifeBuoy className="w-4 h-4" />Need help?
+          </a>
           <button onClick={handleLogout} className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
             <LogOut className="w-4 h-4" />Log out
           </button>

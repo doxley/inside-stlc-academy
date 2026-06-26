@@ -4,7 +4,7 @@ export interface ComingSoonCardProps {
 }
 
 export function ComingSoonCard({ title, description }: ComingSoonCardProps) {
-  const mailto = `mailto:support@insidestlc.com?subject=${encodeURIComponent(
+  const mailto = `mailto:info@insidestlc.com?subject=${encodeURIComponent(
     `Register interest: ${title}`
   )}`;
 
