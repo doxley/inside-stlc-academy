@@ -3,17 +3,40 @@ import { Resend } from 'resend';
 // Best-effort transactional email. Every send no-ops (and never throws) when
 // Resend is not configured, so core flows are never blocked by email.
 
-const WRAP_START =
-  '<div style="font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:0 auto;color:#0d1b2a">';
-const WRAP_END = '<p style="color:#6b7280;font-size:13px;margin-top:24px">Inside STLC Academy</p></div>';
+const NAVY = '#0d1b2a';
+const TEAL = '#2a9d8f';
+const GOLD = '#e9b949';
 
-function button(href: string, label: string) {
-  return `<p><a href="${href}" style="display:inline-block;background:#2a9d8f;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600">${label}</a></p>`;
+function siteUrl(): string {
+  return (process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://www.insidestlcacademy.com').replace(/\/$/, '');
 }
 
 /** The address that receives admin/tutor notifications. */
 export function adminEmail(): string {
   return process.env.ADMIN_NOTIFICATION_EMAIL || 'david.oxley@insidestlc.com';
+}
+
+function button(href: string, label: string) {
+  return `<p style="margin:24px 0"><a href="${href}" style="display:inline-block;background:${TEAL};color:#fff;text-decoration:none;padding:12px 26px;border-radius:8px;font-weight:600">${label}</a></p>`;
+}
+
+// Branded email shell: navy header with logo + gold rule, white body, footer.
+function shell(bodyHtml: string): string {
+  return `
+  <div style="background:#f4f5f7;padding:24px 0;margin:0">
+    <div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb">
+      <div style="background:${NAVY};padding:22px 24px;text-align:center">
+        <img src="${siteUrl()}/logo.png" alt="Inside STLC Academy" height="34" style="height:34px;width:auto" />
+      </div>
+      <div style="height:3px;background:${GOLD}"></div>
+      <div style="padding:28px 24px;color:${NAVY};font-size:15px;line-height:1.6">
+        ${bodyHtml}
+      </div>
+      <div style="padding:16px 24px;border-top:1px solid #eee;color:#6b7280;font-size:12px;text-align:center">
+        Inside STLC Academy · <a href="mailto:info@insidestlc.com" style="color:${TEAL};text-decoration:none">info@insidestlc.com</a>
+      </div>
+    </div>
+  </div>`;
 }
 
 async function send(opts: { to: string; subject: string; html: string }): Promise<void> {
@@ -36,11 +59,12 @@ export async function sendPurchaseConfirmation(opts: {
   await send({
     to: opts.to,
     subject: `Your access to ${opts.courseTitle} is ready`,
-    html: `${WRAP_START}
-      <h2>Payment successful 🎉</h2>
+    html: shell(`
+      <h2 style="margin:0 0 12px">Payment successful 🎉</h2>
       <p>Thank you for your purchase. Your access to <strong>${opts.courseTitle}</strong> has been unlocked.</p>
       ${button(opts.dashboardUrl, 'Go to your dashboard')}
-      ${WRAP_END}`,
+      <p style="color:#6b7280;font-size:13px">If you checked out as a new customer, check your inbox for an email to set your password.</p>
+    `),
   });
 }
 
@@ -54,8 +78,8 @@ export async function sendAdminEnrolmentNotification(opts: {
   await send({
     to: adminEmail(),
     subject: `New enrolment: ${opts.courseTitle}`,
-    html: `${WRAP_START}
-      <h2>New enrolment</h2>
+    html: shell(`
+      <h2 style="margin:0 0 12px">New enrolment</h2>
       <p>A learner has enrolled in a course.</p>
       <ul>
         <li><strong>Course:</strong> ${opts.courseTitle}</li>
@@ -63,7 +87,7 @@ export async function sendAdminEnrolmentNotification(opts: {
         ${opts.amountLabel ? `<li><strong>Amount:</strong> ${opts.amountLabel}</li>` : ''}
       </ul>
       ${button(opts.adminUrl, 'View purchases')}
-      ${WRAP_END}`,
+    `),
   });
 }
 
@@ -77,15 +101,15 @@ export async function sendAdminSubmissionNotification(opts: {
   await send({
     to: adminEmail(),
     subject: `New submission: ${opts.assignmentTitle}`,
-    html: `${WRAP_START}
-      <h2>New assignment submission</h2>
+    html: shell(`
+      <h2 style="margin:0 0 12px">New assignment submission</h2>
       <ul>
         <li><strong>Assignment:</strong> ${opts.assignmentTitle}</li>
         <li><strong>Learner:</strong> ${opts.studentName} (${opts.studentEmail})</li>
       </ul>
       <p>It's awaiting your review.</p>
       ${button(opts.reviewUrl, 'Review submission')}
-      ${WRAP_END}`,
+    `),
   });
 }
 
@@ -100,14 +124,14 @@ export async function sendStudentFeedbackNotification(opts: {
   await send({
     to: opts.to,
     subject: `Feedback on your submission: ${opts.assignmentTitle}`,
-    html: `${WRAP_START}
-      <h2>Your submission has been reviewed</h2>
+    html: shell(`
+      <h2 style="margin:0 0 12px">Your submission has been reviewed</h2>
       <ul>
         <li><strong>Assignment:</strong> ${opts.assignmentTitle}</li>
         <li><strong>Status:</strong> ${opts.statusLabel}</li>
       </ul>
       ${opts.feedback ? `<p style="background:#f0faf9;border:1px solid #ccefec;border-radius:8px;padding:12px"><strong>Tutor feedback:</strong><br/>${opts.feedback}</p>` : ''}
       ${button(opts.dashboardUrl, 'View in your dashboard')}
-      ${WRAP_END}`,
+    `),
   });
 }
