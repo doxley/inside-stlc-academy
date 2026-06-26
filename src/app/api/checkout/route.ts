@@ -56,8 +56,11 @@ export async function POST(req: Request) {
 
     const siteUrl = getSiteUrl();
 
-    // Use a pre-created Stripe Price when available, otherwise an inline price.
-    const lineItem: Stripe.Checkout.SessionCreateParams.LineItem = course.stripePriceId
+    // Use a pre-created Stripe Price only when it's a real Price ID
+    // (price_…). A misconfigured product ID (prod_…) or anything else
+    // falls back to an inline price so checkout still works.
+    const usePriceId = course.stripePriceId?.startsWith('price_');
+    const lineItem: Stripe.Checkout.SessionCreateParams.LineItem = usePriceId
       ? { price: course.stripePriceId, quantity: 1 }
       : {
           quantity: 1,
