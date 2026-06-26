@@ -147,8 +147,9 @@ export default function LandingPage() {
       {/* Featured Courses */}
       <section id="courses" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 scroll-mt-20">
         <h2 className="text-3xl font-bold text-center mb-4">Choose Your QA Learning Path</h2>
-        <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
-          Professional, practical courses designed for every stage of your QA career.
+        <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+          Learn through structured written lessons, practical exercises, templates, checklists, and
+          portfolio-building tasks — designed for every stage of your QA career.
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {courses.map((course) => (

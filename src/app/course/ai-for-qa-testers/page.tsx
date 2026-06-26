@@ -173,9 +173,13 @@ export default function AiForQaTestersPage() {
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
           AI for <span className="text-gold-500">QA Testers</span>
         </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-4">
           Learn how to use ChatGPT, Claude, and modern AI tools to improve test design, test
           documentation, automation support, defect analysis, risk assessment, and QA productivity.
+        </p>
+        <p className="text-base text-brand-300 max-w-3xl mx-auto mb-10">
+          Learn through structured written lessons, practical exercises, templates, checklists, and
+          portfolio-building tasks.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <EnrolButton slug="ai-for-qa-testers" />
