@@ -52,7 +52,12 @@ resource uploader, or seed rows pointing at the lesson).
 - [x] Module 5 — Jira & Test Management (6 lessons)
 - [x] Module 6 — API Testing with Postman (6 lessons)
 - [x] Module 7 — SQL for Testers (6 lessons)
-- [ ] Modules 8–12 — expand each into 6–10 lessons + downloads + exercises.
+- [x] Module 8 — Automation Fundamentals (6 lessons)
+- [x] Module 9 — AI for Software Testing (6 lessons)
+- [x] Module 10 — Portfolio Building (5 lessons)
+- [x] Module 11 — CV & LinkedIn Mastery (5 lessons)
+- [x] Module 12 — Interview Mastery & Job Search (5 lessons)
+- ✅ **90-Day Roadmap fully drafted (all 12 modules).**
 
 ### AI for QA Testers
 - [ ] Seed the 12 modules into the DB (currently marketing-only), then author
