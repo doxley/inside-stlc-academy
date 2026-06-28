@@ -50,6 +50,15 @@ export const COURSES: CourseConfig[] = [
     stripePriceId: process.env.STRIPE_PRICE_QA_INTERVIEW,
     route: '/course/qa-interview-accelerator',
   },
+  {
+    slug: 'practical-test-automation-playwright',
+    title: 'Practical Test Automation with Playwright',
+    priceLabel: '£149',
+    amount: 14900,
+    currency: 'gbp',
+    stripePriceId: process.env.STRIPE_PRICE_PLAYWRIGHT,
+    route: '/course/practical-test-automation-playwright',
+  },
 ];
 
 export function getCourseConfig(slug: string): CourseConfig | undefined {
