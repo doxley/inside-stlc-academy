@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { ensureCertificate } from '@/lib/certificates';
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Badge } from '@/components/ui/Badge';
@@ -36,40 +37,41 @@ export default async function DashboardPage() {
   const activeEnrolments = (enrolments ?? []) as (Enrolment & { courses: Course })[];
   const courseIds = activeEnrolments.map((e) => e.courses?.id).filter(Boolean) as string[];
 
-  // Fetch modules, progress and certificates for all enrolled courses in one pass.
-  const [{ data: modules }, { data: allProgress }, { data: certificates }] = await Promise.all([
+  // Fetch modules and progress for all enrolled courses in one pass.
+  const [{ data: modules }, { data: allProgress }] = await Promise.all([
     courseIds.length
       ? db.from('modules').select('*').in('course_id', courseIds).order('module_number')
       : Promise.resolve({ data: [] as Module[] }),
     db.from('module_progress').select('*').eq('user_id', user.id),
-    db.from('certificates').select('*').eq('user_id', user.id),
   ]);
 
   const progressByModule = new Map<string, ModuleProgress>(
     (allProgress ?? []).map((p: ModuleProgress) => [p.module_id, p])
   );
-  const certByCourse = new Map<string, Certificate>(
-    (certificates ?? []).map((c: Certificate) => [c.course_id, c])
-  );
 
-  const summaries: CourseSummary[] = activeEnrolments.map((enrolment) => {
-    const course = enrolment.courses;
-    const courseModules = (modules ?? []).filter((m: Module) => m.course_id === course.id);
-    const completed = courseModules.filter(
-      (m) => progressByModule.get(m.id)?.status === 'completed'
-    ).length;
-    const total = courseModules.length;
-    const current =
-      courseModules.find((m) => progressByModule.get(m.id)?.status !== 'completed') ?? null;
-    return {
-      course,
-      totalModules: total,
-      completedModules: completed,
-      progressPercent: total > 0 ? Math.round((completed / total) * 100) : 0,
-      currentModule: current,
-      certificate: certByCourse.get(course.id) ?? null,
-    };
-  });
+  // Build summaries and auto-issue a certificate once a course is fully complete.
+  const summaries: CourseSummary[] = await Promise.all(
+    activeEnrolments.map(async (enrolment) => {
+      const course = enrolment.courses;
+      const courseModules = (modules ?? []).filter((m: Module) => m.course_id === course.id);
+      const completed = courseModules.filter(
+        (m) => progressByModule.get(m.id)?.status === 'completed'
+      ).length;
+      const total = courseModules.length;
+      const current =
+        courseModules.find((m) => progressByModule.get(m.id)?.status !== 'completed') ?? null;
+      const eligible = total > 0 && completed === total;
+      const certificate = await ensureCertificate(user.id, course.id, eligible);
+      return {
+        course,
+        totalModules: total,
+        completedModules: completed,
+        progressPercent: total > 0 ? Math.round((completed / total) * 100) : 0,
+        currentModule: current,
+        certificate,
+      };
+    })
+  );
 
   const firstName = profile?.first_name ?? 'Student';
 
@@ -122,12 +124,20 @@ export default async function DashboardPage() {
                 {completedModules} / {totalModules} modules completed
               </p>
 
-              <div className="flex items-center gap-2 text-xs text-gray-500 mt-3">
-                <Award className="w-4 h-4 text-brand-600" />
-                {certificate?.status === 'issued'
-                  ? 'Certificate earned'
-                  : 'Certificate on completion'}
-              </div>
+              {certificate?.status === 'issued' ? (
+                <Link
+                  href={`/certificate/${certificate.certificate_code}`}
+                  className="flex items-center gap-2 text-xs font-medium text-brand-600 hover:text-brand-700 mt-3"
+                >
+                  <Award className="w-4 h-4" />
+                  View certificate →
+                </Link>
+              ) : (
+                <div className="flex items-center gap-2 text-xs text-gray-500 mt-3">
+                  <Award className="w-4 h-4 text-brand-600" />
+                  Certificate on completion
+                </div>
+              )}
 
               <div className="mt-auto pt-4">
                 <Link

@@ -21,10 +21,49 @@ interface Props {
 }
 
 export function AssignmentSection({ assignment, userId, courseId, latestSubmission, allSubmissions }: Props) {
+  const isUrl = assignment.submission_type === 'url';
   const [file, setFile] = useState<File | null>(null);
+  const [url, setUrl] = useState('');
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const [uploaded, setUploaded] = useState(false);
+
+  function notifyAdmin(submissionId: string) {
+    fetch('/api/notifications/submission', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ submissionId }),
+    }).catch(() => {});
+  }
+
+  async function handleSubmitUrl() {
+    const trimmed = url.trim();
+    if (!/^https?:\/\/.+/i.test(trimmed)) {
+      setUploadError('Enter a valid URL starting with http(s)://');
+      return;
+    }
+    setUploading(true);
+    setUploadError('');
+    const supabase = createClient();
+    const { data: inserted, error } = await supabase.from('assignment_submissions').insert({
+      assignment_id: assignment.id,
+      user_id: userId,
+      file_url: trimmed,
+      submission_url: trimmed,
+      original_filename: 'Submitted link',
+      status: 'submitted',
+    }).select('id').single();
+
+    if (error) {
+      setUploadError('Submission failed: ' + error.message);
+      setUploading(false);
+      return;
+    }
+    if (inserted?.id) notifyAdmin(inserted.id);
+    setUploaded(true);
+    setUploading(false);
+    setUrl('');
+  }
 
   const onDrop = useCallback((accepted: File[], rejected: FileRejection[]) => {
     setUploadError('');
@@ -83,13 +122,7 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
     }
 
     // Notify the admin (best-effort — never blocks the submission).
-    if (inserted?.id) {
-      fetch('/api/notifications/submission', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ submissionId: inserted.id }),
-      }).catch(() => {});
-    }
+    if (inserted?.id) notifyAdmin(inserted.id);
 
     setUploaded(true);
     setUploading(false);
@@ -124,7 +157,13 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-900">Current submission</p>
-              <p className="text-xs text-gray-500 mt-0.5">{latestSubmission.original_filename}</p>
+              {latestSubmission.submission_url ? (
+                <a href={latestSubmission.submission_url} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-600 hover:underline break-all mt-0.5 inline-block">
+                  {latestSubmission.submission_url}
+                </a>
+              ) : (
+                <p className="text-xs text-gray-500 mt-0.5">{latestSubmission.original_filename}</p>
+              )}
               <p className="text-xs text-gray-400">{formatDate(latestSubmission.submitted_at)}</p>
             </div>
             <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${getSubmissionStatusColour(latestSubmission.status)}`}>
@@ -150,6 +189,30 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
             </p>
           )}
 
+          {isUrl ? (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Submission URL</label>
+              <input
+                type="url"
+                value={url}
+                onChange={e => setUrl(e.target.value)}
+                placeholder="https://github.com/your-username/your-repo"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              />
+              <p className="text-xs text-gray-400 mt-1">Paste a public link (e.g. your GitHub repository).</p>
+              {uploadError && (
+                <p className="text-xs text-red-600 mt-2 flex items-center gap-1">
+                  <AlertCircle className="w-3.5 h-3.5" />{uploadError}
+                </p>
+              )}
+              <div className="mt-4">
+                <Button onClick={handleSubmitUrl} loading={uploading} disabled={!url.trim()}>
+                  Submit link
+                </Button>
+              </div>
+            </div>
+          ) : (
+          <>
           <div
             {...getRootProps()}
             className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors ${
@@ -191,6 +254,8 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
                 Remove file
               </Button>
             </div>
+          )}
+          </>
           )}
         </div>
       )}

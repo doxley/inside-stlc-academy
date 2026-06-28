@@ -99,12 +99,17 @@ export interface ModuleProgress {
   completed_at: string | null;
 }
 
+export type SubmissionType = 'file' | 'url';
+
 export interface Assignment {
   id: string;
   module_id: string;
   title: string;
   instructions: string | null;
   required: boolean;
+  // 'url' = learner submits a link (e.g. a GitHub repo for the portfolio
+  // project) instead of uploading a file.
+  submission_type: SubmissionType;
   created_at: string;
 }
 
@@ -114,6 +119,7 @@ export interface AssignmentSubmission {
   user_id: string;
   file_url: string;
   original_filename: string;
+  submission_url: string | null;
   status: SubmissionStatus;
   feedback: string | null;
   reviewed_by: string | null;

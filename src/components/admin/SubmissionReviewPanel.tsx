@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/Button';
 import { formatDate } from '@/lib/utils';
-import { Download, CheckCircle, XCircle, Eye } from 'lucide-react';
+import { Download, CheckCircle, XCircle, Eye, ExternalLink } from 'lucide-react';
 import type { AssignmentSubmission, Assignment, Profile } from '@/types';
 
 type FullSub = AssignmentSubmission & {
@@ -82,15 +82,30 @@ export function SubmissionReviewPanel({ submission }: Props) {
         <p className="text-xs text-gray-400 mt-0.5">Submitted {formatDate(submission.submitted_at)}</p>
       </div>
 
-      {/* File download */}
+      {/* Submission — a link (e.g. GitHub repo) or a downloadable file */}
       <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-gray-900 truncate">{submission.original_filename}</p>
+          {submission.submission_url ? (
+            <a href={submission.submission_url} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-brand-600 hover:underline break-all">
+              {submission.submission_url}
+            </a>
+          ) : (
+            <p className="text-sm font-medium text-gray-900 truncate">{submission.original_filename}</p>
+          )}
         </div>
-        <Button variant="secondary" size="sm" onClick={handleDownload}>
-          <Download className="w-3.5 h-3.5" />
-          Download
-        </Button>
+        {submission.submission_url ? (
+          <a href={submission.submission_url} target="_blank" rel="noopener noreferrer">
+            <Button variant="secondary" size="sm">
+              <ExternalLink className="w-3.5 h-3.5" />
+              Open
+            </Button>
+          </a>
+        ) : (
+          <Button variant="secondary" size="sm" onClick={handleDownload}>
+            <Download className="w-3.5 h-3.5" />
+            Download
+          </Button>
+        )}
       </div>
 
       {/* Status selection */}
