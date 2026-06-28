@@ -8,7 +8,7 @@ import { LessonProse } from '@/components/module/LessonProse';
 import { PracticalTaskCard } from '@/components/module/PracticalTaskCard';
 import { ResourceDownloads } from '@/components/module/ResourceDownloads';
 import { LessonCompleteButton } from '@/components/module/LessonCompleteButton';
-import { Clock, Target, Lightbulb, AlertTriangle, HelpCircle, CheckCircle2, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
+import { Clock, Target, Lightbulb, AlertTriangle, HelpCircle, CheckCircle2, Circle, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 import type { Lesson, LessonProgress, Resource } from '@/types';
 
 export default async function LessonPage({
@@ -68,6 +68,13 @@ export default async function LessonPage({
       </div>
 
       <div className="space-y-6">
+        {l.lesson_overview && (
+          <Card>
+            <CardHeader><div className="flex items-center gap-2"><BookOpen className="w-5 h-5 text-brand-600" /><CardTitle>Lesson Overview</CardTitle></div></CardHeader>
+            <LessonProse content={l.lesson_overview} />
+          </Card>
+        )}
+
         {(l.learning_objectives ?? []).length > 0 && (
           <Card>
             <CardHeader><div className="flex items-center gap-2"><Target className="w-5 h-5 text-brand-600" /><CardTitle>Learning Objectives</CardTitle></div></CardHeader>
@@ -133,6 +140,19 @@ export default async function LessonPage({
           <Card>
             <CardHeader><div className="flex items-center gap-2"><HelpCircle className="w-5 h-5 text-brand-600" /><CardTitle>Knowledge Check</CardTitle></div></CardHeader>
             <LessonProse content={l.knowledge_check} />
+          </Card>
+        )}
+
+        {(l.completion_checklist ?? []).length > 0 && (
+          <Card>
+            <CardHeader><div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-brand-600" /><CardTitle>Completion Checklist</CardTitle></div></CardHeader>
+            <ul className="space-y-2">
+              {(l.completion_checklist ?? []).map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                  <Circle className="w-4 h-4 text-brand-400 mt-0.5 flex-shrink-0" />{item}
+                </li>
+              ))}
+            </ul>
           </Card>
         )}
 

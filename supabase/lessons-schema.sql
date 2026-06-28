@@ -26,6 +26,11 @@ create table if not exists public.lessons (
   unique (module_id, lesson_number)
 );
 
+-- Added fields (idempotent — safe whether or not the table pre-existed).
+alter table public.lessons
+  add column if not exists lesson_overview      text,
+  add column if not exists completion_checklist text[];
+
 alter table public.lessons enable row level security;
 
 create policy "Authenticated users can view lessons"

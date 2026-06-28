@@ -73,8 +73,10 @@ export interface Lesson {
   lesson_number: number;
   title: string;
   estimated_time: string | null;
+  lesson_overview: string | null;
   learning_objectives: string[] | null;
   lesson_notes: string | null;
+  completion_checklist: string[] | null;
   worked_example: string | null;
   common_mistakes: string | null;
   real_world_tip: string | null;
