@@ -88,6 +88,9 @@ resource uploader, or seed rows pointing at the lesson).
 - [x] Module 4 — Agile, Scrum and Team-Based Questions (4 lessons)
 - [x] Module 5 — Scenario-Based QA Questions (4 lessons)
 - [x] Module 6 — Test Task Preparation (4 lessons)
+- [x] Module 7 — CV, LinkedIn and Job Applications (4 lessons)
+- [x] Module 8 — Final Interview Readiness Pack (4 lessons)
+- ✅ **QA Interview Accelerator fully drafted (all 8 modules).**
 - [ ] Modules 3–8 — draft lessons (Core Testing Questions, Agile/Team,
       Scenario-Based, Test Task Prep, CV/LinkedIn/Applications, Final Pack).
 - [ ] Downloads: STAR Template, CV Checklist, LinkedIn Guide, Interview Tracker,
