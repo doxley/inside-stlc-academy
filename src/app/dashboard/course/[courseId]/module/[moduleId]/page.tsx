@@ -26,12 +26,14 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
   const { data: enrolment } = await db.from('enrolments').select('id').eq('user_id', user.id).eq('course_id', courseId).eq('status', 'active').single();
   if (!enrolment) notFound();
 
-  const [{ data: module }, { data: course }, { data: resources }, { data: quiz }, { data: progress }] = await Promise.all([
+  const [{ data: module }, { data: course }, { data: resources }, { data: quiz }, { data: progress }, { data: lessons }, { data: lessonProgress }] = await Promise.all([
     db.from('modules').select('*').eq('id', moduleId).single(),
     db.from('courses').select('title').eq('id', courseId).single(),
     db.from('resources').select('*').eq('module_id', moduleId).eq('visible_to_students', true).order('sort_order'),
     db.from('quizzes').select('*, quiz_questions(*, quiz_answers(*))').eq('module_id', moduleId).single(),
     db.from('module_progress').select('*').eq('user_id', user.id).eq('module_id', moduleId).single(),
+    db.from('lessons').select('id, lesson_number, title, estimated_time').eq('module_id', moduleId).eq('status', 'published').order('lesson_number'),
+    db.from('lesson_progress').select('lesson_id, status').eq('user_id', user.id),
   ]);
 
   if (!module) notFound();
@@ -70,6 +72,14 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
 
   const checklist = mod.completion_checklist ?? [];
 
+  // Lessons (Module → Lessons). When a module has lessons, the lesson pages
+  // carry the learning content and completion; the module completes via roll-up.
+  const lessonList = (lessons ?? []) as { id: string; lesson_number: number; title: string; estimated_time: string | null }[];
+  const completedLessonIds = new Set(
+    (lessonProgress ?? []).filter((p: { status: string }) => p.status === 'completed').map((p: { lesson_id: string }) => p.lesson_id)
+  );
+  const hasLessons = lessonList.length > 0;
+
   return (
     <div className="p-6 lg:p-8 max-w-4xl mx-auto">
       <ModuleStartTracker moduleId={moduleId} courseId={courseId} currentStatus={progress?.status} />
@@ -92,6 +102,39 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
         lessonOverview={lessonOverview}
         guidedNotes={guidedNotes}
       >
+        {/* Lessons in this module */}
+        {hasLessons && (
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle>Lessons</CardTitle>
+                <span className="text-sm text-gray-500">{completedLessonIds.size} / {lessonList.length} complete</span>
+              </div>
+            </CardHeader>
+            <div className="space-y-2">
+              {lessonList.map((ls) => {
+                const done = completedLessonIds.has(ls.id);
+                return (
+                  <Link
+                    key={ls.id}
+                    href={`/dashboard/course/${courseId}/module/${moduleId}/lesson/${ls.id}`}
+                    className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-brand-200 hover:bg-brand-50 transition-colors"
+                  >
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${done ? 'bg-green-100 text-green-700' : 'bg-brand-100 text-brand-700'}`}>
+                      {done ? <CheckCircle2 className="w-4 h-4" /> : <span className="text-xs font-bold">{ls.lesson_number}</span>}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 truncate">Lesson {ls.lesson_number}: {ls.title}</p>
+                      {ls.estimated_time && <p className="text-xs text-gray-400">{ls.estimated_time}</p>}
+                    </div>
+                    <Circle className={`w-2 h-2 ${done ? 'text-green-500 fill-green-500' : 'text-gray-300'}`} />
+                  </Link>
+                );
+              })}
+            </div>
+          </Card>
+        )}
+
         {/* Optional video — disabled by default. Video support may be added
             later, but no video UI renders unless a module has a real
             video_url value (never an empty placeholder). */}
@@ -168,16 +211,20 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
           </Card>
         )}
 
-        {/* 7. Mark as Complete */}
-        <Card>
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <CheckCircle2 className="w-4 h-4 text-brand-600" />
-              Finished this module? Mark it complete to track your progress.
+        {/* 7. Mark as Complete — only for modules without discrete lessons.
+            With lessons, the module completes automatically once every lesson
+            is marked complete. */}
+        {!hasLessons && (
+          <Card>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <CheckCircle2 className="w-4 h-4 text-brand-600" />
+                Finished this module? Mark it complete to track your progress.
+              </div>
+              <MarkCompleteButton moduleId={moduleId} courseId={courseId} isCompleted={isCompleted} />
             </div>
-            <MarkCompleteButton moduleId={moduleId} courseId={courseId} isCompleted={isCompleted} />
-          </div>
-        </Card>
+          </Card>
+        )}
       </GuidedLessonLayout>
     </div>
   );

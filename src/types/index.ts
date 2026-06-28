@@ -65,6 +65,38 @@ export interface Module {
   updated_at: string;
 }
 
+export type LessonStatus = 'draft' | 'published';
+
+export interface Lesson {
+  id: string;
+  module_id: string;
+  lesson_number: number;
+  title: string;
+  estimated_time: string | null;
+  learning_objectives: string[] | null;
+  lesson_notes: string | null;
+  worked_example: string | null;
+  common_mistakes: string | null;
+  real_world_tip: string | null;
+  exercise: string | null;
+  reflection_question: string | null;
+  knowledge_check: string | null;
+  video_url: string | null;
+  status: LessonStatus;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface LessonProgress {
+  id: string;
+  user_id: string;
+  lesson_id: string;
+  course_id: string;
+  status: ModuleProgressStatus;
+  started_at: string | null;
+  completed_at: string | null;
+}
+
 export interface Resource {
   id: string;
   course_id: string | null;
