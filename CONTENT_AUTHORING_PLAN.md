@@ -50,7 +50,9 @@ resource uploader, or seed rows pointing at the lesson).
 - [x] Module 3 — Defect Management (6 lessons)
 - [x] Module 4 — Agile & Scrum for Testers (6 lessons)
 - [x] Module 5 — Jira & Test Management (6 lessons)
-- [ ] Modules 6–12 — expand each into 6–10 lessons + downloads + exercises.
+- [x] Module 6 — API Testing with Postman (6 lessons)
+- [x] Module 7 — SQL for Testers (6 lessons)
+- [ ] Modules 8–12 — expand each into 6–10 lessons + downloads + exercises.
 
 ### AI for QA Testers
 - [ ] Seed the 12 modules into the DB (currently marketing-only), then author
