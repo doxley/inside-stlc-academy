@@ -18,6 +18,7 @@ export function AssignmentEditor({ assignment, moduleId }: Props) {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(assignment?.title ?? '');
   const [instructions, setInstructions] = useState(assignment?.instructions ?? '');
+  const [submissionType, setSubmissionType] = useState<'file' | 'url'>(assignment?.submission_type ?? 'file');
   const [saving, setSaving] = useState(false);
 
   async function handleSave() {
@@ -25,9 +26,9 @@ export function AssignmentEditor({ assignment, moduleId }: Props) {
     const supabase = createClient();
 
     if (assignment) {
-      await supabase.from('assignments').update({ title, instructions }).eq('id', assignment.id);
+      await supabase.from('assignments').update({ title, instructions, submission_type: submissionType }).eq('id', assignment.id);
     } else {
-      await supabase.from('assignments').insert({ module_id: moduleId, title, instructions, required: true });
+      await supabase.from('assignments').insert({ module_id: moduleId, title, instructions, required: true, submission_type: submissionType });
     }
 
     setEditing(false);
@@ -67,6 +68,17 @@ export function AssignmentEditor({ assignment, moduleId }: Props) {
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               placeholder="e.g. Module 2 Assignment – Test Design Techniques"
             />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Submission type</label>
+            <select
+              value={submissionType}
+              onChange={e => setSubmissionType(e.target.value as 'file' | 'url')}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+            >
+              <option value="file">File upload</option>
+              <option value="url">URL / link (e.g. GitHub repo)</option>
+            </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Instructions (shown to students)</label>

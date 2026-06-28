@@ -49,12 +49,15 @@
   reflection, completion checklist) and upload the Resource Vault files. The
   marketing page is complete; the in-dashboard lesson content is created via the
   admin module editor.
-- **Certificate generation**: a visual certificate (name, date, unique ID) is
-  described on the page and tracked via the `certificates` table; an actual
-  rendered/downloadable certificate artifact is a future enhancement.
-- **GitHub portfolio submission review**: Module 12 asks learners to submit a
-  GitHub repo URL. Today that can be submitted via the assignment upload flow;
-  a dedicated URL-submission + model-solution comparison view is a future add.
+- **Certificate generation** — ✅ DONE. A branded, printable certificate
+  (learner name, course, completion date, unique certificate ID) renders at
+  `/certificate/[code]` and doubles as a public verification URL. The dashboard
+  auto-issues it once a course is 100% complete and shows "View certificate".
+- **GitHub portfolio submission review** — ✅ DONE. Assignments can be set to
+  `submission_type = 'url'` (e.g. Module 12); learners submit a GitHub repo URL,
+  it flows through the existing review/feedback/resubmit loop, and the admin
+  review panel shows an "Open repository" link. (A model-solution auto-compare
+  remains a possible future enhancement.)
 - **Optional video**: intentionally omitted. Video remains supported per-module
   only when a real `video_url` is set (disabled by default).
 - Consider per-course Stripe Price IDs in production (`STRIPE_PRICE_PLAYWRIGHT`)
