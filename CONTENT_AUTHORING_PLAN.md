@@ -69,6 +69,8 @@ resource uploader, or seed rows pointing at the lesson).
 - [x] Module 6 — Exploratory Testing with AI (5 lessons)
 - [x] Module 7 — Defect Reporting & Root Cause Support (5 lessons)
 - [x] Module 8 — API Testing with AI (5 lessons)
+- [x] Module 9 — Automation Support with AI (5 lessons)
+- [x] Module 10 — AI in Agile QA Workflows (5 lessons)
 - [ ] Modules 3–12 — draft lessons (Prompt Engineering, Requirements Analysis,
       Test Case Design, Exploratory, Defect/Root Cause, API, Automation, Agile
       Workflows, Risks/Ethics, Building Your AI QA Workflow).
