@@ -46,9 +46,11 @@ resource uploader, or seed rows pointing at the lesson).
 
 ### 90-Day Software Testing Career Roadmap
 - [x] Module 1 — Introduction to Software Testing (9 lessons)
-- [ ] Modules 2–12 — expand each into 6–10 lessons + downloads + exercises
-      (Module 5 downloads: Test Case Template, Defect Report Template, Test
-      Plan Example, RTM).
+- [x] Module 2 — Test Design Techniques (7 lessons)
+- [x] Module 3 — Defect Management (6 lessons)
+- [x] Module 4 — Agile & Scrum for Testers (6 lessons)
+- [x] Module 5 — Jira & Test Management (6 lessons)
+- [ ] Modules 6–12 — expand each into 6–10 lessons + downloads + exercises.
 
 ### AI for QA Testers
 - [ ] Seed the 12 modules into the DB (currently marketing-only), then author
