@@ -84,6 +84,8 @@ resource uploader, or seed rows pointing at the lesson).
 - [x] Seed the 8 modules (`seed-qa-interview-modules.sql`)
 - [x] Module 1 — Understanding the QA Interview Process (4 lessons)
 - [x] Module 2 — Your QA Career Story (4 lessons)
+- [x] Module 3 — Core Software Testing Questions (4 lessons)
+- [x] Module 4 — Agile, Scrum and Team-Based Questions (4 lessons)
 - [ ] Modules 3–8 — draft lessons (Core Testing Questions, Agile/Team,
       Scenario-Based, Test Task Prep, CV/LinkedIn/Applications, Final Pack).
 - [ ] Downloads: STAR Template, CV Checklist, LinkedIn Guide, Interview Tracker,
