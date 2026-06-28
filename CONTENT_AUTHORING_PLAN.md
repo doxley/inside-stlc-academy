@@ -60,10 +60,12 @@ resource uploader, or seed rows pointing at the lesson).
 - ✅ **90-Day Roadmap fully drafted (all 12 modules).**
 
 ### AI for QA Testers
-- [ ] Seed the 12 modules into the DB (currently marketing-only), then author
-      6–10 lessons each. e.g. Module 5 (Prompt Engineering): Why Prompts Matter,
-      Prompt Structure, Role Prompting, Context Windows, Prompt Templates, QA
-      Examples, Exercise, Download Prompt Pack.
+- [x] Seed the 12 modules into the DB (`seed-ai-qa-modules.sql`)
+- [x] Module 1 — The AI Shift in QA (4 lessons)
+- [x] Module 2 — AI Fundamentals for Testers (5 lessons)
+- [ ] Modules 3–12 — draft lessons (Prompt Engineering, Requirements Analysis,
+      Test Case Design, Exploratory, Defect/Root Cause, API, Automation, Agile
+      Workflows, Risks/Ethics, Building Your AI QA Workflow).
 - [ ] Module download packs (Claude/ChatGPT Prompt Packs, Requirements Review,
       Bug Report, Risk Analysis prompts).
 
