@@ -16,8 +16,8 @@ import { CourseCard } from '@/components/marketing/CourseCard';
 import { ComingSoonCard } from '@/components/marketing/ComingSoonCard';
 
 const stats = [
-  { value: '3', label: 'Courses' },
-  { value: '20+', label: 'Modules' },
+  { value: '4', label: 'Courses' },
+  { value: '40+', label: 'Modules' },
   { value: '100+', label: 'Resources' },
   { value: 'Certificates', label: 'Available' },
 ];
@@ -54,6 +54,17 @@ const courses = [
     price: '£49',
     href: '/course/qa-interview-accelerator',
     enrolSlug: 'qa-interview-accelerator',
+    cta: 'View Course',
+  },
+  {
+    title: 'Practical Test Automation with Playwright',
+    badge: 'Professional',
+    description:
+      'Learn to build maintainable Playwright automation frameworks using BDD, Page Object Models, Git, CI/CD and AI-assisted development.',
+    stats: ['12 Modules', '60+ Lessons', 'Portfolio Project'],
+    price: '£149',
+    href: '/course/practical-test-automation-playwright',
+    enrolSlug: 'practical-test-automation-playwright',
     cta: 'View Course',
   },
 ];
