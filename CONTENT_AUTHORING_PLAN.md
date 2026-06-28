@@ -63,6 +63,8 @@ resource uploader, or seed rows pointing at the lesson).
 - [x] Seed the 12 modules into the DB (`seed-ai-qa-modules.sql`)
 - [x] Module 1 — The AI Shift in QA (4 lessons)
 - [x] Module 2 — AI Fundamentals for Testers (5 lessons)
+- [x] Module 3 — Prompt Engineering for QA (6 lessons)
+- [x] Module 4 — Requirements Analysis with AI (5 lessons)
 - [ ] Modules 3–12 — draft lessons (Prompt Engineering, Requirements Analysis,
       Test Case Design, Exploratory, Defect/Root Cause, API, Automation, Agile
       Workflows, Risks/Ethics, Building Your AI QA Workflow).
