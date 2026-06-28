@@ -71,7 +71,10 @@ resource uploader, or seed rows pointing at the lesson).
 - [x] Module 8 — API Testing with AI (5 lessons)
 - [x] Module 9 — Automation Support with AI (5 lessons)
 - [x] Module 10 — AI in Agile QA Workflows (5 lessons)
-- [ ] Modules 3–12 — draft lessons (Prompt Engineering, Requirements Analysis,
+- [x] Module 11 — AI Risks, Ethics and Governance (5 lessons)
+- [x] Module 12 — Building Your AI QA Workflow (4 lessons)
+- ✅ **AI for QA Testers fully drafted (all 12 modules).**
+[done]
       Test Case Design, Exploratory, Defect/Root Cause, API, Automation, Agile
       Workflows, Risks/Ethics, Building Your AI QA Workflow).
 - [ ] Module download packs (Claude/ChatGPT Prompt Packs, Requirements Review,
