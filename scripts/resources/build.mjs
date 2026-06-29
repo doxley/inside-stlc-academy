@@ -21,6 +21,7 @@ import automationBatch3 from './content/automation-batch3.mjs';
 import automationBatch4 from './content/automation-batch4.mjs';
 import briefs90day from './content/briefs-90day.mjs';
 import briefsAi from './content/briefs-ai.mjs';
+import briefsQa from './content/briefs-qa.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -41,7 +42,7 @@ const ALL_JOBS = [
   {
     courseSlug: 'qa-interview-accelerator',
     courseTitle: 'QA Interview Accelerator',
-    resources: [...careerBatch1, ...careerBatch2, ...careerBatch3],
+    resources: [...careerBatch1, ...careerBatch2, ...careerBatch3, ...briefsQa],
   },
   {
     courseSlug: 'practical-test-automation-playwright',

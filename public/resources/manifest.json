@@ -529,6 +529,62 @@
         "category": "Career Resources",
         "docx": "interview-confidence-guide.docx",
         "pdf": "interview-confidence-guide.pdf"
+      },
+      {
+        "slug": "qa-m1-assignment-brief",
+        "title": "Module 1 Assignment — Understanding the QA Interview Process",
+        "category": "Assignment Briefs",
+        "docx": "qa-m1-assignment-brief.docx",
+        "pdf": "qa-m1-assignment-brief.pdf"
+      },
+      {
+        "slug": "qa-m2-assignment-brief",
+        "title": "Module 2 Assignment — Your QA Career Story",
+        "category": "Assignment Briefs",
+        "docx": "qa-m2-assignment-brief.docx",
+        "pdf": "qa-m2-assignment-brief.pdf"
+      },
+      {
+        "slug": "qa-m3-assignment-brief",
+        "title": "Module 3 Assignment — Core Software Testing Questions",
+        "category": "Assignment Briefs",
+        "docx": "qa-m3-assignment-brief.docx",
+        "pdf": "qa-m3-assignment-brief.pdf"
+      },
+      {
+        "slug": "qa-m4-assignment-brief",
+        "title": "Module 4 Assignment — Agile, Scrum and Team-Based Questions",
+        "category": "Assignment Briefs",
+        "docx": "qa-m4-assignment-brief.docx",
+        "pdf": "qa-m4-assignment-brief.pdf"
+      },
+      {
+        "slug": "qa-m5-assignment-brief",
+        "title": "Module 5 Assignment — Scenario-Based QA Questions",
+        "category": "Assignment Briefs",
+        "docx": "qa-m5-assignment-brief.docx",
+        "pdf": "qa-m5-assignment-brief.pdf"
+      },
+      {
+        "slug": "qa-m6-assignment-brief",
+        "title": "Module 6 Assignment — Test Task Preparation",
+        "category": "Assignment Briefs",
+        "docx": "qa-m6-assignment-brief.docx",
+        "pdf": "qa-m6-assignment-brief.pdf"
+      },
+      {
+        "slug": "qa-m7-assignment-brief",
+        "title": "Module 7 Assignment — CV, LinkedIn and Job Applications",
+        "category": "Assignment Briefs",
+        "docx": "qa-m7-assignment-brief.docx",
+        "pdf": "qa-m7-assignment-brief.pdf"
+      },
+      {
+        "slug": "qa-m8-assignment-brief",
+        "title": "Module 8 Assignment — Final Interview Readiness Pack",
+        "category": "Assignment Briefs",
+        "docx": "qa-m8-assignment-brief.docx",
+        "pdf": "qa-m8-assignment-brief.pdf"
       }
     ]
   },
