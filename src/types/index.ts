@@ -200,6 +200,9 @@ export interface Assignment {
   // Slug of a Resource Vault doc to offer as a downloadable assignment
   // template on the submission card (resolved against the module's course).
   template_slug: string | null;
+  // Slug of the dedicated, module-specific Assignment Brief (full scenario,
+  // deliverables, steps, assessment) — also a Resource Vault doc.
+  brief_slug: string | null;
   created_at: string;
 }
 

@@ -19,6 +19,7 @@ import automationBatch1 from './content/automation-batch1.mjs';
 import automationBatch2 from './content/automation-batch2.mjs';
 import automationBatch3 from './content/automation-batch3.mjs';
 import automationBatch4 from './content/automation-batch4.mjs';
+import briefs90day from './content/briefs-90day.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -29,7 +30,7 @@ const ALL_JOBS = [
   {
     courseSlug: '90-day-software-testing-career-roadmap',
     courseTitle: '90-Day Software Testing Career Roadmap',
-    resources: [...ninetyDayBatch1, ...ninetyDayBatch2, ...ninetyDayBatch3, ...ninetyDayBatch4],
+    resources: [...ninetyDayBatch1, ...ninetyDayBatch2, ...ninetyDayBatch3, ...ninetyDayBatch4, ...briefs90day],
   },
   {
     courseSlug: 'ai-for-qa-testers',
