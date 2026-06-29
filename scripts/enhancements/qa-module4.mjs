@@ -1,0 +1,61 @@
+// QA Interview Accelerator — Module 4: Agile, Scrum and Team-Based Questions. Enhancements.
+export default {
+  courseSlug: 'qa-interview-accelerator',
+  moduleNumber: 4,
+  lessons: [
+    {
+      lessonNumber: 1,
+      enhancements: {
+        industryStory: `"How does testing fit into Agile?" — a candidate described a waterfall "testing phase at the end" and revealed they had not really worked in Agile. Modern teams want testers who engage continuously, and the question is designed to find that out.`,
+        davidTip: `Answer Agile questions by showing continuous involvement: engaging at refinement, testing stories as they complete, contributing across ceremonies. "I test at the end" is a red flag; "I prevent defects early" is what teams want.`,
+        miniChallenge: `Answer "how do you fit into an agile team as a tester?" in 3–4 sentences, emphasising early and continuous involvement.`,
+        modelAnswer: `## Example\n"I get involved from refinement, asking questions to clarify acceptance criteria and prevent defects early. I test stories as they're completed rather than batching to the end, log clear defects, and help with the review. I see myself as part of the delivery team."`,
+        resourcePreview: {
+          name: 'Technical QA Interview Cheat Sheet', purpose: 'Quick-reference answers including Agile and process questions.',
+          whenToUse: 'Skim it before the technical/agile round.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 2,
+      enhancements: {
+        industryStory: `Asked about acceptance criteria, a candidate could define them but not spot a weak one. The interviewer pushed: "what's wrong with 'the search should be fast'?" The strongest candidates immediately see it is untestable.`,
+        badGood: {
+          label: 'acceptance criteria (in an interview)',
+          bad: `"The search should work well and be fast."`,
+          good: `"Given a catalogue, when a user searches, then results appear within 2 seconds; an empty term shows a prompt; a no-match shows a friendly message."`,
+        },
+        davidTip: `Show you can both write and critique acceptance criteria. Being able to say "that's not testable — how would we measure 'fast'?" demonstrates exactly the early-engagement mindset agile teams prize.`,
+        miniChallenge: `Take a vague criterion and rewrite it as two or three testable ones; be ready to explain why the original was weak.`,
+        modelAnswer: `## Example\nWeak: "the page should load quickly." Testable: "the page loads within 2s on a standard connection; a loading indicator shows if it takes longer; content is usable once visible." Weak because "quickly" is not measurable.`,
+      },
+    },
+    {
+      lessonNumber: 3,
+      enhancements: {
+        industryStory: `"Tell me about a disagreement with a developer" — one candidate spoke negatively about a former colleague and sank. Collaboration questions are really testing whether you handle friction with maturity.`,
+        davidTip: `On collaboration questions, stay positive and focus on resolution and user impact. Never bad-mouth past colleagues. "We disagreed, I showed the evidence and framed it around the user, and we agreed" is the tone that wins.`,
+        miniChallenge: `Draft a short STAR answer for "a time you disagreed with a developer", ending on a positive, collaborative result.`,
+        modelAnswer: `## Example\nS: a dev pushed back on a bug I raised. T: resolve it without friction. A: I calmly re-walked the steps with evidence and framed it around user impact. R: we agreed it was valid, fixed it, and worked well together afterwards.`,
+        resourcePreview: {
+          name: 'Behavioural Interview Prep Workbook', purpose: 'Prepare structured answers to teamwork, conflict and collaboration questions.',
+          whenToUse: 'Use it to build your STAR stories for the behavioural round.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 4,
+      enhancements: {
+        davidTip: `For this assignment, show modern agile QA thinking — early involvement, collaboration, prevention over gatekeeping. That mindset, more than buzzwords, is what convinces interviewers you will thrive on their team.`,
+        miniChallenge: `Before submitting, ensure your answers mention engaging early (refinement) and a collaborative, positive tone for conflict.`,
+        managersReview: {
+          intro: 'If I ran your agile/team round, I would look for:',
+          strengths: ['Continuous, early involvement described', 'Ability to critique acceptance criteria', 'Mature, positive collaboration stories'],
+          gaps: ['Testing positioned only at the end', 'Negativity about past colleagues', 'Buzzwords without substance'],
+          improvements: ['Emphasise refinement/prevention', 'Practise critiquing weak criteria', 'Frame conflict around resolution and users'],
+        },
+        portfolioBuilder: `If you have an agile artefact (e.g. acceptance criteria you improved, or an RTM), mention it here — concrete evidence beats claims of being "agile".`,
+      },
+    },
+  ],
+};
