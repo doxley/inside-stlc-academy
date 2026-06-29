@@ -297,7 +297,9 @@ export function ResourcePreviewCard({ resource }: { resource: LessonResourcePrev
           </div>
           <p className="text-sm text-gray-700 mt-1.5"><span className="font-medium text-gray-900">What it is:</span> {resource.purpose}</p>
           <p className="text-sm text-gray-700 mt-1"><span className="font-medium text-gray-900">When to use:</span> {resource.whenToUse}</p>
-          <p className="text-xs text-gray-400 mt-2">Download from the Resource Vault.</p>
+          <a href="/dashboard/vault" className="inline-flex items-center gap-1 text-xs font-medium text-brand-700 hover:text-brand-800 mt-2">
+            Download from the Resource Vault →
+          </a>
         </div>
       </div>
     </div>
