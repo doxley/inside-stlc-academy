@@ -33,6 +33,6 @@ where l.module_id = m.id and c.slug = '${courseSlug}'
   and m.module_number = ${moduleNumber} and l.lesson_number = ${lessonNumber};\n\n`;
 }
 
-const out = join(ROOT, 'supabase', `seed-90day-module${moduleNumber}-enhancements.sql`);
+const out = join(ROOT, 'supabase', `seed-${name}-enhancements.sql`);
 writeFileSync(out, sql);
 console.log(`Wrote ${out} (${lessons.length} lessons)`);
