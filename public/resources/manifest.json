@@ -312,6 +312,55 @@
         "category": "Checklists",
         "docx": "interview-day-checklist.docx",
         "pdf": "interview-day-checklist.pdf"
+      },
+      {
+        "slug": "mock-interview-practice-pack",
+        "title": "Mock Interview Practice Pack",
+        "category": "Career Resources",
+        "docx": "mock-interview-practice-pack.docx",
+        "pdf": "mock-interview-practice-pack.pdf"
+      },
+      {
+        "slug": "salary-negotiation-guide",
+        "title": "Salary Negotiation Guide for QA",
+        "category": "Career Resources",
+        "docx": "salary-negotiation-guide.docx",
+        "pdf": "salary-negotiation-guide.pdf"
+      },
+      {
+        "slug": "job-search-tracker-template",
+        "title": "Job Search Tracker Template",
+        "category": "Templates",
+        "docx": "job-search-tracker-template.docx",
+        "pdf": "job-search-tracker-template.pdf"
+      },
+      {
+        "slug": "portfolio-presentation-guide",
+        "title": "QA Portfolio Presentation Guide",
+        "category": "Career Resources",
+        "docx": "portfolio-presentation-guide.docx",
+        "pdf": "portfolio-presentation-guide.pdf"
+      },
+      {
+        "slug": "follow-up-email-templates",
+        "title": "Post-Interview Follow-up Email Templates",
+        "category": "Templates",
+        "docx": "follow-up-email-templates.docx",
+        "pdf": "follow-up-email-templates.pdf"
+      },
+      {
+        "slug": "30-60-90-day-plan-template",
+        "title": "30-60-90 Day Plan Template",
+        "category": "Templates",
+        "docx": "30-60-90-day-plan-template.docx",
+        "pdf": "30-60-90-day-plan-template.pdf"
+      },
+      {
+        "slug": "interview-confidence-guide",
+        "title": "Interview Confidence & Nerves Guide",
+        "category": "Career Resources",
+        "docx": "interview-confidence-guide.docx",
+        "pdf": "interview-confidence-guide.pdf"
       }
     ]
   }
