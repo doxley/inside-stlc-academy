@@ -18,6 +18,7 @@ import careerBatch3 from './content/career-batch3.mjs';
 import automationBatch1 from './content/automation-batch1.mjs';
 import automationBatch2 from './content/automation-batch2.mjs';
 import automationBatch3 from './content/automation-batch3.mjs';
+import automationBatch4 from './content/automation-batch4.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -43,7 +44,7 @@ const ALL_JOBS = [
   {
     courseSlug: 'practical-test-automation-playwright',
     courseTitle: 'Practical Test Automation with Playwright',
-    resources: [...automationBatch1, ...automationBatch2, ...automationBatch3],
+    resources: [...automationBatch1, ...automationBatch2, ...automationBatch3, ...automationBatch4],
   },
 ];
 

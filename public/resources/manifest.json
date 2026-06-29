@@ -492,6 +492,27 @@
         "category": "Automation Resources",
         "docx": "cross-browser-mobile-testing-guide.docx",
         "pdf": "cross-browser-mobile-testing-guide.pdf"
+      },
+      {
+        "slug": "ai-prompt-library-automation",
+        "title": "AI Prompt Library for Automation Engineers",
+        "category": "AI Prompt Packs",
+        "docx": "ai-prompt-library-automation.docx",
+        "pdf": "ai-prompt-library-automation.pdf"
+      },
+      {
+        "slug": "automation-portfolio-project-workbook",
+        "title": "Automation Portfolio Project Workbook",
+        "category": "Career Resources",
+        "docx": "automation-portfolio-project-workbook.docx",
+        "pdf": "automation-portfolio-project-workbook.pdf"
+      },
+      {
+        "slug": "playwright-command-cheat-sheet",
+        "title": "Playwright Command Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "playwright-command-cheat-sheet.docx",
+        "pdf": "playwright-command-cheat-sheet.pdf"
       }
     ]
   }
