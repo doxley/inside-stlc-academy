@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { BookOpen } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
+import { siteUrl } from '@/lib/site-url';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
@@ -35,6 +36,7 @@ export default function RegisterPage() {
       password,
       options: {
         data: { first_name: firstName, last_name: lastName },
+        emailRedirectTo: `${siteUrl()}/auth/callback?next=/dashboard`,
       },
     });
 

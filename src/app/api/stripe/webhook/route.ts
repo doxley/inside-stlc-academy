@@ -186,6 +186,7 @@ async function resolveUserId(
   // No account yet — create one and send a Supabase invite so they can set a password.
   const { data: invited, error } = await db.auth.admin.inviteUserByEmail(email, {
     data: { role: 'student' },
+    redirectTo: `${getSiteUrl()}/update-password`,
   });
   if (error || !invited?.user) return null;
   return invited.user.id;
