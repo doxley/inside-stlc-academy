@@ -68,8 +68,8 @@ module number + lesson number. Idempotent and re-runnable.
 - [x] **Module 5 — Jira & Test Management** (6 lessons)
 - [x] **Module 6 — API Testing with Postman** (6 lessons)
 - [x] **Module 7 — SQL for Testers** (6 lessons)
-- [ ] Module 8 — Automation Fundamentals
-- [ ] Module 9 — AI for Software Testing
+- [x] **Module 8 — Automation Fundamentals** (6 lessons)
+- [x] **Module 9 — AI for Software Testing** (6 lessons)
 - [ ] Module 10 — Portfolio Building
 - [ ] Module 11 — CV & LinkedIn Mastery
 - [ ] Module 12 — Interview Mastery & Job Search
