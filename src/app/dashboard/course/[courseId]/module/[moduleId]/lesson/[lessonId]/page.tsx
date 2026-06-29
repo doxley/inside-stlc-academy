@@ -8,8 +8,13 @@ import { LessonProse } from '@/components/module/LessonProse';
 import { PracticalTaskCard } from '@/components/module/PracticalTaskCard';
 import { ResourceDownloads } from '@/components/module/ResourceDownloads';
 import { LessonCompleteButton } from '@/components/module/LessonCompleteButton';
-import { Clock, Target, Lightbulb, AlertTriangle, HelpCircle, CheckCircle2, Circle, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
-import type { Lesson, LessonProgress, Resource } from '@/types';
+import {
+  IndustryStoryCard, VisualLearningBlock, WorkedExampleCard, BadGoodExample,
+  IndustryTipCard, CommonMistakesCard, MiniChallengeCard, ModelAnswerCard,
+  ManagersReviewCard, PortfolioBuilderCard, ResourcePreviewCard,
+} from '@/components/module/LessonEnhancements';
+import { Clock, Target, Lightbulb, HelpCircle, CheckCircle2, Circle, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
+import type { Lesson, LessonProgress, Resource, LessonEnhancements } from '@/types';
 
 export default async function LessonPage({
   params,
@@ -40,6 +45,7 @@ export default async function LessonPage({
   const prev = idx > 0 ? sibs[idx - 1] : null;
   const next = idx >= 0 && idx < sibs.length - 1 ? sibs[idx + 1] : null;
   const isCompleted = (progress as LessonProgress | null)?.status === 'completed';
+  const e: LessonEnhancements = l.enhancements ?? {};
 
   const moduleHref = `/dashboard/course/${courseId}/module/${moduleId}`;
 
@@ -75,6 +81,8 @@ export default async function LessonPage({
           </Card>
         )}
 
+        {e.industryStory && <IndustryStoryCard story={e.industryStory} />}
+
         {(l.learning_objectives ?? []).length > 0 && (
           <Card>
             <CardHeader><div className="flex items-center gap-2"><Target className="w-5 h-5 text-brand-600" /><CardTitle>Learning Objectives</CardTitle></div></CardHeader>
@@ -93,12 +101,13 @@ export default async function LessonPage({
           </Card>
         )}
 
-        {l.worked_example && (
-          <Card>
-            <CardHeader><CardTitle>Worked Example</CardTitle></CardHeader>
-            <LessonProse content={l.worked_example} />
-          </Card>
-        )}
+        {e.visualAid && <VisualLearningBlock visual={e.visualAid} />}
+
+        {l.worked_example && <WorkedExampleCard content={l.worked_example} />}
+
+        {e.badGood && <BadGoodExample data={e.badGood} />}
+
+        {e.davidTip && <IndustryTipCard tip={e.davidTip} />}
 
         {l.real_world_tip && (
           <div className="flex items-start gap-3 bg-gold-500/10 border border-gold-500/30 rounded-xl p-5">
@@ -110,17 +119,9 @@ export default async function LessonPage({
           </div>
         )}
 
-        {l.common_mistakes && (
-          <div className="flex items-start gap-3 bg-red-50 border border-red-100 rounded-xl p-5">
-            <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="font-semibold text-gray-900 text-sm mb-1">Common Mistakes</p>
-              <div className="text-sm text-gray-700"><LessonProse content={l.common_mistakes} /></div>
-            </div>
-          </div>
-        )}
+        {l.common_mistakes && <CommonMistakesCard content={l.common_mistakes} />}
 
-        {l.exercise && <PracticalTaskCard task={l.exercise} title="Exercise" />}
+        {e.resourcePreview && <ResourcePreviewCard resource={e.resourcePreview} />}
 
         {(resources ?? []).length > 0 && (
           <Card>
@@ -128,6 +129,16 @@ export default async function LessonPage({
             <ResourceDownloads resources={resources as Resource[]} />
           </Card>
         )}
+
+        {l.exercise && <PracticalTaskCard task={l.exercise} title="Exercise" />}
+
+        {e.miniChallenge && <MiniChallengeCard challenge={e.miniChallenge} />}
+
+        {e.modelAnswer && <ModelAnswerCard answer={e.modelAnswer} />}
+
+        {e.managersReview && <ManagersReviewCard review={e.managersReview} />}
+
+        {e.portfolioBuilder && <PortfolioBuilderCard content={e.portfolioBuilder} />}
 
         {l.reflection_question && (
           <Card>
