@@ -450,6 +450,48 @@
         "category": "Automation Resources",
         "docx": "fixtures-and-hooks-guide.docx",
         "pdf": "fixtures-and-hooks-guide.pdf"
+      },
+      {
+        "slug": "debugging-trace-viewer-guide",
+        "title": "Debugging & Trace Viewer Guide",
+        "category": "Automation Resources",
+        "docx": "debugging-trace-viewer-guide.docx",
+        "pdf": "debugging-trace-viewer-guide.pdf"
+      },
+      {
+        "slug": "ci-cd-integration-guide",
+        "title": "CI/CD Integration Guide (GitHub Actions)",
+        "category": "Automation Resources",
+        "docx": "ci-cd-integration-guide.docx",
+        "pdf": "ci-cd-integration-guide.pdf"
+      },
+      {
+        "slug": "flaky-test-troubleshooting-checklist",
+        "title": "Flaky Test Troubleshooting Checklist",
+        "category": "Checklists",
+        "docx": "flaky-test-troubleshooting-checklist.docx",
+        "pdf": "flaky-test-troubleshooting-checklist.pdf"
+      },
+      {
+        "slug": "automation-best-practices-checklist",
+        "title": "Automation Best Practices Checklist",
+        "category": "Checklists",
+        "docx": "automation-best-practices-checklist.docx",
+        "pdf": "automation-best-practices-checklist.pdf"
+      },
+      {
+        "slug": "automation-code-review-checklist",
+        "title": "Code Review Checklist for Test Automation",
+        "category": "Checklists",
+        "docx": "automation-code-review-checklist.docx",
+        "pdf": "automation-code-review-checklist.pdf"
+      },
+      {
+        "slug": "cross-browser-mobile-testing-guide",
+        "title": "Cross-Browser & Mobile Testing Guide",
+        "category": "Automation Resources",
+        "docx": "cross-browser-mobile-testing-guide.docx",
+        "pdf": "cross-browser-mobile-testing-guide.pdf"
       }
     ]
   }
