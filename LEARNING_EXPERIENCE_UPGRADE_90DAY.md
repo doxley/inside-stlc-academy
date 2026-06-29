@@ -66,8 +66,8 @@ module number + lesson number. Idempotent and re-runnable.
 - [x] **Module 3 — Defect Management** (6 lessons)
 - [x] **Module 4 — Agile & Scrum for Testers** (6 lessons)
 - [x] **Module 5 — Jira & Test Management** (6 lessons)
-- [ ] Module 6 — API Testing with Postman
-- [ ] Module 7 — SQL for Testers
+- [x] **Module 6 — API Testing with Postman** (6 lessons)
+- [x] **Module 7 — SQL for Testers** (6 lessons)
 - [ ] Module 8 — Automation Fundamentals
 - [ ] Module 9 — AI for Software Testing
 - [ ] Module 10 — Portfolio Building
