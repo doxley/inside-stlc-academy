@@ -284,6 +284,34 @@
         "category": "Career Resources",
         "docx": "elevator-pitch-template.docx",
         "pdf": "elevator-pitch-template.pdf"
+      },
+      {
+        "slug": "qa-interview-question-bank",
+        "title": "QA Interview Question Bank",
+        "category": "Career Resources",
+        "docx": "qa-interview-question-bank.docx",
+        "pdf": "qa-interview-question-bank.pdf"
+      },
+      {
+        "slug": "technical-qa-interview-cheat-sheet",
+        "title": "Technical QA Interview Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "technical-qa-interview-cheat-sheet.docx",
+        "pdf": "technical-qa-interview-cheat-sheet.pdf"
+      },
+      {
+        "slug": "behavioural-interview-prep-workbook",
+        "title": "Behavioural Interview Prep Workbook",
+        "category": "Career Resources",
+        "docx": "behavioural-interview-prep-workbook.docx",
+        "pdf": "behavioural-interview-prep-workbook.pdf"
+      },
+      {
+        "slug": "interview-day-checklist",
+        "title": "Interview Day Checklist",
+        "category": "Checklists",
+        "docx": "interview-day-checklist.docx",
+        "pdf": "interview-day-checklist.pdf"
       }
     ]
   }
