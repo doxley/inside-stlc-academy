@@ -5,6 +5,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { generateAll } from './lib.mjs';
 import ninetyDayBatch1 from './content/90day-batch1.mjs';
+import ninetyDayBatch2 from './content/90day-batch2.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -14,7 +15,7 @@ const JOBS = [
   {
     courseSlug: '90-day-software-testing-career-roadmap',
     courseTitle: '90-Day Software Testing Career Roadmap',
-    resources: ninetyDayBatch1,
+    resources: [...ninetyDayBatch1, ...ninetyDayBatch2],
   },
 ];
 
