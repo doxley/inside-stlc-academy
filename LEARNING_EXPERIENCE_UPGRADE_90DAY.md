@@ -64,8 +64,8 @@ module number + lesson number. Idempotent and re-runnable.
 - [x] **Module 1 — Introduction to Software Testing** (reference standard, 9 lessons)
 - [x] **Module 2 — Test Design Techniques** (7 lessons)
 - [x] **Module 3 — Defect Management** (6 lessons)
-- [ ] Module 4 — Agile & Scrum for Testers
-- [ ] Module 5 — Jira & Test Management
+- [x] **Module 4 — Agile & Scrum for Testers** (6 lessons)
+- [x] **Module 5 — Jira & Test Management** (6 lessons)
 - [ ] Module 6 — API Testing with Postman
 - [ ] Module 7 — SQL for Testers
 - [ ] Module 8 — Automation Fundamentals
