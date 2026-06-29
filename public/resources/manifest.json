@@ -253,5 +253,38 @@
         "pdf": "personal-ai-toolkit-planner.pdf"
       }
     ]
+  },
+  "qa-interview-accelerator": {
+    "courseTitle": "QA Interview Accelerator",
+    "items": [
+      {
+        "slug": "qa-cv-template",
+        "title": "QA CV / Résumé Template",
+        "category": "Career Resources",
+        "docx": "qa-cv-template.docx",
+        "pdf": "qa-cv-template.pdf"
+      },
+      {
+        "slug": "linkedin-optimisation-guide",
+        "title": "LinkedIn Profile Optimisation Guide for Testers",
+        "category": "Career Resources",
+        "docx": "linkedin-optimisation-guide.docx",
+        "pdf": "linkedin-optimisation-guide.pdf"
+      },
+      {
+        "slug": "star-answer-workbook",
+        "title": "STAR Answer Framework Workbook",
+        "category": "Career Resources",
+        "docx": "star-answer-workbook.docx",
+        "pdf": "star-answer-workbook.pdf"
+      },
+      {
+        "slug": "elevator-pitch-template",
+        "title": "\"Tell Me About Yourself\" — Elevator Pitch Template",
+        "category": "Career Resources",
+        "docx": "elevator-pitch-template.docx",
+        "pdf": "elevator-pitch-template.pdf"
+      }
+    ]
   }
 }
