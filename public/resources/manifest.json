@@ -223,6 +223,34 @@
         "category": "Templates",
         "docx": "ai-requirement-review-workbook.docx",
         "pdf": "ai-requirement-review-workbook.pdf"
+      },
+      {
+        "slug": "ai-prompt-cheat-sheet",
+        "title": "AI Prompt Cheat Sheet for Testers",
+        "category": "Cheat Sheets",
+        "docx": "ai-prompt-cheat-sheet.docx",
+        "pdf": "ai-prompt-cheat-sheet.pdf"
+      },
+      {
+        "slug": "ai-ethics-governance-guide",
+        "title": "AI Ethics & Governance Guide for QA",
+        "category": "Career Resources",
+        "docx": "ai-ethics-governance-guide.docx",
+        "pdf": "ai-ethics-governance-guide.pdf"
+      },
+      {
+        "slug": "ai-qa-workflow-poster",
+        "title": "AI-Assisted QA Workflow Poster",
+        "category": "Cheat Sheets",
+        "docx": "ai-qa-workflow-poster.docx",
+        "pdf": "ai-qa-workflow-poster.pdf"
+      },
+      {
+        "slug": "personal-ai-toolkit-planner",
+        "title": "Personal AI Toolkit Planner",
+        "category": "Career Resources",
+        "docx": "personal-ai-toolkit-planner.docx",
+        "pdf": "personal-ai-toolkit-planner.pdf"
       }
     ]
   }
