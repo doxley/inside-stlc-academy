@@ -9,6 +9,7 @@ import ninetyDayBatch2 from './content/90day-batch2.mjs';
 import ninetyDayBatch3 from './content/90day-batch3.mjs';
 import ninetyDayBatch4 from './content/90day-batch4.mjs';
 import aiBatch1 from './content/ai-batch1.mjs';
+import aiBatch2 from './content/ai-batch2.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -24,7 +25,7 @@ const ALL_JOBS = [
   {
     courseSlug: 'ai-for-qa-testers',
     courseTitle: 'AI for QA Testers',
-    resources: [...aiBatch1],
+    resources: [...aiBatch1, ...aiBatch2],
   },
 ];
 

@@ -160,6 +160,41 @@
         "category": "AI Prompt Packs",
         "docx": "prompt-writing-framework.docx",
         "pdf": "prompt-writing-framework.pdf"
+      },
+      {
+        "slug": "ai-usage-policy-template",
+        "title": "AI Usage Policy Template",
+        "category": "AI Prompt Packs",
+        "docx": "ai-usage-policy-template.docx",
+        "pdf": "ai-usage-policy-template.pdf"
+      },
+      {
+        "slug": "ai-risk-assessment-checklist",
+        "title": "AI Risk Assessment Checklist",
+        "category": "Checklists",
+        "docx": "ai-risk-assessment-checklist.docx",
+        "pdf": "ai-risk-assessment-checklist.pdf"
+      },
+      {
+        "slug": "ai-hallucination-checklist",
+        "title": "AI Hallucination Checklist",
+        "category": "Checklists",
+        "docx": "ai-hallucination-checklist.docx",
+        "pdf": "ai-hallucination-checklist.pdf"
+      },
+      {
+        "slug": "ai-validation-checklist",
+        "title": "AI Validation Checklist",
+        "category": "Checklists",
+        "docx": "ai-validation-checklist.docx",
+        "pdf": "ai-validation-checklist.pdf"
+      },
+      {
+        "slug": "ai-test-case-review-checklist",
+        "title": "AI Test Case Review Checklist",
+        "category": "Checklists",
+        "docx": "ai-test-case-review-checklist.docx",
+        "pdf": "ai-test-case-review-checklist.pdf"
       }
     ]
   }
