@@ -335,6 +335,90 @@
         "category": "Career Resources",
         "docx": "personal-ai-toolkit-planner.docx",
         "pdf": "personal-ai-toolkit-planner.pdf"
+      },
+      {
+        "slug": "ai-m1-assignment-brief",
+        "title": "Module 1 Assignment — The AI Shift in QA",
+        "category": "Assignment Briefs",
+        "docx": "ai-m1-assignment-brief.docx",
+        "pdf": "ai-m1-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m2-assignment-brief",
+        "title": "Module 2 Assignment — AI Fundamentals for Testers",
+        "category": "Assignment Briefs",
+        "docx": "ai-m2-assignment-brief.docx",
+        "pdf": "ai-m2-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m3-assignment-brief",
+        "title": "Module 3 Assignment — Prompt Engineering for QA",
+        "category": "Assignment Briefs",
+        "docx": "ai-m3-assignment-brief.docx",
+        "pdf": "ai-m3-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m4-assignment-brief",
+        "title": "Module 4 Assignment — Requirements Analysis with AI",
+        "category": "Assignment Briefs",
+        "docx": "ai-m4-assignment-brief.docx",
+        "pdf": "ai-m4-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m5-assignment-brief",
+        "title": "Module 5 Assignment — AI-Assisted Test Case Design",
+        "category": "Assignment Briefs",
+        "docx": "ai-m5-assignment-brief.docx",
+        "pdf": "ai-m5-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m6-assignment-brief",
+        "title": "Module 6 Assignment — Exploratory Testing with AI",
+        "category": "Assignment Briefs",
+        "docx": "ai-m6-assignment-brief.docx",
+        "pdf": "ai-m6-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m7-assignment-brief",
+        "title": "Module 7 Assignment — Defect Reporting and Root Cause Support",
+        "category": "Assignment Briefs",
+        "docx": "ai-m7-assignment-brief.docx",
+        "pdf": "ai-m7-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m8-assignment-brief",
+        "title": "Module 8 Assignment — API Testing with AI",
+        "category": "Assignment Briefs",
+        "docx": "ai-m8-assignment-brief.docx",
+        "pdf": "ai-m8-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m9-assignment-brief",
+        "title": "Module 9 Assignment — Automation Support with AI",
+        "category": "Assignment Briefs",
+        "docx": "ai-m9-assignment-brief.docx",
+        "pdf": "ai-m9-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m10-assignment-brief",
+        "title": "Module 10 Assignment — AI in Agile QA Workflows",
+        "category": "Assignment Briefs",
+        "docx": "ai-m10-assignment-brief.docx",
+        "pdf": "ai-m10-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m11-assignment-brief",
+        "title": "Module 11 Assignment — AI Risks, Ethics and Governance",
+        "category": "Assignment Briefs",
+        "docx": "ai-m11-assignment-brief.docx",
+        "pdf": "ai-m11-assignment-brief.pdf"
+      },
+      {
+        "slug": "ai-m12-assignment-brief",
+        "title": "Module 12 Assignment — Building Your AI QA Workflow",
+        "category": "Assignment Briefs",
+        "docx": "ai-m12-assignment-brief.docx",
+        "pdf": "ai-m12-assignment-brief.pdf"
       }
     ]
   },
