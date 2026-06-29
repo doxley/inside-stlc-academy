@@ -1,0 +1,72 @@
+// Playwright — Module 1: Automation Fundamentals. Enhancements.
+export default {
+  courseSlug: 'practical-test-automation-playwright',
+  moduleNumber: 1,
+  lessons: [
+    {
+      lessonNumber: 1,
+      enhancements: {
+        industryStory: `A team ran a 200-check regression by hand before every release — two days of effort, and bugs still slipped through from fatigue. Automated, the same suite ran in 15 minutes on every pull request, catching breakages the same day. That shift is why teams automate.`,
+        davidTip: `Sell automation as risk reduction and fast feedback, not "fewer testers". In real teams, automation handles the repetitive regression so humans spend time on exploratory and risk-based work — that framing is what gets buy-in.`,
+        miniChallenge: `List three checks in an app you know that are run repeatedly and would be strong automation candidates, and one that would not be.`,
+        modelAnswer: `## Example\nAutomate: login, checkout happy path, key API endpoints (run every release, stable). Don't automate: a brand-new screen redesigned weekly, or one-off exploratory checks.`,
+        portfolioBuilder: `Your capstone is a public automation framework. Start thinking now about which journeys you'll automate — the "what and why" reasoning is part of what employers assess.`,
+      },
+    },
+    {
+      lessonNumber: 2,
+      enhancements: {
+        industryStory: `A suite of 300 slow UI tests took two hours and was always flaky. Most checks could have been unit or API tests running in seconds. The pyramid is the model that stops automation becoming top-heavy and unreliable.`,
+        visualAid: {
+          type: 'comparison', title: 'The test automation pyramid',
+          headers: ['Layer', 'Amount', 'Speed / stability'],
+          rows: [
+            ['Unit', 'Most', 'Fastest, most stable'],
+            ['Integration / API', 'Some', 'Fast, stable'],
+            ['UI / End-to-end', 'Fewest', 'Slow, more brittle'],
+          ],
+        },
+        davidTip: `When a check can live at a lower layer, put it there. UI tests are the most expensive to build and maintain — reserve them for critical journeys that truly need the browser.`,
+        miniChallenge: `Take five checks for a feature and assign each to a layer (unit/API/UI) with a one-line justification.`,
+        modelAnswer: `## Example — discount feature\nDiscount maths → unit. API applies discount → API. Invalid code rejected → API. End-to-end "apply code at checkout" → UI. Field validation message → unit/UI (cheapest that proves it).`,
+        resourcePreview: {
+          name: 'Automation Best Practices Checklist', purpose: 'A quality bar for what (and where) to automate.',
+          whenToUse: 'Use it when deciding scope and layer for tests.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 3,
+      enhancements: {
+        industryStory: `A login smoke test ran 30 times a week and took 5 minutes by hand. Automated in a few hours, it paid for itself within a fortnight. ROI is how you decide what is worth automating — and how you justify it to stakeholders.`,
+        davidTip: `Frame automation decisions as ROI: time saved × runs, minus build and maintenance. High ROI = run often + stable + high value. It turns "automation is expensive" into "this suite saves X hours per release and protects our critical flow".`,
+        miniChallenge: `Pick one test and estimate its ROI: how often it runs, time saved per run, and rough maintenance cost. Worth automating?`,
+        modelAnswer: `## Example\nCheckout smoke test: runs ~30×/week, saves ~5 min each (~2.5 hrs/week), built in ~3 hours, low maintenance (stable flow). Clear positive ROI — automate it.`,
+      },
+    },
+    {
+      lessonNumber: 4,
+      enhancements: {
+        industryStory: `A team automated 300 UI tests with brittle CSS selectors and fixed sleeps. Within months half were flaky, red builds got ignored, and a real bug shipped because "the tests always fail anyway". A flaky suite is worse than none.`,
+        badGood: {
+          label: 'a waiting strategy',
+          bad: `await page.waitForTimeout(3000); // hope it's loaded`,
+          good: `await expect(page.getByText('Saved')).toBeVisible(); // auto-waits`,
+        },
+        davidTip: `Guard trust ruthlessly. The big killers are flakiness, brittle locators and no maintenance. A small, reliable suite people act on beats a large flaky one they ignore — fix or quarantine flaky tests immediately.`,
+        miniChallenge: `Write down two reasons automation suites lose trust, and one thing you'd do to prevent each.`,
+        modelAnswer: `## Example\nFlakiness → replace fixed sleeps with web-first assertions and fix root causes. Brittle locators → use role/label locators that survive markup changes.`,
+      },
+    },
+    {
+      lessonNumber: 5,
+      enhancements: {
+        industryStory: `Two engineers learned Playwright. One added tests constantly without pruning; the suite bloated and slowed. The other treated reliability and value as the goal, deleting and consolidating as readily as adding. The lean, trusted suite won.`,
+        davidTip: `Adopt an automation mindset before syntax: reliability over quantity, the right layer, readable and independent tests, value-driven. Ask "should this be automated, and where?" before "how do I automate it?"`,
+        miniChallenge: `Write your personal three-rule automation manifesto (e.g. "reliable over many"). You'll revisit it at the end of the course.`,
+        modelAnswer: `## Example\n1) Reliable over many. 2) Right layer for each test. 3) Readable, independent, value-driven. I'll delete or consolidate tests as readily as I add them.`,
+        portfolioBuilder: `This mindset shows up in your capstone: a focused, reliable framework with clear reasoning impresses far more than a large flaky one.`,
+      },
+    },
+  ],
+};
