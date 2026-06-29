@@ -1,0 +1,118 @@
+// Module 5 — Jira & Test Management. Premium lesson enhancements.
+export default {
+  courseSlug: '90-day-software-testing-career-roadmap',
+  moduleNumber: 5,
+  lessons: [
+    {
+      lessonNumber: 1,
+      enhancements: {
+        industryStory: `A new tester's first task was "log that in Jira" — and they froze, unsure what an issue type was or which project to use. Jira is the tool most QA teams live in; basic fluency removes that day-one friction and lets you contribute immediately.`,
+        visualAid: {
+          type: 'comparison', title: 'Common Jira issue types',
+          headers: ['Type', 'Represents'],
+          rows: [
+            ['Epic', 'A large body of work'],
+            ['Story', 'A user-facing requirement'],
+            ['Task', 'A piece of work to do'],
+            ['Bug', 'A defect to fix'],
+            ['Sub-task', 'A breakdown of a story/task'],
+          ],
+        },
+        davidTip: `You do not need to be a Jira admin — you need to be fluent: create a clean issue, transition it correctly, link it, and find things with a quick filter. That everyday fluency is what teams actually expect from a tester.`,
+        miniChallenge: `If you can, create a free Jira trial and add one Story and one Bug linked to it. If not, sketch the fields you would fill in for each.`,
+        modelAnswer: `## Example fields\nStory: summary, description, acceptance criteria, priority, story points.\nBug: summary (where + what), environment, steps, expected vs actual, severity/priority, linked to the story it affects.`,
+      },
+    },
+    {
+      lessonNumber: 2,
+      enhancements: {
+        industryStory: `A board showed ten items "In Progress" that were actually finished — nobody moved them. Stand-ups became guesswork. Understanding issues, workflows and boards is what keeps a team's view of reality accurate.`,
+        visualAid: {
+          type: 'flow', title: 'A typical issue workflow',
+          steps: [
+            { label: 'To Do' }, { label: 'In Progress' }, { label: 'In Review' },
+            { label: 'In Test' }, { label: 'Done' },
+          ],
+          caption: 'A tester usually drives the "In Test → Done" (or → Reopened) transitions.',
+        },
+        davidTip: `Keep your board honest in real time. As a QA lead, I trust a tester whose statuses always reflect reality — I can read the board and know exactly where testing stands without a single question.`,
+        miniChallenge: `Map the workflow states a Bug would pass through on your team, and note which transitions the tester is responsible for.`,
+        modelAnswer: `## Example\nOpen → In Progress (dev) → In Test (tester verifies) → Done (tester closes) or → Reopened (tester, if it fails retest). The tester owns In Test → Done/Reopened.`,
+      },
+    },
+    {
+      lessonNumber: 3,
+      enhancements: {
+        industryStory: `A team kept test cases in a spreadsheet disconnected from Jira, so nobody knew which tests covered which story. Test-management add-ons like Zephyr and Xray exist to close that gap — linking tests to the work they verify.`,
+        visualAid: {
+          type: 'comparison', title: 'Test management in Jira',
+          headers: ['', 'Spreadsheet', 'Zephyr / Xray'],
+          rows: [
+            ['Lives with the work', 'No', 'Yes (inside Jira)'],
+            ['Links to stories/bugs', 'Manual', 'Built-in'],
+            ['Execution tracking', 'Manual', 'Per cycle/run'],
+            ['Reporting', 'Limited', 'Coverage & results dashboards'],
+          ],
+        },
+        davidTip: `You do not need to master every test-management tool — they share the same concepts: test cases, test cycles/executions, and links to requirements and defects. Learn the concepts and any tool becomes quick to pick up.`,
+        miniChallenge: `Describe the lifecycle of a test case in a tool like Zephyr/Xray: from creation to an execution result linked to a story.`,
+        modelAnswer: `## Example\nCreate the test case → add it to a test cycle for the sprint → execute it and mark Pass/Fail → if Fail, raise a linked bug → the story shows its test coverage and results.`,
+      },
+    },
+    {
+      lessonNumber: 4,
+      enhancements: {
+        industryStory: `An auditor asked "how do you know this requirement was tested?" and the team had no answer — tests, bugs and requirements were not linked. Traceability is what lets you prove coverage at a glance.`,
+        visualAid: {
+          type: 'tree', title: 'Traceability links',
+          branches: [
+            { condition: 'a requirement (story)', outcome: 'is verified by test cases' },
+            { condition: 'a failing test case', outcome: 'links to a bug' },
+            { condition: 'a bug', outcome: 'traces back to the requirement it affects' },
+          ],
+        },
+        davidTip: `Traceability sounds bureaucratic until the day someone asks "is this requirement covered?". Linking tests, bugs and requirements means you answer in seconds — and it exposes gaps where a requirement has no tests at all.`,
+        miniChallenge: `For one requirement, list the test cases that would verify it and show how a resulting bug would link back to it.`,
+        modelAnswer: `## Example — "user can change email"\nTests: valid change succeeds; invalid format rejected; duplicate email rejected. If "duplicate email rejected" fails, raise a bug linked to that test and to the requirement — the requirement now shows a failing coverage item.`,
+        resourcePreview: {
+          name: 'Requirements Traceability Matrix (RTM)', purpose: 'Maps requirements to the tests that cover them and the defects found.',
+          whenToUse: 'Use it to prove coverage and spot untested requirements.', formats: ['XLSX', 'DOCX'],
+        },
+        portfolioBuilder: `An RTM is an impressive portfolio artefact — it shows you think about coverage and traceability, not just individual tests. Build one for your portfolio project.`,
+      },
+    },
+    {
+      lessonNumber: 5,
+      enhancements: {
+        industryStory: `A tester reported "I ran 80 tests" and the stakeholder's eyes glazed over. Another said "all critical paths pass; two medium defects remain, neither blocks release" — and got an instant decision. Reporting is about communicating quality, not counting tests.`,
+        visualAid: {
+          type: 'comparison', title: 'Useful QA reports',
+          headers: ['Report', 'Answers'],
+          rows: [
+            ['Test execution', 'What passed / failed this cycle?'],
+            ['Defect summary', 'What is open, by severity?'],
+            ['Coverage', 'Which requirements are tested?'],
+            ['Burndown / progress', 'Are we on track this sprint?'],
+          ],
+        },
+        davidTip: `Lead reports with risk and impact, not raw counts. "Critical paths pass; one high-severity defect open on checkout" tells the business what it needs. The number of tests run is almost never the headline.`,
+        miniChallenge: `Write a 3-sentence end-of-sprint quality summary for a stakeholder, leading with risk rather than test counts.`,
+        modelAnswer: `## Example\n"All critical user journeys pass on the release candidate. Two medium-severity defects remain open, neither blocks release, both have workarounds. Recommendation: safe to ship with these known issues documented."`,
+      },
+    },
+    {
+      lessonNumber: 6,
+      enhancements: {
+        davidTip: `For this assignment, make your Jira artefacts readable by someone who was not there — clear summaries, correct links, and a status that reflects reality. That is exactly what teams rely on day to day.`,
+        miniChallenge: `Before submitting, check every issue answers: is the summary clear, is it linked correctly, and does its status reflect reality?`,
+        managersReview: {
+          intro: 'If I reviewed your Jira/test-management work as a QA lead, I would look for:',
+          strengths: ['Clean, well-described issues', 'Correct links between stories, tests and bugs', 'Honest, current statuses'],
+          gaps: ['Vague summaries', 'Unlinked tests and bugs', 'Stale statuses that misrepresent progress'],
+          improvements: ['Tighten issue summaries (where + what)', 'Link tests and bugs to their stories', 'Keep the board current'],
+        },
+        portfolioBuilder: `Screenshots of a clean, well-linked Jira board and a simple RTM make strong portfolio evidence that you can work the way real teams do.`,
+      },
+    },
+  ],
+};

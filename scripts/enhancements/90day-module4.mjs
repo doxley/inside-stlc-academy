@@ -1,0 +1,119 @@
+// Module 4 — Agile & Scrum for Testers. Premium lesson enhancements.
+export default {
+  courseSlug: '90-day-software-testing-career-roadmap',
+  moduleNumber: 4,
+  lessons: [
+    {
+      lessonNumber: 1,
+      enhancements: {
+        industryStory: `A tester joined an "agile" team but kept waiting for a finished spec and a testing phase at the end — habits from a waterfall job. They were always behind. Understanding agile is what lets a tester work *with* the cadence of a modern team instead of against it.`,
+        visualAid: {
+          type: 'comparison', title: 'Waterfall vs Agile (for testers)',
+          headers: ['', 'Waterfall', 'Agile'],
+          rows: [
+            ['Testing happens', 'At the end, as a phase', 'Continuously, every sprint'],
+            ['Requirements', 'Fixed up front', 'Evolve through refinement'],
+            ['Tester involved', 'Late', 'From refinement onward'],
+            ['Feedback', 'Slow', 'Fast and frequent'],
+          ],
+        },
+        davidTip: `Agile does not mean "no process" — it means fast feedback and collaboration. The testers who thrive treat every conversation as a chance to prevent a defect, not just to find one later. That shift in mindset is what agile asks of QA.`,
+        miniChallenge: `List three habits a tester should drop when moving from waterfall to agile, and what they should do instead.`,
+        modelAnswer: `## Example\n- Waiting for a final spec → engage at refinement with questions\n- Testing only at the end → test stories as they are completed\n- Working in isolation → collaborate early with devs and the PO (three amigos)`,
+      },
+    },
+    {
+      lessonNumber: 2,
+      enhancements: {
+        industryStory: `A new tester did not know who the Product Owner was and raised scope questions to the wrong person for weeks. Knowing the Scrum roles, artefacts and events is basic team literacy — it tells you who to talk to and when.`,
+        visualAid: {
+          type: 'comparison', title: 'Scrum at a glance',
+          headers: ['Element', 'What it is'],
+          rows: [
+            ['Roles', 'Product Owner, Scrum Master, Developers (includes testers)'],
+            ['Artefacts', 'Product backlog, Sprint backlog, Increment'],
+            ['Events', 'Sprint, Planning, Daily Scrum, Review, Retrospective'],
+            ['Sprint', 'A short, fixed iteration (often 1–2 weeks)'],
+          ],
+        },
+        davidTip: `In Scrum, testers are "Developers" — part of the delivery team, not a separate gate. Owning that identity changes how you show up: you share responsibility for the increment, not just for finding faults in it.`,
+        miniChallenge: `For each Scrum role (PO, Scrum Master, Developers), write one thing a tester would go to them for.`,
+        modelAnswer: `## Example\n- Product Owner: clarify acceptance criteria and priority\n- Scrum Master: raise a blocker or process impediment\n- Developers (incl. testers): collaborate on testability and the increment`,
+      },
+    },
+    {
+      lessonNumber: 3,
+      enhancements: {
+        industryStory: `A tester sat silent in refinement, then found three ambiguous requirements while testing — too late to fix cleanly. Each Scrum ceremony is a chance for QA to add value; skipping that chance just pushes the cost downstream.`,
+        visualAid: {
+          type: 'timeline', title: 'A sprint and the tester’s role',
+          steps: [
+            { label: 'Refinement', detail: 'ask "what if"; flag testability gaps' },
+            { label: 'Planning', detail: 'raise test effort and risks' },
+            { label: 'Daily Scrum', detail: 'share progress and blockers' },
+            { label: 'Review', detail: 'help demo; confirm acceptance criteria' },
+            { label: 'Retrospective', detail: 'suggest improvements' },
+          ],
+        },
+        davidTip: `Refinement is the highest-leverage ceremony for a tester. A sharp "what happens if the payment times out here?" at refinement prevents a defect that would cost days if found in testing. Speak up early.`,
+        miniChallenge: `For an upcoming "add a wishlist" story, write two "what if" questions you would raise in refinement.`,
+        modelAnswer: `## Example\n- "What happens if a user adds the same item to the wishlist twice?"\n- "Should wishlist items persist if the user logs out and back in on another device?"`,
+        resourcePreview: {
+          name: 'Agile Testing Cheat Sheet', purpose: 'The tester’s role across Scrum ceremonies and the sprint.',
+          whenToUse: 'Reference it to contribute confidently in each ceremony.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 4,
+      enhancements: {
+        industryStory: `A story said "users can search". It shipped with no handling for no-results, special characters or very long queries — because the acceptance criteria never mentioned them. Weak criteria are where defects are born.`,
+        badGood: {
+          label: 'acceptance criteria',
+          bad: `"The search should work well and be fast."`,
+          good: `"Given a product catalogue, when a user searches a term, then matching results show within 2s; an empty term shows a prompt; a no-match search shows a friendly 'no results' message."`,
+        },
+        davidTip: `Treat vague acceptance criteria as a defect in the requirement. As a QA lead, I would rather a tester block a story at refinement for unclear criteria than test against guesswork. Clear, testable criteria are the contract you verify against.`,
+        miniChallenge: `Take the story "As a user I can reset my password" and write three testable acceptance criteria (including one negative case).`,
+        modelAnswer: `## Example\n- Given a registered email, when I request a reset, then I receive a reset link within 2 minutes\n- Given an unregistered email, then I see the same confirmation (no account disclosure)\n- Given an expired reset link, when I use it, then I am told it has expired and offered a new one`,
+        portfolioBuilder: `Reviewing requirements and writing strong acceptance criteria is a standout skill. Capturing a "before/after" example of criteria you improved makes a memorable portfolio talking point.`,
+      },
+    },
+    {
+      lessonNumber: 5,
+      enhancements: {
+        industryStory: `On one team the tester was seen as "the person who says no at the end". On another, the tester was the quality conscience throughout — asking questions early, testing continuously, helping demo. Same role, completely different impact. The second is what modern agile QA looks like.`,
+        visualAid: {
+          type: 'comparison', title: 'Where the tester adds value in a sprint',
+          headers: ['When', 'Tester contribution'],
+          rows: [
+            ['Start of sprint', 'Review stories, prepare test ideas and data'],
+            ['Mid-sprint', 'Test stories as they complete; log and retest defects'],
+            ['End of sprint', 'Support the review; confirm acceptance criteria; balance regression'],
+            ['Throughout', 'Test little and often; collaborate early'],
+          ],
+        },
+        davidTip: `"I like to get involved at refinement to prevent defects early" is a line that signals modern, senior-minded agile QA in any interview. Be the quality conscience across the sprint, not a gate at the end.`,
+        miniChallenge: `Write a short paragraph (interview-style) answering "how do you fit into an agile team as a tester?"`,
+        modelAnswer: `## Example\n"I get involved from refinement, asking questions to clarify acceptance criteria and prevent defects early. During the sprint I test stories as they're completed rather than batching to the end, log clear defects, and help with the review. I see myself as part of the delivery team, sharing responsibility for quality."`,
+        resourcePreview: {
+          name: 'Agile Testing Cheat Sheet', purpose: 'A summary of agile testing habits and the tester’s sprint role.',
+          whenToUse: 'Use it to prepare agile interview answers and to settle into a new team.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 6,
+      enhancements: {
+        davidTip: `For this assignment, show that you think beyond execution — that you would engage at refinement and improve acceptance criteria. That perspective is what distinguishes an agile-ready tester.`,
+        miniChallenge: `Before the full assignment, pick your stories and note one testability question and one acceptance-criteria improvement for each.`,
+        managersReview: {
+          intro: 'If I received this assignment as a QA lead, I would look for:',
+          strengths: ['Sharp testability questions raised early', 'Strong, testable acceptance criteria', 'Awareness of the tester’s role across ceremonies'],
+          gaps: ['Only end-of-sprint testing described', 'Vague acceptance criteria left unchallenged', 'No collaboration with PO/devs mentioned'],
+          improvements: ['Add refinement questions per story', 'Rewrite weak criteria to be testable', 'Describe contributing across the sprint'],
+        },
+      },
+    },
+  ],
+};
