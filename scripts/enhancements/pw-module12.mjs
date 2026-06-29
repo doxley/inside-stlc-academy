@@ -1,0 +1,58 @@
+// Playwright — Module 12: Portfolio Project. Enhancements.
+export default {
+  courseSlug: 'practical-test-automation-playwright',
+  moduleNumber: 12,
+  lessons: [
+    {
+      lessonNumber: 1,
+      enhancements: {
+        industryStory: `One learner scoped their capstone around a flaky, sprawling app and never finished; another picked a stable demo shop and four clear journeys and shipped a polished framework. Scope decides whether you end with something you can show.`,
+        davidTip: `Pick an app with clear, stable journeys and aim for 8–12 meaningful tests — quality over quantity. A focused framework on a sensible app demonstrates more skill than a sprawling one on a flaky target.`,
+        miniChallenge: `Choose your demo app and list the 8–12 journeys/tests your framework will cover.`,
+        modelAnswer: `## Example — a demo shop\nBrowse products, search, add to basket, apply a discount code, checkout (happy path), invalid payment, login, and an account update — plus one or two API tests for setup.`,
+        resourcePreview: {
+          name: 'Automation Portfolio Project Workbook', purpose: 'Build a public Playwright project that proves you can automate.',
+          whenToUse: 'Use it as the blueprint and checklist for your capstone.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 2,
+      enhancements: {
+        industryStory: `An employer opened a candidate's capstone, saw robust locators, page objects, an API test and green CI, and invited them to interview on the strength of the repo alone. The capstone is what an employer actually opens — make it your best work.`,
+        davidTip: `Apply the standards you've learned, not shortcuts: robust locators, web-first assertions, independent data, page objects, at least one API test, and green CI. This repo is the thing an employer inspects — let it show your best.`,
+        miniChallenge: `Build your framework to the quality bar: robust locators, web-first assertions, independent data, green CI. Note any standard you had to go back and fix.`,
+        modelAnswer: `## Example\nBuilt BDD features + step definitions for the key journeys, page objects per page, a fixture for login, one API test plus API-driven setup, and a GitHub Actions workflow — all green on push.`,
+        resourcePreview: {
+          name: 'Playwright Command Cheat Sheet', purpose: 'The CLI commands you will use daily while building and running the suite.',
+          whenToUse: 'Keep it handy throughout the build.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 3,
+      enhancements: {
+        industryStory: `A reviewer cloned a strong-looking repo, couldn't work out how to run it, and moved on. A clear README — what it tests, how to run it in two commands, the strategy — is what lets your work actually get seen.`,
+        davidTip: `The README is the first thing an employer reads. A clear, well-structured one (overview, how to run, what's covered and why, tech used, what it demonstrates) signals professionalism before they see a line of test code.`,
+        miniChallenge: `Write a README for your project covering overview, how to run, coverage/strategy and tech used.`,
+        modelAnswer: `## Example README sections\n1) Overview + app under test. 2) Install & run (npm ci; npx playwright test). 3) What's covered and why (test strategy). 4) Tech: Playwright, TypeScript, GitHub Actions. 5) What it demonstrates about me.`,
+      },
+    },
+    {
+      lessonNumber: 4,
+      enhancements: {
+        industryStory: `A graduate published their framework, confirmed CI was green, and recorded a 60-second walkthrough of their design choices. In interviews they could talk through any part with confidence — and it landed them the role.`,
+        davidTip: `Publish it public with green CI and working links, then be ready to walk through any part in 60 seconds. Employers value engineers who can explain their design decisions, not just produce code. Submit your repository URL for self-review against the model solution.`,
+        miniChallenge: `Publish your framework, self-review it against the model solution, and submit your public GitHub repository URL.`,
+        modelAnswer: `## Example\nRepo public, CI green, README clear, links working, tests reliable on repeat runs. Recorded a 60-second walkthrough explaining the framework structure and two key decisions, then submitted the URL.`,
+        managersReview: {
+          intro: 'If I received your capstone repo as a hiring manager, I would look for:',
+          strengths: ['A focused, complete framework (BDD, page objects, API, CI)', 'Robust locators and reliable tests', 'A clear README and green CI', 'Ability to explain your design choices'],
+          gaps: ['Private repo or red CI', 'Brittle locators / flaky tests', 'No README or broken links'],
+          improvements: ['Make it public with green CI', 'Fix brittle locators and flakiness', 'Write a clear README and rehearse a walkthrough'],
+        },
+        portfolioBuilder: `This capstone is the centrepiece of your automation portfolio — a public, documented, CI-backed framework. It does more for your job hunt than any certificate, because it shows exactly how you think and code.`,
+      },
+    },
+  ],
+};

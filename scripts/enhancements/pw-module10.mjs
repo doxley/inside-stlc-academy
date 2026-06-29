@@ -1,0 +1,89 @@
+// Playwright — Module 10: AI Assisted Automation. Enhancements.
+export default {
+  courseSlug: 'practical-test-automation-playwright',
+  moduleNumber: 10,
+  lessons: [
+    {
+      lessonNumber: 1,
+      enhancements: {
+        industryStory: `Asked to add tests for a new form, an engineer had AI draft the spec in seconds, then reviewed the locators, added boundary cases it missed, and ran it before committing. AI did the typing; the engineering stayed human.`,
+        davidTip: `Treat AI as a pair programmer you review, not an oracle. It drafts tests, explains errors and suggests refactors — but you run, verify and own everything it produces. Never paste secrets or proprietary code into public tools.`,
+        miniChallenge: `List three automation tasks you'd use AI for, and one you would not trust it to decide.`,
+        modelAnswer: `## Example\nUse AI for: drafting a test, explaining an error, suggesting a refactor. Don't delegate: whether the suite is reliable enough to trust — that judgement is mine.`,
+        resourcePreview: {
+          name: 'AI Prompt Library for Automation Engineers', purpose: 'Ready-to-use prompts for writing, debugging and improving Playwright tests.',
+          whenToUse: 'Use it as your starting point for AI-assisted automation.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 2,
+      enhancements: {
+        industryStory: `"Write tests for login" produced shallow, brittle output. Adding role, context and constraints — "use getByRole, web-first assertions, no waitForTimeout" — returned code that already matched the team's standards. The prompt made the difference.`,
+        badGood: {
+          label: 'an automation prompt',
+          bad: `"Write Playwright tests for login."`,
+          good: `"Act as a senior automation engineer. Write a Playwright test in TypeScript for the login flow using getByRole/getByLabel and web-first assertions. Do not use waitForTimeout."`,
+        },
+        davidTip: `Bake your standards into the prompt: role, context, task, format, constraints. It's far faster to constrain up front (locators, assertions, no sleeps) than to fix brittle generated code afterwards.`,
+        miniChallenge: `Write a prompt that would generate a Playwright test matching this course's standards, then refine it once.`,
+        modelAnswer: `## Example\nFirst prompt as above; refinement: "Add negative cases (wrong password, empty fields) and an account-lockout boundary, and keep each test to one behaviour."`,
+      },
+    },
+    {
+      lessonNumber: 3,
+      enhancements: {
+        industryStory: `AI scaffolded a page object fast — but used div:nth-child selectors. The engineer kept the structure and swapped the brittle locators for role-based ones. Generated code is a draft to conform to your patterns, not commit as-is.`,
+        badGood: {
+          label: 'an AI-suggested locator',
+          bad: `page.locator('div.container > div:nth-child(3) > button')`,
+          good: `page.getByRole('button', { name: 'Sign in' })`,
+        },
+        davidTip: `Let AI scaffold tests and page objects, then review: are the locators robust, assertions web-first, one behaviour per test? Conform generated code to your conventions before it lands, or it creates inconsistency debt.`,
+        miniChallenge: `Generate a page object for a simple page with AI, then review and fix at least one issue (usually a brittle locator).`,
+        modelAnswer: `## Example\nAI scaffolded a LoginPage using nth-child selectors; I kept the class shape but replaced them with getByLabel('Email') and getByRole('button', { name: 'Sign in' }).`,
+      },
+    },
+    {
+      lessonNumber: 4,
+      enhancements: {
+        industryStory: `A flaky test failed randomly. The engineer pasted it (sanitised) into AI, which spotted a fixed wait and suggested a web-first assertion. They applied it, re-ran with --repeat-each, and confirmed the flakiness was gone — verified, not assumed.`,
+        davidTip: `Pair AI with the trace viewer: the trace shows what happened, AI helps explain why. Always re-run after applying an AI fix to confirm the behaviour is unchanged — never trust the explanation alone.`,
+        miniChallenge: `Take a failing or flaky test, ask AI to explain and fix it, then describe how you'd verify the fix.`,
+        modelAnswer: `## Example\nAI identified a waitForTimeout before an assertion and suggested expect(locator).toBeVisible(). I applied it and ran --repeat-each=10 to confirm the test is now stable.`,
+      },
+    },
+    {
+      lessonNumber: 5,
+      enhancements: {
+        industryStory: `Before opening a PR, an engineer asked AI to review a page object; it flagged a duplicated locator and a fragile selector, both fixed before review. AI as a first-pass reviewer raised the quality before a human even looked.`,
+        davidTip: `Use AI for a first-pass review of your tests — reliability, readability, brittleness — and apply what genuinely improves the code. It supplements human review and judgement; it doesn't replace them.`,
+        miniChallenge: `Ask AI to review one of your tests; apply one suggestion and note one you rejected and why.`,
+        modelAnswer: `## Example\nApplied: AI's suggestion to extract a repeated login into a fixture. Rejected: its suggestion to add retries to "fix" a flaky test — the right fix was removing a sleep, not masking it.`,
+        resourcePreview: {
+          name: 'Code Review Checklist for Test Automation', purpose: 'Review automation PRs (yours or AI-assisted) like a professional.',
+          whenToUse: 'Use it alongside an AI first-pass review.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 6,
+      enhancements: {
+        industryStory: `An engineer nearly pasted proprietary code into a public AI tool for help. Catching that habit is essential — responsible AI use (data, verification, accountability) is now expected, and a leak can be career-defining.`,
+        visualAid: {
+          type: 'comparison', title: 'Responsible AI in automation',
+          headers: ['Do', 'Do not'],
+          rows: [
+            ['Sanitise before pasting', 'Share secrets or proprietary code'],
+            ['Verify specifics against reality', 'Trust output as fact'],
+            ['Run, review and own the code', 'Commit code you cannot explain'],
+          ],
+        },
+        davidTip: `Before pasting anything, ask "would I be comfortable if this were public?" Verify hallucination-prone specifics, and never let AI dependence dull your fundamentals — you must be able to debug what you ship.`,
+        miniChallenge: `Write your three personal rules for responsible AI use in automation.`,
+        modelAnswer: `## Example\n1) Never paste secrets or proprietary code into public tools. 2) Verify generated specifics (locators, APIs) against the real app. 3) Run and understand every line before committing.`,
+        portfolioBuilder: `An "AI-assisted automation" note in your capstone — prompts used, what you accepted/changed, your safety rules — shows modern, responsible engineering practice.`,
+      },
+    },
+  ],
+};
