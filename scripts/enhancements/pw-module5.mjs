@@ -1,0 +1,66 @@
+// Playwright — Module 5: Page Object Model. Enhancements.
+export default {
+  courseSlug: 'practical-test-automation-playwright',
+  moduleNumber: 5,
+  lessons: [
+    {
+      lessonNumber: 1,
+      enhancements: {
+        industryStory: `A login field id changed and twenty tests broke — each had hard-coded the locator. With a page object, that change is one edit in one place. POM is what keeps a growing suite cheap to maintain.`,
+        davidTip: `Introduce a page object the moment two tests share locators — not before. Premature POM on a tiny project is as harmful as none. Let real duplication tell you when to abstract.`,
+        miniChallenge: `Pick a page in any app and list the locators and actions a page object for it would hold.`,
+        modelAnswer: `## Example — LoginPage\nLocators: email field, password field, sign-in button, error message. Actions: goto(), login(email, password). The test calls login() and asserts the outcome.`,
+        resourcePreview: {
+          name: 'Page Object Model (POM) Template', purpose: 'A clean, reusable structure for page objects.',
+          whenToUse: 'Use it as the template for each page object you build.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 2,
+      enhancements: {
+        industryStory: `A page object exposed raw locators, so tests read like CSS soup. Rewritten to expose intent — login(), addToBasket() — the tests became readable English and survived UI tweaks. Good page classes hide the "how" behind the "what".`,
+        badGood: {
+          label: 'a page object method',
+          bad: `await page.locator('#u').fill(email); await page.locator('#p').fill(pw); await page.locator('.btn').click();`,
+          good: `await loginPage.login(email, password); // intent-revealing method on the page object`,
+        },
+        davidTip: `Name methods after what the user does, not what the code does: addToBasket() beats clickAddButton(). Keep one page object per page/component, with locators encapsulated inside.`,
+        miniChallenge: `Write a page class (pseudocode or real) for a login page with goto() and login() methods.`,
+        modelAnswer: `## Example\nclass LoginPage { constructor(page){this.page=page} email=()=>this.page.getByLabel('Email'); signIn=()=>this.page.getByRole('button',{name:'Sign in'}); async login(e,p){ await this.email().fill(e); /* … */ await this.signIn().click(); } }`,
+      },
+    },
+    {
+      lessonNumber: 3,
+      enhancements: {
+        industryStory: `A team buried all assertions inside page objects, so test reports said nothing useful when they failed. Moving assertions back into the tests made failures read clearly — and kept page objects focused on actions.`,
+        davidTip: `By convention, actions live in the page object and assertions live in the test — so failures read clearly in the report. Use small verify methods only when the same assertion repeats across many tests.`,
+        miniChallenge: `Take a test and ensure actions live in the page object while assertions stay in the test.`,
+        modelAnswer: `## Example\nTest: await checkout.placeOrder(); await expect(page.getByText('Order confirmed')).toBeVisible(); — the action is in the page object, the assertion stays in the test where the report can show it.`,
+      },
+    },
+    {
+      lessonNumber: 4,
+      enhancements: {
+        industryStory: `A nav bar's locators were re-declared on every page object — change the menu, edit ten files. Modelling it once as a NavBar component meant one update flowed everywhere. Shared UI deserves its own component object.`,
+        davidTip: `Model recurring widgets (nav bar, search box, data table) as component objects and have pages compose them. Extract a component when the same UI appears on three or more pages — keep components generic, not page-specific.`,
+        miniChallenge: `Identify one shared UI element in an app and sketch a component object for it.`,
+        modelAnswer: `## Example\nclass NavBar { constructor(page){this.page=page} async goTo(section){ await this.page.getByRole('link',{name:section}).click(); } } — reused by LoginPage, Dashboard and Account instead of each re-declaring the nav.`,
+      },
+    },
+    {
+      lessonNumber: 5,
+      enhancements: {
+        industryStory: `Over a year, page objects grew into 500-line monsters full of dead methods and duplicated locators. A regular refactor — consolidate, delete unused, keep components generic — kept the suite cheap to change. Page objects only pay off if you maintain them.`,
+        davidTip: `Refactor page objects as readily as you add to them. Warning signs: huge classes, duplicated locators, methods nobody calls. A lean, well-named set is what keeps a large suite maintainable.`,
+        miniChallenge: `Review a page object and improve it: remove a dead method or consolidate a duplicated locator.`,
+        modelAnswer: `## Example\nFound two methods doing the same fill-and-submit with different names; merged into one. Removed a getOldBanner() locator no test used. The class is now shorter and clearer.`,
+        portfolioBuilder: `Clean, maintained page objects in your capstone repo are exactly what reviewers inspect to judge whether you write professional automation.`,
+        resourcePreview: {
+          name: 'Automation Best Practices Checklist', purpose: 'A quality bar covering page objects, locators and maintainability.',
+          whenToUse: 'Run your page objects through it before committing.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+  ],
+};
