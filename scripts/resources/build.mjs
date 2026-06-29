@@ -22,6 +22,7 @@ import automationBatch4 from './content/automation-batch4.mjs';
 import briefs90day from './content/briefs-90day.mjs';
 import briefsAi from './content/briefs-ai.mjs';
 import briefsQa from './content/briefs-qa.mjs';
+import briefsPw from './content/briefs-pw.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -47,7 +48,7 @@ const ALL_JOBS = [
   {
     courseSlug: 'practical-test-automation-playwright',
     courseTitle: 'Practical Test Automation with Playwright',
-    resources: [...automationBatch1, ...automationBatch2, ...automationBatch3, ...automationBatch4],
+    resources: [...automationBatch1, ...automationBatch2, ...automationBatch3, ...automationBatch4, ...briefsPw],
   },
 ];
 

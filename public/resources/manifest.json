@@ -737,6 +737,90 @@
         "category": "Cheat Sheets",
         "docx": "playwright-command-cheat-sheet.docx",
         "pdf": "playwright-command-cheat-sheet.pdf"
+      },
+      {
+        "slug": "pw-m1-assignment-brief",
+        "title": "Module 1 Assignment — Automation Fundamentals",
+        "category": "Assignment Briefs",
+        "docx": "pw-m1-assignment-brief.docx",
+        "pdf": "pw-m1-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m2-assignment-brief",
+        "title": "Module 2 Assignment — Behaviour Driven Development",
+        "category": "Assignment Briefs",
+        "docx": "pw-m2-assignment-brief.docx",
+        "pdf": "pw-m2-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m3-assignment-brief",
+        "title": "Module 3 Assignment — Step Definitions",
+        "category": "Assignment Briefs",
+        "docx": "pw-m3-assignment-brief.docx",
+        "pdf": "pw-m3-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m4-assignment-brief",
+        "title": "Module 4 Assignment — Playwright Essentials",
+        "category": "Assignment Briefs",
+        "docx": "pw-m4-assignment-brief.docx",
+        "pdf": "pw-m4-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m5-assignment-brief",
+        "title": "Module 5 Assignment — Page Object Model",
+        "category": "Assignment Briefs",
+        "docx": "pw-m5-assignment-brief.docx",
+        "pdf": "pw-m5-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m6-assignment-brief",
+        "title": "Module 6 Assignment — Test Data Management",
+        "category": "Assignment Briefs",
+        "docx": "pw-m6-assignment-brief.docx",
+        "pdf": "pw-m6-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m7-assignment-brief",
+        "title": "Module 7 Assignment — Framework Architecture",
+        "category": "Assignment Briefs",
+        "docx": "pw-m7-assignment-brief.docx",
+        "pdf": "pw-m7-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m8-assignment-brief",
+        "title": "Module 8 Assignment — API Automation",
+        "category": "Assignment Briefs",
+        "docx": "pw-m8-assignment-brief.docx",
+        "pdf": "pw-m8-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m9-assignment-brief",
+        "title": "Module 9 Assignment — Git & CI/CD",
+        "category": "Assignment Briefs",
+        "docx": "pw-m9-assignment-brief.docx",
+        "pdf": "pw-m9-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m10-assignment-brief",
+        "title": "Module 10 Assignment — AI Assisted Automation",
+        "category": "Assignment Briefs",
+        "docx": "pw-m10-assignment-brief.docx",
+        "pdf": "pw-m10-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m11-assignment-brief",
+        "title": "Module 11 Assignment — Framework Maintenance",
+        "category": "Assignment Briefs",
+        "docx": "pw-m11-assignment-brief.docx",
+        "pdf": "pw-m11-assignment-brief.pdf"
+      },
+      {
+        "slug": "pw-m12-assignment-brief",
+        "title": "Module 12 Assignment — Portfolio Project",
+        "category": "Assignment Briefs",
+        "docx": "pw-m12-assignment-brief.docx",
+        "pdf": "pw-m12-assignment-brief.pdf"
       }
     ]
   }
