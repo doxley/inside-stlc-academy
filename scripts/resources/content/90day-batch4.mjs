@@ -1,0 +1,202 @@
+// 90-Day Roadmap — Resource Pack, batch 4 (completes the 20).
+const COURSE = '90-Day Software Testing Career Roadmap';
+const proTip = (text) => ({ t: 'callout', variant: 'pro', title: 'Inside STLC Pro Tip', text });
+
+export default [
+  {
+    slug: 'agile-testing-cheat-sheet',
+    title: 'Agile Testing Cheat Sheet',
+    subtitle: 'How a tester works across an agile sprint — roles, ceremonies and habits.',
+    courseTitle: COURSE, category: 'Cheat Sheets',
+    blocks: [
+      { t: 'h1', text: 'Introduction' },
+      { t: 'p', text: 'Most QA roles are on agile teams. This cheat sheet summarises the Scrum essentials and the tester’s role across a sprint, so you can contribute confidently from day one.' },
+      { t: 'h1', text: 'Scrum at a Glance' },
+      { t: 'table', headers: ['Element', 'Summary'], rows: [
+        ['Roles', 'Product Owner, Scrum Master, Developers (includes testers)'],
+        ['Artefacts', 'Product backlog, Sprint backlog, Increment'],
+        ['Sprint', 'Short fixed iteration (often 1–2 weeks)'],
+      ] },
+      { t: 'h1', text: 'Ceremonies & Tester Focus' },
+      { t: 'table', headers: ['Ceremony', 'Tester contribution'], rows: [
+        ['Refinement', 'Ask "what if" questions; flag testability gaps'],
+        ['Sprint planning', 'Raise test effort and risks'],
+        ['Daily stand-up', 'Share progress and blockers'],
+        ['Sprint review', 'Help demo; confirm acceptance criteria met'],
+        ['Retrospective', 'Suggest process improvements'],
+      ] },
+      { t: 'h1', text: 'Tester Habits Across a Sprint' },
+      { t: 'ul', items: [
+        'Day 1: review stories, write test ideas, prepare data.',
+        'Mid-sprint: test stories as they complete; log and retest defects.',
+        'End: support the review; verify acceptance criteria; balance regression.',
+        'Throughout: test little and often, collaborate early (three amigos).',
+      ] },
+      { t: 'h1', text: 'Common Mistakes' },
+      { t: 'ul', items: [
+        'Batching all testing to the last two days.',
+        'Staying silent in refinement, then finding gaps during testing.',
+        'Treating QA as a separate gate rather than part of the team.',
+      ] },
+      proTip('"I like to get involved at refinement to prevent defects early" is a line that signals modern, senior-minded agile QA in any interview.'),
+    ],
+  },
+
+  {
+    slug: 'qa-career-roadmap-poster',
+    title: 'QA Career Roadmap Poster',
+    subtitle: 'Your 90-day journey from beginner to job-ready QA professional, at a glance.',
+    courseTitle: COURSE, category: 'Career Resources',
+    blocks: [
+      { t: 'h1', text: 'Your 90-Day Journey' },
+      { t: 'p', text: 'Print this and keep it visible. It maps the path this course takes you on — from fundamentals to a job-ready portfolio and interview readiness.' },
+      { t: 'h1', text: 'Phase 1 — Foundations (Weeks 1–4)' },
+      { t: 'ul', items: [
+        'Software testing fundamentals, SDLC & STLC',
+        'Test design techniques (EP, BVA, decision tables, state transition)',
+        'Defect management and high-quality bug reports',
+      ] },
+      { t: 'h1', text: 'Phase 2 — Practical Skills (Weeks 5–8)' },
+      { t: 'ul', items: [
+        'Agile & Scrum for testers',
+        'Jira & test management',
+        'API testing with Postman; SQL for testers',
+      ] },
+      { t: 'h1', text: 'Phase 3 — Modern & Career (Weeks 9–12)' },
+      { t: 'ul', items: [
+        'Automation fundamentals; AI for software testing',
+        'Portfolio building',
+        'CV & LinkedIn mastery; interview mastery & job search',
+      ] },
+      { t: 'h1', text: 'Roles You Can Target' },
+      { t: 'table', headers: ['Starting role', 'Next step'], rows: [
+        ['Manual / QA Tester', 'QA Analyst'],
+        ['QA Analyst', 'Automation Tester / SDET'],
+        ['Automation / SDET', 'Test Lead'],
+        ['Test Lead', 'QA Manager'],
+      ] },
+      proTip('Progress beats perfection. Complete one module and one portfolio artefact each week and you will be genuinely job-ready in 90 days.'),
+    ],
+  },
+
+  {
+    slug: 'daily-qa-task-checklist',
+    title: 'Daily QA Task Checklist',
+    subtitle: 'A simple daily routine to stay organised and effective as a tester.',
+    courseTitle: COURSE, category: 'Checklists',
+    blocks: [
+      { t: 'h1', text: 'Introduction' },
+      { t: 'p', text: 'A consistent daily routine keeps your testing focused and your communication tight. Use this as a starting point and adapt it to your team.' },
+      { t: 'h1', text: 'Start of Day' },
+      { t: 'ul', items: [
+        'Review your board (assigned stories, bugs, retests)',
+        'Check new builds / deployments to test',
+        'Prepare for stand-up: progress, plan, blockers',
+      ] },
+      { t: 'h1', text: 'During the Day' },
+      { t: 'ul', items: [
+        'Test stories as they are completed (test little and often)',
+        'Log clear, reproducible defects',
+        'Retest fixed defects and update their status',
+        'Collaborate early on upcoming stories (questions/testability)',
+      ] },
+      { t: 'h1', text: 'End of Day' },
+      { t: 'ul', items: [
+        'Update statuses so the board reflects reality',
+        'Note anything blocked or at risk',
+        'Capture exploratory findings and new questions',
+      ] },
+      { t: 'h1', text: 'Common Mistakes' },
+      { t: 'ul', items: [
+        'Leaving all status updates to the end of the sprint.',
+        'Treating stand-up as a status report rather than surfacing blockers.',
+        'Not capturing exploratory findings while they are fresh.',
+      ] },
+      proTip('Keeping your board honest in real time builds trust fast — teams quickly rely on testers whose status you can believe.'),
+    ],
+  },
+
+  {
+    slug: 'release-readiness-checklist',
+    title: 'Release Readiness Checklist',
+    subtitle: 'Confirm a release is genuinely ready — quality, risk and sign-off.',
+    courseTitle: COURSE, category: 'Checklists',
+    blocks: [
+      { t: 'h1', text: 'Introduction' },
+      { t: 'p', text: 'Before a release ships, this checklist confirms the important things are done and the residual risk is understood and accepted. It supports a clear go/no-go decision.' },
+      { t: 'h1', text: 'Readiness Checklist' },
+      { t: 'ul', items: [
+        'All high-priority test cases executed',
+        'No open critical or blocking defects',
+        'Regression of impacted and critical areas passed',
+        'Smoke test passes on the release candidate',
+        'Key APIs validated',
+        'Cross-browser/device checks done where relevant',
+        'Known issues documented with severity/priority',
+        'Rollback / hotfix plan understood',
+        'Stakeholders informed of residual risk',
+        'Go/no-go decision recorded and signed off',
+      ] },
+      { t: 'h1', text: 'Real QA Example' },
+      { t: 'p', text: 'For a release you report: "All critical paths pass; two medium defects remain open, neither blocks release; rollback plan confirmed." With that, the business can make an informed go/no-go.' },
+      { t: 'h1', text: 'Best Practice Tips' },
+      { t: 'ul', items: [
+        'Lead with risk and impact, not raw test counts.',
+        'Make the residual risk explicit so the decision is informed.',
+        'Capture sign-off — it protects everyone.',
+      ] },
+      { t: 'h1', text: 'Common Mistakes' },
+      { t: 'ul', items: [
+        'Shipping with undocumented known issues.',
+        'No clear go/no-go owner or record.',
+        'Confusing "all tests run" with "ready to release".',
+      ] },
+      proTip('Your job at release is to inform the decision, not to make it alone. Present quality and risk clearly and let the business decide.'),
+    ],
+  },
+
+  {
+    slug: 'final-portfolio-project-workbook',
+    title: 'Final Portfolio Project Workbook',
+    subtitle: 'Turn your course work into a job-winning QA portfolio.',
+    courseTitle: COURSE, category: 'Career Resources',
+    blocks: [
+      { t: 'h1', text: 'Introduction' },
+      { t: 'p', text: 'This workbook guides you to assemble a complete, professional QA portfolio from the artefacts you build across the course. A strong portfolio is the single most effective way to prove you can do the job.' },
+      { t: 'h1', text: 'What to Include' },
+      { t: 'ul', items: [
+        'A test plan or strategy snapshot',
+        'A set of well-written test cases (using your techniques)',
+        'A professional bug report',
+        'A requirements traceability matrix (RTM)',
+        'An API testing collection (Postman)',
+        'An exploratory testing charter and session notes',
+        'A regression plan',
+        'A short "about me / QA focus" introduction',
+      ] },
+      { t: 'h1', text: 'Step-by-Step' },
+      { t: 'ol', items: [
+        'Gather your artefacts from each module.',
+        'Add a 2–3 line context note to each ("what this demonstrates").',
+        'Organise into a clear structure (GitHub repo, site, or folder) with a README/intro.',
+        'Link your CV and LinkedIn.',
+        'Publish it and practise a 60-second walkthrough of each piece.',
+      ] },
+      { t: 'h1', text: 'Self-Review Checklist' },
+      { t: 'ul', items: [
+        'Is there a clear introduction and structure?',
+        'Does each artefact have context explaining its value?',
+        'Is the work clear, professional and free of errors?',
+        'Are all links public and working?',
+        'Can you confidently talk through any piece?',
+      ] },
+      { t: 'h1', text: 'Common Mistakes' },
+      { t: 'ul', items: [
+        'Dumping artefacts with no explanation.',
+        'Quantity over quality.',
+        'A private repo or broken links a reviewer cannot open.',
+      ] },
+      proTip('Six strong, well-explained pieces beat twenty unexplained ones. Curate ruthlessly and be ready to talk through each in 60 seconds.'),
+    ],
+  },
+];
