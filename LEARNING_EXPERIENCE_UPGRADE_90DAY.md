@@ -70,9 +70,9 @@ module number + lesson number. Idempotent and re-runnable.
 - [x] **Module 7 — SQL for Testers** (6 lessons)
 - [x] **Module 8 — Automation Fundamentals** (6 lessons)
 - [x] **Module 9 — AI for Software Testing** (6 lessons)
-- [ ] Module 10 — Portfolio Building
-- [ ] Module 11 — CV & LinkedIn Mastery
-- [ ] Module 12 — Interview Mastery & Job Search
+- [x] **Module 10 — Portfolio Building** (5 lessons)
+- [x] **Module 11 — CV & LinkedIn Mastery** (5 lessons)
+- [x] **Module 12 — Interview Mastery & Job Search** (5 lessons)
 
 (Checkboxes updated as each batch ships.)
 
@@ -91,8 +91,13 @@ module number + lesson number. Idempotent and re-runnable.
 2. `supabase/seed-90day-module1-enhancements.sql`
 3. …subsequent `seed-90day-module<N>-enhancements.sql` files as they ship
 
+## One-paste option
+`supabase/seed-90day-all-enhancements.sql` concatenates the schema migration +
+all 12 module enhancement files in order — paste it once instead of running 13
+separate files. Idempotent.
+
 ## TODOs / manual review
 - Visual QA pass on the deployed site once the SQL is run (spot-check a
   teaching lesson, the assignment lesson, and a light lesson on mobile).
-- Roll the pattern out to Modules 2–12 (in progress).
-- Optionally extend the same enhancements to the other three courses later.
+- All 12 modules enhanced (73 lessons). ✅
+- Optionally extend the same enhancements pattern to the other three courses.
