@@ -20,6 +20,7 @@ import automationBatch2 from './content/automation-batch2.mjs';
 import automationBatch3 from './content/automation-batch3.mjs';
 import automationBatch4 from './content/automation-batch4.mjs';
 import briefs90day from './content/briefs-90day.mjs';
+import briefsAi from './content/briefs-ai.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -35,7 +36,7 @@ const ALL_JOBS = [
   {
     courseSlug: 'ai-for-qa-testers',
     courseTitle: 'AI for QA Testers',
-    resources: [...aiBatch1, ...aiBatch2, ...aiBatch3, ...aiBatch4],
+    resources: [...aiBatch1, ...aiBatch2, ...aiBatch3, ...aiBatch4, ...briefsAi],
   },
   {
     courseSlug: 'qa-interview-accelerator',
