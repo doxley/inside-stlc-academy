@@ -190,9 +190,9 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
           {(resources ?? []).length > 0 && <ResourceDownloads resources={resources as Resource[]} />}
           <div className="mt-3">
             <ResourceDownloadCard
-              title="Resource Library"
-              description="All templates, prompts, checklists and downloads for your courses"
-              href="/dashboard/resources"
+              title="Resource Vault"
+              description="Browse all templates, prompts, checklists and downloads for your courses"
+              href="/dashboard/vault"
             />
           </div>
         </Card>

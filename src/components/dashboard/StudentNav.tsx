@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, FileText, Library, FolderArchive, LifeBuoy, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, FileText, FolderArchive, LifeBuoy, LogOut, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
@@ -11,7 +11,6 @@ import { cn } from '@/lib/utils';
 const nav = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/vault', label: 'Resource Vault', icon: FolderArchive },
-  { href: '/dashboard/resources', label: 'Resource Library', icon: Library },
   { href: '/dashboard/assignments', label: 'Assignments', icon: FileText },
 ];
 
