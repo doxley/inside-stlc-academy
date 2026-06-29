@@ -69,14 +69,15 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
   // this module's course, if the assignment references one.
   const assignmentRow = assignment as Assignment | null;
   let assignmentTemplate: { label: string; pdfUrl: string; docxUrl: string } | null = null;
-  if (assignmentRow?.template_slug && courseRow?.slug) {
+  let assignmentBrief: { label: string; pdfUrl: string; docxUrl: string } | null = null;
+  if (assignmentRow && courseRow?.slug && (assignmentRow.template_slug || assignmentRow.brief_slug)) {
     const vaultItems = await loadVaultItems();
-    const match = vaultItems.find(
-      (it) => it.courseSlug === courseRow.slug && it.slug === assignmentRow.template_slug
-    );
-    if (match) {
-      assignmentTemplate = { label: match.title, pdfUrl: match.pdfUrl, docxUrl: match.docxUrl };
-    }
+    const find = (slug: string | null) =>
+      slug ? vaultItems.find((it) => it.courseSlug === courseRow.slug && it.slug === slug) : undefined;
+    const tMatch = find(assignmentRow.template_slug);
+    if (tMatch) assignmentTemplate = { label: tMatch.title, pdfUrl: tMatch.pdfUrl, docxUrl: tMatch.docxUrl };
+    const bMatch = find(assignmentRow.brief_slug);
+    if (bMatch) assignmentBrief = { label: bMatch.title, pdfUrl: bMatch.pdfUrl, docxUrl: bMatch.docxUrl };
   }
 
   // Fall back to legacy fields so existing modules still read well.
@@ -178,7 +179,7 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
                 {latestSubmission?.status === 'passed' && <Badge variant="green">Passed</Badge>}
               </div>
             </CardHeader>
-            <AssignmentSection assignment={assignment as Assignment} userId={user.id} courseId={courseId} latestSubmission={latestSubmission} allSubmissions={assignmentSubmissions as AssignmentSubmission[]} template={assignmentTemplate} />
+            <AssignmentSection assignment={assignment as Assignment} userId={user.id} courseId={courseId} latestSubmission={latestSubmission} allSubmissions={assignmentSubmissions as AssignmentSubmission[]} template={assignmentTemplate} brief={assignmentBrief} />
           </Card>
         )}
 

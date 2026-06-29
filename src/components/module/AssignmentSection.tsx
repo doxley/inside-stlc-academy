@@ -26,9 +26,10 @@ interface Props {
   latestSubmission: AssignmentSubmission | undefined;
   allSubmissions: AssignmentSubmission[];
   template: AssignmentTemplate | null;
+  brief: AssignmentTemplate | null;
 }
 
-export function AssignmentSection({ assignment, userId, courseId, latestSubmission, allSubmissions, template }: Props) {
+export function AssignmentSection({ assignment, userId, courseId, latestSubmission, allSubmissions, template, brief }: Props) {
   const isUrl = assignment.submission_type === 'url';
   const [file, setFile] = useState<File | null>(null);
   const [url, setUrl] = useState('');
@@ -153,6 +154,29 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
 
   return (
     <div className="space-y-4">
+      {/* Full assignment brief — the primary, module-specific document */}
+      {brief && (
+        <div className="p-4 rounded-lg border border-navy-900/15 bg-navy-900/[0.03]">
+          <div className="flex items-start gap-3">
+            <span className="w-10 h-10 rounded-lg bg-navy-900 flex items-center justify-center flex-shrink-0">
+              <FileText className="w-5 h-5 text-gold-500" />
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-navy-900 text-sm">Assignment brief</p>
+              <p className="text-xs text-gray-600 mt-0.5">Read the full brief — scenario, what to submit, step-by-step, and how your work is assessed.</p>
+              <div className="flex flex-wrap gap-2 mt-3">
+                <a href={brief.pdfUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg bg-navy-900 text-white hover:bg-navy-800 transition-colors">
+                  <FileText className="w-3.5 h-3.5" />Read brief (PDF)
+                </a>
+                <a href={brief.docxUrl} download className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors">
+                  <FileType className="w-3.5 h-3.5" />DOCX
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {assignment.instructions && (
         <div className="p-4 bg-gray-50 rounded-lg text-sm text-gray-700">
           {assignment.instructions}

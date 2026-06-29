@@ -15,6 +15,7 @@ export interface VaultItem {
 
 // Display order + emoji for the six Resource Vault categories.
 export const VAULT_CATEGORIES: { key: string; label: string; emoji: string }[] = [
+  { key: 'Assignment Briefs', label: 'Assignment Briefs', emoji: '📝' },
   { key: 'Templates', label: 'Templates', emoji: '📄' },
   { key: 'AI Prompt Packs', label: 'AI Prompt Packs', emoji: '🤖' },
   { key: 'Checklists', label: 'Checklists', emoji: '📋' },

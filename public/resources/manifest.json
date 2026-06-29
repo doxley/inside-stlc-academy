@@ -141,6 +141,90 @@
         "category": "Career Resources",
         "docx": "final-portfolio-project-workbook.docx",
         "pdf": "final-portfolio-project-workbook.pdf"
+      },
+      {
+        "slug": "90day-m1-assignment-brief",
+        "title": "Module 1 Assignment — Introduction to Software Testing",
+        "category": "Assignment Briefs",
+        "docx": "90day-m1-assignment-brief.docx",
+        "pdf": "90day-m1-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m2-assignment-brief",
+        "title": "Module 2 Assignment — Test Design Techniques",
+        "category": "Assignment Briefs",
+        "docx": "90day-m2-assignment-brief.docx",
+        "pdf": "90day-m2-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m3-assignment-brief",
+        "title": "Module 3 Assignment — Defect Management",
+        "category": "Assignment Briefs",
+        "docx": "90day-m3-assignment-brief.docx",
+        "pdf": "90day-m3-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m4-assignment-brief",
+        "title": "Module 4 Assignment — Agile & Scrum for Testers",
+        "category": "Assignment Briefs",
+        "docx": "90day-m4-assignment-brief.docx",
+        "pdf": "90day-m4-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m5-assignment-brief",
+        "title": "Module 5 Assignment — Jira & Test Management",
+        "category": "Assignment Briefs",
+        "docx": "90day-m5-assignment-brief.docx",
+        "pdf": "90day-m5-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m6-assignment-brief",
+        "title": "Module 6 Assignment — API Testing with Postman",
+        "category": "Assignment Briefs",
+        "docx": "90day-m6-assignment-brief.docx",
+        "pdf": "90day-m6-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m7-assignment-brief",
+        "title": "Module 7 Assignment — SQL for Testers",
+        "category": "Assignment Briefs",
+        "docx": "90day-m7-assignment-brief.docx",
+        "pdf": "90day-m7-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m8-assignment-brief",
+        "title": "Module 8 Assignment — Automation Fundamentals",
+        "category": "Assignment Briefs",
+        "docx": "90day-m8-assignment-brief.docx",
+        "pdf": "90day-m8-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m9-assignment-brief",
+        "title": "Module 9 Assignment — AI for Software Testing",
+        "category": "Assignment Briefs",
+        "docx": "90day-m9-assignment-brief.docx",
+        "pdf": "90day-m9-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m10-assignment-brief",
+        "title": "Module 10 Assignment — Portfolio Building",
+        "category": "Assignment Briefs",
+        "docx": "90day-m10-assignment-brief.docx",
+        "pdf": "90day-m10-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m11-assignment-brief",
+        "title": "Module 11 Assignment — CV & LinkedIn Mastery",
+        "category": "Assignment Briefs",
+        "docx": "90day-m11-assignment-brief.docx",
+        "pdf": "90day-m11-assignment-brief.pdf"
+      },
+      {
+        "slug": "90day-m12-assignment-brief",
+        "title": "Module 12 Assignment — Interview Mastery & Job Search",
+        "category": "Assignment Briefs",
+        "docx": "90day-m12-assignment-brief.docx",
+        "pdf": "90day-m12-assignment-brief.pdf"
       }
     ]
   },
