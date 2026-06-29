@@ -408,6 +408,48 @@
         "category": "Automation Resources",
         "docx": "test-structure-naming-guide.docx",
         "pdf": "test-structure-naming-guide.pdf"
+      },
+      {
+        "slug": "playwright-config-reference",
+        "title": "Playwright Config Reference",
+        "category": "Automation Resources",
+        "docx": "playwright-config-reference.docx",
+        "pdf": "playwright-config-reference.pdf"
+      },
+      {
+        "slug": "auto-waiting-guide",
+        "title": "Auto-Waiting & Handling Async Guide",
+        "category": "Automation Resources",
+        "docx": "auto-waiting-guide.docx",
+        "pdf": "auto-waiting-guide.pdf"
+      },
+      {
+        "slug": "api-testing-with-playwright-template",
+        "title": "API Testing with Playwright Template",
+        "category": "Templates",
+        "docx": "api-testing-with-playwright-template.docx",
+        "pdf": "api-testing-with-playwright-template.pdf"
+      },
+      {
+        "slug": "visual-screenshot-testing-guide",
+        "title": "Visual & Screenshot Testing Guide",
+        "category": "Automation Resources",
+        "docx": "visual-screenshot-testing-guide.docx",
+        "pdf": "visual-screenshot-testing-guide.pdf"
+      },
+      {
+        "slug": "test-data-management-template",
+        "title": "Test Data Management Template",
+        "category": "Templates",
+        "docx": "test-data-management-template.docx",
+        "pdf": "test-data-management-template.pdf"
+      },
+      {
+        "slug": "fixtures-and-hooks-guide",
+        "title": "Fixtures & Hooks Guide",
+        "category": "Automation Resources",
+        "docx": "fixtures-and-hooks-guide.docx",
+        "pdf": "fixtures-and-hooks-guide.pdf"
       }
     ]
   }
