@@ -195,6 +195,34 @@
         "category": "Checklists",
         "docx": "ai-test-case-review-checklist.docx",
         "pdf": "ai-test-case-review-checklist.pdf"
+      },
+      {
+        "slug": "ai-bug-report-review-guide",
+        "title": "AI Bug Report Review Guide",
+        "category": "Templates",
+        "docx": "ai-bug-report-review-guide.docx",
+        "pdf": "ai-bug-report-review-guide.pdf"
+      },
+      {
+        "slug": "ai-regression-planning-template",
+        "title": "AI Regression Planning Template",
+        "category": "Templates",
+        "docx": "ai-regression-planning-template.docx",
+        "pdf": "ai-regression-planning-template.pdf"
+      },
+      {
+        "slug": "ai-exploratory-testing-workbook",
+        "title": "AI Exploratory Testing Workbook",
+        "category": "Templates",
+        "docx": "ai-exploratory-testing-workbook.docx",
+        "pdf": "ai-exploratory-testing-workbook.pdf"
+      },
+      {
+        "slug": "ai-requirement-review-workbook",
+        "title": "AI Requirement Review Workbook",
+        "category": "Templates",
+        "docx": "ai-requirement-review-workbook.docx",
+        "pdf": "ai-requirement-review-workbook.pdf"
       }
     ]
   }
