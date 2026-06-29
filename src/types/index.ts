@@ -67,6 +67,58 @@ export interface Module {
 
 export type LessonStatus = 'draft' | 'published';
 
+// ── Premium lesson enhancements (stored in lessons.enhancements JSONB) ──
+
+/** A clean CSS/HTML visual diagram rendered by VisualLearningBlock. */
+export interface LessonVisualAid {
+  type: 'flow' | 'timeline' | 'comparison' | 'matrix' | 'tree';
+  title: string;
+  caption?: string;
+  // flow / timeline
+  steps?: { label: string; detail?: string }[];
+  // comparison table
+  headers?: string[];
+  rows?: string[][];
+  // risk / decision matrix
+  colLabels?: string[];
+  rowLabels?: string[];
+  cells?: { label: string; level?: 'low' | 'medium' | 'high' | 'critical' }[][];
+  // decision tree
+  branches?: { condition: string; outcome: string }[];
+}
+
+export interface LessonBadGood {
+  label: string;      // e.g. "Bug report"
+  bad: string;
+  good: string;
+}
+
+export interface LessonManagersReview {
+  intro?: string;     // e.g. "If I received this as a QA Lead, I would look for…"
+  strengths?: string[];
+  gaps?: string[];
+  improvements?: string[];
+}
+
+export interface LessonResourcePreview {
+  name: string;
+  purpose: string;    // what it is used for
+  whenToUse: string;
+  formats?: string[]; // e.g. ["DOCX", "PDF"]
+}
+
+export interface LessonEnhancements {
+  industryStory?: string;
+  visualAid?: LessonVisualAid;
+  badGood?: LessonBadGood;
+  davidTip?: string;          // David's Industry Tip (coaching voice)
+  miniChallenge?: string;
+  modelAnswer?: string;
+  managersReview?: LessonManagersReview;
+  portfolioBuilder?: string;
+  resourcePreview?: LessonResourcePreview;
+}
+
 export interface Lesson {
   id: string;
   module_id: string;
@@ -84,6 +136,7 @@ export interface Lesson {
   reflection_question: string | null;
   knowledge_check: string | null;
   video_url: string | null;
+  enhancements: LessonEnhancements | null;
   status: LessonStatus;
   created_at: string;
   updated_at: string;
