@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createClient as createServiceClient } from '@supabase/supabase-js';
+import { getSiteUrl } from '@/lib/stripe';
 
 export async function POST(req: Request) {
   const supabase = await createClient();
@@ -32,6 +33,7 @@ export async function POST(req: Request) {
 
   const { data: inviteData, error: inviteError } = await adminClient.auth.admin.inviteUserByEmail(email, {
     data: { first_name: firstName, last_name: lastName, role: 'student' },
+    redirectTo: `${getSiteUrl()}/update-password`,
   });
 
   if (inviteError) {

@@ -60,6 +60,33 @@ to the apex domain if you don't use `www`).
 > The **Invite** template matters most: new guest buyers are invited via
 > Supabase `inviteUserByEmail` after checkout, so that's the first email they see.
 
+## 3a. Fix the "localhost" links (Site URL + Redirect URLs)
+
+If confirmation / reset / invite emails link back to `http://localhost:3000`,
+it's because Supabase builds those links from its **Site URL**, which defaults
+to localhost. Fix it once in the dashboard:
+
+**Supabase → Authentication → URL Configuration:**
+- **Site URL:** `https://www.insidestlcacademy.com` (your canonical app domain)
+- **Redirect URLs** (allow-list — add each line):
+  - `https://www.insidestlcacademy.com/**`
+  - `http://localhost:3000/**` (optional, for local dev)
+
+Also set this in **Vercel** (Project → Settings → Environment Variables) so the
+app builds links to the right place even if Site URL is ever wrong:
+- `NEXT_PUBLIC_SITE_URL=https://www.insidestlcacademy.com`
+
+> The code now passes an explicit `emailRedirectTo` / `redirectTo` on signup,
+> password reset and invites, all pointing at `NEXT_PUBLIC_SITE_URL` (falling
+> back to the live origin). Confirm/reset links route through `/auth/callback`
+> (which exchanges the code for a session) and invites land on `/update-password`.
+> Those targets **must** be covered by the Redirect URLs allow-list above, or
+> Supabase will reject them.
+
+> **Note:** the email in the screenshot ("powered by Supabase") is the *default*
+> template — it means the branded templates in §3 have not been pasted into the
+> dashboard yet. Paste them and the branding appears.
+
 ## 4. Sender / recipient summary
 
 - **From (all outbound):** `noreply@insidestlcacademy.com`
