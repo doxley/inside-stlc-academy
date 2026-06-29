@@ -1,0 +1,88 @@
+// QA Interview Accelerator — Assignment Briefs (one per module).
+import { makeBrief } from './briefs-lib.mjs';
+
+const COURSE = 'QA Interview Accelerator';
+const b = (n, moduleTitle, spec) => makeBrief({ courseSlug: 'qa-interview-accelerator', courseTitle: COURSE, moduleNumber: n, moduleTitle, slug: `qa-m${n}-assignment-brief`, ...spec });
+
+export default [
+  b(1, 'Understanding the QA Interview Process', {
+    scenario: 'You are about to start applying for QA roles. Before practising answers, you need a clear picture of the whole interview process and a concrete plan to prepare for each stage.',
+    objectives: ['Map the stages of a QA interview', 'Know what is assessed at each stage', 'Build a realistic preparation plan'],
+    deliverables: ['A map of a typical QA interview process', 'A one-week prep plan with a focus per stage', 'Your own pre-interview checklist'],
+    steps: ['List the stages you expect (screen, technical, behavioural, test task, final)', 'Note what is assessed at each', 'Draft a one-week prep plan', 'Build a pre-interview checklist from the Interview Day Checklist'],
+    format: 'Submit as a PDF or DOCX.',
+    assessment: ['Awareness of all interview stages', 'A realistic, spread-out prep plan', 'Use of your portfolio as evidence'],
+    resources: ['Interview Day Checklist'],
+    proTip: 'Always prepare two thoughtful questions to ask them — candidates who do are the ones interviewers remember.',
+  }),
+  b(2, 'Your QA Career Story', {
+    scenario: 'The opening "tell me about yourself" sets the tone for the whole interview. You need a crisp, confident pitch and a clear way to position your experience.',
+    objectives: ['Deliver a structured 60–90s pitch', 'Position your experience around evidence', 'Frame transferable skills as QA value'],
+    deliverables: ['Your "tell me about yourself" pitch (Present→Past→Future)', 'A note on what you improved after recording yourself'],
+    steps: ['Draft your pitch using Present→Past→Future', 'Lead with concrete things you have built', 'Record yourself and time it under 90 seconds', 'Trim and refine'],
+    format: 'Submit as a PDF or DOCX (the written pitch plus your reflection).',
+    assessment: ['A structured, concise pitch', 'Concrete evidence (portfolio/artefacts)', 'Transferable skills framed as QA value'],
+    resources: ['"Tell Me About Yourself" — Elevator Pitch Template'],
+    proTip: 'The interviewer decides how the conversation feels in your first 60 seconds — a calm, structured pitch buys goodwill for everything after.',
+  }),
+  b(3, 'Core Software Testing Questions', {
+    scenario: 'The technical round will probe your fundamentals. You need crisp, example-backed answers to the questions QA candidates are asked most.',
+    objectives: ['Answer fundamentals in your own words', 'Use the define-then-example structure', 'Structure "how would you test X" answers'],
+    deliverables: ['Answers to 10 core testing questions in your own words', 'At least one example per answer'],
+    steps: ['Pick 10 core questions from the bank', 'Answer each in your own words with an example', 'For "how would you test X", use a clear structure (positive/negative/edge/non-functional)', 'Practise each out loud under 30 seconds'],
+    format: 'Submit as a PDF or DOCX.',
+    assessment: ['Crisp definitions in your own words', 'An example with each answer', 'Structured "how would you test X" answers', 'No confusion of severity/priority or regression/retest'],
+    resources: ['QA Interview Question Bank', 'Defect Severity vs Priority Guide'],
+    proTip: 'For any "difference between" question, define both terms in one line each, then give a quick example — it instantly sounds confident and clear.',
+  }),
+  b(4, 'Agile, Scrum and Team-Based Questions', {
+    scenario: 'Modern teams want testers who engage early and collaborate. You need answers that show continuous involvement and the ability to critique acceptance criteria.',
+    objectives: ['Answer Agile/Scrum questions well', 'Critique and improve acceptance criteria', 'Show collaborative, mature communication'],
+    deliverables: ['Answers to 5 Agile/team questions', 'One short STAR story about working in a team', 'A weak acceptance criterion rewritten as testable ones'],
+    steps: ['Prepare answers to common Agile/Scrum questions', 'Write a STAR story about collaboration', 'Take a vague criterion and rewrite it as testable criteria', 'Be ready to explain why the original was weak'],
+    format: 'Submit as a PDF or DOCX.',
+    assessment: ['Continuous, early involvement described', 'Ability to critique acceptance criteria', 'Mature, positive collaboration stories'],
+    resources: ['Technical QA Interview Cheat Sheet', 'Behavioural Interview Prep Workbook'],
+    proTip: '"I like to get involved at refinement to prevent defects early" signals modern, senior-minded agile QA in any interview.',
+  }),
+  b(5, 'Scenario-Based QA Questions', {
+    scenario: 'Interviewers use scenarios ("a critical bug reaches production…") to test how you think. You need a calm, structured approach and honest, mature examples.',
+    objectives: ['Structure scenario answers', 'Own mistakes with a learning mindset', 'Prioritise by risk and communicate clearly'],
+    deliverables: ['STAR answers for four scenario/behavioural questions (a defect you are proud of, a conflict, working under pressure, a mistake you learned from)'],
+    steps: ['Pick four scenario/behavioural questions', 'Draft a STAR answer for each', 'End each on a constructive outcome or lesson', 'Practise out loud, staying calm and concise'],
+    format: 'Submit as a PDF or DOCX.',
+    assessment: ['Calm, structured reasoning', 'Honest ownership of mistakes', 'Risk-based prioritisation and clear communication'],
+    resources: ['Behavioural Interview Prep Workbook', 'QA Interview Question Bank'],
+    proTip: 'Never claim you have never missed a bug — own a real example and what you changed; that maturity is exactly what interviewers want.',
+  }),
+  b(6, 'Test Task Preparation', {
+    scenario: 'Many QA interviews include a live test task. You need a structured approach that shows your thinking, applies techniques, and documents clear results under time pressure.',
+    objectives: ['Approach a test task methodically', 'Write prioritised test cases under time pressure', 'Raise clear defects and state assumptions'],
+    deliverables: ['A completed practice test task: prioritised test cases for a feature, plus a short bug report', 'A note of your score from a mock run and one area to improve'],
+    steps: ['Take a sample feature and a time-box', 'Clarify scope, then apply techniques (partitions, boundaries, negative)', 'Write prioritised, concise test cases and one clear bug report', 'State your assumptions explicitly'],
+    format: 'Submit as a PDF or DOCX.',
+    assessment: ['A clear, narrated approach', 'Prioritised, concise output', 'Reproducible defects with stated assumptions'],
+    resources: ['Mock Interview Practice Pack'],
+    proTip: 'Your approach is assessed as much as your findings — a structured tester who finds five real issues beats a random clicker who finds six.',
+  }),
+  b(7, 'CV, LinkedIn and Job Applications', {
+    scenario: 'You are ready to apply. Your CV and LinkedIn need to get you found and make a strong first impression, and your applications need to be tailored and tracked.',
+    objectives: ['Write an achievement-led QA CV', 'Optimise LinkedIn for recruiter searches', 'Tailor and track applications'],
+    deliverables: ['Your updated QA CV', 'Your LinkedIn headline and About text', '10 target job titles and your portfolio link', 'An application tracker set up'],
+    steps: ['Write a sharp CV summary and achievement bullets', 'Optimise your LinkedIn headline and About with keywords', 'List 10 target roles and link your portfolio', 'Set up a simple application tracker'],
+    format: 'Submit as a PDF or DOCX (CV) plus your LinkedIn text and target list.',
+    assessment: ['Sharp summary and skills up top', 'Achievement bullets with outcomes', 'Portfolio linked; consistent CV/LinkedIn', 'Proofread — no typos'],
+    resources: ['QA CV / Résumé Template', 'LinkedIn Profile Optimisation Guide for Testers', 'Job Search Tracker Template'],
+    proTip: 'A reviewer scans the top third first — put your strongest, most relevant content there, and proofread relentlessly.',
+  }),
+  b(8, 'Final Interview Readiness Pack', {
+    scenario: 'This is your graduation submission: a complete readiness pack that proves you can present yourself and perform across a full interview.',
+    objectives: ['Build a versatile STAR bank', 'Prepare questions to ask and a 30-60-90 plan', 'Run an organised job search'],
+    deliverables: ['5 STAR answers', 'Your elevator pitch', 'A 30-60-90 day plan for a target role', 'A record of five job applications', 'Two questions to ask employers'],
+    steps: ['Build 5–6 reusable STAR stories', 'Finalise your pitch and fundamentals notes', 'Write a 30-60-90 day plan', 'Track five applications and prepare two questions to ask'],
+    format: 'Submit as a PDF or DOCX — your complete readiness pack.',
+    assessment: ['A versatile STAR bank', 'A clear pitch and fundamentals', 'A 30-60-90 plan and thoughtful questions', 'An organised, tracked job search'],
+    resources: ['STAR Answer Framework Workbook', '30-60-90 Day Plan Template', 'Interview Confidence & Nerves Guide'],
+    proTip: 'Prepare 5–6 strong STAR stories you can adapt to almost any behavioural question — versatile examples beat a long list of half-prepared ones.',
+  }),
+];
