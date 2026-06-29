@@ -1,0 +1,123 @@
+// Module 3 — Defect Management. Premium lesson enhancements.
+export default {
+  courseSlug: '90-day-software-testing-career-roadmap',
+  moduleNumber: 3,
+  lessons: [
+    {
+      lessonNumber: 1,
+      enhancements: {
+        industryStory: `A tester found a serious bug, messaged it in a chat channel, and moved on. It scrolled away, nobody logged it, and it shipped. The lesson: a defect that is not tracked through a clear lifecycle effectively does not exist. Process is what turns "I found a bug" into "the bug got fixed".`,
+        visualAid: {
+          type: 'flow', title: 'The defect lifecycle',
+          steps: [
+            { label: 'New' }, { label: 'Assigned' }, { label: 'Open / In progress' },
+            { label: 'Fixed' }, { label: 'Retest' }, { label: 'Closed' },
+          ],
+          caption: 'Plus Reopened / Deferred / Rejected where applicable.',
+        },
+        davidTip: `Know the lifecycle and keep statuses honest in real time. As a QA lead, the testers I trust most are the ones whose board always reflects reality — I can look at it and know exactly where every defect stands without asking.`,
+        miniChallenge: `Write the lifecycle a defect would follow from the moment you find it to closure, naming who acts at each stage.`,
+        modelAnswer: `## Example\nNew (tester logs it) → Assigned (lead/dev picks it up) → In progress (dev fixes) → Fixed (dev marks ready) → Retest (tester verifies) → Closed (tester confirms). If it fails retest: Reopened → back to In progress.`,
+      },
+    },
+    {
+      lessonNumber: 2,
+      enhancements: {
+        industryStory: `A developer spent half a day unable to reproduce a "login broken" bug because the report had no steps, no environment and no evidence. A two-minute, well-written report would have saved that half-day. Bug reports are how testers turn observations into fast fixes.`,
+        badGood: {
+          label: 'a bug report',
+          bad: `Title: Login broken\nDescription: It doesn't work, please fix.`,
+          good: `Title: Login: valid users on Safari get "server error" after submitting\nEnvironment: Safari 17, build 4.2.1, staging\nSteps: 1) Go to /login 2) Enter valid credentials 3) Click Sign in\nExpected: Lands on dashboard\nActual: "500 server error" page\nEvidence: screenshot + console log attached\nSeverity: High · Priority: High`,
+        },
+        davidTip: `Write the report for the person fixing it. A clear title, minimal reproducible steps, expected vs actual, environment and evidence — that is the difference between a fix today and a "cannot reproduce" tomorrow. Clarity is a professional courtesy that gets your bugs fixed faster.`,
+        miniChallenge: `Find any real issue (or imagine one) and write a full bug report: title, environment, steps, expected, actual, evidence note, severity and priority.`,
+        modelAnswer: `## Example\nTitle: Checkout: SAVE10 code charges full price on mobile Safari\nEnvironment: iPhone Safari, build 5.1, prod-like\nSteps: 1) Add item 2) Apply SAVE10 3) Pay\nExpected: 10% discount applied\nActual: Full price charged; no discount shown\nEvidence: screen recording attached\nSeverity: High · Priority: High`,
+        managersReview: {
+          intro: 'If I received this bug report as a QA lead, I would check:',
+          strengths: ['Specific, scannable title', 'Minimal reproducible steps', 'Expected vs actual stated separately', 'Evidence attached'],
+          gaps: ['Vague title ("broken")', 'No environment or build', 'No evidence; emotional language'],
+          improvements: ['Lead the title with where + what', 'Always capture build/browser', 'Attach a screenshot or recording'],
+        },
+        resourcePreview: {
+          name: 'Bug Report Template', purpose: 'A professional bug-report structure that gets defects fixed faster.',
+          whenToUse: 'Use it for every defect you log — and for your portfolio bug-report pack.', formats: ['DOCX', 'PDF'],
+        },
+        portfolioBuilder: `A professional bug report is a key portfolio artefact. Save your best one — it is concrete proof you can communicate defects clearly, which every hiring manager values.`,
+      },
+    },
+    {
+      lessonNumber: 3,
+      enhancements: {
+        industryStory: `A tester marked a cosmetic typo as "Critical" and a payment failure as "Medium". The team lost trust in their judgement. Severity and priority are different lenses, and using them well is what makes your reports actionable.`,
+        visualAid: {
+          type: 'matrix', title: 'Severity × Priority',
+          colLabels: ['Low priority', 'High priority'],
+          rowLabels: ['High severity', 'Low severity'],
+          cells: [
+            [{ label: 'Rare crash in edge case', level: 'high' }, { label: 'Payment fails — fix now', level: 'critical' }],
+            [{ label: 'Minor typo on hidden page', level: 'low' }, { label: 'Typo on homepage hero', level: 'medium' }],
+          ],
+          caption: 'Severity = technical impact. Priority = business urgency. They are independent.',
+        },
+        davidTip: `Severity is how badly it breaks; priority is how soon the business needs it fixed. A homepage typo can be low severity but high priority. Keeping them separate — and justifying both by impact — is what makes your triage credible.`,
+        miniChallenge: `For three bugs (a homepage logo typo, a checkout crash, a rare error in an admin-only report), assign severity and priority and justify each in one line.`,
+        modelAnswer: `## Example\n- Homepage logo typo: Severity Low, Priority High (visible to all, cheap to fix, reputational)\n- Checkout crash: Severity High, Priority High (blocks revenue)\n- Rare admin report error: Severity Medium, Priority Low (few users, workaround exists)`,
+        resourcePreview: {
+          name: 'Defect Severity vs Priority Guide', purpose: 'A reference for classifying defects consistently.',
+          whenToUse: 'Use it when triaging so your severity/priority calls are defensible.', formats: ['PDF', 'DOCX'],
+        },
+      },
+    },
+    {
+      lessonNumber: 4,
+      enhancements: {
+        industryStory: `An intermittent bug appeared "randomly" until a tester isolated it: it only happened for users in a different timezone, after midnight UTC. Reproducing and isolating defects is detective work — and it is what turns a vague report into a fixable one.`,
+        visualAid: {
+          type: 'flow', title: 'Isolating a defect',
+          steps: [
+            { label: 'Reproduce', detail: 'find reliable steps' },
+            { label: 'Narrow', detail: 'change one variable at a time' },
+            { label: 'Identify trigger', detail: 'data? user? environment?' },
+            { label: 'Document', detail: 'exact conditions' },
+          ],
+        },
+        davidTip: `When something is "intermittent", it usually is not random — there is a variable you have not pinned down yet. Change one thing at a time (browser, data, account, timing) until it becomes reliable. A reproducible bug is a fixable bug.`,
+        miniChallenge: `Describe how you would isolate a bug that "sometimes" happens on checkout. List four variables you would test one at a time.`,
+        modelAnswer: `## Example\nVariables to isolate: payment method (card vs PayPal), browser (Chrome vs Safari), cart contents (single vs multiple items), account type (guest vs logged-in). Hold everything constant, change one, and watch when the bug appears — that exposes the trigger.`,
+      },
+    },
+    {
+      lessonNumber: 5,
+      enhancements: {
+        industryStory: `A team's backlog had 300 open defects and no order to them. Triage meetings turned chaotic. A simple, regular triage process — review, prioritise, assign, track — is what keeps defect management from collapsing under its own weight.`,
+        visualAid: {
+          type: 'comparison', title: 'A simple triage flow',
+          headers: ['Step', 'Question', 'Outcome'],
+          rows: [
+            ['Review', 'Is it valid and clear?', 'Accept / send back'],
+            ['Prioritise', 'How urgent vs severe?', 'Set severity & priority'],
+            ['Assign', 'Who owns the fix?', 'Assign to a dev'],
+            ['Track', 'Is it progressing?', 'Update status; retest when fixed'],
+          ],
+        },
+        davidTip: `Good triage is less about tooling and more about rhythm. A short, regular triage where every new defect is reviewed, prioritised and assigned keeps the backlog honest. As a QA lead, I would rather have a small triaged backlog than a huge untriaged one.`,
+        miniChallenge: `Sketch how you would run a 15-minute defect triage: what you would review, in what order, and what each defect should leave the meeting with.`,
+        modelAnswer: `## Example\nOrder by severity. For each new defect: confirm it is valid and reproducible, set severity and priority, assign an owner, and agree whether it blocks the release. Every defect leaves with an owner, a priority and a clear status.`,
+      },
+    },
+    {
+      lessonNumber: 6,
+      enhancements: {
+        davidTip: `For this assignment, quality beats quantity. Ten clear, well-classified bug reports demonstrate more skill than thirty vague ones. Treat each report as something a developer could act on immediately.`,
+        miniChallenge: `Before submitting, run each of your bug reports through one question: "Could a developer reproduce and fix this without asking me anything?" Fix any that fail.`,
+        managersReview: {
+          intro: 'If I received your defect pack as a QA lead, I would look for:',
+          strengths: ['Reproducible steps and clear titles', 'Sensible, justified severity/priority', 'Evidence attached'],
+          gaps: ['Vague or emotional descriptions', 'Missing environment/steps', 'Severity and priority confused'],
+          improvements: ['Make every report independently reproducible', 'Justify severity and priority by impact', 'Attach evidence for each'],
+        },
+        portfolioBuilder: `This defect pack joins your test case pack as core portfolio evidence. Together they show you can both design coverage and communicate what you find — the two halves of practical QA.`,
+      },
+    },
+  ],
+};
