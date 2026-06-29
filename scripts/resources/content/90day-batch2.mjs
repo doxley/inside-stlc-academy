@@ -1,0 +1,221 @@
+// 90-Day Roadmap — Resource Pack, batch 2.
+const COURSE = '90-Day Software Testing Career Roadmap';
+const proTip = (text) => ({ t: 'callout', variant: 'pro', title: 'Inside STLC Pro Tip', text });
+
+export default [
+  {
+    slug: 'test-strategy-template',
+    title: 'Test Strategy Template',
+    subtitle: 'The high-level approach to quality across a project or product.',
+    courseTitle: COURSE, category: 'Templates',
+    blocks: [
+      { t: 'h1', text: 'Introduction' },
+      { t: 'p', text: 'A test strategy is the high-level, longer-lived approach to quality — the principles, levels, and responsibilities that individual test plans then apply. Where a test plan is per release, a strategy guides many releases.' },
+      { t: 'h1', text: 'Instructions' },
+      { t: 'ul', items: [
+        'Describe the overall testing philosophy and quality goals.',
+        'Define the test levels and types you will use and when.',
+        'Set out roles, environments, tooling and automation approach.',
+        'Define how risk, defects and metrics are managed.',
+      ] },
+      { t: 'h1', text: 'Real QA Example (extract)' },
+      { t: 'table', headers: ['Area', 'Strategy'], rows: [
+        ['Philosophy', 'Risk-based, shift-left, whole-team quality'],
+        ['Test levels', 'Unit (dev), API/integration, system, UAT'],
+        ['Automation', 'Automate stable regression at API and key UI journeys'],
+        ['Environments', 'Dev, Test, Staging, Production'],
+        ['Metrics', 'Coverage of critical paths, escaped defects, defect trend'],
+      ] },
+      { t: 'h1', text: 'Blank Reusable Template' },
+      { t: 'ul', items: [
+        '1. Quality goals & testing philosophy', '2. Scope across the product', '3. Test levels & types',
+        '4. Automation approach', '5. Environments & data', '6. Risk management', '7. Defect management',
+        '8. Roles & responsibilities', '9. Tooling', '10. Metrics & reporting',
+      ] },
+      { t: 'h1', text: 'Best Practice Tips' },
+      { t: 'ul', items: [
+        'Keep the strategy stable; let test plans handle release specifics.',
+        'Tie everything back to risk and business value.',
+        'Make automation scope explicit to avoid "automate everything" drift.',
+      ] },
+      { t: 'h1', text: 'Common Mistakes' },
+      { t: 'ul', items: [
+        'Confusing strategy (long-lived) with a plan (per release).',
+        'A strategy document nobody references.',
+        'No clear automation or metrics approach.',
+      ] },
+      proTip('A crisp one-page strategy beats a 40-page document nobody reads. Lead with principles and risk, not process for its own sake.'),
+    ],
+  },
+
+  {
+    slug: 'requirements-traceability-matrix',
+    title: 'Requirements Traceability Matrix (RTM)',
+    subtitle: 'Map requirements to tests to defects so you can prove coverage and assess impact.',
+    courseTitle: COURSE, category: 'Templates',
+    blocks: [
+      { t: 'h1', text: 'Introduction' },
+      { t: 'p', text: 'An RTM links each requirement to the test cases that cover it and the defects raised against it. It answers two crucial questions: what is not covered, and if this requirement changes, what must we re-test?' },
+      { t: 'h1', text: 'Instructions' },
+      { t: 'ul', items: [
+        'List each requirement / acceptance criterion.',
+        'Map the test case IDs that verify it.',
+        'Record the latest result and any linked defects.',
+        'Scan for requirements with no tests — those are coverage gaps.',
+      ] },
+      { t: 'h1', text: 'Real QA Example' },
+      { t: 'table', headers: ['Req ID', 'Requirement', 'Test Cases', 'Result', 'Defects'], rows: [
+        ['REQ-1', 'User can log in with valid credentials', 'TC-LOGIN-001', 'Pass', '-'],
+        ['REQ-2', 'Login blocked after 3 failed attempts', 'TC-LOGIN-005, 006', 'Fail', 'BUG-22'],
+        ['REQ-3', 'Password reset link expires in 60 min', '(none)', '-', '- (gap!)'],
+      ] },
+      { t: 'h1', text: 'Blank Reusable Template' },
+      { t: 'table', headers: ['Req ID', 'Requirement', 'Test Cases', 'Result', 'Defects'], rows: [
+        ['', '', '', 'Pass/Fail', ''], ['', '', '', '', ''], ['', '', '', '', ''],
+      ] },
+      { t: 'h1', text: 'Best Practice Tips' },
+      { t: 'ul', items: [
+        'Use it as a live coverage tool, not end-of-project paperwork.',
+        'A requirement with no linked test is a red flag — address it.',
+        'When a requirement changes, the RTM tells you exactly what to re-run.',
+      ] },
+      { t: 'h1', text: 'Common Mistakes' },
+      { t: 'ul', items: [
+        'Filling it in once and never updating it.',
+        'Linking tests to requirements but never to the defects found.',
+        'Treating it as bureaucracy rather than a coverage/impact tool.',
+      ] },
+      proTip('An RTM is a brilliant interview talking point — it shows you think about coverage and change impact, not just running tests.'),
+    ],
+  },
+
+  {
+    slug: 'smoke-testing-checklist',
+    title: 'Smoke Testing Checklist',
+    subtitle: 'A fast confidence check that a build is stable enough to test further.',
+    courseTitle: COURSE, category: 'Checklists',
+    blocks: [
+      { t: 'h1', text: 'Introduction' },
+      { t: 'p', text: 'Smoke testing is a quick check of the most critical paths to confirm a new build is stable enough to justify deeper testing. If smoke fails, you stop and send the build back rather than wasting time.' },
+      { t: 'h1', text: 'Instructions' },
+      { t: 'ul', items: [
+        'Run on every new build before detailed testing.',
+        'Cover only the most critical, must-work paths.',
+        'Keep it fast — minutes, not hours.',
+        'If it fails, reject the build and report immediately.',
+      ] },
+      { t: 'h1', text: 'Real QA Example' },
+      { t: 'p', text: 'For an e-commerce site, a smoke test confirms: the site loads, a user can log in, search returns results, an item can be added to the cart, and checkout opens. If any fail, the build is not ready for full testing.' },
+      { t: 'h1', text: 'Smoke Checklist' },
+      { t: 'ul', items: [
+        'Application loads without errors',
+        'User can log in and log out',
+        'Primary navigation works',
+        'Core create/read action works (e.g. search, view item)',
+        'Key transaction starts (e.g. add to cart / begin checkout)',
+        'No blocking console/server errors',
+        'Result recorded; build accepted or rejected',
+      ] },
+      { t: 'h1', text: 'Best Practice Tips' },
+      { t: 'ul', items: [
+        'Automate the smoke suite so it runs on every deploy.',
+        'Keep it short and stable — it is a gate, not full coverage.',
+        'Agree what "must pass" means with the team.',
+      ] },
+      { t: 'h1', text: 'Common Mistakes' },
+      { t: 'ul', items: [
+        'Turning smoke testing into a full regression pass.',
+        'Skipping it and discovering the build is broken hours later.',
+        'No clear accept/reject decision at the end.',
+      ] },
+      proTip('Smoke first, deep testing second. Catching a dead build in five minutes saves a wasted afternoon.'),
+    ],
+  },
+
+  {
+    slug: 'uat-checklist',
+    title: 'UAT Checklist',
+    subtitle: 'Help users confirm the product meets their real-world needs before release.',
+    courseTitle: COURSE, category: 'Checklists',
+    blocks: [
+      { t: 'h1', text: 'Introduction' },
+      { t: 'p', text: 'User Acceptance Testing (UAT) is where real users (or their representatives) confirm the product does what they actually need in realistic scenarios. It validates fitness for purpose, not just that the spec was met.' },
+      { t: 'h1', text: 'Instructions' },
+      { t: 'ul', items: [
+        'Base UAT on real user workflows and business scenarios.',
+        'Use representative users and realistic (safe) data.',
+        'Record outcomes against acceptance criteria.',
+        'Capture sign-off and any go/no-go conditions.',
+      ] },
+      { t: 'h1', text: 'Real QA Example' },
+      { t: 'p', text: 'For a payroll feature, UAT has a finance user run a full month-end pay run with realistic data and confirm the outputs match expectations — validating the real business need, not just isolated functions.' },
+      { t: 'h1', text: 'UAT Checklist' },
+      { t: 'ul', items: [
+        'Acceptance criteria agreed and shared',
+        'Realistic test scenarios and data prepared',
+        'Representative users identified and briefed',
+        'Each key business workflow executed end to end',
+        'Outcomes recorded against acceptance criteria',
+        'Issues logged and triaged',
+        'Go/no-go decision and sign-off captured',
+      ] },
+      { t: 'h1', text: 'Best Practice Tips' },
+      { t: 'ul', items: [
+        'Focus on real workflows, not isolated screens.',
+        'Make acceptance criteria the basis for pass/fail.',
+        'Keep UAT data realistic but safe (no real personal data).',
+      ] },
+      { t: 'h1', text: 'Common Mistakes' },
+      { t: 'ul', items: [
+        'Running UAT as another round of system testing.',
+        'Vague acceptance criteria, so "accepted" is subjective.',
+        'No formal sign-off or go/no-go decision.',
+      ] },
+      proTip('UAT answers "did we build the right thing?". Frame it around user outcomes and acceptance criteria, and sign-off becomes simple.'),
+    ],
+  },
+
+  {
+    slug: 'exploratory-testing-charter-template',
+    title: 'Exploratory Testing Charter Template',
+    subtitle: 'Focus an exploratory session with a clear mission and notes.',
+    courseTitle: COURSE, category: 'Templates',
+    blocks: [
+      { t: 'h1', text: 'Introduction' },
+      { t: 'p', text: 'A charter turns "have a look around" into a focused exploratory mission. It states what you will explore, to discover what, using which approach — and gives you a place to capture findings.' },
+      { t: 'h1', text: 'Instructions' },
+      { t: 'ul', items: [
+        'Write the charter: explore [target] to discover [information] using [approach].',
+        'Time-box the session (e.g. 45 minutes).',
+        'Pick a persona or risk angle to focus your exploration.',
+        'Take notes: what you tried, observed, bugs, and new questions.',
+      ] },
+      { t: 'h1', text: 'Real QA Example' },
+      { t: 'table', headers: ['Field', 'Example'], rows: [
+        ['Charter', 'Explore checkout to discover failure-handling issues using invalid and interrupted payments'],
+        ['Time-box', '45 minutes'],
+        ['Persona', 'Impatient mobile user on poor signal'],
+        ['Areas', 'Card errors, dropped connection, double submit, back button'],
+        ['Findings', 'Double-charge possible on rapid resubmit (logged BUG-31)'],
+      ] },
+      { t: 'h1', text: 'Blank Reusable Template' },
+      { t: 'table', headers: ['Field', 'Detail'], rows: [
+        ['Charter', 'Explore ___ to discover ___ using ___'], ['Time-box', ''], ['Persona / angle', ''],
+        ['Areas to cover', ''], ['What I tried', ''], ['Observations', ''], ['Bugs found', ''], ['New questions', ''],
+      ] },
+      { t: 'h1', text: 'Best Practice Tips' },
+      { t: 'ul', items: [
+        'Pair the charter with a persona or risk for sharper focus.',
+        'Time-box and take notes — sessions should be reportable.',
+        'Follow your curiosity, but stay within the charter.',
+      ] },
+      { t: 'h1', text: 'Common Mistakes' },
+      { t: 'ul', items: [
+        'Vague charters that do not focus the session.',
+        'No notes, so findings cannot be reported or repeated.',
+        'Treating exploratory testing as random clicking.',
+      ] },
+      proTip('Your charters and session notes are portfolio artefacts. They show structured curiosity — exactly what senior testers are valued for.'),
+    ],
+  },
+];

@@ -36,6 +36,41 @@
         "category": "Checklists",
         "docx": "regression-testing-checklist.docx",
         "pdf": "regression-testing-checklist.pdf"
+      },
+      {
+        "slug": "test-strategy-template",
+        "title": "Test Strategy Template",
+        "category": "Templates",
+        "docx": "test-strategy-template.docx",
+        "pdf": "test-strategy-template.pdf"
+      },
+      {
+        "slug": "requirements-traceability-matrix",
+        "title": "Requirements Traceability Matrix (RTM)",
+        "category": "Templates",
+        "docx": "requirements-traceability-matrix.docx",
+        "pdf": "requirements-traceability-matrix.pdf"
+      },
+      {
+        "slug": "smoke-testing-checklist",
+        "title": "Smoke Testing Checklist",
+        "category": "Checklists",
+        "docx": "smoke-testing-checklist.docx",
+        "pdf": "smoke-testing-checklist.pdf"
+      },
+      {
+        "slug": "uat-checklist",
+        "title": "UAT Checklist",
+        "category": "Checklists",
+        "docx": "uat-checklist.docx",
+        "pdf": "uat-checklist.pdf"
+      },
+      {
+        "slug": "exploratory-testing-charter-template",
+        "title": "Exploratory Testing Charter Template",
+        "category": "Templates",
+        "docx": "exploratory-testing-charter-template.docx",
+        "pdf": "exploratory-testing-charter-template.pdf"
       }
     ]
   }
