@@ -5,8 +5,9 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { EnrolStudentForm } from '@/components/admin/EnrolStudentForm';
+import { ResendInviteButton } from '@/components/admin/ResendInviteButton';
 import { formatDate, getSubmissionStatusColour, getSubmissionStatusLabel } from '@/lib/utils';
-import { ArrowLeft, User } from 'lucide-react';
+import { ArrowLeft, User, BookOpen } from 'lucide-react';
 import { ManualUnlockButton } from '@/components/admin/ManualUnlockButton';
 import { isModuleUnlocked } from '@/lib/drip';
 import type { Course, Enrolment, ModuleUnlock } from '@/types';
@@ -16,13 +17,21 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
   const { studentId } = await params;
   const db = createAdminClient();
 
-  const [{ data: student }, { data: enrolment }, { data: courses }] = await Promise.all([
+  const [{ data: student }, { data: enrolmentsData }, { data: courses }] = await Promise.all([
     db.from('profiles').select('*').eq('id', studentId).eq('role', 'student').single(),
-    db.from('enrolments').select('*, courses(*)').eq('user_id', studentId).eq('status', 'active').single(),
-    db.from('courses').select('id, title').eq('status', 'published'),
+    db.from('enrolments').select('*, courses(*)').eq('user_id', studentId).eq('status', 'active').order('enrolled_at'),
+    db.from('courses').select('id, title').eq('status', 'published').order('title'),
   ]);
 
   if (!student) notFound();
+
+  // A student can have several active enrolments. The detailed progress view
+  // below shows the first (earliest) enrolment; all are listed in the summary.
+  const enrolments = (enrolmentsData ?? []) as (Enrolment & { courses: Course })[];
+  const enrolment = enrolments[0] ?? null;
+  const allCourses = (courses ?? []) as { id: string; title: string }[];
+  const enrolledIds = new Set(enrolments.map((e) => e.courses?.id).filter(Boolean));
+  const availableCourses = allCourses.filter((c) => !enrolledIds.has(c.id));
 
   let modules: Module[] = [];
   let progressList: ModuleProgress[] = [];
@@ -62,19 +71,39 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
             <h1 className="text-2xl font-bold text-gray-900">{student.first_name} {student.last_name}</h1>
             <p className="text-gray-500">{student.email}</p>
             <p className="text-xs text-gray-400 mt-0.5">Joined {formatDate(student.created_at)}</p>
+            <div className="mt-3">
+              <ResendInviteButton email={student.email} />
+            </div>
           </div>
         </div>
-        {!enrolment && (
-          <EnrolStudentForm studentId={studentId} courses={(courses ?? []) as { id: string; title: string }[]} />
-        )}
+        <EnrolStudentForm studentId={studentId} courses={availableCourses} />
       </div>
+
+      {/* Enrolled courses summary */}
+      <Card className="mb-6">
+        <CardHeader>
+          <div className="flex items-center gap-2"><BookOpen className="w-5 h-5 text-brand-600" /><CardTitle>Enrolled courses</CardTitle></div>
+        </CardHeader>
+        {enrolments.length === 0 ? (
+          <p className="text-sm text-gray-400">Not enrolled in any course yet.</p>
+        ) : (
+          <div className="space-y-2">
+            {enrolments.map((e) => (
+              <div key={e.id} className="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-0">
+                <span className="text-sm font-medium text-gray-800">{e.courses?.title}</span>
+                <span className="text-xs text-gray-400">Enrolled {formatDate(e.enrolled_at)}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </Card>
 
       {enrolment ? (
         <div className="space-y-6">
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Course Progress</CardTitle>
+                <CardTitle>Progress — {enrolment.courses?.title}</CardTitle>
                 <span className="text-sm text-gray-500">{completedCount}/{modules.length} modules</span>
               </div>
             </CardHeader>

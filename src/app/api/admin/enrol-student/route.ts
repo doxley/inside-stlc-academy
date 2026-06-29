@@ -24,20 +24,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  const { studentId, courseId } = await req.json();
+  const body = await req.json();
+  const { studentId } = body;
+  // Accept a single courseId or an array of courseIds (multi-course enrol).
+  const courseIds: string[] = Array.isArray(body.courseIds)
+    ? body.courseIds
+    : body.courseId ? [body.courseId] : [];
 
-  if (!studentId || !courseId) {
-    return NextResponse.json({ error: 'studentId and courseId are required' }, { status: 400 });
+  if (!studentId || courseIds.length === 0) {
+    return NextResponse.json({ error: 'studentId and at least one course are required' }, { status: 400 });
   }
 
-  const { error } = await adminClient.from('enrolments').upsert({
+  const now = new Date().toISOString();
+  const rows = courseIds.map((course_id) => ({
     user_id: studentId,
-    course_id: courseId,
+    course_id,
     status: 'active',
-    enrolled_at: new Date().toISOString(),
-  }, { onConflict: 'user_id,course_id' });
+    enrolled_at: now,
+  }));
+
+  const { error } = await adminClient.from('enrolments').upsert(rows, { onConflict: 'user_id,course_id' });
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true, enrolled: courseIds.length });
 }
