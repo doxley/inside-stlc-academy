@@ -363,5 +363,52 @@
         "pdf": "interview-confidence-guide.pdf"
       }
     ]
+  },
+  "practical-test-automation-playwright": {
+    "courseTitle": "Practical Test Automation with Playwright",
+    "items": [
+      {
+        "slug": "playwright-setup-guide",
+        "title": "Playwright Setup Guide",
+        "category": "Automation Resources",
+        "docx": "playwright-setup-guide.docx",
+        "pdf": "playwright-setup-guide.pdf"
+      },
+      {
+        "slug": "first-test-walkthrough",
+        "title": "Your First Playwright Test — Walkthrough",
+        "category": "Automation Resources",
+        "docx": "first-test-walkthrough.docx",
+        "pdf": "first-test-walkthrough.pdf"
+      },
+      {
+        "slug": "locator-strategy-cheat-sheet",
+        "title": "Playwright Locator Strategy Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "locator-strategy-cheat-sheet.docx",
+        "pdf": "locator-strategy-cheat-sheet.pdf"
+      },
+      {
+        "slug": "playwright-assertions-cheat-sheet",
+        "title": "Playwright Assertions Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "playwright-assertions-cheat-sheet.docx",
+        "pdf": "playwright-assertions-cheat-sheet.pdf"
+      },
+      {
+        "slug": "page-object-model-template",
+        "title": "Page Object Model (POM) Template",
+        "category": "Templates",
+        "docx": "page-object-model-template.docx",
+        "pdf": "page-object-model-template.pdf"
+      },
+      {
+        "slug": "test-structure-naming-guide",
+        "title": "Test Structure & Naming Conventions Guide",
+        "category": "Automation Resources",
+        "docx": "test-structure-naming-guide.docx",
+        "pdf": "test-structure-naming-guide.pdf"
+      }
+    ]
   }
 }
