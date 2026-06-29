@@ -6,7 +6,7 @@ import { ensureCertificate } from '@/lib/certificates';
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Badge } from '@/components/ui/Badge';
-import { BookOpen, ChevronRight, Award, Mail } from 'lucide-react';
+import { BookOpen, ChevronRight, Award, Mail, Plus } from 'lucide-react';
 import type { Module, ModuleProgress, Certificate, Course, Enrolment } from '@/types';
 
 interface CourseSummary {
@@ -25,17 +25,22 @@ export default async function DashboardPage() {
 
   const db = createAdminClient();
 
-  const [{ data: profile }, { data: enrolments }] = await Promise.all([
+  const [{ data: profile }, { data: enrolments }, { data: publishedCourses }] = await Promise.all([
     db.from('profiles').select('*').eq('id', user.id).single(),
     db
       .from('enrolments')
       .select('*, courses(*)')
       .eq('user_id', user.id)
       .eq('status', 'active'),
+    db.from('courses').select('*').eq('status', 'published').order('title'),
   ]);
 
   const activeEnrolments = (enrolments ?? []) as (Enrolment & { courses: Course })[];
   const courseIds = activeEnrolments.map((e) => e.courses?.id).filter(Boolean) as string[];
+
+  // Courses the student is not yet enrolled in — surfaced so they can enrol further.
+  const enrolledIds = new Set(courseIds);
+  const availableCourses = ((publishedCourses ?? []) as Course[]).filter((c) => !enrolledIds.has(c.id));
 
   // Fetch modules and progress for all enrolled courses in one pass.
   const [{ data: modules }, { data: allProgress }] = await Promise.all([
@@ -80,7 +85,9 @@ export default async function DashboardPage() {
       <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Welcome back, {firstName} 👋</h1>
-          <p className="text-gray-500 mt-1">Your purchased courses</p>
+          <p className="text-gray-500 mt-1">
+            {summaries.length > 0 ? 'Your purchased courses' : 'Browse our courses to get started'}
+          </p>
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-500 bg-white border border-gray-200 rounded-lg px-3 py-2">
           <Mail className="w-4 h-4" />
@@ -88,21 +95,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {summaries.length === 0 ? (
-        <div className="max-w-2xl mx-auto text-center mt-16">
-          <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-gray-900 mb-2">No courses yet</h2>
-          <p className="text-gray-500 mb-6">
-            You haven&apos;t purchased any courses yet. Browse the catalogue to get started.
-          </p>
-          <Link
-            href="/#courses"
-            className="bg-brand-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-brand-700 transition-colors inline-block"
-          >
-            Explore Courses
-          </Link>
-        </div>
-      ) : (
+      {summaries.length > 0 && (
         <div className="grid sm:grid-cols-2 gap-6">
           {summaries.map(({ course, totalModules, completedModules, progressPercent, currentModule, certificate }) => (
             <Card key={course.id} className="flex flex-col">
@@ -154,6 +147,50 @@ export default async function DashboardPage() {
               </div>
             </Card>
           ))}
+        </div>
+      )}
+
+      {availableCourses.length > 0 && (
+        <div className={summaries.length > 0 ? 'mt-12' : ''}>
+          <div className="flex items-center gap-2 mb-1">
+            <Plus className="w-5 h-5 text-gold-600" />
+            <h2 className="text-lg font-bold text-gray-900">Expand your learning</h2>
+          </div>
+          <p className="text-sm text-gray-500 mb-5">
+            {summaries.length > 0
+              ? 'More Inside STLC Academy courses you can enrol on.'
+              : 'Choose a course to enrol and start learning.'}
+          </p>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {availableCourses.map((course) => (
+              <Card key={course.id} className="flex flex-col">
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900">{course.title}</h3>
+                  <Badge variant="gold">Available</Badge>
+                </div>
+                {course.description && (
+                  <p className="text-sm text-gray-500 line-clamp-3">{course.description}</p>
+                )}
+                <div className="mt-auto pt-4">
+                  <Link
+                    href={`/course/${course.slug}`}
+                    className="inline-flex items-center justify-center gap-1 w-full border border-brand-600 text-brand-700 hover:bg-brand-50 text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+                  >
+                    View course &amp; enrol
+                    <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {summaries.length === 0 && availableCourses.length === 0 && (
+        <div className="max-w-2xl mx-auto text-center mt-16">
+          <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-gray-900 mb-2">No courses yet</h2>
+          <p className="text-gray-500">Courses will appear here once they are available.</p>
         </div>
       )}
     </div>
