@@ -14,6 +14,7 @@ import aiBatch3 from './content/ai-batch3.mjs';
 import aiBatch4 from './content/ai-batch4.mjs';
 import careerBatch1 from './content/career-batch1.mjs';
 import careerBatch2 from './content/career-batch2.mjs';
+import careerBatch3 from './content/career-batch3.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -34,7 +35,7 @@ const ALL_JOBS = [
   {
     courseSlug: 'qa-interview-accelerator',
     courseTitle: 'QA Interview Accelerator',
-    resources: [...careerBatch1, ...careerBatch2],
+    resources: [...careerBatch1, ...careerBatch2, ...careerBatch3],
   },
 ];
 
