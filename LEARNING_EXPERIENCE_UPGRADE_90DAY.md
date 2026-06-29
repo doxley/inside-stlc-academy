@@ -62,8 +62,8 @@ module number + lesson number. Idempotent and re-runnable.
 
 ## Modules enhanced
 - [x] **Module 1 — Introduction to Software Testing** (reference standard, 9 lessons)
-- [ ] Module 2 — Test Design Techniques
-- [ ] Module 3 — Defect Management
+- [x] **Module 2 — Test Design Techniques** (7 lessons)
+- [x] **Module 3 — Defect Management** (6 lessons)
 - [ ] Module 4 — Agile & Scrum for Testers
 - [ ] Module 5 — Jira & Test Management
 - [ ] Module 6 — API Testing with Postman
