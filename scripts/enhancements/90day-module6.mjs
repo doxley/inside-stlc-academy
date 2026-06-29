@@ -1,0 +1,113 @@
+// Module 6 — API Testing with Postman. Premium lesson enhancements.
+export default {
+  courseSlug: '90-day-software-testing-career-roadmap',
+  moduleNumber: 6,
+  lessons: [
+    {
+      lessonNumber: 1,
+      enhancements: {
+        industryStory: `A team's UI looked fine but orders silently failed — the API behind "Place order" returned an error the UI swallowed. A tester who could check the API directly found it in minutes. APIs are where a lot of real behaviour (and real bugs) live.`,
+        visualAid: {
+          type: 'flow', title: 'How an API request works',
+          steps: [
+            { label: 'Client', detail: 'app / Postman' },
+            { label: 'Request', detail: 'method + URL + body' },
+            { label: 'Server', detail: 'processes it' },
+            { label: 'Response', detail: 'status + body' },
+          ],
+        },
+        davidTip: `API testing is faster and more stable than UI testing, and it can catch issues before a screen even exists. A tester who is comfortable at the API layer is noticeably more valuable — it is one of the highest-return skills you can build.`,
+        miniChallenge: `Describe, in plain English, what happens when an app "gets your profile": what the client sends and what the server sends back.`,
+        modelAnswer: `## Example\nThe client sends a GET request to /users/me with an auth token in the header. The server checks the token and responds with status 200 and a JSON body containing the profile (name, email, etc.). If the token is invalid, it responds 401.`,
+      },
+    },
+    {
+      lessonNumber: 2,
+      enhancements: {
+        industryStory: `A tester saw a "200 OK" and passed the test — but the body contained an error message. Status codes and methods are the vocabulary of APIs; misreading them leads to false passes.`,
+        visualAid: {
+          type: 'comparison', title: 'HTTP methods & common status codes',
+          headers: ['Code / Method', 'Meaning'],
+          rows: [
+            ['GET', 'Read data'],
+            ['POST', 'Create data'],
+            ['PUT / PATCH', 'Update data'],
+            ['DELETE', 'Remove data'],
+            ['200 / 201', 'OK / Created'],
+            ['400 / 401 / 404', 'Bad request / Unauthorised / Not found'],
+            ['500', 'Server error'],
+          ],
+        },
+        davidTip: `Know your status codes cold — 200, 201, 400, 401, 403, 404, 500 cover most of what you will see, and they come up constantly in interviews. But never stop at the status: a 200 with a wrong body is still a bug.`,
+        miniChallenge: `For each action, name the method and the success status code you would expect: create a user, fetch a user, update a user, delete a user.`,
+        modelAnswer: `## Example\nCreate → POST → 201; Fetch → GET → 200; Update → PUT/PATCH → 200; Delete → DELETE → 200 (or 204 No Content).`,
+      },
+    },
+    {
+      lessonNumber: 3,
+      enhancements: {
+        industryStory: `A tester's first Postman request failed for an hour — they had forgotten the auth header. Knowing how to construct a request (method, URL, headers, body) is the practical core of API testing.`,
+        visualAid: {
+          type: 'flow', title: 'Building a request in Postman',
+          steps: [
+            { label: 'Method + URL' },
+            { label: 'Headers', detail: 'auth, content-type' },
+            { label: 'Body', detail: 'JSON for POST/PUT' },
+            { label: 'Send', detail: 'inspect the response' },
+          ],
+        },
+        davidTip: `Use a free public API (reqres.in, jsonplaceholder) to practise. The muscle memory of building a request, adding a header, sending it and reading the response is exactly what an employer wants to see you do confidently.`,
+        miniChallenge: `Using a public API, send a GET and a POST request. Note the status, a couple of response fields, and one header you had to set.`,
+        modelAnswer: `## Example (jsonplaceholder)\nGET /posts/1 → 200, body has userId/title/body. POST /posts with a JSON body → 201, returns the created object with an id. Header set: Content-Type: application/json.`,
+      },
+    },
+    {
+      lessonNumber: 4,
+      enhancements: {
+        industryStory: `A test only checked "status is 200" and missed that the API returned an empty list when it should have returned results. Strong assertions check the things that actually matter — not just that the call succeeded.`,
+        badGood: {
+          label: 'an API assertion',
+          bad: `Only checks: response status is 200.`,
+          good: `Checks: status is 200; body is an array with at least 1 item; the first item has an "id" and a "name"; response time under 1s.`,
+        },
+        davidTip: `A response can be "200 OK" and still wrong. Assert the fields and shape that matter for the behaviour — status alone is the weakest possible check. Test the body, the negative cases, and the error responses too.`,
+        miniChallenge: `For a "get user" endpoint, write the assertions you would add beyond status 200.`,
+        modelAnswer: `## Example\n- Status is 200\n- Body has id, name and email fields\n- email is a valid format\n- For an unknown id, status is 404 (negative case)`,
+        portfolioBuilder: `A Postman collection with meaningful assertions is a strong portfolio artefact — it proves you can test at the API layer, not just the UI.`,
+      },
+    },
+    {
+      lessonNumber: 5,
+      enhancements: {
+        industryStory: `A tester re-typed the base URL and token into every request, then had to change them all when moving to staging. Collections, variables and environments solve exactly this — reusable, environment-aware API tests.`,
+        visualAid: {
+          type: 'comparison', title: 'Organising API tests in Postman',
+          headers: ['Feature', 'What it does'],
+          rows: [
+            ['Collection', 'Groups related requests together'],
+            ['Variables', 'Reuse values (base URL, token, ids)'],
+            ['Environments', 'Swap dev / staging / prod easily'],
+            ['Tests tab', 'Automated assertions per request'],
+          ],
+        },
+        davidTip: `Use variables and environments from the start. {{baseUrl}} and {{token}} mean one change switches your whole collection between environments — and it makes your collection something you can share and reuse, which is what teams value.`,
+        miniChallenge: `Plan a small collection for a "users" API: list the requests, and the variables and environments you would set up.`,
+        modelAnswer: `## Example\nRequests: Create user (POST), Get user (GET), Update user (PUT), Delete user (DELETE). Variables: {{baseUrl}}, {{token}}, {{userId}} (captured from the create response). Environments: Dev and Staging with different baseUrl/token.`,
+      },
+    },
+    {
+      lessonNumber: 6,
+      enhancements: {
+        davidTip: `For this assignment, the value is in your assertions and organisation, not the number of requests. A tidy collection with meaningful checks and a couple of negative cases beats a pile of unchecked requests.`,
+        miniChallenge: `Before submitting, ensure each request has at least one assertion beyond status, and include at least two error/negative cases.`,
+        managersReview: {
+          intro: 'If I reviewed your Postman collection as a QA lead, I would look for:',
+          strengths: ['Meaningful assertions on body and status', 'Negative/error cases included', 'Variables and environments used'],
+          gaps: ['Only status-200 checks', 'No negative cases', 'Hard-coded URLs and tokens'],
+          improvements: ['Assert key response fields', 'Add 401/404 cases', 'Parameterise with variables/environments'],
+        },
+        portfolioBuilder: `Export your collection (JSON) for your portfolio. A well-structured API collection with assertions is concrete proof of a sought-after skill.`,
+      },
+    },
+  ],
+};
