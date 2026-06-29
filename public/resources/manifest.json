@@ -1,0 +1,42 @@
+{
+  "90-day-software-testing-career-roadmap": {
+    "courseTitle": "90-Day Software Testing Career Roadmap",
+    "items": [
+      {
+        "slug": "test-case-template",
+        "title": "Test Case Template",
+        "category": "Templates",
+        "docx": "test-case-template.docx",
+        "pdf": "test-case-template.pdf"
+      },
+      {
+        "slug": "test-scenario-template",
+        "title": "Test Scenario Template",
+        "category": "Templates",
+        "docx": "test-scenario-template.docx",
+        "pdf": "test-scenario-template.pdf"
+      },
+      {
+        "slug": "bug-report-template",
+        "title": "Bug Report Template",
+        "category": "Templates",
+        "docx": "bug-report-template.docx",
+        "pdf": "bug-report-template.pdf"
+      },
+      {
+        "slug": "test-plan-template",
+        "title": "Test Plan Template",
+        "category": "Templates",
+        "docx": "test-plan-template.docx",
+        "pdf": "test-plan-template.pdf"
+      },
+      {
+        "slug": "regression-testing-checklist",
+        "title": "Regression Testing Checklist",
+        "category": "Checklists",
+        "docx": "regression-testing-checklist.docx",
+        "pdf": "regression-testing-checklist.pdf"
+      }
+    ]
+  }
+}
