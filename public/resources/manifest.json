@@ -71,6 +71,41 @@
         "category": "Templates",
         "docx": "exploratory-testing-charter-template.docx",
         "pdf": "exploratory-testing-charter-template.pdf"
+      },
+      {
+        "slug": "software-testing-glossary",
+        "title": "Software Testing Glossary",
+        "category": "Cheat Sheets",
+        "docx": "software-testing-glossary.docx",
+        "pdf": "software-testing-glossary.pdf"
+      },
+      {
+        "slug": "risk-assessment-matrix",
+        "title": "Risk Assessment Matrix",
+        "category": "Templates",
+        "docx": "risk-assessment-matrix.docx",
+        "pdf": "risk-assessment-matrix.pdf"
+      },
+      {
+        "slug": "defect-severity-vs-priority-guide",
+        "title": "Defect Severity vs Priority Guide",
+        "category": "Cheat Sheets",
+        "docx": "defect-severity-vs-priority-guide.docx",
+        "pdf": "defect-severity-vs-priority-guide.pdf"
+      },
+      {
+        "slug": "sdlc-cheat-sheet",
+        "title": "SDLC Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "sdlc-cheat-sheet.docx",
+        "pdf": "sdlc-cheat-sheet.pdf"
+      },
+      {
+        "slug": "stlc-cheat-sheet",
+        "title": "STLC Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "stlc-cheat-sheet.docx",
+        "pdf": "stlc-cheat-sheet.pdf"
       }
     ]
   }
