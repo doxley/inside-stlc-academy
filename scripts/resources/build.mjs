@@ -8,18 +8,28 @@ import ninetyDayBatch1 from './content/90day-batch1.mjs';
 import ninetyDayBatch2 from './content/90day-batch2.mjs';
 import ninetyDayBatch3 from './content/90day-batch3.mjs';
 import ninetyDayBatch4 from './content/90day-batch4.mjs';
+import aiBatch1 from './content/ai-batch1.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
 
-// Each entry: { course slug (output dir + manifest key), courseTitle, resources }
-const JOBS = [
+// All batches per course. The manifest merges by slug, so to regenerate
+// just one course, set ONLY_COURSE to its slug (skips re-rendering others).
+const ALL_JOBS = [
   {
     courseSlug: '90-day-software-testing-career-roadmap',
     courseTitle: '90-Day Software Testing Career Roadmap',
     resources: [...ninetyDayBatch1, ...ninetyDayBatch2, ...ninetyDayBatch3, ...ninetyDayBatch4],
   },
+  {
+    courseSlug: 'ai-for-qa-testers',
+    courseTitle: 'AI for QA Testers',
+    resources: [...aiBatch1],
+  },
 ];
+
+const ONLY_COURSE = process.env.ONLY_COURSE || '';
+const JOBS = ONLY_COURSE ? ALL_JOBS.filter((j) => j.courseSlug === ONLY_COURSE) : ALL_JOBS;
 
 const manifestPath = join(ROOT, 'public', 'resources', 'manifest.json');
 const manifest = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) : {};

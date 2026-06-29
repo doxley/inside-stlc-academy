@@ -143,5 +143,24 @@
         "pdf": "final-portfolio-project-workbook.pdf"
       }
     ]
+  },
+  "ai-for-qa-testers": {
+    "courseTitle": "AI for QA Testers",
+    "items": [
+      {
+        "slug": "ai-prompt-library",
+        "title": "AI Prompt Library (100 Prompts)",
+        "category": "AI Prompt Packs",
+        "docx": "ai-prompt-library.docx",
+        "pdf": "ai-prompt-library.pdf"
+      },
+      {
+        "slug": "prompt-writing-framework",
+        "title": "Prompt Writing Framework",
+        "category": "AI Prompt Packs",
+        "docx": "prompt-writing-framework.docx",
+        "pdf": "prompt-writing-framework.pdf"
+      }
+    ]
   }
 }
