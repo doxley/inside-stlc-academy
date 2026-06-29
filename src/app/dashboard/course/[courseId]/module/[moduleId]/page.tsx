@@ -10,6 +10,7 @@ import { ResourceDownloads } from '@/components/module/ResourceDownloads';
 import { ResourceDownloadCard } from '@/components/module/ResourceDownloadCard';
 import { ModuleStartTracker } from '@/components/module/ModuleStartTracker';
 import { GuidedLessonLayout } from '@/components/module/GuidedLessonLayout';
+import { loadVaultItems } from '@/lib/resourceVault.server';
 import { PracticalTaskCard } from '@/components/module/PracticalTaskCard';
 import { MarkCompleteButton } from '@/components/module/MarkCompleteButton';
 import { Download, Upload, HelpCircle, CheckCircle2, Circle } from 'lucide-react';
@@ -28,7 +29,7 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
 
   const [{ data: module }, { data: course }, { data: resources }, { data: quiz }, { data: progress }, { data: lessons }, { data: lessonProgress }] = await Promise.all([
     db.from('modules').select('*').eq('id', moduleId).single(),
-    db.from('courses').select('title').eq('id', courseId).single(),
+    db.from('courses').select('title, slug').eq('id', courseId).single(),
     db.from('resources').select('*').eq('module_id', moduleId).eq('visible_to_students', true).order('sort_order'),
     db.from('quizzes').select('*, quiz_questions(*, quiz_answers(*))').eq('module_id', moduleId).single(),
     db.from('module_progress').select('*').eq('user_id', user.id).eq('module_id', moduleId).single(),
@@ -49,7 +50,8 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
   }
 
   const mod = module as Module;
-  const courseName = (course as Pick<Course, 'title'> | null)?.title ?? 'Course';
+  const courseRow = course as Pick<Course, 'title' | 'slug'> | null;
+  const courseName = courseRow?.title ?? 'Course';
 
   const [{ data: quizAttempts }, { data: assignment }, { data: submissions }] = await Promise.all([
     quiz ? db.from('quiz_attempts').select('*').eq('quiz_id', (quiz as Quiz).id).eq('user_id', user.id).order('attempted_at', { ascending: false }) : Promise.resolve({ data: [] }),
@@ -62,6 +64,20 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
   const assignmentSubmissions = (submissions ?? []).filter((s: AssignmentSubmission) => s.assignment_id === (assignment as Assignment | null)?.id);
   const latestSubmission = assignmentSubmissions[0] as AssignmentSubmission | undefined;
   const isCompleted = progress?.status === 'completed';
+
+  // Resolve the downloadable assignment template (a Resource Vault doc) for
+  // this module's course, if the assignment references one.
+  const assignmentRow = assignment as Assignment | null;
+  let assignmentTemplate: { label: string; pdfUrl: string; docxUrl: string } | null = null;
+  if (assignmentRow?.template_slug && courseRow?.slug) {
+    const vaultItems = await loadVaultItems();
+    const match = vaultItems.find(
+      (it) => it.courseSlug === courseRow.slug && it.slug === assignmentRow.template_slug
+    );
+    if (match) {
+      assignmentTemplate = { label: match.title, pdfUrl: match.pdfUrl, docxUrl: match.docxUrl };
+    }
+  }
 
   // Fall back to legacy fields so existing modules still read well.
   const lessonOverview = mod.lesson_overview ?? mod.description;
@@ -162,7 +178,7 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
                 {latestSubmission?.status === 'passed' && <Badge variant="green">Passed</Badge>}
               </div>
             </CardHeader>
-            <AssignmentSection assignment={assignment as Assignment} userId={user.id} courseId={courseId} latestSubmission={latestSubmission} allSubmissions={assignmentSubmissions as AssignmentSubmission[]} />
+            <AssignmentSection assignment={assignment as Assignment} userId={user.id} courseId={courseId} latestSubmission={latestSubmission} allSubmissions={assignmentSubmissions as AssignmentSubmission[]} template={assignmentTemplate} />
           </Card>
         )}
 

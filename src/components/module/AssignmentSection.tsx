@@ -6,8 +6,15 @@ import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { formatDate, getSubmissionStatusColour, getSubmissionStatusLabel } from '@/lib/utils';
-import { Upload, FileText, AlertCircle } from 'lucide-react';
+import { Upload, FileText, FileType, AlertCircle, Library } from 'lucide-react';
+import Link from 'next/link';
 import type { Assignment, AssignmentSubmission } from '@/types';
+
+interface AssignmentTemplate {
+  label: string;
+  pdfUrl: string;
+  docxUrl: string;
+}
 
 const ALLOWED_TYPES = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'image/png', 'image/jpeg', 'application/zip'];
 const MAX_SIZE = 25 * 1024 * 1024; // 25 MB
@@ -18,9 +25,10 @@ interface Props {
   courseId: string;
   latestSubmission: AssignmentSubmission | undefined;
   allSubmissions: AssignmentSubmission[];
+  template: AssignmentTemplate | null;
 }
 
-export function AssignmentSection({ assignment, userId, courseId, latestSubmission, allSubmissions }: Props) {
+export function AssignmentSection({ assignment, userId, courseId, latestSubmission, allSubmissions, template }: Props) {
   const isUrl = assignment.submission_type === 'url';
   const [file, setFile] = useState<File | null>(null);
   const [url, setUrl] = useState('');
@@ -148,6 +156,44 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
       {assignment.instructions && (
         <div className="p-4 bg-gray-50 rounded-lg text-sm text-gray-700">
           {assignment.instructions}
+        </div>
+      )}
+
+      {/* Downloadable assignment template (a Resource Vault doc) */}
+      {template && (
+        <div className="p-4 border border-brand-100 bg-brand-50/50 rounded-lg">
+          <div className="flex items-start gap-2">
+            <FileText className="w-4 h-4 text-brand-600 mt-0.5 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-900">Assignment template</p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                Use <span className="font-medium">{template.label}</span> to structure your submission.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-3">
+                <a
+                  href={template.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg bg-navy-900 text-white hover:bg-navy-800 transition-colors"
+                >
+                  <FileText className="w-3.5 h-3.5" />PDF
+                </a>
+                <a
+                  href={template.docxUrl}
+                  download
+                  className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
+                >
+                  <FileType className="w-3.5 h-3.5" />DOCX
+                </a>
+                <Link
+                  href="/dashboard/vault"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg text-brand-700 hover:bg-brand-50 transition-colors"
+                >
+                  <Library className="w-3.5 h-3.5" />More in the Resource Vault
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

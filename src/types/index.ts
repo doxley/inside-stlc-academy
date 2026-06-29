@@ -144,6 +144,9 @@ export interface Assignment {
   // 'url' = learner submits a link (e.g. a GitHub repo for the portfolio
   // project) instead of uploading a file.
   submission_type: SubmissionType;
+  // Slug of a Resource Vault doc to offer as a downloadable assignment
+  // template on the submission card (resolved against the module's course).
+  template_slug: string | null;
   created_at: string;
 }
 
