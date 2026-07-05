@@ -59,6 +59,15 @@ export const COURSES: CourseConfig[] = [
     stripePriceId: process.env.STRIPE_PRICE_PLAYWRIGHT,
     route: '/course/practical-test-automation-playwright',
   },
+  {
+    slug: 'api-testing-masterclass',
+    title: 'API Testing Masterclass',
+    priceLabel: '£99',
+    amount: 9900,
+    currency: 'gbp',
+    stripePriceId: process.env.STRIPE_PRICE_API_TESTING,
+    route: '/course/api-testing-masterclass',
+  },
 ];
 
 export function getCourseConfig(slug: string): CourseConfig | undefined {
