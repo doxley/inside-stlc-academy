@@ -1,0 +1,143 @@
+{
+  "info": {
+    "name": "API Testing Masterclass — Starter Collection",
+    "_postman_id": "a11e5757-0000-4000-8000-000000000005",
+    "description": "A ready-to-import Postman collection for the Inside STLC Academy API Testing Masterclass. It runs against free public APIs (jsonplaceholder.typicode.com) so you can practise immediately, and demonstrates variables, folders and tests. Import: Postman > Import > File.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://jsonplaceholder.typicode.com", "type": "string" },
+    { "key": "userId", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List users",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/users", "host": ["{{baseUrl}}"], "path": ["users"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('returns a non-empty array', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body).to.be.an('array').that.is.not.empty;",
+                  "});",
+                  "pm.test('responds under 2s', () => pm.expect(pm.response.responseTime).to.be.below(2000));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get user by id",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/users/{{userId}}", "host": ["{{baseUrl}}"], "path": ["users", "{{userId}}"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('id matches the requested user', () => pm.expect(body.id).to.eql(Number(pm.variables.get('userId'))));",
+                  "pm.test('has email and name', () => {",
+                  "  pm.expect(body).to.have.property('email');",
+                  "  pm.expect(body).to.have.property('name');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create user (POST)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ada Tester\",\n  \"email\": \"ada.tester@example.com\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/users", "host": ["{{baseUrl}}"], "path": ["users"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201 Created', () => pm.response.to.have.status(201));",
+                  "pm.test('response echoes the name we sent', () => pm.expect(pm.response.json().name).to.eql('Ada Tester'));",
+                  "pm.test('an id was assigned', () => pm.expect(pm.response.json()).to.have.property('id'));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "List posts",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/posts?userId={{userId}}", "host": ["{{baseUrl}}"], "path": ["posts"], "query": [{ "key": "userId", "value": "{{userId}}" }] }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "pm.test('status is 200', () => pm.response.to.have.status(200));",
+              "pm.test('all posts belong to the requested user', () => {",
+              "  const uid = Number(pm.variables.get('userId'));",
+              "  pm.response.json().forEach(p => pm.expect(p.userId).to.eql(uid));",
+              "});"
+            ] } }
+          ]
+        },
+        {
+          "name": "Get post by id",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/posts/1", "host": ["{{baseUrl}}"], "path": ["posts", "1"] }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "pm.test('status is 200', () => pm.response.to.have.status(200));",
+              "pm.test('has title and body', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('title');",
+              "  pm.expect(b).to.have.property('body');",
+              "});"
+            ] } }
+          ]
+        },
+        {
+          "name": "Negative — get missing post (expect 404)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/posts/99999999", "host": ["{{baseUrl}}"], "path": ["posts", "99999999"] }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "pm.test('missing resource returns 404', () => pm.response.to.have.status(404));"
+            ] } }
+          ]
+        }
+      ]
+    }
+  ]
+}

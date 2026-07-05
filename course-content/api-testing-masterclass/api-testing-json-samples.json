@@ -1,0 +1,65 @@
+{
+  "_readme": "Sample JSON payloads for the Inside STLC Academy API Testing Masterclass. Use these to practise navigating and asserting on JSON (dot/bracket paths, arrays, nested objects) and to seed request bodies. Each top-level key is an independent example.",
+  "user": {
+    "id": 1,
+    "name": "Ada Tester",
+    "email": "ada.tester@example.com",
+    "active": true,
+    "roles": ["tester", "admin"],
+    "address": {
+      "city": "Sheffield",
+      "postcode": "S1 2AB",
+      "geo": { "lat": 53.3811, "lng": -1.4701 }
+    }
+  },
+  "createUserRequest": {
+    "name": "Grace Hopper",
+    "email": "grace@example.com",
+    "password": "Sup3rSecret!",
+    "roles": ["tester"]
+  },
+  "post": {
+    "id": 101,
+    "userId": 1,
+    "title": "Why API testing matters",
+    "body": "Most integration bugs live below the UI.",
+    "tags": ["api", "testing", "quality"],
+    "published": true
+  },
+  "order": {
+    "id": "ord_10023",
+    "status": "paid",
+    "currency": "GBP",
+    "total": 149.99,
+    "customer": { "id": 1, "email": "ada.tester@example.com" },
+    "items": [
+      { "sku": "COURSE-API", "name": "API Testing Masterclass", "qty": 1, "price": 99.0 },
+      { "sku": "COURSE-PW", "name": "Playwright Automation", "qty": 1, "price": 50.99 }
+    ]
+  },
+  "paginatedUsers": {
+    "page": 2,
+    "pageSize": 3,
+    "total": 12,
+    "totalPages": 4,
+    "data": [
+      { "id": 4, "name": "Alan Turing", "active": true },
+      { "id": 5, "name": "Katherine Johnson", "active": true },
+      { "id": 6, "name": "Margaret Hamilton", "active": false }
+    ]
+  },
+  "validationError": {
+    "code": "VALIDATION_ERROR",
+    "message": "One or more fields are invalid.",
+    "errors": [
+      { "field": "email", "issue": "must be a valid email address" },
+      { "field": "price", "issue": "must be greater than or equal to 0" }
+    ]
+  },
+  "emptyResults": {
+    "page": 1,
+    "pageSize": 20,
+    "total": 0,
+    "data": []
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Bookstore Sample API",
+    "version": "1.0.0",
+    "description": "A small, realistic OpenAPI 3.0 specification used in the Inside STLC Academy API Testing Masterclass. Use it to practise reading a spec, deriving test cases, and importing into Postman (Import > File generates a collection)."
+  },
+  "servers": [
+    { "url": "https://api.example-bookstore.com/v1", "description": "Sample server (illustrative)" }
+  ],
+  "tags": [
+    { "name": "Books", "description": "Manage books in the catalogue" }
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "List books",
+        "operationId": "listBooks",
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "minimum": 1, "default": 1 } },
+          { "name": "pageSize", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 } },
+          { "name": "genre", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of books",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["data", "page", "total"],
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Book" } },
+                    "page": { "type": "integer" },
+                    "pageSize": { "type": "integer" },
+                    "total": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "summary": "Create a book",
+        "operationId": "createBook",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BookInput" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Book created",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Book" } } }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
+          }
+        }
+      }
+    },
+    "/books/{bookId}": {
+      "parameters": [
+        { "name": "bookId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+      ],
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get a book by id",
+        "operationId": "getBook",
+        "responses": {
+          "200": {
+            "description": "The requested book",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Book" } } }
+          },
+          "404": {
+            "description": "Book not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Books"],
+        "summary": "Delete a book",
+        "operationId": "deleteBook",
+        "responses": {
+          "204": { "description": "Book deleted" },
+          "404": { "description": "Book not found", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": { "type": "http", "scheme": "bearer", "bearerFormat": "JWT" }
+    },
+    "schemas": {
+      "Book": {
+        "type": "object",
+        "required": ["id", "title", "author", "price"],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "title": { "type": "string" },
+          "author": { "type": "string" },
+          "genre": { "type": "string" },
+          "price": { "type": "number", "format": "float", "minimum": 0 },
+          "inStock": { "type": "boolean" }
+        }
+      },
+      "BookInput": {
+        "type": "object",
+        "required": ["title", "author", "price"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "author": { "type": "string", "minLength": 1 },
+          "genre": { "type": "string" },
+          "price": { "type": "number", "minimum": 0 }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  },
+  "security": [{ "bearerAuth": [] }]
+}
