@@ -23,6 +23,9 @@ import briefs90day from './content/briefs-90day.mjs';
 import briefsAi from './content/briefs-ai.mjs';
 import briefsQa from './content/briefs-qa.mjs';
 import briefsPw from './content/briefs-pw.mjs';
+import apiBatch1 from './content/api-batch1.mjs';
+import apiBatch2 from './content/api-batch2.mjs';
+import apiBatch3 from './content/api-batch3.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -49,6 +52,11 @@ const ALL_JOBS = [
     courseSlug: 'practical-test-automation-playwright',
     courseTitle: 'Practical Test Automation with Playwright',
     resources: [...automationBatch1, ...automationBatch2, ...automationBatch3, ...automationBatch4, ...briefsPw],
+  },
+  {
+    courseSlug: 'api-testing-masterclass',
+    courseTitle: 'API Testing Masterclass',
+    resources: [...apiBatch1, ...apiBatch2, ...apiBatch3],
   },
 ];
 

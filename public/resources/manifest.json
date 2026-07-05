@@ -823,5 +823,80 @@
         "pdf": "pw-m12-assignment-brief.pdf"
       }
     ]
+  },
+  "api-testing-masterclass": {
+    "courseTitle": "API Testing Masterclass",
+    "items": [
+      {
+        "slug": "api-cheat-sheet",
+        "title": "API Testing Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "api-cheat-sheet.docx",
+        "pdf": "api-cheat-sheet.pdf"
+      },
+      {
+        "slug": "http-status-codes-reference",
+        "title": "HTTP Status Codes Reference",
+        "category": "Cheat Sheets",
+        "docx": "http-status-codes-reference.docx",
+        "pdf": "http-status-codes-reference.pdf"
+      },
+      {
+        "slug": "json-assertions-reference",
+        "title": "JSON & Assertions Reference",
+        "category": "Cheat Sheets",
+        "docx": "json-assertions-reference.docx",
+        "pdf": "json-assertions-reference.pdf"
+      },
+      {
+        "slug": "postman-collections-guide",
+        "title": "Postman Collections Guide",
+        "category": "Templates",
+        "docx": "postman-collections-guide.docx",
+        "pdf": "postman-collections-guide.pdf"
+      },
+      {
+        "slug": "openapi-swagger-guide",
+        "title": "OpenAPI / Swagger Guide for Testers",
+        "category": "Templates",
+        "docx": "openapi-swagger-guide.docx",
+        "pdf": "openapi-swagger-guide.pdf"
+      },
+      {
+        "slug": "api-authentication-guide",
+        "title": "API Authentication Guide",
+        "category": "Templates",
+        "docx": "api-authentication-guide.docx",
+        "pdf": "api-authentication-guide.pdf"
+      },
+      {
+        "slug": "api-test-strategy-template",
+        "title": "API Test Strategy Template",
+        "category": "Templates",
+        "docx": "api-test-strategy-template.docx",
+        "pdf": "api-test-strategy-template.pdf"
+      },
+      {
+        "slug": "newman-ci-automation-guide",
+        "title": "Newman & CI/CD Automation Guide",
+        "category": "Automation Resources",
+        "docx": "newman-ci-automation-guide.docx",
+        "pdf": "newman-ci-automation-guide.pdf"
+      },
+      {
+        "slug": "ai-prompt-library-api-testing",
+        "title": "AI Prompt Library for API Testing",
+        "category": "AI Prompt Packs",
+        "docx": "ai-prompt-library-api-testing.docx",
+        "pdf": "ai-prompt-library-api-testing.pdf"
+      },
+      {
+        "slug": "api-testing-checklist",
+        "title": "API Testing Checklist",
+        "category": "Checklists",
+        "docx": "api-testing-checklist.docx",
+        "pdf": "api-testing-checklist.pdf"
+      }
+    ]
   }
 }
