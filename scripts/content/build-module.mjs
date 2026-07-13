@@ -20,6 +20,11 @@ if (!name) { console.error('Usage: build-module.mjs <content-file, e.g. api-modu
 const data = (await import(`./${name}.mjs`)).default;
 const { courseSlug, moduleNumber, lessons } = data;
 
+// Output filename prefixes (default to the API course's legacy naming).
+const LP = data.lessonsPrefix ?? 'api-testing'; // seed-<LP>-module-<n>-lessons.sql
+const EP = data.enhPrefix ?? 'api';             // seed-<EP>-module<ES><n>-enhancements.sql
+const ES = data.enhSep ?? '';
+
 const L = '$L$';   // dollar-quote delimiter for text columns
 const E = '$ench$'; // dollar-quote delimiter for the enhancements JSON
 
@@ -45,7 +50,7 @@ from public.modules m join public.courses c on c.id = m.course_id
 where c.slug = '${courseSlug}' and m.module_number = ${moduleNumber}
 on conflict (module_id, lesson_number) do nothing;\n\n`;
 }
-writeFileSync(join(ROOT, 'supabase', `seed-api-testing-module-${moduleNumber}-lessons.sql`), base);
+writeFileSync(join(ROOT, 'supabase', `seed-${LP}-module-${moduleNumber}-lessons.sql`), base);
 
 // ── enhancements ──
 let ench = `-- ============================================================
@@ -63,6 +68,6 @@ from public.modules m join public.courses c on c.id = m.course_id
 where l.module_id = m.id and c.slug = '${courseSlug}'
   and m.module_number = ${moduleNumber} and l.lesson_number = ${l.lessonNumber};\n\n`;
 }
-writeFileSync(join(ROOT, 'supabase', `seed-api-module${moduleNumber}-enhancements.sql`), ench);
+writeFileSync(join(ROOT, 'supabase', `seed-${EP}-module${ES}${moduleNumber}-enhancements.sql`), ench);
 
 console.log(`module ${moduleNumber}: wrote ${lessons.length} lessons (base + enhancements)`);
