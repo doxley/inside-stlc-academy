@@ -26,6 +26,11 @@ import briefsPw from './content/briefs-pw.mjs';
 import apiBatch1 from './content/api-batch1.mjs';
 import apiBatch2 from './content/api-batch2.mjs';
 import apiBatch3 from './content/api-batch3.mjs';
+import istqbBatch1 from './content/istqb-batch1.mjs';
+import istqbBatch2 from './content/istqb-batch2.mjs';
+import istqbBatch3 from './content/istqb-batch3.mjs';
+import istqbBatch4 from './content/istqb-batch4.mjs';
+import istqbBatch5 from './content/istqb-batch5.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -57,6 +62,11 @@ const ALL_JOBS = [
     courseSlug: 'api-testing-masterclass',
     courseTitle: 'API Testing Masterclass',
     resources: [...apiBatch1, ...apiBatch2, ...apiBatch3],
+  },
+  {
+    courseSlug: 'istqb-foundation-masterclass',
+    courseTitle: 'ISTQB Foundation Masterclass',
+    resources: [...istqbBatch1, ...istqbBatch2, ...istqbBatch3, ...istqbBatch4, ...istqbBatch5],
   },
 ];
 

@@ -6,8 +6,7 @@ if (!Array.isArray(arr)) errs.push('not an array');
 for (const r of arr) {
   const id = r.slug || '?';
   for (const k of ['slug','title','courseTitle','category','blocks']) if (!r[k]) errs.push(`${id}: missing ${k}`);
-  if (r.courseTitle !== 'API Testing Masterclass') errs.push(`${id}: courseTitle="${r.courseTitle}"`);
-  if (!Array.isArray(r.blocks) || r.blocks.length < 5) errs.push(`${id}: too few blocks`);
+    if (!Array.isArray(r.blocks) || r.blocks.length < 5) errs.push(`${id}: too few blocks`);
   (r.blocks||[]).forEach((b,i) => {
     if (!OK.includes(b.t)) errs.push(`${id} block ${i}: bad type '${b.t}'`);
     if ((b.t==='ul'||b.t==='ol') && !Array.isArray(b.items)) errs.push(`${id} block ${i}: ${b.t} no items`);
