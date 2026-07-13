@@ -68,6 +68,15 @@ export const COURSES: CourseConfig[] = [
     stripePriceId: process.env.STRIPE_PRICE_API_TESTING,
     route: '/course/api-testing-masterclass',
   },
+  {
+    slug: 'istqb-foundation-masterclass',
+    title: 'ISTQB Foundation Masterclass',
+    priceLabel: '£79',
+    amount: 7900,
+    currency: 'gbp',
+    stripePriceId: process.env.STRIPE_PRICE_ISTQB,
+    route: '/course/istqb-foundation-masterclass',
+  },
 ];
 
 export function getCourseConfig(slug: string): CourseConfig | undefined {

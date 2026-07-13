@@ -898,5 +898,185 @@
         "pdf": "api-testing-checklist.pdf"
       }
     ]
+  },
+  "istqb-foundation-masterclass": {
+    "courseTitle": "ISTQB Foundation Masterclass",
+    "items": [
+      {
+        "slug": "boundary-value-cheat-sheet",
+        "title": "Boundary Value Analysis Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "boundary-value-cheat-sheet.docx",
+        "pdf": "boundary-value-cheat-sheet.pdf"
+      },
+      {
+        "slug": "decision-table-cheat-sheet",
+        "title": "Decision Table Testing Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "decision-table-cheat-sheet.docx",
+        "pdf": "decision-table-cheat-sheet.pdf"
+      },
+      {
+        "slug": "state-transition-guide",
+        "title": "State Transition Testing Guide",
+        "category": "Cheat Sheets",
+        "docx": "state-transition-guide.docx",
+        "pdf": "state-transition-guide.pdf"
+      },
+      {
+        "slug": "equivalence-partitioning-guide",
+        "title": "Equivalence Partitioning Guide",
+        "category": "Cheat Sheets",
+        "docx": "equivalence-partitioning-guide.docx",
+        "pdf": "equivalence-partitioning-guide.pdf"
+      },
+      {
+        "slug": "severity-vs-priority-guide",
+        "title": "Severity vs Priority Guide",
+        "category": "Cheat Sheets",
+        "docx": "severity-vs-priority-guide.docx",
+        "pdf": "severity-vs-priority-guide.pdf"
+      },
+      {
+        "slug": "test-management-cheat-sheet",
+        "title": "Test Management Cheat Sheet",
+        "category": "Cheat Sheets",
+        "docx": "test-management-cheat-sheet.docx",
+        "pdf": "test-management-cheat-sheet.pdf"
+      },
+      {
+        "slug": "risk-matrix-template",
+        "title": "Risk Matrix Template",
+        "category": "Templates",
+        "docx": "risk-matrix-template.docx",
+        "pdf": "risk-matrix-template.pdf"
+      },
+      {
+        "slug": "review-checklist",
+        "title": "Review Checklist",
+        "category": "Checklists",
+        "docx": "review-checklist.docx",
+        "pdf": "review-checklist.pdf"
+      },
+      {
+        "slug": "istqb-glossary",
+        "title": "ISTQB Foundation Glossary",
+        "category": "Cheat Sheets",
+        "docx": "istqb-glossary.docx",
+        "pdf": "istqb-glossary.pdf"
+      },
+      {
+        "slug": "quick-revision-notes",
+        "title": "Quick Revision Notes",
+        "category": "Cheat Sheets",
+        "docx": "quick-revision-notes.docx",
+        "pdf": "quick-revision-notes.pdf"
+      },
+      {
+        "slug": "sample-test-plan",
+        "title": "Sample Test Plan",
+        "category": "Templates",
+        "docx": "sample-test-plan.docx",
+        "pdf": "sample-test-plan.pdf"
+      },
+      {
+        "slug": "sample-test-strategy",
+        "title": "Sample Test Strategy",
+        "category": "Templates",
+        "docx": "sample-test-strategy.docx",
+        "pdf": "sample-test-strategy.pdf"
+      },
+      {
+        "slug": "example-defect-reports",
+        "title": "Example Defect Reports",
+        "category": "Templates",
+        "docx": "example-defect-reports.docx",
+        "pdf": "example-defect-reports.pdf"
+      },
+      {
+        "slug": "revision-planner",
+        "title": "Revision Planner",
+        "category": "Templates",
+        "docx": "revision-planner.docx",
+        "pdf": "revision-planner.pdf"
+      },
+      {
+        "slug": "twelve-week-study-plan",
+        "title": "12-Week Study Plan",
+        "category": "Templates",
+        "docx": "twelve-week-study-plan.docx",
+        "pdf": "twelve-week-study-plan.pdf"
+      },
+      {
+        "slug": "flash-cards",
+        "title": "Flash Cards",
+        "category": "Cheat Sheets",
+        "docx": "flash-cards.docx",
+        "pdf": "flash-cards.pdf"
+      },
+      {
+        "slug": "memory-aids-mnemonics",
+        "title": "Memory Aids & Mnemonics",
+        "category": "Cheat Sheets",
+        "docx": "memory-aids-mnemonics.docx",
+        "pdf": "memory-aids-mnemonics.pdf"
+      },
+      {
+        "slug": "mind-maps",
+        "title": "Syllabus Mind Maps",
+        "category": "Cheat Sheets",
+        "docx": "mind-maps.docx",
+        "pdf": "mind-maps.pdf"
+      },
+      {
+        "slug": "printable-formula-sheets",
+        "title": "Printable Formula Sheets",
+        "category": "Cheat Sheets",
+        "docx": "printable-formula-sheets.docx",
+        "pdf": "printable-formula-sheets.pdf"
+      },
+      {
+        "slug": "summary-posters",
+        "title": "Summary Posters",
+        "category": "Cheat Sheets",
+        "docx": "summary-posters.docx",
+        "pdf": "summary-posters.pdf"
+      },
+      {
+        "slug": "interview-questions",
+        "title": "ISTQB Interview Questions",
+        "category": "Career Resources",
+        "docx": "interview-questions.docx",
+        "pdf": "interview-questions.pdf"
+      },
+      {
+        "slug": "exam-day-checklist",
+        "title": "Exam Day Checklist",
+        "category": "Checklists",
+        "docx": "exam-day-checklist.docx",
+        "pdf": "exam-day-checklist.pdf"
+      },
+      {
+        "slug": "revision-workbook",
+        "title": "Revision Workbook",
+        "category": "Templates",
+        "docx": "revision-workbook.docx",
+        "pdf": "revision-workbook.pdf"
+      },
+      {
+        "slug": "exam-tracker",
+        "title": "Exam Readiness Tracker",
+        "category": "Templates",
+        "docx": "exam-tracker.docx",
+        "pdf": "exam-tracker.pdf"
+      },
+      {
+        "slug": "istqb-ai-prompt-pack",
+        "title": "ISTQB AI Prompt Pack",
+        "category": "AI Prompt Packs",
+        "docx": "istqb-ai-prompt-pack.docx",
+        "pdf": "istqb-ai-prompt-pack.pdf"
+      }
+    ]
   }
 }

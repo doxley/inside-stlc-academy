@@ -16,9 +16,9 @@ import { CourseCard } from '@/components/marketing/CourseCard';
 import { ComingSoonCard } from '@/components/marketing/ComingSoonCard';
 
 const stats = [
-  { value: '4', label: 'Courses' },
-  { value: '40+', label: 'Modules' },
-  { value: '100+', label: 'Resources' },
+  { value: '6', label: 'Courses' },
+  { value: '60+', label: 'Modules' },
+  { value: '150+', label: 'Resources' },
   { value: 'Certificates', label: 'Available' },
 ];
 
@@ -67,12 +67,32 @@ const courses = [
     enrolSlug: 'practical-test-automation-playwright',
     cta: 'View Course',
   },
+  {
+    title: 'API Testing Masterclass',
+    badge: 'Professional',
+    description:
+      'Design, execute and automate API testing with Postman, REST, authentication, contract testing and AI-assisted workflows.',
+    stats: ['10 Modules', '55 Lessons', 'Portfolio Project'],
+    price: '£99',
+    href: '/course/api-testing-masterclass',
+    enrolSlug: 'api-testing-masterclass',
+    cta: 'View Course',
+  },
+  {
+    title: 'ISTQB Foundation Masterclass',
+    badge: 'Certification',
+    description:
+      'Pass the ISTQB Foundation exam while learning how testing principles are applied in real software projects.',
+    stats: ['14 Modules', '70+ Lessons', '2 Mock Exams'],
+    price: '£79',
+    href: '/course/istqb-foundation-masterclass',
+    enrolSlug: 'istqb-foundation-masterclass',
+    cta: 'View Course',
+  },
 ];
 
 const comingSoon = [
   { title: 'Modern Test Automation Bootcamp', description: 'Hands-on automation with modern frameworks and real projects.' },
-  { title: 'API Testing Masterclass', description: 'Go deep on REST, Postman, contract testing, and API quality.' },
-  { title: 'ISTQB Foundation Masterclass', description: 'Structured preparation for the ISTQB Foundation certification.' },
   { title: 'QA Leadership Academy', description: 'Grow into test lead and QA management roles with confidence.' },
   { title: 'Performance Testing Essentials', description: 'Learn load, stress, and performance testing fundamentals.' },
   { title: 'Mobile Testing Essentials', description: 'Master the essentials of testing modern mobile applications.' },

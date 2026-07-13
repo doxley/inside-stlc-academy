@@ -262,6 +262,53 @@ export interface Certificate {
   issued_at: string | null;
 }
 
+// ── Exam Practice Mode (ISTQB) ────────────────────────────────
+export type ExamMode = 'topic' | 'random' | 'timed' | 'mock' | 'revision';
+
+export interface PracticeOption {
+  text: string;
+  correct: boolean;
+  why: string;
+}
+
+export interface PracticeQuestion {
+  id: string;
+  course_id: string;
+  ext_key: string;
+  syllabus_topic: string;
+  module_number: number | null;
+  k_level: 'K1' | 'K2' | 'K3' | null;
+  mock: number | null;
+  mock_order: number | null;
+  question_text: string;
+  options: PracticeOption[];
+  explanation: string;
+  workplace_example: string | null;
+}
+
+export interface QuestionAttempt {
+  id: string;
+  user_id: string;
+  question_id: string;
+  course_id: string;
+  syllabus_topic: string | null;
+  is_correct: boolean;
+  mode: ExamMode | null;
+  attempted_at: string;
+}
+
+export interface MockExamResult {
+  id: string;
+  user_id: string;
+  course_id: string;
+  mock: number;
+  score: number;
+  total: number;
+  passed: boolean;
+  weak_topics: string[] | null;
+  taken_at: string;
+}
+
 export type PaymentStatus = 'pending' | 'completed' | 'refunded' | 'failed';
 
 export interface Payment {

@@ -3,7 +3,7 @@ const m = (await import(`./${name}.mjs`)).default;
 const req = ['lessonNumber','title','estimatedTime','lessonOverview','learningObjectives','lessonNotes','workedExample','commonMistakes','realWorldTip','exercise','reflectionQuestion','knowledgeCheck','completionChecklist','enhancements'];
 const enh = ['industryStory','davidTip','miniChallenge','modelAnswer','visualAid'];
 let errs = [];
-if (m.courseSlug !== 'api-testing-masterclass') errs.push('bad courseSlug');
+if (!m.courseSlug || typeof m.courseSlug !== 'string') errs.push('bad courseSlug');
 m.lessons.forEach((l,i) => {
   req.forEach(k => { if (l[k] === undefined || l[k] === null || (typeof l[k]==='string' && !l[k].trim())) errs.push(`L${l.lessonNumber||i+1}: missing ${k}`); });
   if (!Array.isArray(l.learningObjectives) || l.learningObjectives.length < 2) errs.push(`L${l.lessonNumber}: objectives`);
