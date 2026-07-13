@@ -5,7 +5,7 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Badge } from '@/components/ui/Badge';
-import { ChevronRight, Clock, CheckCircle2, Lock, Circle, Calendar } from 'lucide-react';
+import { ChevronRight, Clock, CheckCircle2, Lock, Circle, Calendar, GraduationCap } from 'lucide-react';
 import { isModuleUnlocked, getModuleUnlockDate, formatUnlockDate } from '@/lib/drip';
 import type { Module, ModuleProgress, Course, Enrolment } from '@/types';
 
@@ -17,13 +17,14 @@ export default async function CoursePage({ params }: { params: Promise<{ courseI
 
   const db = createAdminClient();
 
-  const [{ data: enrolment }, { data: modules }, { data: allProgress }, { data: course }, { data: unlocks }] =
+  const [{ data: enrolment }, { data: modules }, { data: allProgress }, { data: course }, { data: unlocks }, { count: questionCount }] =
     await Promise.all([
       db.from('enrolments').select('*, courses(*)').eq('user_id', user.id).eq('course_id', courseId).eq('status', 'active').single(),
       db.from('modules').select('*').eq('course_id', courseId).order('module_number'),
       db.from('module_progress').select('*').eq('user_id', user.id).eq('course_id', courseId),
       db.from('courses').select('*').eq('id', courseId).single(),
       db.from('module_unlocks').select('module_id').eq('user_id', user.id),
+      db.from('practice_questions').select('id', { count: 'exact', head: true }).eq('course_id', courseId),
     ]);
 
   if (!enrolment) notFound();
@@ -52,6 +53,21 @@ export default async function CoursePage({ params }: { params: Promise<{ courseI
         </div>
         <ProgressBar value={percent} />
       </Card>
+
+      {(questionCount ?? 0) > 0 && (
+        <Link href={`/dashboard/course/${courseId}/exam`} className="block mb-8">
+          <div className="flex items-center gap-4 bg-navy-900 text-white rounded-xl p-5 hover:opacity-95 transition-opacity">
+            <div className="w-11 h-11 flex-shrink-0 bg-gold-500/20 rounded-xl flex items-center justify-center">
+              <GraduationCap className="w-6 h-6 text-gold-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold">Exam Practice Mode</p>
+              <p className="text-sm text-gray-300">{questionCount} practice questions, topic quizzes, timed mock exams and a weak-area tracker.</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+          </div>
+        </Link>
+      )}
 
       <div className="space-y-3">
         {(modules ?? []).map((module: Module) => {
