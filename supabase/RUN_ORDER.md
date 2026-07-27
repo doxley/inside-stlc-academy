@@ -70,6 +70,11 @@ If you only want to fix that, jump to **"Minimum set to run now"** at the bottom
 ### Phase E — Test user
 35. `enrol-test-user.sql` — enrols `doxley9@gmail.com` into all courses (re-run after Playwright exists so it gets picked up)
 
+### Phase F — Storage (required for assignment uploads)
+36. `storage-assignment-submissions.sql` — creates the private
+    `assignment-submissions` Storage bucket + RLS policies. **Without this,
+    submitting an assignment fails with "Bucket not found".**
+
 ---
 
 ## Minimum set to run now (to match what you've already done)
@@ -98,6 +103,7 @@ seed-playwright-modules-10-12-lessons.sql
 assignment-templates.sql
 assignment-templates-playwright.sql
 enrol-test-user.sql
+storage-assignment-submissions.sql
 ```
 
 After that: refresh the dashboard — all four courses should show their module
