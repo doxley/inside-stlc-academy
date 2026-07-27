@@ -74,6 +74,10 @@ If you only want to fix that, jump to **"Minimum set to run now"** at the bottom
 36. `storage-assignment-submissions.sql` — creates the private
     `assignment-submissions` Storage bucket + RLS policies. **Without this,
     submitting an assignment fails with "Bucket not found".**
+37. `fix-profiles-rls-recursion.sql` — fixes "infinite recursion detected in
+    policy for relation profiles", which otherwise blocks the assignment
+    submission INSERT (and any browser-side write that touches an admin
+    policy). **Run this too.**
 
 ---
 
@@ -104,6 +108,7 @@ assignment-templates.sql
 assignment-templates-playwright.sql
 enrol-test-user.sql
 storage-assignment-submissions.sql
+fix-profiles-rls-recursion.sql
 ```
 
 After that: refresh the dashboard — all four courses should show their module
