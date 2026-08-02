@@ -13,9 +13,12 @@ export default async function AssignmentsPage() {
   if (!user) redirect('/login');
 
   const db = createAdminClient();
-  const { data: enrolment } = await db.from('enrolments').select('course_id').eq('user_id', user.id).eq('status', 'active').single();
+  // A learner can be enrolled in several courses, so this must NOT use
+  // .single() (which errors on multiple rows and wrongly reported "No active
+  // enrolment", hiding every submission and its feedback).
+  const { data: enrolments } = await db.from('enrolments').select('course_id').eq('user_id', user.id).eq('status', 'active');
 
-  if (!enrolment) return <div className="p-8 text-center mt-20"><p className="text-gray-500">No active enrolment.</p></div>;
+  if (!enrolments || enrolments.length === 0) return <div className="p-8 text-center mt-20"><p className="text-gray-500">No active enrolment.</p></div>;
 
   const { data: submissions } = await db
     .from('assignment_submissions')
@@ -44,7 +47,7 @@ export default async function AssignmentsPage() {
         <div className="space-y-3">
           {typed.map(sub => {
             const mod = sub.assignments?.modules;
-            const courseId = mod?.course_id ?? enrolment.course_id;
+            const courseId = mod?.course_id ?? enrolments[0].course_id;
             return (
               <Card key={sub.id} className="hover:border-brand-200 transition-colors">
                 <div className="flex items-start justify-between gap-4">
