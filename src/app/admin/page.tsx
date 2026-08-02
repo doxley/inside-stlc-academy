@@ -22,7 +22,7 @@ export default async function AdminOverviewPage() {
       .order('enrolled_at', { ascending: false })
       .limit(5),
     db.from('assignment_submissions')
-      .select('*, assignments(title), profiles(first_name, last_name)')
+      .select('*, assignments(title), profiles!user_id(first_name, last_name)')
       .eq('status', 'submitted')
       .order('submitted_at', { ascending: false })
       .limit(10),
