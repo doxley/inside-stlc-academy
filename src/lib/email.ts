@@ -113,25 +113,24 @@ export async function sendAdminSubmissionNotification(opts: {
   });
 }
 
-/** Notify a learner that their submission has been reviewed. */
+/**
+ * Notify a learner that their submission has been reviewed. Deliberately does
+ * NOT include the status or feedback text — the learner logs in to read it in
+ * the dashboard (keeps feedback behind auth and encourages return visits).
+ */
 export async function sendStudentFeedbackNotification(opts: {
   to: string;
   assignmentTitle: string;
-  statusLabel: string;
-  feedback?: string;
   dashboardUrl: string;
 }): Promise<void> {
   await send({
     to: opts.to,
-    subject: `Feedback on your submission: ${opts.assignmentTitle}`,
+    subject: `Your submission has been reviewed: ${opts.assignmentTitle}`,
     html: shell(`
       <h2 style="margin:0 0 12px">Your submission has been reviewed</h2>
-      <ul>
-        <li><strong>Assignment:</strong> ${opts.assignmentTitle}</li>
-        <li><strong>Status:</strong> ${opts.statusLabel}</li>
-      </ul>
-      ${opts.feedback ? `<p style="background:#f0faf9;border:1px solid #ccefec;border-radius:8px;padding:12px"><strong>Tutor feedback:</strong><br/>${opts.feedback}</p>` : ''}
-      ${button(opts.dashboardUrl, 'View in your dashboard')}
+      <p>Your tutor has reviewed your submission for <strong>${opts.assignmentTitle}</strong>.</p>
+      <p>Log in to your dashboard to see your result and read the feedback.</p>
+      ${button(opts.dashboardUrl, 'Log in to view feedback')}
     `),
   });
 }

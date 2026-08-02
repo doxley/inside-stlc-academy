@@ -3,7 +3,6 @@ import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { getSiteUrl } from '@/lib/stripe';
 import { sendStudentFeedbackNotification } from '@/lib/email';
-import { getSubmissionStatusLabel } from '@/lib/utils';
 
 export const runtime = 'nodejs';
 
@@ -30,7 +29,7 @@ export async function POST(req: Request) {
 
     const { data: submission } = await db
       .from('assignment_submissions')
-      .select('id, status, feedback, assignments(title), profiles!user_id(email)')
+      .select('id, assignments(title), profiles!user_id(email)')
       .eq('id', submissionId)
       .maybeSingle();
     if (!submission) return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -42,8 +41,6 @@ export async function POST(req: Request) {
     await sendStudentFeedbackNotification({
       to: student.email,
       assignmentTitle: assignment?.title ?? 'Assignment',
-      statusLabel: getSubmissionStatusLabel(submission.status),
-      feedback: submission.feedback ?? undefined,
       dashboardUrl: `${getSiteUrl()}/dashboard`,
     });
 
