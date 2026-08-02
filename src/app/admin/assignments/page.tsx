@@ -13,14 +13,18 @@ export default async function AdminAssignmentsPage({
   const { status: filterStatus, submission: selectedId } = await searchParams;
   const db = createAdminClient();
 
+  // assignment_submissions has two FKs to profiles (user_id, reviewed_by),
+  // so the embed must name the one we want (the submitting student) or
+  // PostgREST rejects the query as ambiguous.
   let query = db
     .from('assignment_submissions')
-    .select('*, assignments(title, module_id), profiles(id, first_name, last_name, email)')
+    .select('*, assignments(title, module_id), profiles!user_id(id, first_name, last_name, email)')
     .order('submitted_at', { ascending: false });
 
   if (filterStatus) query = query.eq('status', filterStatus);
 
-  const { data: submissions } = await query;
+  const { data: submissions, error } = await query;
+  if (error) console.error('admin/assignments: failed to load submissions', error);
 
   type FullSub = AssignmentSubmission & { assignments: Assignment; profiles: Profile };
   const typed = (submissions ?? []) as FullSub[];
