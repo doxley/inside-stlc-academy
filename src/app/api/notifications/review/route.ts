@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
     const { data: submission } = await db
       .from('assignment_submissions')
-      .select('id, status, feedback, assignments(title), profiles(email)')
+      .select('id, status, feedback, assignments(title), profiles!user_id(email)')
       .eq('id', submissionId)
       .maybeSingle();
     if (!submission) return NextResponse.json({ error: 'Not found' }, { status: 404 });

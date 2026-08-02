@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     const db = createAdminClient();
     const { data: submission } = await db
       .from('assignment_submissions')
-      .select('id, user_id, assignments(title), profiles(first_name, last_name, email)')
+      .select('id, user_id, assignments(title), profiles!user_id(first_name, last_name, email)')
       .eq('id', submissionId)
       .maybeSingle();
 
