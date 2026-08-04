@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/Badge';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { EnrolStudentForm } from '@/components/admin/EnrolStudentForm';
 import { ResendInviteButton } from '@/components/admin/ResendInviteButton';
-import { formatDate, getSubmissionStatusColour, getSubmissionStatusLabel } from '@/lib/utils';
+import { formatDate, formatRelativeTime, getActivityStatus, getSubmissionStatusColour, getSubmissionStatusLabel } from '@/lib/utils';
 import { ArrowLeft, User, BookOpen } from 'lucide-react';
 import { ManualUnlockButton } from '@/components/admin/ManualUnlockButton';
 import { isModuleUnlocked } from '@/lib/drip';
@@ -24,6 +24,11 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
   ]);
 
   if (!student) notFound();
+
+  // Last actual login comes from Supabase Auth (not the profiles table).
+  const { data: authUser } = await db.auth.admin.getUserById(studentId);
+  const lastSignInAt = authUser?.user?.last_sign_in_at ?? null;
+  const activity = getActivityStatus(student.last_seen_at ?? null);
 
   // A student can have several active enrolments. The detailed progress view
   // below shows the first (earliest) enrolment; all are listed in the summary.
@@ -68,9 +73,16 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
             <User className="w-7 h-7 text-brand-600" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{student.first_name} {student.last_name}</h1>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-2xl font-bold text-gray-900">{student.first_name} {student.last_name}</h1>
+              <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${activity.colour}`}>{activity.label}</span>
+            </div>
             <p className="text-gray-500">{student.email}</p>
-            <p className="text-xs text-gray-400 mt-0.5">Joined {formatDate(student.created_at)}</p>
+            <div className="text-xs text-gray-400 mt-1 space-y-0.5">
+              <p>Joined {formatDate(student.created_at)}</p>
+              <p>Last active {student.last_seen_at ? formatRelativeTime(student.last_seen_at) : 'never'}</p>
+              <p>Last sign-in {lastSignInAt ? `${formatDate(lastSignInAt)} (${formatRelativeTime(lastSignInAt)})` : 'never'}</p>
+            </div>
             <div className="mt-3">
               <ResendInviteButton email={student.email} />
             </div>

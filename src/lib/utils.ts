@@ -11,6 +11,35 @@ export function formatDate(dateStr: string) {
   });
 }
 
+/** Human-friendly "time ago" for activity timestamps. */
+export function formatRelativeTime(dateStr: string) {
+  const then = new Date(dateStr).getTime();
+  const diffMs = Date.now() - then;
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins} minute${mins === 1 ? '' : 's'} ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours} hour${hours === 1 ? '' : 's'} ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 30) return `${days} day${days === 1 ? '' : 's'} ago`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `${months} month${months === 1 ? '' : 's'} ago`;
+  const years = Math.floor(days / 365);
+  return `${years} year${years === 1 ? '' : 's'} ago`;
+}
+
+/**
+ * Coarse activity status from a "last active" timestamp, for an at-a-glance
+ * badge: active within a week, idle within a month, otherwise inactive.
+ */
+export function getActivityStatus(dateStr: string | null): { label: string; colour: string } {
+  if (!dateStr) return { label: 'Never active', colour: 'bg-gray-100 text-gray-600' };
+  const days = (Date.now() - new Date(dateStr).getTime()) / 86400000;
+  if (days <= 7) return { label: 'Active', colour: 'bg-green-100 text-green-800' };
+  if (days <= 30) return { label: 'Idle', colour: 'bg-yellow-100 text-yellow-800' };
+  return { label: 'Inactive', colour: 'bg-red-100 text-red-800' };
+}
+
 export function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;

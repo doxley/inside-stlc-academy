@@ -78,6 +78,8 @@ If you only want to fix that, jump to **"Minimum set to run now"** at the bottom
     policy for relation profiles", which otherwise blocks the assignment
     submission INSERT (and any browser-side write that touches an admin
     policy). **Run this too.**
+38. `add-last-seen.sql` — adds `profiles.last_seen_at` so the admin student
+    detail page can show "Last active" / activity status.
 
 ---
 

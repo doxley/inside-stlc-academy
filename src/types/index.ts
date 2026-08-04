@@ -14,6 +14,8 @@ export interface Profile {
   last_name: string | null;
   role: UserRole;
   avatar_url: string | null;
+  // Last time the learner opened a dashboard page (throttled). Null if never.
+  last_seen_at: string | null;
   created_at: string;
   updated_at: string;
 }
