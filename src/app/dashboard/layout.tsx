@@ -17,11 +17,19 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   const { data: profile } = await admin
     .from('profiles')
-    .select('role, first_name')
+    .select('role, first_name, last_seen_at')
     .eq('id', user.id)
     .single();
 
   if (profile?.role === 'admin') redirect('/admin');
+
+  // Record "last active" for admin monitoring. Throttled to at most once per
+  // 15 minutes so ordinary page navigation doesn't write on every request.
+  const THROTTLE_MS = 15 * 60 * 1000;
+  const lastSeen = profile?.last_seen_at ? new Date(profile.last_seen_at).getTime() : 0;
+  if (Date.now() - lastSeen > THROTTLE_MS) {
+    await admin.from('profiles').update({ last_seen_at: new Date().toISOString() }).eq('id', user.id);
+  }
 
   return (
     <div className="flex min-h-screen">
