@@ -81,6 +81,20 @@ If you only want to fix that, jump to **"Minimum set to run now"** at the bottom
 38. `add-last-seen.sql` — adds `profiles.last_seen_at` so the admin student
     detail page can show "Last active" / activity status.
 
+### Phase G — QA Leadership Academy (Course 7) — Batch 1 (Modules 1–3)
+Run in this order (prereq: `lessons-schema.sql` + `lesson-enhancements-schema.sql`
+from earlier phases must already be applied):
+39. `add-qa-leadership-course.sql` — the course row (slug `qa-leadership-academy`).
+40. `seed-qa-leadership-modules.sql` — all 12 module rows.
+41. `seed-qa-leadership-module-1-lessons.sql`
+42. `seed-qa-leadership-module-2-lessons.sql`
+43. `seed-qa-leadership-module-3-lessons.sql`
+44. `seed-qa-leadership-module-1-enhancements.sql`
+45. `seed-qa-leadership-module-2-enhancements.sql`
+46. `seed-qa-leadership-module-3-enhancements.sql`
+47. `seed-qa-leadership-assignments.sql` — Modules 1–3 assignments.
+    (Modules 4–12, resources and knowledge-check quizzes follow in later batches.)
+
 ---
 
 ## Minimum set to run now (to match what you've already done)

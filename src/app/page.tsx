@@ -89,11 +89,21 @@ const courses = [
     enrolSlug: 'istqb-foundation-masterclass',
     cta: 'View Course',
   },
+  {
+    title: 'QA Leadership Academy',
+    badge: 'Leadership Edition',
+    description:
+      'Build QA strategy, high-performing teams, meaningful metrics, and lead automation and AI adoption. For test leads, QA managers and senior testers moving into leadership.',
+    stats: ['12 Modules', '60+ Lessons', 'Transformation Portfolio'],
+    price: '£199',
+    href: '/course/qa-leadership-academy',
+    enrolSlug: 'qa-leadership-academy',
+    cta: 'View Course',
+  },
 ];
 
 const comingSoon = [
   { title: 'Modern Test Automation Bootcamp', description: 'Hands-on automation with modern frameworks and real projects.' },
-  { title: 'QA Leadership Academy', description: 'Grow into test lead and QA management roles with confidence.' },
   { title: 'Performance Testing Essentials', description: 'Learn load, stress, and performance testing fundamentals.' },
   { title: 'Mobile Testing Essentials', description: 'Master the essentials of testing modern mobile applications.' },
 ];
