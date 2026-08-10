@@ -1,11 +1,21 @@
 # QA Leadership Academy — Build Report
 
-> **Status: BATCHES 1–4 COMPLETE — ALL 12 MODULES + CAPSTONE AUTHORED. Not yet fully finished.**
-> All 12 modules (94 lessons) and the Final Capstone are written, generated to
-> SQL, and build clean. Still outstanding before go-live: Batch 5 (the 30+
-> resource tools, wired to assignments via template_slug/brief_slug), Batch 6
-> (module knowledge-check quizzes + full senior content audit + end-to-end
-> in-app QA), the 22 David placeholders, and the production merge. Not "done".
+> **Status: BATCHES 1–5 COMPLETE — all 12 modules, capstone AND resources built.**
+> All 12 modules (94 lessons) + the Final Capstone are written, generated to SQL
+> and build clean; Batch 5 has added 56 branded resources wired to the
+> assignments. Still outstanding before go-live: **Batch 6 (module
+> knowledge-check quizzes + full senior content audit + end-to-end in-app QA)**,
+> the David placeholders, and the production merge. Not "done".
+
+## Resources (Batch 5 — complete)
+56 branded DOCX+PDF resources in `public/resources/qa-leadership-academy/`, merged
+into `public/resources/manifest.json`: **36 Templates, 5 Automation Resources,
+3 Checklists, 12 Assignment Briefs** (44 professional tools + 12 briefs). Each
+tool carries Purpose / When to use / Instructions / a Northstar worked example /
+a blank reusable version / Common mistakes / interpretation — real instruments,
+not empty worksheets. Every assignment is wired to its primary template
+(`template_slug`) and brief (`brief_slug`). Resources are file-based (served from
+`public/` via the manifest) — **no SQL needed** for them.
 
 ---
 
