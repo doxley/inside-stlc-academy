@@ -1,10 +1,11 @@
 # QA Leadership Academy — Build Report
 
-> **Status: BATCHES 1–3 COMPLETE (Modules 1–9 of 12) — NOT the finished programme.**
-> Batch 1 (shell + Modules 1–3) approved. Batch 2 added Modules 4–6 (Hiring,
-> QA Strategy, Risk). Batch 3 adds Modules 7–9 (Metrics, Automation Strategy,
-> AI Strategy). Modules 10–12 + capstone (Batch 4), resources (Batch 5) and
-> quizzes + final audit (Batch 6) remain. Not "done".
+> **Status: BATCHES 1–4 COMPLETE — ALL 12 MODULES + CAPSTONE AUTHORED. Not yet fully finished.**
+> All 12 modules (94 lessons) and the Final Capstone are written, generated to
+> SQL, and build clean. Still outstanding before go-live: Batch 5 (the 30+
+> resource tools, wired to assignments via template_slug/brief_slug), Batch 6
+> (module knowledge-check quizzes + full senior content audit + end-to-end
+> in-app QA), the 22 David placeholders, and the production merge. Not "done".
 
 ---
 
@@ -32,14 +33,14 @@
 | Item | Count (Batches 1–2) |
 |---|---|
 | Course created | 1 (`qa-leadership-academy`) |
-| Modules seeded | 12 (shell); **9 fully authored** (1–9) |
-| Deep-dive lessons authored | **69** (M1–3: 6 each; M4–5: 10; M6: 6; M7–8: 8; M9: 9) |
-| Enhancement blocks | 69 (industry story, visual aid, David tip, bad/good, mini-challenge, model answer, etc.) |
-| Decision scenarios (mini-challenge + model answer) | 69 |
-| Knowledge checks (judgement-based) | 69 |
-| Module assignments | 9 (portfolio artefacts) |
-| Approx. focused learning (Modules 1–9) | ~20–23 hours of reading + practical work |
-| `DAVID INPUT REQUIRED` placeholders | 16 (see below) |
+| Modules authored | **12 of 12** (all) |
+| Deep-dive lessons authored | **94** (M1–3: 6; M4–5: 10; M6: 6; M7–8: 8; M9: 9; M10: 8; M11: 9; M12: 8) |
+| Enhancement blocks | 94 (industry story, visual aid, David tip, bad/good, mini-challenge, model answer, etc.) |
+| Decision scenarios (mini-challenge + model answer) | 94 |
+| Knowledge checks (judgement-based) | 94 |
+| Module assignments | 12 (portfolio artefacts) incl. the Final Capstone (15-part transformation portfolio) |
+| Approx. focused learning (all modules) | ~28–32 hours of reading + practical work |
+| `DAVID INPUT REQUIRED` placeholders | 22 (see below) |
 
 ---
 
@@ -98,6 +99,12 @@ These are deliberately left for authentic personal input rather than fabricated:
 14. **M8 L6** (industryStory) — an orphaned suite maintained by one engineer that was turned around (quarantining/deleting flaky tests).
 15. **M9 L1** (industryStory) — the first time you found testers using a public AI tool informally, and what you did instead of banning/ignoring it.
 16. **M9 L5** (industryStory) — an organisation dealing with shadow AI use (a backfired ban, or an early get-ahead win).
+17. **M10 L5** (industryStory) — a high-pressure deadline where a structured risk-and-recommendation beat a flat "no".
+18. **M10 L8** (industryStory) — a board/exec quality conversation where risk-and-money framing landed and test-case counts fell flat.
+19. **M11 L4** (industryStory) — a performance conversation where preparation changed the outcome, and the line to a formal HR process.
+20. **M11 L6** (industryStory) — an underperformance case where diagnosing the real cause changed everything, and where HR was engaged.
+21. **M12 L1** (industryStory) — pulling separate quality analyses into one coherent leadership narrative (or a pile of docs that weakened the case).
+22. **M12 L7** (industryStory) — an executive presentation where *how* it was presented decided the outcome.
 
 Everything around them is complete and reads well; they can be filled in later without rework.
 
@@ -107,7 +114,7 @@ Everything around them is complete and reads well; they can be filled in later w
 
 - ~~**Batch 2:** Modules 4–6 (Hiring, QA Strategy, Risk-Based Quality Leadership).~~ ✅ **Done.**
 - ~~**Batch 3:** Modules 7–9 (Metrics, Automation Strategy, AI Strategy).~~ ✅ **Done.**
-- **Batch 4:** Modules 10–12 (Stakeholder Management, Coaching/Performance, Transformation Roadmap) + the **Final Capstone Project** (the 15-part Northstar QA Leadership Portfolio).
+- ~~**Batch 4:** Modules 10–12 + the **Final Capstone Project** (15-part Northstar QA Leadership Portfolio).~~ ✅ **Done.**
 - **Batch 5:** Resources — the 30+ real working templates/tools, generated via the existing resource pipeline (`scripts/resources/`), then wired to assignments via `template_slug` / `brief_slug` (currently null for M1–3).
 - **Batch 6:** Assessments & QA — module knowledge-check quizzes (module-level `quizzes`/`quiz_questions`), a full senior-professional content audit, and end-to-end wiring/mobile check.
 - Fill the 5 David placeholders.
