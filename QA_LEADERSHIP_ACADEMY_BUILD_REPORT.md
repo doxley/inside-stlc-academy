@@ -1,9 +1,10 @@
 # QA Leadership Academy — Build Report
 
-> **Status: BATCH 1 of 6 COMPLETE — NOT the finished programme.**
-> This report covers the course shell + Modules 1–3, paused deliberately for a
-> content-quality review before Modules 4–12 are built. Nothing here should be
-> read as "the programme is done".
+> **Status: BATCHES 1–2 COMPLETE (Modules 1–6 of 12) — NOT the finished programme.**
+> Batch 1 (shell + Modules 1–3) was reviewed and approved. Batch 2 adds
+> Modules 4–6 (Hiring, QA Strategy, Risk-Based Quality Leadership). Modules
+> 7–12 + capstone, resources and quizzes remain. Nothing here should be read
+> as "the programme is done".
 
 ---
 
@@ -28,17 +29,17 @@
 
 ## By the numbers (Batch 1)
 
-| Item | Count |
+| Item | Count (Batches 1–2) |
 |---|---|
 | Course created | 1 (`qa-leadership-academy`) |
-| Modules seeded | 12 (shell); **3 fully authored** (1–3) |
-| Deep-dive lessons authored | **18** (6 per module) |
-| Enhancement blocks | 18 (industry story, visual aid, David tip, bad/good, mini-challenge, model answer, etc.) |
-| Decision scenarios (mini-challenge + model answer) | 18 |
-| Knowledge checks (judgement-based) | 18 |
-| Module assignments | 3 (portfolio artefacts) |
-| Approx. focused learning (Modules 1–3) | ~5–6 hours of reading + practical work |
-| `DAVID INPUT REQUIRED` placeholders | 5 (see below) |
+| Modules seeded | 12 (shell); **6 fully authored** (1–6) |
+| Deep-dive lessons authored | **36** (M1–3: 6 each; M4–5: 10 each; M6: 6) |
+| Enhancement blocks | 36 (industry story, visual aid, David tip, bad/good, mini-challenge, model answer, etc.) |
+| Decision scenarios (mini-challenge + model answer) | 36 |
+| Knowledge checks (judgement-based) | 36 |
+| Module assignments | 6 (portfolio artefacts) |
+| Approx. focused learning (Modules 1–6) | ~11–13 hours of reading + practical work |
+| `DAVID INPUT REQUIRED` placeholders | 10 (see below) |
 
 ---
 
@@ -86,6 +87,11 @@ These are deliberately left for authentic personal input rather than fabricated:
 3. **M2 L3** (industryStory) — a specific memory of a value-stream map changing a team's conversation.
 4. **M3 L2** (davidTip) — a time you filled a *role* when the real need was a *skill/process fix*.
 5. **M3 L5** (industryStory) — developing someone by reducing their firefighting load / a stretch assignment with a safety net.
+6. **M4 L7** (industryStory) — a take-home / practical assessment that crossed the line, and how you made it fair yet predictive.
+7. **M4 L9** (industryStory) — a close-call senior hire where the "best on paper" candidate wasn't the right hire for the team's gap.
+8. **M5 L1** (industryStory) — a thorough-but-ignored 40-page strategy vs a lightweight one that changed behaviour.
+9. **M5 L10** (industryStory) — a strategy that lived or died on how well its trade-offs (especially non-goals) were communicated.
+10. **M6 L5** (industryStory) — a release-eve go/no-go that turned on how residual risk was presented to and owned by the accountable stakeholder.
 
 Everything around them is complete and reads well; they can be filled in later without rework.
 
@@ -93,7 +99,7 @@ Everything around them is complete and reads well; they can be filled in later w
 
 ## Outstanding TODOs (later batches — NOT started)
 
-- **Batch 2:** Modules 4–6 (Hiring, QA Strategy, Risk-Based Quality Leadership).
+- ~~**Batch 2:** Modules 4–6 (Hiring, QA Strategy, Risk-Based Quality Leadership).~~ ✅ **Done.**
 - **Batch 3:** Modules 7–9 (Metrics, Automation Strategy, AI Strategy).
 - **Batch 4:** Modules 10–12 (Stakeholder Management, Coaching/Performance, Transformation Roadmap) + the **Final Capstone Project** (the 15-part Northstar QA Leadership Portfolio).
 - **Batch 5:** Resources — the 30+ real working templates/tools, generated via the existing resource pipeline (`scripts/resources/`), then wired to assignments via `template_slug` / `brief_slug` (currently null for M1–3).
