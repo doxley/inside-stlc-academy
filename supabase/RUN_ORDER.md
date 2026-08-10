@@ -110,8 +110,13 @@ from earlier phases must already be applied):
 62. `seed-qa-leadership-module-10-enhancements.sql`
 63. `seed-qa-leadership-module-11-enhancements.sql`
 64. `seed-qa-leadership-module-12-enhancements.sql`
-65. `seed-qa-leadership-assignments.sql` — Modules 1–12 assignments (incl. the Final Capstone).
-    (Resources and knowledge-check quizzes follow in later batches.)
+65. `seed-qa-leadership-assignments.sql` — Modules 1–12 assignments (incl. the Final Capstone), with template_slug/brief_slug wired to the Vault docs.
+66. `seed-qa-leadership-quizzes-1-6.sql` — module knowledge-check quizzes (Modules 1–6).
+67. `seed-qa-leadership-quizzes-7-12.sql` — module knowledge-check quizzes (Modules 7–12).
+
+The 56 resources (DOCX/PDF tools + assignment briefs) are file-based under
+`public/resources/qa-leadership-academy/` and need **no SQL**. After the above,
+re-run `enrol-test-user.sql` to enrol the test account into the new course.
 
 ---
 

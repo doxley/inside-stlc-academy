@@ -1,11 +1,30 @@
 # QA Leadership Academy — Build Report
 
-> **Status: BATCHES 1–5 COMPLETE — all 12 modules, capstone AND resources built.**
-> All 12 modules (94 lessons) + the Final Capstone are written, generated to SQL
-> and build clean; Batch 5 has added 56 branded resources wired to the
-> assignments. Still outstanding before go-live: **Batch 6 (module
-> knowledge-check quizzes + full senior content audit + end-to-end in-app QA)**,
-> the David placeholders, and the production merge. Not "done".
+> **Status: ALL 6 BATCHES BUILT — content-complete, pending three things before go-live.**
+> 12 modules (94 lessons) + capstone + 56 resources + 12 module quizzes are all
+> written, generated and building clean; a senior content audit has been run and
+> its findings actioned (pronoun continuity fixed). **Before go-live:** (1) run
+> the Phase G SQL in Supabase; (2) a decision on the David-voice anecdotes (see
+> "Content audit" below); (3) the production merge. Not "done" until those.
+
+## Batch 6 — assessments & audit (built)
+- **Module knowledge-check quizzes:** one quiz per module (all 12), 6
+  judgement-based questions each (4 options, one correct, 70% pass), grounded in
+  Northstar — `seed-qa-leadership-quizzes-1-6.sql` + `-7-12.sql`, produced by the
+  idempotent `scripts/content/build-quizzes.mjs`. This is Level-1 of the
+  three-layer model; Level-2 decision scenarios live in the lessons, Level-3
+  professional assignments have rubric-style briefs.
+- **Senior content audit (actioned):** verdict — genuinely senior-grade, **no
+  fabricated statistics/companies/quotations**, clean British English, no video
+  references, strong Northstar continuity. One continuity bug fixed (a ramping
+  hire's pronoun in Module 9). **One decision for the client:** ~75 first-person
+  `industryStory`/`davidTip` anecdotes are written in David's voice as lived
+  experience but are anonymised composites, not marked `[DAVID INPUT REQUIRED]`.
+  They contain no fabricated facts, but for a course sold on David's authority he
+  should either (a) sign them off as genuinely his, or (b) they should be
+  relabelled to explicitly illustrative/composite voice ("a pattern I see
+  repeatedly…" rather than "I once watched…"). This is a review/labelling
+  decision, not a rewrite.
 
 ## Resources (Batch 5 — complete)
 56 branded DOCX+PDF resources in `public/resources/qa-leadership-academy/`, merged
