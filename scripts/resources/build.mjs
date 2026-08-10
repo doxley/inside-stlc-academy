@@ -31,6 +31,12 @@ import istqbBatch2 from './content/istqb-batch2.mjs';
 import istqbBatch3 from './content/istqb-batch3.mjs';
 import istqbBatch4 from './content/istqb-batch4.mjs';
 import istqbBatch5 from './content/istqb-batch5.mjs';
+import qlToolsAssessmentStrategy from './content/ql-tools-assessment-strategy.mjs';
+import qlToolsRiskMetrics from './content/ql-tools-risk-metrics.mjs';
+import qlToolsAutomationAi from './content/ql-tools-automation-ai.mjs';
+import qlToolsTeamHiring from './content/ql-tools-team-hiring.mjs';
+import qlToolsStakeholderPeople from './content/ql-tools-stakeholder-people.mjs';
+import qlBriefs from './content/ql-briefs.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -67,6 +73,14 @@ const ALL_JOBS = [
     courseSlug: 'istqb-foundation-masterclass',
     courseTitle: 'ISTQB Foundation Masterclass',
     resources: [...istqbBatch1, ...istqbBatch2, ...istqbBatch3, ...istqbBatch4, ...istqbBatch5],
+  },
+  {
+    courseSlug: 'qa-leadership-academy',
+    courseTitle: 'QA Leadership Academy',
+    resources: [
+      ...qlToolsAssessmentStrategy, ...qlToolsRiskMetrics, ...qlToolsAutomationAi,
+      ...qlToolsTeamHiring, ...qlToolsStakeholderPeople, ...qlBriefs,
+    ],
   },
 ];
 
