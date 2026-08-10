@@ -77,6 +77,15 @@ export const COURSES: CourseConfig[] = [
     stripePriceId: process.env.STRIPE_PRICE_ISTQB,
     route: '/course/istqb-foundation-masterclass',
   },
+  {
+    slug: 'qa-leadership-academy',
+    title: 'QA Leadership Academy',
+    priceLabel: '£199',
+    amount: 19900,
+    currency: 'gbp',
+    stripePriceId: process.env.STRIPE_PRICE_QA_LEADERSHIP,
+    route: '/course/qa-leadership-academy',
+  },
 ];
 
 export function getCourseConfig(slug: string): CourseConfig | undefined {
