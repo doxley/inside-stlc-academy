@@ -92,14 +92,20 @@ from earlier phases must already be applied):
 44. `seed-qa-leadership-module-4-lessons.sql`
 45. `seed-qa-leadership-module-5-lessons.sql`
 46. `seed-qa-leadership-module-6-lessons.sql`
-47. `seed-qa-leadership-module-1-enhancements.sql`
-48. `seed-qa-leadership-module-2-enhancements.sql`
-49. `seed-qa-leadership-module-3-enhancements.sql`
-50. `seed-qa-leadership-module-4-enhancements.sql`
-51. `seed-qa-leadership-module-5-enhancements.sql`
-52. `seed-qa-leadership-module-6-enhancements.sql`
-53. `seed-qa-leadership-assignments.sql` — Modules 1–6 assignments.
-    (Modules 7–12, resources and knowledge-check quizzes follow in later batches.)
+47. `seed-qa-leadership-module-7-lessons.sql`
+48. `seed-qa-leadership-module-8-lessons.sql`
+49. `seed-qa-leadership-module-9-lessons.sql`
+50. `seed-qa-leadership-module-1-enhancements.sql`
+51. `seed-qa-leadership-module-2-enhancements.sql`
+52. `seed-qa-leadership-module-3-enhancements.sql`
+53. `seed-qa-leadership-module-4-enhancements.sql`
+54. `seed-qa-leadership-module-5-enhancements.sql`
+55. `seed-qa-leadership-module-6-enhancements.sql`
+56. `seed-qa-leadership-module-7-enhancements.sql`
+57. `seed-qa-leadership-module-8-enhancements.sql`
+58. `seed-qa-leadership-module-9-enhancements.sql`
+59. `seed-qa-leadership-assignments.sql` — Modules 1–9 assignments.
+    (Modules 10–12, resources and knowledge-check quizzes follow in later batches.)
 
 ---
 

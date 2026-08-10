@@ -1,10 +1,10 @@
 # QA Leadership Academy — Build Report
 
-> **Status: BATCHES 1–2 COMPLETE (Modules 1–6 of 12) — NOT the finished programme.**
-> Batch 1 (shell + Modules 1–3) was reviewed and approved. Batch 2 adds
-> Modules 4–6 (Hiring, QA Strategy, Risk-Based Quality Leadership). Modules
-> 7–12 + capstone, resources and quizzes remain. Nothing here should be read
-> as "the programme is done".
+> **Status: BATCHES 1–3 COMPLETE (Modules 1–9 of 12) — NOT the finished programme.**
+> Batch 1 (shell + Modules 1–3) approved. Batch 2 added Modules 4–6 (Hiring,
+> QA Strategy, Risk). Batch 3 adds Modules 7–9 (Metrics, Automation Strategy,
+> AI Strategy). Modules 10–12 + capstone (Batch 4), resources (Batch 5) and
+> quizzes + final audit (Batch 6) remain. Not "done".
 
 ---
 
@@ -32,14 +32,14 @@
 | Item | Count (Batches 1–2) |
 |---|---|
 | Course created | 1 (`qa-leadership-academy`) |
-| Modules seeded | 12 (shell); **6 fully authored** (1–6) |
-| Deep-dive lessons authored | **36** (M1–3: 6 each; M4–5: 10 each; M6: 6) |
-| Enhancement blocks | 36 (industry story, visual aid, David tip, bad/good, mini-challenge, model answer, etc.) |
-| Decision scenarios (mini-challenge + model answer) | 36 |
-| Knowledge checks (judgement-based) | 36 |
-| Module assignments | 6 (portfolio artefacts) |
-| Approx. focused learning (Modules 1–6) | ~11–13 hours of reading + practical work |
-| `DAVID INPUT REQUIRED` placeholders | 10 (see below) |
+| Modules seeded | 12 (shell); **9 fully authored** (1–9) |
+| Deep-dive lessons authored | **69** (M1–3: 6 each; M4–5: 10; M6: 6; M7–8: 8; M9: 9) |
+| Enhancement blocks | 69 (industry story, visual aid, David tip, bad/good, mini-challenge, model answer, etc.) |
+| Decision scenarios (mini-challenge + model answer) | 69 |
+| Knowledge checks (judgement-based) | 69 |
+| Module assignments | 9 (portfolio artefacts) |
+| Approx. focused learning (Modules 1–9) | ~20–23 hours of reading + practical work |
+| `DAVID INPUT REQUIRED` placeholders | 16 (see below) |
 
 ---
 
@@ -92,6 +92,12 @@ These are deliberately left for authentic personal input rather than fabricated:
 8. **M5 L1** (industryStory) — a thorough-but-ignored 40-page strategy vs a lightweight one that changed behaviour.
 9. **M5 L10** (industryStory) — a strategy that lived or died on how well its trade-offs (especially non-goals) were communicated.
 10. **M6 L5** (industryStory) — a release-eve go/no-go that turned on how residual risk was presented to and owned by the accountable stakeholder.
+11. **M7 L1** (industryStory) — a team whose metrics looked excellent while quality quietly worsened, and the metric you swapped in.
+12. **M7 L8** (industryStory) — delivering difficult quality news to leadership and how the framing shaped trust.
+13. **M8 L1** (industryStory) — an automation programme that failed from a coverage/count target or orphaned ownership.
+14. **M8 L6** (industryStory) — an orphaned suite maintained by one engineer that was turned around (quarantining/deleting flaky tests).
+15. **M9 L1** (industryStory) — the first time you found testers using a public AI tool informally, and what you did instead of banning/ignoring it.
+16. **M9 L5** (industryStory) — an organisation dealing with shadow AI use (a backfired ban, or an early get-ahead win).
 
 Everything around them is complete and reads well; they can be filled in later without rework.
 
@@ -100,7 +106,7 @@ Everything around them is complete and reads well; they can be filled in later w
 ## Outstanding TODOs (later batches — NOT started)
 
 - ~~**Batch 2:** Modules 4–6 (Hiring, QA Strategy, Risk-Based Quality Leadership).~~ ✅ **Done.**
-- **Batch 3:** Modules 7–9 (Metrics, Automation Strategy, AI Strategy).
+- ~~**Batch 3:** Modules 7–9 (Metrics, Automation Strategy, AI Strategy).~~ ✅ **Done.**
 - **Batch 4:** Modules 10–12 (Stakeholder Management, Coaching/Performance, Transformation Roadmap) + the **Final Capstone Project** (the 15-part Northstar QA Leadership Portfolio).
 - **Batch 5:** Resources — the 30+ real working templates/tools, generated via the existing resource pipeline (`scripts/resources/`), then wired to assignments via `template_slug` / `brief_slug` (currently null for M1–3).
 - **Batch 6:** Assessments & QA — module knowledge-check quizzes (module-level `quizzes`/`quiz_questions`), a full senior-professional content audit, and end-to-end wiring/mobile check.
