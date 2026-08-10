@@ -68,7 +68,7 @@ Coaching trades short-term speed for long-term capability and retention. Managin
         'I can name situations where coaching is the wrong choice and direction is kinder',
       ],
       enhancements: {
-        industryStory: `A capable QA manager I worked with prided themselves on "always empowering the team — I never just tell people what to do." Their juniors were drowning. One had spent two days going in circles on an environment problem the manager could have unpicked in ten minutes, because every request for help was met with "what do you think you should try?" The manager thought they were coaching; the junior experienced it as being left to fail politely. Nothing changed until the manager accepted that teaching a skill and then coaching its use are two steps, in that order — and that starting with coaching when the skill isn't there is just abandonment with better manners.`,
+        industryStory: `Consider a capable QA manager who prides themselves on "always empowering the team — I never just tell people what to do." Their juniors are drowning. One spends two days going in circles on an environment problem the manager could have unpicked in ten minutes, because every request for help is met with "what do you think you should try?" The manager thinks they're coaching; the junior experiences it as being left to fail politely. Nothing changes until the manager accepts that teaching a skill and then coaching its use are two steps, in that order — and that starting with coaching when the skill isn't there is just abandonment with better manners.`,
         visualAid: {
           type: 'comparison',
           title: 'Coaching vs managing — two tools, both required',
@@ -82,7 +82,7 @@ Coaching trades short-term speed for long-term capability and retention. Managin
             ['Use most with', 'Juniors, crises, compliance', 'Experienced people, judgement calls, development'],
           ],
         },
-        davidTip: `When I ask a leadership candidate "how do you develop your people?" the weak answer is a single mode dressed up as a philosophy — "I always coach" or "I'm very hands-on." The strong answer is diagnostic: "it depends who and what — Aisha needs showing, Sofia needs backing off." The best QA leaders I know are almost boringly deliberate about this. They don't have a coaching style or a managing style; they have a habit of asking, before each conversation, what this specific person needs today. That habit is the whole skill.`,
+        davidTip: `Ask a leadership candidate "how do you develop your people?" and the weak answer is a single mode dressed up as a philosophy — "I always coach" or "I'm very hands-on." The strong answer is diagnostic: "it depends who and what — Aisha needs showing, Sofia needs backing off." The best QA leaders are almost boringly deliberate about this. They don't have a coaching style or a managing style; they have a habit of asking, before each conversation, what this specific person needs today. That habit is the whole skill.`,
         badGood: {
           label: 'a junior tester stuck on a problem they\'ve never faced',
           bad: `"What do you think you should do?" — asked of someone who genuinely has no framework yet. They guess, feel exposed, waste a day, and learn that asking you for help gets them a riddle instead of support.`,
@@ -155,7 +155,7 @@ No structure makes a hard truth pleasant. SBI keeps you specific and fair; it do
         'I can tell the difference between everyday feedback and a matter that needs formal handling',
       ],
       enhancements: {
-        industryStory: `I once saw a well-meaning QA lead give a tester a full year's worth of criticism in a single appraisal — every irritation, saved up and delivered in one sitting because "I didn't want to make a big deal of each thing." The tester was blindsided and, understandably, furious: none of it had ever been raised in the moment, so it read as a hidden case being built against them. The lead genuinely thought they'd been kind by not "nagging." They had actually been unfair. Feedback saved up is feedback denied — the person never got the chance to act on any of it.`,
+        industryStory: `It's common to see a well-meaning QA lead give a tester a full year's worth of criticism in a single appraisal — every irritation, saved up and delivered in one sitting because "I didn't want to make a big deal of each thing." The tester is blindsided and, understandably, furious: none of it was ever raised in the moment, so it reads as a hidden case being built against them. The lead genuinely believes they've been kind by not "nagging." They have actually been unfair. Feedback saved up is feedback denied — the person never got the chance to act on any of it.`,
         visualAid: {
           type: 'flow',
           title: 'Giving a piece of feedback that lands',
@@ -168,7 +168,7 @@ No structure makes a hard truth pleasant. SBI keeps you specific and fair; it do
             { label: 'Agree & close', detail: 'Agree a specific change or acknowledge the good; keep it short' },
           ],
         },
-        davidTip: `The single most common feedback failure I see in QA leaders isn't harshness — it's vagueness dressed as diplomacy. "I just need you to be a bit more thorough" tells the tester nothing. Which report? Which check they skipped? What would thorough have looked like? If your feedback couldn't be filmed — if it describes a quality of the person rather than a thing they did in a moment — it isn't feedback yet, it's a mood. Make it specific enough to act on, or don't give it.`,
+        davidTip: `The single most common feedback failure in QA leaders isn't harshness — it's vagueness dressed as diplomacy. "I just need you to be a bit more thorough" tells the tester nothing. Which report? Which check they skipped? What would thorough have looked like? If your feedback couldn't be filmed — if it describes a quality of the person rather than a thing they did in a moment — it isn't feedback yet, it's a mood. Make it specific enough to act on, or don't give it.`,
         badGood: {
           label: 'telling Dan his comment about manual testers landed badly',
           bad: `"You've got a real attitude problem about manual testing and it needs to stop." — character verdict, no specifics, no room to respond. Dan defends himself and learns you think he's a problem, not that a behaviour had an impact.`,
@@ -230,7 +230,7 @@ Explicit expectations cost some spontaneity and can feel heavy-handed if overdon
         'I use clear expectations as the fair basis for feedback and development',
       ],
       enhancements: {
-        industryStory: `A QA manager asked me to help "manage out" a tester who "just doesn't get what senior means here." When I asked what "senior" meant here, written down, agreed with the tester — there was nothing. No level definitions, no conversation, just a manager's private picture of seniority the tester had never been shown. The tester wasn't failing a standard; they were failing to read the manager's mind. We didn't start a performance process. We started by writing down what the role actually required, agreeing it, and giving the person a fair, defined target. Six months later they were meeting it. The "performance problem" had been an expectations vacuum all along.`,
+        industryStory: `Take a QA manager who wants to "manage out" a tester who "just doesn't get what senior means here." Ask what "senior" means here — written down, agreed with the tester — and there's nothing. No level definitions, no conversation, just a manager's private picture of seniority the tester had never been shown. The tester isn't failing a standard; they're failing to read the manager's mind. The fix isn't a performance process. It starts with writing down what the role actually requires, agreeing it, and giving the person a fair, defined target. Six months on, they're meeting it. The "performance problem" was an expectations vacuum all along.`,
         visualAid: {
           type: 'tree',
           title: 'Is this a fair basis for a performance conversation?',
@@ -242,7 +242,7 @@ Explicit expectations cost some spontaneity and can feel heavy-handed if overdon
             { condition: 'the shortfall is conduct (how people are treated), not skill or output', outcome: 'different track — follow your organisation\'s formal process and involve HR' },
           ],
         },
-        davidTip: `The phrase that should make every QA leader uneasy is "they should just know." Should is doing enormous, unfair work in that sentence. Maybe they should — but if you never said it, you own the gap first. In consultancy I've seen far more "performance problems" dissolve on contact with a clearly written expectation than I've seen genuine underperformers. Before you build a case that someone is falling short, check you ever gave them the target to aim at. Fairness starts there, and so does anything HR would later stand behind.`,
+        davidTip: `The phrase that should make every QA leader uneasy is "they should just know." Should is doing enormous, unfair work in that sentence. Maybe they should — but if you never said it, you own the gap first. Time and again, far more "performance problems" dissolve on contact with a clearly written expectation than turn out to be genuine underperformers. Before you build a case that someone is falling short, check you ever gave them the target to aim at. Fairness starts there, and so does anything HR would later stand behind.`,
         badGood: {
           label: 'raising a skills gap with a long-serving tester',
           bad: `"You've really fallen behind — everyone else has moved on to API and automation work and you haven't." — judges a past against a standard never set, invites defensiveness, and gives no target.`,
@@ -325,7 +325,7 @@ No preparation guarantees the person agrees or improves. Some conversations end 
             { label: 'After', detail: 'Follow up when promised; recognise improvement or escalate with HR if none' },
           ],
         },
-        davidTip: `I'll say this plainly because it matters: nothing in a course, including this one, makes you competent to run a disciplinary or a dismissal. What good leadership content can do is teach you to have the *early, fair, human* conversation that often means it never gets that far. My rule is simple — the instant a situation feels like it could touch someone's job, their pay or their record, I stop improvising and I call HR. Not because I'm covering myself, but because the person deserves a proper process, and because a well-meaning manager freelancing on employment matters is how good intentions turn into unfair outcomes.`,
+        davidTip: `Let's say this plainly because it matters: nothing in a course, including this one, makes you competent to run a disciplinary or a dismissal. What good leadership content can do is teach you to have the *early, fair, human* conversation that often means it never gets that far. The rule is simple — the instant a situation feels like it could touch someone's job, their pay or their record, stop improvising and call HR. Not to cover yourself, but because the person deserves a proper process, and because a well-meaning manager freelancing on employment matters is how good intentions turn into unfair outcomes.`,
         badGood: {
           label: 'opening a performance conversation with Ben',
           bad: `"So, how do you think things are going? Everything alright? Because, I mean, no big deal, but a couple of people mentioned… it's probably nothing…" — the message never arrives; Ben leaves reassured there's no problem.`,
@@ -341,7 +341,7 @@ I'd open by naming the gap plainly but framing the meeting as diagnosis, not ver
           formats: ['PDF', 'DOCX'],
         },
         managersReview: {
-          intro: 'If a QA leader showed me how they prepared a performance conversation, I would look for:',
+          intro: 'When you review how a QA leader prepared a performance conversation, look for:',
           strengths: ['Concrete evidence with dates, not "the team feels"', 'Confirmation the expectation was actually set and agreed first', 'A stated goal of enabling success, not building a case', 'A clear trigger point for involving HR'],
           gaps: ['Impressions instead of evidence', 'No check that the standard was ever communicated', 'A tone that reads as prosecuting rather than understanding', 'No plan for follow-up or support'],
           improvements: ['Add the two-sentence opening, written out', 'Name the support you\'ll offer, not just the shortfall'],
@@ -399,7 +399,7 @@ Developing high performers costs you your most convenient resource — the perso
         'I develop people toward their own direction and the org\'s needs, via a real plan',
       ],
       enhancements: {
-        industryStory: `The most avoidable resignation I've seen was a brilliant senior tester whose manager described them, without irony, as "my safe pair of hands — I never have to worry about them." That was exactly the problem. For eighteen months they'd been handed the hardest work and none of the growth, because they never complained and always delivered. They didn't leave for money; they left for a role that would let them grow into risk and strategy leadership — the very thing their own company needed and had never offered them. The manager was genuinely shocked. Everyone else on the team had seen it coming.`,
+        industryStory: `The most avoidable resignations tend to look like this: a brilliant senior tester whose manager describes them, without irony, as "my safe pair of hands — I never have to worry about them." That is exactly the problem. For eighteen months they're handed the hardest work and none of the growth, because they never complain and always deliver. They don't leave for money; they leave for a role that will let them grow into risk and strategy leadership — the very thing their own company needed and had never offered them. The manager is genuinely shocked. Everyone else on the team saw it coming.`,
         visualAid: {
           type: 'matrix',
           title: 'Developing a high performer — is this real stretch?',
@@ -410,7 +410,7 @@ Developing high performers costs you your most convenient resource — the perso
             [{ label: 'Growth they resent — misaligned', level: 'medium' }, { label: 'Exploitation — burnout, as with Dan', level: 'critical' }],
           ],
         },
-        davidTip: `Ask a QA leader "who's your best tester and what are they working toward next?" If they can answer the first half instantly and stall on the second, I know exactly what's about to happen — I've watched it dozens of times. Your high performers are the easiest people in the world to take for granted, because taking them for granted has no immediate cost. The bill arrives all at once, as a resignation letter, usually at the worst possible moment. Develop them while they're happy, not when they're already halfway out.`,
+        davidTip: `Ask a QA leader "who's your best tester and what are they working toward next?" If they can answer the first half instantly and stall on the second, you already know what's about to happen — it plays out the same way time and again. Your high performers are the easiest people in the world to take for granted, because taking them for granted has no immediate cost. The bill arrives all at once, as a resignation letter, usually at the worst possible moment. Develop them while they're happy, not when they're already halfway out.`,
         badGood: {
           label: 'developing your strongest tester',
           bad: `"You're doing brilliantly — I'm going to give you the two hardest releases next quarter as well." — dressed as trust, experienced as a dumping ground. More load, no growth, and the beginning of burnout.`,
@@ -497,7 +497,7 @@ Handling underperformance well is slow, uncomfortable and time-consuming, and it
             { label: 'HR-led from here', detail: 'Formal performance management is governed by policy and employment law — not improvised' },
           ],
         },
-        davidTip: `The hardest thing I have to say to well-intentioned QA leaders is this: your kindness, if it takes the form of avoidance, is doing harm. Every underperformer I've seen "protected" by a manager who couldn't face the conversation was worse off for it — they lost the early, fixable chance, and the strong people around them quietly burned out carrying the gap and then left. Fair and early beats kind-seeming and late every single time. And when it does need to go formal, get HR in early and let them do their job — a manager improvising employment matters is how good intentions become unfair outcomes and legal problems.`,
+        davidTip: `The hardest thing to say to well-intentioned QA leaders is this: your kindness, if it takes the form of avoidance, is doing harm. Time and again, an underperformer "protected" by a manager who couldn't face the conversation ends up worse off for it — they lose the early, fixable chance, and the strong people around them quietly burn out carrying the gap and then leave. Fair and early beats kind-seeming and late every single time. And when it does need to go formal, get HR in early and let them do their job — a manager improvising employment matters is how good intentions become unfair outcomes and legal problems.`,
         badGood: {
           label: 'a manager\'s stance on a struggling tester',
           bad: `"I don't want to make a big thing of it — I'll just quietly give their trickier work to Sofia and hope they pick things up." — avoidance disguised as kindness; the tester never gets a fair chance, Sofia is overloaded, and the standard erodes for everyone.`,
@@ -508,7 +508,7 @@ Handling underperformance well is slow, uncomfortable and time-consuming, and it
 I'd push back on the reflex: a formal plan before diagnosis is exactly how you end up sanctioning someone for a workload problem, a skills gap, or something happening in their personal life. My first step is a fair, private conversation to understand the cause — a sudden two-month drop in a previously capable person more often signals workload, blockers or something personal than sudden laziness. I'd offer genuine, cause-matched support and a clear expectation, and *only* if it were a will problem persisting after real support would I move toward a formal footing — and at that point with HR, following our process, not because a peer thinks plans are "the only language people understand."`,
         portfolioBuilder: `One of your three **People Development Framework** plans can address a struggling team member (Ben, the stagnating experienced tester, fits well) — but frame it as *development and fair support*, not a disciplinary record. Show the cause diagnosis, the cause-matched support, the clear expectation and check-ins, and explicitly note the point at which you'd involve HR. Demonstrating that you know where the leadership plan stops and the HR process starts is exactly the maturity a senior employer is looking for.`,
         managersReview: {
-          intro: 'Reviewing how a QA leader handled underperformance, I look for:',
+          intro: 'When you review how a QA leader handled underperformance, look for:',
           strengths: ['A genuine cause diagnosis before any decision', 'Real, cause-matched support given before escalation', 'Early action, not a delayed crisis', 'A clear, correct handover to HR at the formal boundary'],
           gaps: ['Deciding the outcome before diagnosing the cause', 'Token support to justify a predetermined decision', 'Improvising formal steps without HR', 'Confusing personal dislike with a performance standard'],
           improvements: ['Make the cause diagnosis explicit and evidenced', 'State the exact trigger point for involving HR'],
@@ -564,7 +564,7 @@ Addressing conflict is uncomfortable and it doesn't always end in resolution —
         'I can recognise when conflict has become a conduct matter for HR',
       ],
       enhancements: {
-        industryStory: `I've watched the manual-versus-automation divide quietly destroy more than one QA team — and it almost never started as a personality problem. It started with structure: the organisation decided automation was the "future" and manual testing the "past," funded and praised one over the other, and then acted surprised when the two groups turned on each other. The automation engineers became insufferable; the manual testers became defensive and cynical; the best of both left. The manager kept trying to fix the *attitudes*. The attitudes were a rational response to a structure that had declared winners and losers. Until that changed, no amount of "let's respect each other" moved the needle an inch.`,
+        industryStory: `The manual-versus-automation divide has quietly destroyed more than one QA team — and it almost never starts as a personality problem. It starts with structure: the organisation decides automation is the "future" and manual testing the "past," funds and praises one over the other, and then acts surprised when the two groups turn on each other. The automation engineers become insufferable; the manual testers become defensive and cynical; the best of both leave. The manager keeps trying to fix the *attitudes*. The attitudes are a rational response to a structure that has declared winners and losers. Until that changes, no amount of "let's respect each other" moves the needle an inch.`,
         visualAid: {
           type: 'matrix',
           title: 'Reading QA conflict — source dictates response',
@@ -636,7 +636,7 @@ Building safety costs you the cheap satisfaction of reacting badly to bad news �
         'I can distinguish real safety from niceness and from the absence of accountability',
       ],
       enhancements: {
-        industryStory: `The most expensive silence I've encountered was a tester who'd spotted a serious problem before a release and said nothing — because the previous time they'd flagged something inconvenient, the lead had made them feel like an obstacle to the launch. So this time they kept their head down, the defect shipped, and it became an incident that cost the company far more than a slipped date ever would have. When it came out, the lead's instinct was to blame the tester for staying quiet. But the tester had learned to stay quiet *from the lead*. Safety is built or destroyed in exactly those moments, and the bill for destroying it always arrives later, disguised as something else.`,
+        industryStory: `The most expensive silences look like this: a tester who has spotted a serious problem before a release and says nothing — because the previous time they flagged something inconvenient, the lead made them feel like an obstacle to the launch. So this time they keep their head down, the defect ships, and it becomes an incident that costs the company far more than a slipped date ever would have. When it comes out, the lead's instinct is to blame the tester for staying quiet. But the tester learned to stay quiet *from the lead*. Safety is built or destroyed in exactly those moments, and the bill for destroying it always arrives later, disguised as something else.`,
         visualAid: {
           type: 'comparison',
           title: 'Real psychological safety vs its two counterfeits',
@@ -649,7 +649,7 @@ Building safety costs you the cheap satisfaction of reacting badly to bad news �
             ['Quality signal', 'Confident and false', 'Vague and polite', 'Honest — the only kind worth having'],
           ],
         },
-        davidTip: `If you take one thing from this lesson, take this: the honesty of everything QA reports upward rests on whether it's safe to tell you bad news. I've seen teams with beautiful dashboards and a completely dishonest quality signal, because the people filling them in had learned that "not ready" was an unwelcome answer. You cannot fix that with a better dashboard. You fix it by being visibly, reliably grateful for inconvenient truths — especially the ones that mess up your week. Your team is always watching how you take the bad news, and that reaction is worth more than any process you'll ever introduce.`,
+        davidTip: `If you take one thing from this lesson, take this: the honesty of everything QA reports upward rests on whether it's safe to tell you bad news. There are teams with beautiful dashboards and a completely dishonest quality signal, because the people filling them in have learned that "not ready" is an unwelcome answer. You cannot fix that with a better dashboard. You fix it by being visibly, reliably grateful for inconvenient truths — especially the ones that mess up your week. Your team is always watching how you take the bad news, and that reaction is worth more than any process you'll ever introduce.`,
         badGood: {
           label: 'reacting when a junior admits they missed something',
           bad: `[Sighs] "How did we not catch this? This is exactly what we're supposed to prevent." — said in front of others. Aisha never volunteers a doubt again, and neither does anyone who saw it.`,
@@ -725,7 +725,7 @@ Building accountability costs you consistency and follow-through — it's easier
         'I hold people accountable fairly and consistently without destroying honesty',
       ],
       enhancements: {
-        industryStory: `The best accountability culture I've seen looked, from the outside, almost gentle. No public dressing-downs, no fear — but everyone knew exactly what they owned, commitments were made out loud, and the leader followed up on every single one, consistently, for the star performers and the strugglers alike. When something slipped, the first question was always "what happened and what do we do now?" — and yet nobody coasted, because that same leader noticed and named every delivery too. The worst accountability culture I've seen was all noise and no consistency: loud blame when things went wrong, silence when they went right, and a quiet understanding that the favourites never really got held to anything. The first team owned its outcomes. The second learned to duck.`,
+        industryStory: `The best accountability cultures look, from the outside, almost gentle. No public dressing-downs, no fear — but everyone knows exactly what they own, commitments are made out loud, and the leader follows up on every single one, consistently, for the star performers and the strugglers alike. When something slips, the first question is always "what happened and what do we do now?" — and yet nobody coasts, because that same leader notices and names every delivery too. The worst accountability cultures are all noise and no consistency: loud blame when things go wrong, silence when they go right, and a quiet understanding that the favourites never really get held to anything. The first kind of team owns its outcomes. The second learns to duck.`,
         visualAid: {
           type: 'flow',
           title: 'The accountability loop (on a foundation of safety)',
@@ -738,7 +738,7 @@ Building accountability costs you consistency and follow-through — it's easier
             { label: 'Learn & adjust', detail: 'Feed it back into expectations and ownership — the loop continues' },
           ],
         },
-        davidTip: `Here's the trap I see most: leaders think accountability is a stick, so they either avoid it (to be nice) or wield it clumsily (and destroy trust). Accountability isn't a stick. It's clarity plus consistency plus follow-through, resting on safety. The teams that own their results aren't frightened teams — they're teams where it's safe to tell the truth about how it's going *and* unthinkable to quietly let a commitment drop, because everyone knows the leader will follow up fairly and notice both the wins and the misses. Get safety and accountability working together and you rarely need consequences at all — the ownership does the work.`,
+        davidTip: `Here's the most common trap: leaders think accountability is a stick, so they either avoid it (to be nice) or wield it clumsily (and destroy trust). Accountability isn't a stick. It's clarity plus consistency plus follow-through, resting on safety. The teams that own their results aren't frightened teams — they're teams where it's safe to tell the truth about how it's going *and* unthinkable to quietly let a commitment drop, because everyone knows the leader will follow up fairly and notice both the wins and the misses. Get safety and accountability working together and you rarely need consequences at all — the ownership does the work.`,
         badGood: {
           label: 'responding to a missed team commitment',
           bad: `"So who was supposed to have done this? Because this keeps happening and someone needs to own it." — backward-looking, personal, and public. People get defensive, learn to commit to nothing, and start hiding slippage until it's a crisis.`,
@@ -749,7 +749,7 @@ Building accountability costs you consistency and follow-through — it's easier
 I'd have exactly the same fair, curious conversation I'd have with anyone else — because the fastest way to destroy accountability across the whole team is to let my best person off a hook others are held to, and the team will notice instantly. I'd raise it directly but without blame: "You've missed two commitments this month, which isn't like you — what's going on?" That respects her (brilliance doesn't make her exempt, and treating her as exempt is its own kind of disrespect) and it might surface something real — overload, disengagement, a signal she's stretched too thin or losing interest. Consistency applied to my strongest performer is precisely where accountability is proven or exposed as favouritism.`,
         portfolioBuilder: `This lesson closes your **People Development Framework**. Revisit your three development plans and make sure each one carries the full arc this module teaches: clear expectations, the coaching-or-managing choice, how you'll give feedback, how you'll develop or fairly support the person, how you build safety, and how you'll hold accountability — including, where relevant, the explicit point at which a matter would move to HR. A framework that shows all of this, applied to three genuinely different people, is exactly the portfolio piece that proves to a senior employer you can develop a team, not just run one.`,
         managersReview: {
-          intro: 'If a QA leader showed me their People Development Framework, here\'s what I\'d look for:',
+          intro: 'When you review a QA leader\'s People Development Framework, look for:',
           strengths: ['Three genuinely different people, handled differently — not one template applied three times', 'Clear expectations set before any judgement', 'The coaching/managing choice justified per person', 'Accountability built on safety, not blame', 'A clear, correct handover point to HR where a matter is or could become formal'],
           gaps: ['A single generic approach applied to everyone', 'Development plans that are really disguised disciplinary records', 'No acknowledgement of the HR/legal boundary on performance and conduct', 'Consequence framed only as punishment'],
           improvements: ['Name each person\'s cause diagnosis explicitly', 'Show where safety and accountability reinforce each other, not just coexist'],

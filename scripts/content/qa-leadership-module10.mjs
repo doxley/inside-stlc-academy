@@ -62,7 +62,7 @@ The org chart tells you titles; it does not tell you who actually decides. At No
         'I can shape the same quality fact differently for a developer, product owner and executive',
       ],
       enhancements: {
-        industryStory: `I once watched a genuinely excellent QA strategy die in a single meeting because its author had mapped the technical landscape perfectly and the human one not at all. Every developer in the room agreed with it. The one person who could fund it had never been engaged, heard about it cold, and quietly declined — not because it was wrong, but because it arrived as a surprise from someone they had no relationship with. The strategy was resurrected a quarter later, unchanged, after its author spent six weeks building the relationships they had skipped. Nothing about the plan improved. The map around it did.`,
+        industryStory: `It's common to watch a genuinely excellent QA strategy die in a single meeting because its author had mapped the technical landscape perfectly and the human one not at all. Picture the scene: every developer in the room agrees with it, but the one person who could fund it has never been engaged, hears about it cold, and quietly declines — not because it is wrong, but because it arrives as a surprise from someone they have no relationship with. Time and again such a strategy is resurrected a quarter later, unchanged, after its author spends six weeks building the relationships they had skipped. Nothing about the plan improves. The map around it does.`,
         visualAid: {
           type: 'matrix',
           title: 'Stakeholder map — influence over quality × genuine interest (a Northstar example)',
@@ -73,7 +73,7 @@ The org chart tells you titles; it does not tell you who actually decides. At No
             [{ label: 'Peripheral teams — keep on the list, minimal effort', level: 'low' }, { label: 'Sofia, testers, sympathetic engineers — keep engaged; your ground truth and allies', level: 'medium' }],
           ],
         },
-        davidTip: `When I assess a QA leader, one of the sharpest questions is simply: "Who are your stakeholders, and what does each of them actually want?" Weak answers describe titles and reporting lines. Strong answers describe people — what they are measured on, what keeps them up at night, how they like bad news delivered. The leaders who can answer that fluently are the ones whose initiatives survive contact with the organisation. The ones who can only recite the org chart tend to produce beautiful strategies that nobody ever funds.`,
+        davidTip: `One of the sharpest questions you can ask about any QA leader is simply: "Who are your stakeholders, and what does each of them actually want?" Weak answers describe titles and reporting lines. Strong answers describe people — what they are measured on, what keeps them up at night, how they like bad news delivered. The leaders who can answer that fluently are the ones whose initiatives survive contact with the organisation. The ones who can only recite the org chart tend to produce beautiful strategies that nobody ever funds.`,
         badGood: {
           label: 'introducing a quality change to the organisation',
           bad: `Send one long technical email to the entire engineering org explaining the new quality process in full detail. The executives skim it and forget it, the developers resent the length, and nobody feels personally addressed or brought along.`,
@@ -83,7 +83,7 @@ The org chart tells you titles; it does not tell you who actually decides. At No
         modelAnswer: `## Example
 I would sequence it, not broadcast it. First I would go to Priya — my high-influence, high-interest partner — and frame it as risk and delivery: "Payments is where escaped defects cost us most, and QA sees those changes too late; here is the lightweight change I propose and the risk it reduces." With her backing understood, I would approach Marcus not with a case for QA's value in the abstract (he does not buy it) but with a concrete offer on a risk his unit tests structurally cannot cover — a cross-service failure mode — positioned as help, not oversight. Same initiative, two framings: outcomes for the sponsor, tangible risk-relief for the sceptic.`,
         managersReview: {
-          intro: 'If a QA leader showed me their stakeholder map, I would look for:',
+          intro: 'When you review a QA leader\'s stakeholder map, look for:',
           strengths: ['Real people with real incentives, not just titles', 'A clear read on informal influence, not only the org chart', 'A different communication approach chosen for each key stakeholder', 'Honesty about who is sceptical or hostile, and a plan that is not "argue harder"'],
           gaps: ['A map that mirrors the org chart exactly (informal power invisible)', 'No distinction between what a stakeholder wants and what they are measured on', 'Effort spread evenly instead of concentrated where influence and interest are highest'],
           improvements: ['Add one line per key stakeholder on how they prefer to receive information', 'Mark which relationships are currently weak and need investment'],
@@ -141,7 +141,7 @@ Marcus believes good developers do not need QA. Arguing the abstract point is a 
         'I have a demonstrate-value plan for at least one QA-sceptical engineer',
       ],
       enhancements: {
-        industryStory: `A QA team I worked with had, without realising it, trained an entire engineering department to dread them. Every defect arrived as a public ticket with a faintly accusatory tone, and developers had learned to argue severity to avoid looking careless. We changed almost nothing about the testing and almost everything about the delivery: defects raised privately first where possible, framed as scenarios rather than failures, and patterns escalated to managers instead of individual blame. Within two quarters developers were bringing risky changes to QA *before* code-complete — asking for help. The information flow reversed direction entirely, purely because the relationship stopped feeling like an audit.`,
+        industryStory: `Consider a QA team that had, without realising it, trained an entire engineering department to dread them. Every defect arrived as a public ticket with a faintly accusatory tone, and developers had learned to argue severity to avoid looking careless. Such a team can change almost nothing about the testing and almost everything about the delivery: defects raised privately first where possible, framed as scenarios rather than failures, and patterns escalated to managers instead of individual blame. Within two quarters developers are bringing risky changes to QA *before* code-complete — asking for help. The information flow reverses direction entirely, purely because the relationship stops feeling like an audit.`,
         visualAid: {
           type: 'comparison',
           title: 'Talking to a developer vs an engineering manager',
@@ -154,7 +154,7 @@ Marcus believes good developers do not need QA. Arguing the abstract point is a 
             ['What destroys trust', 'Public blame, vague accusations', 'A stream of incidents with no recommendation'],
           ],
         },
-        davidTip: `The QA leaders engineers actually respect have one thing in common: they make developers look good, not caught out. That does not mean going soft on real problems — it means raising them in a way that lets the developer fix the issue and keep their dignity. I have seen brilliant testers become powerless because every interaction felt like an accusation, and average testers become deeply influential because engineers trusted that QA was on their side. The technical skill gets you in the room; how you make people feel when you deliver bad news decides whether they let you back in.`,
+        davidTip: `The QA leaders engineers actually respect have one thing in common: they make developers look good, not caught out. That does not mean going soft on real problems — it means raising them in a way that lets the developer fix the issue and keep their dignity. Time and again brilliant testers become powerless because every interaction feels like an accusation, while average testers become deeply influential because engineers trust that QA is on their side. The technical skill gets you in the room; how you make people feel when you deliver bad news decides whether they let you back in.`,
         badGood: {
           label: 'raising a production defect with an engineer',
           bad: `Public ticket, cc the manager: "Checkout is broken — the Payments squad didn't handle timeouts. This should have been caught." The developer defends, argues severity, and remembers QA as the team that ambushed them.`,
@@ -207,7 +207,7 @@ There is an opposite failure mode: product, faced with a risk, asks QA to decide
         'I reframe date pressure as an informed trade-off rather than refusing or caving',
       ],
       enhancements: {
-        industryStory: `The best QA–product relationship I ever saw was built on a single habit: the QA lead never once let product be surprised on release day. Every risk was visible days ahead, framed as a decision with a recommendation, never as a last-minute veto. Product came to treat that QA lead as an extension of their own judgement — and started inviting them into roadmap and shaping conversations that QA is usually kept well away from. The lead had no formal authority over any date. They had something more useful: a product function that trusted them enough to give them a seat before the code was written.`,
+        industryStory: `The best QA–product relationships are built on a single habit: the QA lead never once lets product be surprised on release day. Every risk is visible days ahead, framed as a decision with a recommendation, never as a last-minute veto. Product comes to treat such a QA lead as an extension of their own judgement — and starts inviting them into roadmap and shaping conversations that QA is usually kept well away from. The lead has no formal authority over any date. They have something more useful: a product function that trusts them enough to give them a seat before the code is written.`,
         visualAid: {
           type: 'flow',
           title: 'How QA engages product across a delivery cycle',
@@ -278,7 +278,7 @@ The risk in a close QA–delivery relationship is that the drive for predictable
         'I hold the line between reliability and invisibly cutting quality to protect the flow',
       ],
       enhancements: {
-        industryStory: `I have seen a QA function turn its single most hostile relationship — a delivery manager who openly briefed against them — into its strongest alliance without changing a single test. The shift was making QA predictable: honest estimates, testing spread through the sprint, a status the delivery manager could trust at a glance. Once QA stopped producing surprises, the delivery manager realised that QA and delivery wanted the same thing — no nasty shocks near the deadline — and started fighting QA's corner for earlier involvement in meetings QA was not even in. Predictability bought an advocate that no amount of arguing for quality ever could.`,
+        industryStory: `It's common to see a QA function turn its single most hostile relationship — a delivery manager who openly briefs against them — into its strongest alliance without changing a single test. The shift is making QA predictable: honest estimates, testing spread through the sprint, a status the delivery manager can trust at a glance. Once QA stops producing surprises, the delivery manager realises that QA and delivery want the same thing — no nasty shocks near the deadline — and starts fighting QA's corner for earlier involvement in meetings QA is not even in. Predictability buys an advocate that no amount of arguing for quality ever could.`,
         visualAid: {
           type: 'timeline',
           title: 'A release week: QA as a gate vs QA in the flow',
@@ -290,7 +290,7 @@ The risk in a close QA–delivery relationship is that the drive for predictable
             { label: 'Fri (flow model)', detail: 'Release decision made on a current, trusted risk picture — plannable, calm' },
           ],
         },
-        davidTip: `Delivery managers are the most under-used allies in QA. Most QA leaders see them as the people pushing for speed, and treat them warily. But their deepest fear is the unplanned surprise, and that is your fear too. Make QA the most predictable, transparent part of their world and they will spend their political capital getting you into refinement and protecting your testing time — because it serves their predictability. I have watched that single alliance unlock earlier QA involvement that the QA leader could never have won on their own.`,
+        davidTip: `Delivery managers are the most under-used allies in QA. Most QA leaders see them as the people pushing for speed, and treat them warily. But their deepest fear is the unplanned surprise, and that is your fear too. Make QA the most predictable, transparent part of their world and they will spend their political capital getting you into refinement and protecting your testing time — because it serves their predictability. Time and again that single alliance unlocks earlier QA involvement that the QA leader could never have won on their own.`,
         badGood: {
           label: 'responding to schedule pressure from delivery',
           bad: `Quietly trim the regression and testing depth to keep the sprint board green, say nothing, and hope it holds. It looks cooperative — until the escaped defect lands and delivery learns QA hid the risk. Trust is gone.`,
@@ -370,7 +370,7 @@ Sometimes the honest recommendation is "I strongly advise against shipping Frida
             { label: '6. Recommendation, then hand over', detail: 'Your professional judgement — then the accountable owner decides' },
           ],
         },
-        davidTip: `The single most valuable sentence I can teach a QA leader is the shape of the release-day answer: "Here's what's tested, here's what isn't, here's the risk if we ship anyway, here are your options, and here's what I'd do — but it's your call." Say that and you become the person leadership *wants* in the room for hard decisions. Say "no, it's not signed off" and you become the person they learn to decide without. I have seen careers turn on which of those two instincts a QA leader defaults to under pressure — and the good news is that it is a structure you can learn, not a personality you have to be born with.`,
+        davidTip: `The single most valuable sentence a QA leader can master is the shape of the release-day answer: "Here's what's tested, here's what isn't, here's the risk if we ship anyway, here are your options, and here's what I'd do — but it's your call." Say that and you become the person leadership *wants* in the room for hard decisions. Say "no, it's not signed off" and you become the person they learn to decide without. Careers turn on which of those two instincts a QA leader defaults to under pressure — and the good news is that it is a structure you can learn, not a personality you have to be born with.`,
         badGood: {
           label: 'responding to "we need this released Friday" with testing unfinished',
           bad: `"No. We can't release — QA hasn't signed it off." No information, no options, no recommendation. It claims a decision QA doesn't own, so Product escalates, QA is overruled, and next time they decide without you.`,
@@ -429,7 +429,7 @@ Escalation is a tool, not a threat, and it is expensive — every escalation spe
         'I reframe severity disputes into impact conversations and escalate only cleanly and rarely',
       ],
       enhancements: {
-        industryStory: `I worked with a QA lead who was, by any technical measure, excellent — and almost completely without influence, because they treated every defect as a battle. Developers had learned to argue everything, product had learned to escalate over them, and the lead genuinely believed this was the price of high standards. We changed one thing: they picked, deliberately, the two or three risks a quarter that were worth real resistance, and on everything else they made the risk visible and let the owner decide. Within a quarter people started listening, precisely because resistance had become rare enough to mean something. The bar did not drop. The exhausting, credibility-burning fights simply stopped.`,
+        industryStory: `Consider a QA lead who is, by any technical measure, excellent — and almost completely without influence, because they treat every defect as a battle. Developers have learned to argue everything, product has learned to escalate over them, and the lead genuinely believes this is the price of high standards. Imagine they change one thing: they pick, deliberately, the two or three risks a quarter that are worth real resistance, and on everything else they make the risk visible and let the owner decide. Within a quarter people start listening, precisely because resistance has become rare enough to mean something. The bar does not drop. The exhausting, credibility-burning fights simply stop.`,
         visualAid: {
           type: 'tree',
           title: 'A quality disagreement — hold, make-visible, or escalate?',
@@ -499,7 +499,7 @@ Influence is not omnipotent. Occasionally you will face a stakeholder who will n
         'I build and bank influence before I need it, and spend it only on what matters',
       ],
       enhancements: {
-        industryStory: `The most powerful QA leader I have known held no formal authority over a single engineer and yet reshaped how an entire organisation approached quality. Her method was almost boringly consistent: be useful to people before ever asking anything of them, be right about risk often enough that her judgement was trusted, and translate every request into the listener's own priorities. Developers brought her risky changes voluntarily; product invited her into roadmap discussions; executives asked her opinion on decisions well outside QA. None of it was granted by an org chart. All of it was earned, transaction by transaction, until saying yes to her was simply the obvious thing to do.`,
+        industryStory: `Consider one of the most powerful QA leaders imaginable: someone who holds no formal authority over a single engineer and yet reshapes how an entire organisation approaches quality. Her method is almost boringly consistent: be useful to people before ever asking anything of them, be right about risk often enough that her judgement is trusted, and translate every request into the listener's own priorities. Developers bring her risky changes voluntarily; product invites her into roadmap discussions; executives ask her opinion on decisions well outside QA. None of it is granted by an org chart. All of it is earned, transaction by transaction, until saying yes to her is simply the obvious thing to do.`,
         visualAid: {
           type: 'matrix',
           title: 'Which source of influence moves which stakeholder',
@@ -512,7 +512,7 @@ Influence is not omnipotent. Occasionally you will face a stakeholder who will n
             [{ label: 'Business outcomes — risk, cost, incidents', level: 'high' }, { label: 'Test-case counts and coverage percentages', level: 'low' }],
           ],
         },
-        davidTip: `Every QA leader I have ever coached has, at some point, wished for more authority — the power to just make developers test properly or make product involve them earlier. I understand the wish and I tell them all the same thing: the authority would not help you. Mandated quality is complied with, not believed in, and it evaporates the moment you look away. The influence you build — by being useful, being right, and speaking people's language — is the only kind that changes behaviour when you are not in the room. Stop wishing for the veto. It is the weakest tool in the box.`,
+        davidTip: `Almost every QA leader, at some point, wishes for more authority — the power to just make developers test properly or make product involve them earlier. The honest answer to that wish is always the same: the authority would not help you. Mandated quality is complied with, not believed in, and it evaporates the moment you look away. The influence you build — by being useful, being right, and speaking people's language — is the only kind that changes behaviour when you are not in the room. Stop wishing for the veto. It is the weakest tool in the box.`,
         badGood: {
           label: 'getting a sceptical squad to adopt a quality practice',
           bad: `Ask the CTO to mandate it across all squads. The sceptical squad complies on paper, resents it, does the minimum, and quietly reverts the moment attention moves elsewhere — and you have spent the CTO's authority to buy nothing durable.`,
@@ -587,7 +587,7 @@ Your Module 10 assignment is to create and deliver a simulated executive quality
             ['Direction', 'This release\'s defect count', 'Escaped defects are trending down two quarters running'],
           ],
         },
-        davidTip: `If you take one habit from this entire module into the boardroom, make it this: lead with risk and money, and never make an executive ask "so what?". I have watched QA leaders lose funding and standing not because their work was poor but because they reported it in a language the room did not speak — and I have watched others win a seat at the table with a single, well-framed sentence about business risk. Executives are not hostile to quality; they are simply deaf to testing activity. Learn to speak in outcomes and you will be astonished how quickly QA stops being a cost to be minimised and starts being a function to be consulted.`,
+        davidTip: `If you take one habit from this entire module into the boardroom, make it this: lead with risk and money, and never make an executive ask "so what?". Time and again QA leaders lose funding and standing not because their work is poor but because they report it in a language the room does not speak — while others win a seat at the table with a single, well-framed sentence about business risk. Executives are not hostile to quality; they are simply deaf to testing activity. Learn to speak in outcomes and you will be astonished how quickly QA stops being a cost to be minimised and starts being a function to be consulted.`,
         badGood: {
           label: 'a quality update to a CTO before a board meeting',
           bad: `"We executed 1,240 test cases this quarter, found 47 defects (12 still open), and automation coverage is at 62%. Regression is green." Activity with no business meaning; the CTO can take none of it to the board and concludes QA doesn't think like the business.`,
@@ -597,7 +597,7 @@ Your Module 10 assignment is to create and deliver a simulated executive quality
         modelAnswer: `## Example
 I would accept the framing rather than defend against it, and answer in speed-and-risk terms: "Agreed — the goal is faster *and* safer, and the two aren't in tension if we manage risk well. We're speeding you up by moving quality earlier so defects are prevented rather than found late in a five-day regression that actually slows releases, and by concentrating effort on the few risks that could genuinely hurt us rather than testing everything equally." Then I would make it concrete and give the CTO something for the board: "That's already cutting our release drag on lower-risk changes; give me two weeks and I'll show you the trend in numbers you can take upstairs." Speed, risk and evidence — the CTO's language, not mine.`,
         managersReview: {
-          intro: 'Reviewing a QA leader\'s executive quality briefing, I look for:',
+          intro: 'When you review a QA leader\'s executive quality briefing, look for:',
           strengths: ['A bottom line in the first two sentences — risk status and any ask', 'Risks expressed in business impact, likelihood, cost and trend', 'An explicit, well-framed ask (decision, budget or air-cover)', 'Ruthless exclusion of test-case counts, coverage and tool detail', 'Honest, calibrated confidence including what is uncertain'],
           gaps: ['Leading with methodology or activity metrics', 'Snapshots with no trend or direction', 'Bad news softened into invisibility, or dumped as alarm with no recommendation', 'A resource ask framed as capacity rather than risk-and-return'],
           improvements: ['Apply the "so what?" test to every line and cut what fails it', 'Add a one-line recommendation to each risk so the exec has a decision to make, not just information to absorb'],

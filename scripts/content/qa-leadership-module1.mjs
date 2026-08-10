@@ -64,7 +64,7 @@ You do not throw away your technical judgement — it is the source of your cred
             ['Biggest risk', 'Missing a defect', 'Becoming the single point of failure'],
           ],
         },
-        davidTip: `The candidates I've seen struggle most in their first lead role were, almost without exception, the most brilliant individual testers. Their reflex is "I'll just fix it." The ones who thrive learn a slightly uncomfortable truth early: your job is now to be *dispensable* on the detail and *indispensable* on the direction. If the team can't run a normal week without you touching the tooling, you haven't been promoted — you've just taken on two jobs.`,
+        davidTip: `The people who struggle most in their first lead role are, almost without exception, the most brilliant individual testers. Their reflex is "I'll just fix it." The ones who thrive learn a slightly uncomfortable truth early: your job is now to be *dispensable* on the detail and *indispensable* on the direction. If the team can't run a normal week without you touching the tooling, you haven't been promoted — you've just taken on two jobs.`,
         badGood: {
           label: 'handling a mid-release blocker as a new lead',
           bad: `You quietly take both blocked tasks home, fix them overnight, and say nothing. The release ships. You're exhausted, the two testers learned nothing, and next crisis they wait for you again.`,
@@ -128,7 +128,7 @@ There is no single correct QA operating model. In a regulated medical-device com
         'I can explain why the right QA model depends on organisational context',
       ],
       enhancements: {
-        industryStory: `On one engagement the QA team proudly "owned quality" — and was blamed for every production incident, including ones caused by infrastructure changes they were never told about. The fix wasn't more testing; it was renegotiating ownership so that the teams making changes owned the quality of those changes, and QA owned the risk view and the signal. Incidents didn't drop because QA worked harder. They dropped because ownership finally sat where the decisions were made.`,
+        industryStory: `Consider a QA team that proudly "owns quality" — and gets blamed for every production incident, including ones caused by infrastructure changes it was never told about. The fix isn't more testing; it's renegotiating ownership so that the teams making changes own the quality of those changes, and QA owns the risk view and the signal. Incidents don't drop because QA works harder. They drop because ownership finally sits where the decisions are made.`,
         visualAid: {
           type: 'matrix',
           title: 'Who owns what (an example split — adapt to your context)',
@@ -142,7 +142,7 @@ There is no single correct QA operating model. In a regulated medical-device com
             [{ label: 'Owns', level: 'high' }, { label: 'Input', level: 'low' }, { label: 'Consumes', level: 'medium' }],
           ],
         },
-        davidTip: `Beware the flattering mandate. "You own quality" sounds like power; it is usually a trap. The strongest QA leaders I know are careful to own the *strategy, the risk picture and the signal*, and equally careful to push code quality back onto engineering and risk-acceptance onto the business. When it goes wrong, you want to be the person who made the risk visible — not the person who was quietly holding a responsibility that was never really yours to hold.`,
+        davidTip: `Beware the flattering mandate. "You own quality" sounds like power; it is usually a trap. The strongest QA leaders are careful to own the *strategy, the risk picture and the signal*, and equally careful to push code quality back onto engineering and risk-acceptance onto the business. When it goes wrong, you want to be the person who made the risk visible — not the person who was quietly holding a responsibility that was never really yours to hold.`,
         badGood: {
           label: 'defining the QA function',
           bad: `"QA is responsible for the quality of our releases." — sounds strong, guarantees QA gets blamed for everything and lets everyone else disengage from quality.`,
@@ -152,7 +152,7 @@ There is no single correct QA operating model. In a regulated medical-device com
         modelAnswer: `## Example
 I'd decline the mandate as worded, privately and quickly. "QA signing off every release" makes us the single yes/no gate and the automatic scapegoat — and it lets squads disengage from their own quality. I'd propose instead that QA *presents the residual risk* for each release and the accountable business owner makes the go/no-go call on that evidence. Same rigour, but the decision sits with the person who owns the consequences, and QA stays the trusted source of truth rather than the bottleneck everyone resents.`,
         managersReview: {
-          intro: 'If a QA leader handed me their one-page ownership model, I would look for:',
+          intro: 'In a one-page ownership model from a QA leader, the things worth looking for are:',
           strengths: ['A purpose stated as an outcome, not a task list', 'A concrete, named split between QA, engineering and product', 'Explicit acknowledgement that the model fits this context, not all contexts'],
           gaps: ['Vague phrases like "QA ensures quality" with no owner named', 'No mention of who accepts risk', 'A model copied wholesale from a very different organisation'],
           improvements: ['Name the decision-maker for release risk', 'Add one line on why this model suits this company\'s risk profile'],
@@ -205,7 +205,7 @@ Some QA leaders arrive without deep hands-on currency — perhaps they've been m
         'I use a one-way / two-way-door test to decide when to weigh in',
       ],
       enhancements: {
-        industryStory: `I once watched a superb technical QA lead lose their best two testers inside a year. Every decision was sound; every review was sharp. But nobody ever grew, because the lead made every meaningful call. The testers were, in effect, senior pairs of hands. The lead couldn't understand it — "I gave them great direction." That was exactly the problem: direction without ownership. People don't stay to execute someone else's judgement forever.`,
+        industryStory: `Picture a superb technical QA lead who loses their best two testers inside a year. Every decision was sound; every review was sharp. But nobody ever grew, because the lead made every meaningful call. The testers were, in effect, senior pairs of hands. The lead couldn't understand it — "I gave them great direction." That was exactly the problem: direction without ownership. People don't stay to execute someone else's judgement forever.`,
         visualAid: {
           type: 'matrix',
           title: 'Technical vs people leadership — the four quadrants',
@@ -216,7 +216,7 @@ Some QA leaders arrive without deep hands-on currency — perhaps they've been m
             [{ label: 'Ignored on hard calls; drifts', level: 'critical' }, { label: 'Liked but overruled on technical trade-offs', level: 'medium' }],
           ],
         },
-        davidTip: `In interviews for lead roles, the question behind the question is always "will the team follow this person?" Technical credibility is how QA teams decide that — so you do need it. But I've turned down technically dazzling candidates who clearly wanted to remain the smartest tester in the room. The signal I look for is someone who describes making their *team* better at the technical thinking, not someone who describes personally solving every hard problem. Credibility gets you in the door; what you spend it on is the job.`,
+        davidTip: `In interviews for lead roles, the question behind the question is always "will the team follow this person?" Technical credibility is how QA teams decide that — so you do need it. But technically dazzling candidates who clearly want to remain the smartest tester in the room are the ones who get turned down. The signal worth looking for is someone who describes making their *team* better at the technical thinking, not someone who describes personally solving every hard problem. Credibility gets you in the door; what you spend it on is the job.`,
         badGood: {
           label: 'responding to a tester\'s technical question',
           bad: `"Just do it this way" — hands them the answer, keeps them dependent, and quietly confirms you're the only one who really knows.`,
@@ -276,7 +276,7 @@ Executives don't buy "we found 47 bugs." They understand "the checkout path has 
         'I can translate a quality risk into business language (probability, impact, cost)',
       ],
       enhancements: {
-        industryStory: `A team I advised was measured on bugs found, so it found thousands — and production incidents kept rising anyway. The bugs they found were mostly low-impact issues in well-trodden features; the incidents came from a risky integration nobody was testing because it was hard and unglamorous. The moment we stopped counting bugs and started ranking risks, the work reorganised itself around the integration, and incidents fell. Nothing about the team's skill changed — only what they pointed it at.`,
+        industryStory: `Take a team measured on bugs found: it found thousands — and production incidents kept rising anyway. The bugs they found were mostly low-impact issues in well-trodden features; the incidents came from a risky integration nobody was testing because it was hard and unglamorous. The moment they stopped counting bugs and started ranking risks, the work reorganised itself around the integration, and incidents fell. Nothing about the team's skill changed — only what they pointed it at.`,
         visualAid: {
           type: 'flow',
           title: 'Defect mindset vs risk mindset',
@@ -364,7 +364,7 @@ Understanding context includes understanding power: who really decides, who infl
             ['Where to concentrate rigour', 'Payments, data, integration', 'Broadly, per regulation'],
           ],
         },
-        davidTip: `The fastest way to lose credibility in a new QA leadership role is to say "at my last company we did it this way" in week one. Every organisation I've worked with was convinced its context was unique — and to a degree each was right. Spend your first weeks diagnosing before prescribing. The leaders who parachute in with last year's playbook are the ones who are gone in eighteen months, usually described as "a good fit for a different kind of company."`,
+        davidTip: `The fastest way to lose credibility in a new QA leadership role is to say "at my last company we did it this way" in week one. Almost every organisation is convinced its context is unique — and to a degree each is right. Spend your first weeks diagnosing before prescribing. The leaders who parachute in with last year's playbook are the ones who are gone in eighteen months, usually described as "a good fit for a different kind of company."`,
         badGood: {
           label: 'introducing a QA change in a new role',
           bad: `"We're introducing formal test plans and QA sign-off on every release, effective next sprint." — imported wholesale, no diagnosis, guaranteed to grind delivery and generate resistance.`,
@@ -430,7 +430,7 @@ By day 30 you should be able to produce a short, honest assessment: current stat
         'I can identify a genuine, low-risk quick win to build early credibility',
       ],
       enhancements: {
-        industryStory: `The best QA leadership start I ever saw involved almost no visible action for three weeks — just relentless listening and one small, popular fix. Colleagues wondered aloud whether the new lead was "doing anything." Then in week four they presented a first-30-days assessment so accurate and well-evidenced that even the sceptics got behind the plan. The quiet three weeks *were* the work. The lead had earned the right to be believed.`,
+        industryStory: `Some of the strongest QA leadership starts involve almost no visible action for three weeks — just relentless listening and one small, popular fix. Colleagues wonder aloud whether the new lead is "doing anything." Then in week four the lead presents a first-30-days assessment so accurate and well-evidenced that even the sceptics get behind the plan. The quiet three weeks *were* the work. The lead has earned the right to be believed.`,
         visualAid: {
           type: 'timeline',
           title: 'A deliberate first 30 days',
@@ -441,7 +441,7 @@ By day 30 you should be able to produce a short, honest assessment: current stat
             { label: 'Week 4', detail: 'Synthesise initial findings, risks and priorities — as findings, not a final plan' },
           ],
         },
-        davidTip: `When I assess someone for a senior QA role, "what would your first 30 days look like?" is one of my favourite questions — because it exposes temperament instantly. Weak answers jump to solutions: "I'd roll out a new framework, standardise the process." Strong answers start with listening, evidence and relationships, and treat action as something you earn the right to take. The candidate who says "I'd be careful not to change too much before I understand why it's like this" has usually led before.`,
+        davidTip: `When you're assessing someone for a senior QA role, "what would your first 30 days look like?" is a revealing question — because it exposes temperament instantly. Weak answers jump to solutions: "I'd roll out a new framework, standardise the process." Strong answers start with listening, evidence and relationships, and treat action as something you earn the right to take. The candidate who says "I'd be careful not to change too much before I understand why it's like this" has usually led before.`,
         badGood: {
           label: 'a new QA leader\'s first month',
           bad: `Week 1: announce a reorg and a new automation tool. Week 2: kill the existing process. Result: the team disengages, hidden dependencies break, and credibility is gone before any evidence is in.`,
@@ -451,7 +451,7 @@ By day 30 you should be able to produce a short, honest assessment: current stat
         modelAnswer: `## Example
 I'd note it as a strong signal but not act yet. Three people hating the regression tells me *where to look*, not *what to do* — before cutting it I need the evidence: what has it actually caught in the last few releases, and what would we be exposed to without it? I'd pull that data this week. If it genuinely finds nothing of value, trimming it becomes an evidence-backed early win the team already wants; if it's quietly catching the payment regressions, I've just avoided a serious mistake made in the name of looking decisive.`,
         managersReview: {
-          intro: 'Reviewing a new leader\'s 30-day assessment, I look for:',
+          intro: 'When reviewing a new leader\'s 30-day assessment, look for:',
           strengths: ['Evidence, not just impressions (defect data, not "people feel")', 'Findings framed as provisional and open to challenge', 'A named quick win that the team actually wanted', 'A clear list of what is deliberately NOT being changed yet'],
           gaps: ['Jumping to solutions before the current state is understood', 'Acting on the loudest voice rather than the evidence', 'No stakeholder perspectives, only the QA team\'s'],
           improvements: ['Add where each finding\'s evidence came from', 'Separate "confident" findings from "needs more investigation"'],

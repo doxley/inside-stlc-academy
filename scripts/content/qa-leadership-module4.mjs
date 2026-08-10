@@ -75,7 +75,7 @@ To Priya (VP Engineering) you frame the role as risk coverage and delivery outco
         'I can trace the role back to a business risk or delivery outcome I could defend to a VP',
       ],
       enhancements: {
-        industryStory: `A team I advised had "hire a senior tester" open for four months and kept rejecting perfectly good candidates. The real problem was that nobody had defined the role — three managers each pictured a different person, so every candidate was wrong for at least one of them. We spent ninety minutes writing a single-page role definition from the actual gap (nobody owned the risky data-migration testing) and the role was filled within a fortnight. The candidates had not changed. The definition had. A role you cannot describe is a role you cannot fill.`,
+        industryStory: `It's common to see a team leave "hire a senior tester" open for four months and keep rejecting perfectly good candidates. The real problem is usually that nobody has defined the role — three managers each picture a different person, so every candidate is wrong for at least one of them. Spend ninety minutes writing a single-page role definition from the actual gap (say, nobody owns the risky data-migration testing) and a role like that can be filled within a fortnight. The candidates haven't changed. The definition has. A role you cannot describe is a role you cannot fill.`,
         visualAid: {
           type: 'matrix',
           title: 'Northstar QA team — capability coverage before the hire',
@@ -86,7 +86,7 @@ To Priya (VP Engineering) you frame the role as risk coverage and delivery outco
             [{ label: 'Low', level: 'low' }, { label: 'Low', level: 'low' }, { label: 'Escaped defects cluster here', level: 'high' }, { label: 'Quality has no voice with Payments/Product', level: 'critical' }],
           ],
         },
-        davidTip: `When a hiring manager tells me "we need a senior tester," my first question is always "to do what that your team can't do now?" The pause that follows is diagnostic. The ones who answer instantly — "we've no one who can own the risk conversation across squads" — run clean, fast hires. The ones who reach for "you know, senior testing, automation, the usual" are about to spend three months interviewing the wrong people. Define the gap and you have done seventy per cent of the work of the whole hire.`,
+        davidTip: `When a hiring manager says "we need a senior tester," the question to put straight back is "to do what that your team can't do now?" The pause that follows is diagnostic. The ones who answer instantly — "we've no one who can own the risk conversation across squads" — run clean, fast hires. The ones who reach for "you know, senior testing, automation, the usual" are about to spend three months interviewing the wrong people. Define the gap and you have done seventy per cent of the work of the whole hire.`,
         badGood: {
           label: 'defining a senior QA role',
           bad: `"Senior QA Engineer wanted. 8+ years, Selenium, Cypress, API testing, Agile, CI/CD, performance testing a plus." — a tool list and a title; it describes a hundred jobs and defines none of them, and it will attract keyword-matched CVs, not the capability you need.`,
@@ -96,7 +96,7 @@ To Priya (VP Engineering) you frame the role as risk coverage and delivery outco
         modelAnswer: `## Example
 I would not open an advert yet. I would spend a day mapping what the team already covers and where quality risk actually escapes — which at Northstar points to cross-squad exploratory breadth and the stakeholder conversation, not raw testing hands. To the CTO I would say: "Agreed we're stretched, and I want this hire to close our real gap rather than just add a body. Give me a day and I'll come back with a one-page definition of exactly the capability we're buying and the risk it covers — so we're not three months into interviewing the wrong people." That reframes "another good tester" as a targeted risk-reduction hire the business can get behind, and it protects me from the clone hire.`,
         managersReview: {
-          intro: 'If a manager handed me their one-page role definition before opening a hire, I would look for:',
+          intro: 'In a strong one-page role definition, handed over before a hire opens, you would look for:',
           strengths: ['The gap stated as a capability the team lacks, not a title or tool', 'A clear split between essential and desirable, with few essentials', 'A traceable link to a business risk or delivery outcome'],
           gaps: ['A reused JD with the date changed', 'Essentials that are really the manager\'s personal preferences', 'A role that reinforces an existing team strength and leaves the real gap open'],
           improvements: ['Add one line naming what the team already covers, to justify what is desirable rather than essential', 'State the business cost of leaving the gap open, for the upward conversation'],
@@ -164,7 +164,7 @@ The applications you receive skew towards the capability you actually need, and 
         'I have flagged the wording for HR / fair-hiring review rather than relying on my own legal judgement',
       ],
       enhancements: {
-        industryStory: `I have watched two near-identical roles at the same company get wildly different applicant pools purely because of the advert. The first led with a fourteen-line requirements list and a stack of tools; it drew a stack of CVs that all looked the same and none of them could talk about risk. The team rewrote it to lead with "here is the problem you'd own and here is what it's really like here," moved the tools to a one-line desirable, and named the messy bits honestly. The second pool was smaller but dramatically stronger — including two people who said the honesty about the flaky suite was exactly why they applied. Same role, same salary, different advert.`,
+        industryStory: `It's common to see two near-identical roles at the same company draw wildly different applicant pools purely because of the advert. One leads with a fourteen-line requirements list and a stack of tools; it draws a pile of CVs that all look the same and none of them can talk about risk. Rewrite it to lead with "here is the problem you'd own and here is what it's really like here," move the tools to a one-line desirable, and name the messy bits honestly, and the second pool comes back smaller but dramatically stronger — often including people who say the honesty about the flaky suite was exactly why they applied. Same role, same salary, different advert.`,
         visualAid: {
           type: 'comparison',
           title: 'Anatomy of a QA job description — weak vs strong',
@@ -177,7 +177,7 @@ The applications you receive skew towards the capability you actually need, and 
             ['About the team', 'Sanitised ("fast-paced, dynamic")', 'Honest about the real challenges and how you work'],
           ],
         },
-        davidTip: `The single most useful thing you can put in a QA job description is the sentence "we care more about how you think than which tools you've used" — and then mean it in the interview. It changes who applies. Tool-led adverts select for people whose main skill is having used the tool; capability-led adverts select for people who can reason. I have never regretted teaching a strong thinker a new tool. I have often regretted hiring a toolset that could not think.`,
+        davidTip: `The single most useful thing you can put in a QA job description is the sentence "we care more about how you think than which tools you've used" — and then mean it in the interview. It changes who applies. Tool-led adverts select for people whose main skill is having used the tool; capability-led adverts select for people who can reason. You'll rarely regret teaching a strong thinker a new tool; you'll often regret hiring a toolset that cannot think.`,
         badGood: {
           label: 'the essentials section of a QA JD',
           bad: `"Essential: 8+ years QA; expert Selenium, Cypress, Java, Python; JMeter; Postman; Jenkins; ISTQB Advanced; performance testing; security testing; experience in fintech." — eleven essentials, tool-and-certificate-led, screens for keywords and repels strong-but-humble candidates.`,
@@ -260,7 +260,7 @@ If challenged on why the shortlist looks unconventional, you can show the scorec
         'I treat a CV as weak evidence about interview-worthiness, not as a verdict on the person',
       ],
       enhancements: {
-        industryStory: `A manager I worked with was quietly screening out every CV without a degree, without ever having decided that a degree mattered for the role — it was a reflex from his own hiring years earlier. When we built a scorecard from the actual capabilities and re-screened the "rejected" pile blind, two of the strongest candidates in the entire process came from it, and one of them was hired and became the team's best exploratory tester. Nobody had made a deliberate decision to require a degree; the bias was just riding along in the skim. The scorecard did not add rigour so much as expose a filter no one had chosen.`,
+        industryStory: `Consider a manager who is quietly screening out every CV without a degree, without ever having decided that a degree mattered for the role — a reflex carried over from his own hiring years earlier. Build a scorecard from the actual capabilities and re-screen the "rejected" pile blind, and it's the kind of process where two of the strongest candidates emerge from that discarded pile — one of them hired and going on to become the team's best exploratory tester. Nobody had made a deliberate decision to require a degree; the bias was just riding along in the skim. A scorecard like that does not add rigour so much as expose a filter no one had chosen.`,
         visualAid: {
           type: 'flow',
           title: 'A consistent CV screening funnel',
@@ -272,7 +272,7 @@ If challenged on why the shortlist looks unconventional, you can show the scorec
             { label: 'Shortlist', detail: 'Defensible, consistent, traceable to the role' },
           ],
         },
-        davidTip: `Most CV screening is really pattern-matching against the last team the manager built, and it happens in seconds. The tell is speed: if you can "screen" a senior CV in six seconds, you are recognising, not evaluating. I ask managers to slow down to one capability at a time and to notice the CVs they warm to instantly — those are usually the ones most like people they already have, which is exactly the wrong instinct when you are hiring to close a gap.`,
+        davidTip: `Most CV screening is really pattern-matching against the last team the manager built, and it happens in seconds. The tell is speed: if you can "screen" a senior CV in six seconds, you are recognising, not evaluating. Slow down to one capability at a time, and notice the CVs you warm to instantly — those are usually the ones most like people you already have, which is exactly the wrong instinct when you are hiring to close a gap.`,
         badGood: {
           label: 'a note justifying a screening decision',
           bad: `"Screened out — didn't really stand out, no big-name companies, wasn't sure about the tools." — unfalsifiable, prestige-led, indefensible if challenged, and probably biased.`,
@@ -356,7 +356,7 @@ To Priya: "We assess four capabilities across three stages, each interviewer own
         'Interviewers score independently before any debrief discussion',
       ],
       enhancements: {
-        industryStory: `The most humbling thing I ever did to my own interviewing was to go back through a year of hires and separate the ones we assessed with a real scorecard from the ones we hired off a great conversation. The scorecard hires were not all stars, but they were reliably what we thought we were getting. The "great chat" hires were a lottery — a couple were superb and a couple were people we had simply enjoyed talking to, who could not actually do the job we needed. Nothing converts a sceptical panel to structured interviewing faster than looking honestly at their own hit rate.`,
+        industryStory: `The most humbling thing you can do to your own interviewing is to go back through a year of hires and separate the ones assessed with a real scorecard from the ones hired off a great conversation. The scorecard hires are rarely all stars, but they are reliably what the panel thought it was getting. The "great chat" hires tend to be a lottery — a couple superb, a couple who were simply enjoyable to talk to and could not actually do the job the team needed. Nothing converts a sceptical panel to structured interviewing faster than looking honestly at its own hit rate.`,
         visualAid: {
           type: 'timeline',
           title: 'A structured QA interview loop (senior hire)',
@@ -368,7 +368,7 @@ To Priya: "We assess four capabilities across three stages, each interviewer own
             { label: 'Structured debrief', detail: 'Compare evidence capability by capability, then decide' },
           ],
         },
-        davidTip: `If you take one thing from this module into your next hire, make it this: decide what each interview is *for* before you run it, and never let interviewers compare notes until they have written their scores down. I have sat in more debriefs than I can count where a junior interviewer had spotted a genuine red flag and then quietly abandoned it the moment the hiring manager said "great candidate, loved them." Independent scoring first is not bureaucracy. It is how you stop seniority overwriting evidence.`,
+        davidTip: `If you take one thing from this module into your next hire, make it this: decide what each interview is *for* before you run it, and never let interviewers compare notes until they have written their scores down. In debrief after debrief you'll see a junior interviewer spot a genuine red flag and then quietly abandon it the moment the hiring manager says "great candidate, loved them." Independent scoring first is not bureaucracy. It is how you stop seniority overwriting evidence.`,
         badGood: {
           label: 'a QA interview debrief',
           bad: `The hiring manager opens with "I thought they were brilliant, best we've seen — everyone agree?" and, one by one, the panel agrees. No scores were written down. The one interviewer who had a concern about communication says nothing.`,
@@ -450,7 +450,7 @@ To an engineering sceptic like Marcus: "We didn't quiz them on definitions. We g
         'I can tell a coachable knowledge gap from a foundational reasoning gap and weigh them differently',
       ],
       enhancements: {
-        industryStory: `I once sat in on a technical interview where a candidate was rejected for failing to remember the exact syntax of a command, having spent twenty minutes beforehand reasoning about system risk more sharply than anyone the team had interviewed. The interviewer genuinely believed the syntax slip was "a technical red flag." It was not; it was a memory of a thing a search engine answers in three seconds. We hired her over the interviewer's objection and she became the person the whole team went to when they were stuck on where a system might break. Syntax is cheap. Reasoning is not.`,
+        industryStory: `Picture a technical interview where a candidate is rejected for failing to remember the exact syntax of a command, having spent the twenty minutes beforehand reasoning about system risk more sharply than anyone the team had interviewed. The interviewer genuinely believes the syntax slip is "a technical red flag." It isn't; it's a memory of a thing a search engine answers in three seconds. Hire her over that objection and you tend to find she becomes the person the whole team goes to when they're stuck on where a system might break. Syntax is cheap. Reasoning is not.`,
         visualAid: {
           type: 'comparison',
           title: 'Trivia quiz vs capability assessment',
@@ -463,7 +463,7 @@ To an engineering sceptic like Marcus: "We didn't quiz them on definitions. We g
             ['Who it favours', 'Recent revisers and confident bluffers', 'Genuine thinkers, including the modest ones'],
           ],
         },
-        davidTip: `The best technical interview question I know for a tester is some version of "here is a real system, where would you be most worried and how would you find out?" It cannot be revised for, it has no single right answer, and it exposes in about ten minutes whether someone reasons about risk or just recites practice. And crucially, ask "when would you *not* test or automate this?" — the willingness to *not* do work, for a good reason, is one of the clearest markers of senior judgement I know.`,
+        davidTip: `The best technical interview question for a tester is some version of "here is a real system, where would you be most worried and how would you find out?" It cannot be revised for, it has no single right answer, and it exposes in about ten minutes whether someone reasons about risk or just recites practice. And crucially, ask "when would you *not* test or automate this?" — the willingness to *not* do work, for a good reason, is one of the clearest markers of senior judgement there is.`,
         badGood: {
           label: 'a senior QA technical question',
           bad: `"What are the differences between smoke, sanity, and regression testing? And what HTTP status code means 'created'?" — pure recall, answerable by anyone who revised last night, tells you nothing about whether they can reason about a real system.`,
@@ -550,7 +550,7 @@ To Sofia and the team, who will work with this person: "We didn't just check the
         'I score behavioural evidence against defined anchors, not against likeability or shared background',
       ],
       enhancements: {
-        industryStory: `A pattern I have seen more than once: the candidate every technical interviewer loves turns out, in the behavioural stage, to describe every past conflict as other people finally realising he was right. No reframing, no curiosity, no story where he changed his own mind. Teams that ignore that signal because "the technical was so strong" tend to spend the next year managing the fallout — the brilliant tester who is right and alone, and around whom developers quietly stop collaborating. The behavioural interview was trying to tell them something and the technical dazzle drowned it out.`,
+        industryStory: `It's a pattern you'll see more than once: the candidate every technical interviewer loves turns out, in the behavioural stage, to describe every past conflict as other people finally realising he was right. No reframing, no curiosity, no story where he changed his own mind. Teams that ignore that signal because "the technical was so strong" tend to spend the next year managing the fallout — the brilliant tester who is right and alone, and around whom developers quietly stop collaborating. The behavioural interview was trying to tell them something and the technical dazzle drowned it out.`,
         visualAid: {
           type: 'comparison',
           title: 'Behavioural signals vs anti-signals in a senior QA candidate',
@@ -563,7 +563,7 @@ To Sofia and the team, who will work with this person: "We didn't just check the
             ['Communication', 'Explains a risk so a non-tester could act on it', 'Jargon-heavy; doesn\'t check the listener is with them'],
           ],
         },
-        davidTip: `The behavioural question I trust most is "tell me about a decision you got wrong." Not a weakness dressed as a strength — an actual wrong call and what it cost. Strong senior candidates answer it easily and specifically, because they have made peace with being wrong sometimes; that is what lets them own a defect that slipped rather than bury it. The candidates who cannot produce a single genuine mistake, or who give you "I care too much about quality," are telling you either they lack self-awareness or they are managing you. For a QA hire, where owning problems honestly is the whole job, that answer matters enormously.`,
+        davidTip: `The behavioural question most worth trusting is "tell me about a decision you got wrong." Not a weakness dressed as a strength — an actual wrong call and what it cost. Strong senior candidates answer it easily and specifically, because they have made peace with being wrong sometimes; that is what lets them own a defect that slipped rather than bury it. The candidates who cannot produce a single genuine mistake, or who give you "I care too much about quality," are telling you either they lack self-awareness or they are managing you. For a QA hire, where owning problems honestly is the whole job, that answer matters enormously.`,
         badGood: {
           label: 'a behavioural interview question',
           bad: `"How do you handle conflict with developers? Are you a good collaborator?" — a hypothetical and a leading question; the candidate simply tells you they're a great, calm collaborator, and you've learned nothing.`,
@@ -663,7 +663,7 @@ To an exec worried about candidate drop-off: "The practical is short, paid-respe
             { condition: 'You will not score it against a rubric', outcome: 'Drop it — an unscored practical is theatre' },
           ],
         },
-        davidTip: `The fastest way to lose your best candidate is an assessment that treats their time as free. The strongest testers I know are in demand and have families, second commitments and other offers — the exact people a weekend-long take-home filters out. When someone tells me "the good ones won't mind putting in the effort," I hear a process that is quietly selecting for availability over ability. Keep it short, keep it real, observe it if you can, and treat the candidate's time as if it costs what yours does. You will assess capability better and lose fewer of the people you actually want.`,
+        davidTip: `The fastest way to lose your best candidate is an assessment that treats their time as free. The strongest testers are in demand and have families, second commitments and other offers — the exact people a weekend-long take-home filters out. When someone says "the good ones won't mind putting in the effort," what you're really hearing is a process that is quietly selecting for availability over ability. Keep it short, keep it real, observe it if you can, and treat the candidate's time as if it costs what yours does. You will assess capability better and lose fewer of the people you actually want.`,
         badGood: {
           label: 'a practical assessment brief',
           bad: `"Take-home: build an automated end-to-end test suite for our sample app, including framework setup and a CI pipeline. No time limit — spend as long as you like." — resembles free work, uncapped, selects for free time, favours one narrow skill, unobservable.`,
@@ -745,7 +745,7 @@ To leadership: "Our process is structured and scored precisely so we hire for th
         'I reframe "culture fit" as "culture add" and can give every rejection a capability-based reason',
       ],
       enhancements: {
-        industryStory: `The most common bias I see in QA hiring is not dramatic prejudice — it is a team quietly cloning itself and calling it a high bar. Panel after panel favours the candidate who reasons and talks like the people already in the room, and every rejection is sincerely framed as "not quite at our level" or "not a fit." Then the team wonders why it keeps being strong at the same things and blind in the same places. When one team I worked with started scoring "what does this person add that we lack" as an explicit criterion, their hires changed within two rounds — and so, a year later, did the range of problems the team could actually catch.`,
+        industryStory: `The most common bias in QA hiring is not dramatic prejudice — it is a team quietly cloning itself and calling it a high bar. Panel after panel favours the candidate who reasons and talks like the people already in the room, and every rejection is sincerely framed as "not quite at our level" or "not a fit." Then the team wonders why it keeps being strong at the same things and blind in the same places. Take a team that starts scoring "what does this person add that we lack" as an explicit criterion: its hires change within two rounds — and so, a year later, does the range of problems the team can actually catch.`,
         visualAid: {
           type: 'comparison',
           title: 'Common hiring biases and the mechanism that counters each',
@@ -758,7 +758,7 @@ To leadership: "Our process is structured and scored precisely so we hire for th
             ['Fluency / articulacy', 'Confident talker read as capable tester', 'Assess reasoning via practical, not just conversation'],
           ],
         },
-        davidTip: `Every interviewer I have ever met, including me, believes they are the fair one. That belief is the bias. The people who actually hire fairly are not the ones with the best intentions — they are the ones who put mechanisms between their gut and their decision: a scorecard, independent scores before the debrief, a diverse panel, a deliberate hunt for evidence against their favourite. Treat your own judgement as a useful but unreliable instrument, and build the process to catch its errors. That is not a lack of confidence; it is what confident, experienced hiring actually looks like.`,
+        davidTip: `Almost every interviewer, yourself included, believes they are the fair one. That belief is the bias. The people who actually hire fairly are not the ones with the best intentions — they are the ones who put mechanisms between their gut and their decision: a scorecard, independent scores before the debrief, a diverse panel, a deliberate hunt for evidence against their favourite. Treat your own judgement as a useful but unreliable instrument, and build the process to catch its errors. That is not a lack of confidence; it is what confident, experienced hiring actually looks like.`,
         badGood: {
           label: 'a rejection rationale at debrief',
           bad: `"I just didn't click with them — they wouldn't really fit our team, you know? Something felt off." — unfalsifiable, names no missing capability, almost certainly affinity bias, and indefensible if the candidate or HR asks why.`,
@@ -768,7 +768,7 @@ To leadership: "Our process is structured and scored precisely so we hire for th
         modelAnswer: `## Example
 Fast unanimous consensus before the evidence is on the table is a warning light, not a green one — it usually means the panel is agreeing on a feeling, most likely halo and affinity, rather than on the scores. I would slow it down deliberately: "Before we lock this in, let's put the independent scores up capability by capability and look at where we disagreed, especially on the communication essential this role was built around." Then I would run the disconfirming check out loud — "what's the strongest evidence A is the wrong hire, and that someone else is right?" — precisely because I can feel the pull too. If A still wins on the evidence after that, fine; but a decision that cannot survive two minutes of scrutiny was never a decision, it was a reflex.`,
         managersReview: {
-          intro: 'Reviewing how a manager runs a debrief, I look for whether bias is being managed or merely disclaimed:',
+          intro: 'When you review how a manager runs a debrief, look for whether bias is being managed or merely disclaimed:',
           strengths: ['Independent scores recorded before any discussion', 'Rejections stated as missing capabilities, not "fit"', 'An explicit search for evidence against the favoured candidate', '"Culture add" scored as a positive, not sameness'],
           gaps: ['Unanimity reached in minutes, before evidence is examined', 'The most fluent or most familiar candidate winning by default', 'No capability-based reason given for rejections'],
           improvements: ['Add a standing "disconfirm the favourite" step to every debrief', 'Record the evidence behind each score so decisions are defensible to HR and candidates'],
@@ -864,7 +864,7 @@ To Priya: "We're recommending B. She's not the most experienced, but the role ex
           ],
           caption: 'Read against the gap: A is weak on the highest-weighted capability the role exists to fill; C is strong on the lowest-weighted one; B fits the shape of the gap with a coachable technical gap. Change the gap and the recommendation changes — the method is constant, the answer is contingent.',
         },
-        davidTip: `The question I ask every panel that is stuck between two strong candidates is not "who's better?" — it is "which of these two weaknesses can this team least afford?" That single reframe cuts through most deadlocks, because it forces the decision back onto the gap. A team drowning in stakeholder friction cannot afford another brilliant tester who cannot communicate, however good the testing is. A team with no automation cannot afford a superb exploratory reasoner who will not touch the suite. Hire against the weakness you can least survive, not the strength that dazzles you most — and be ready to say "none of them" if all the weaknesses are the fatal one.`,
+        davidTip: `The question to put to any panel that is stuck between two strong candidates is not "who's better?" — it is "which of these two weaknesses can this team least afford?" That single reframe cuts through most deadlocks, because it forces the decision back onto the gap. A team drowning in stakeholder friction cannot afford another brilliant tester who cannot communicate, however good the testing is. A team with no automation cannot afford a superb exploratory reasoner who will not touch the suite. Hire against the weakness you can least survive, not the strength that dazzles you most — and be ready to say "none of them" if all the weaknesses are the fatal one.`,
         badGood: {
           label: 'a final hiring recommendation',
           bad: `"We should hire A — he's clearly the strongest candidate, ten years, aced the technical, most experienced by far. B's too junior and C's a bit narrow." — ranks testers in the abstract, ignores the defined gap, treats years as suitability, and would give the same answer whatever the team needed.`,
@@ -948,7 +948,7 @@ To Priya: "Onboarding is how we get the return on this hire. We've a 30/60/90 pl
         'I have checkpoints that would show me by 90 days whether the hire is working, and a fair way to act if it is not',
       ],
       enhancements: {
-        industryStory: `I have seen more "bad hires" that were really bad onboardings than the other way round. A team brings in a genuinely strong senior tester, gives them nothing — no context, no introductions, no mandate — watches them flounder for a quarter, and quietly concludes they hired wrong. The truly costly part is what they learn from it: they become *more* cautious in the next hire, tightening the very filters that were never the problem, when the fix was thirty days of deliberate onboarding. The hire was fine. The landing was not. If you invest months in choosing the right person, do not lose them in the first fortnight to a broken laptop and an empty calendar.`,
+        industryStory: `In practice, more "bad hires" turn out to be bad onboardings than the other way round. A team brings in a genuinely strong senior tester, gives them nothing — no context, no introductions, no mandate — watches them flounder for a quarter, and quietly concludes they hired wrong. The truly costly part is what they take from it: they become *more* cautious in the next hire, tightening the very filters that were never the problem, when the fix was thirty days of deliberate onboarding. The hire was fine. The landing was not. If you invest months in choosing the right person, do not lose them in the first fortnight to a broken laptop and an empty calendar.`,
         visualAid: {
           type: 'timeline',
           title: '30 / 60 / 90-day onboarding for a senior QA hire',
@@ -977,7 +977,7 @@ This is an onboarding failure to fix, not a hire to doubt — the frustration is
           formats: ['DOCX', 'PDF'],
         },
         managersReview: {
-          intro: 'If I reviewed a manager\'s onboarding plan for a senior QA hire, I would look for:',
+          intro: 'In a strong onboarding plan for a senior QA hire, you would look for:',
           strengths: ['A plan targeted at the specific gap the hire was made to close, not generic induction', 'Deliberately brokered relationships with the stakeholders the hire must influence', 'Clear 30/60/90 expectations set with the hire and real checkpoints', 'A coaching plan for the weakness the manager knowingly hired around'],
           gaps: ['Onboarding treated as IT setup and paperwork', 'No early win, and no definition of what good looks like', 'No mechanism to catch a genuine mis-hire early and fairly'],
           improvements: ['Add one visible early win that plays to the hire\'s strength', 'Put the 30/60/90 check-ins in the calendar before day one so onboarding is actively run'],

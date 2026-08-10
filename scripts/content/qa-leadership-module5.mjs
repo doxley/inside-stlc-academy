@@ -81,7 +81,7 @@ To an exec, drop the jargon entirely: "A QA strategy is us choosing, on purpose,
             ['Automation Strategy', 'Cross-cutting subset', 'What we automate, at which level, and what we deliberately do not', 'QA + engineering'],
           ],
         },
-        davidTip: `When someone hands me a 40-page test strategy in an interview or an audit, I flip to the end and ask one question: "What did you decide *not* to test, and who agreed to carry that risk?" Nine times out of ten there is no answer, because the document was written to look comprehensive, not to make choices. The strongest QA leaders I have met can state their entire strategy in three sentences — what we protect hard, what we accept, and what we need — and *then* point to the document that backs it up. Learn to lead with the choices. The document is where you keep them, not what they are.`,
+        davidTip: `When someone hands you a 40-page test strategy in an interview or an audit, flip to the end and ask one question: "What did you decide *not* to test, and who agreed to carry that risk?" Nine times out of ten there is no answer, because the document was written to look comprehensive, not to make choices. The strongest QA leaders can state their entire strategy in three sentences — what we protect hard, what we accept, and what we need — and *then* point to the document that backs it up. Learn to lead with the choices. The document is where you keep them, not what they are.`,
         badGood: {
           label: 'presenting a QA strategy to leadership',
           bad: `"Here is our 42-page test strategy. It covers our approach to unit, integration, system, acceptance, performance, security and accessibility testing across all products, with sections on tooling, environments and process." — comprehensive, unreadable, and it makes no visible choice about where scarce effort concentrates.`,
@@ -150,7 +150,7 @@ Here you are building the *foundation*: what could hurt us and where it lives, a
         'I can state a product risk in the business language executives fund',
       ],
       enhancements: {
-        industryStory: `A team I advised was proud of its high automated coverage number and baffled that incidents kept happening. When we mapped risk instead of counting tests, the cause was obvious: the coverage was concentrated in the easy, stable parts of the product, while the genuinely dangerous area — a third-party integration that was hard and unglamorous to test — had almost none. Nobody had ever asked "where does risk concentrate?"; they had asked "where is testing easy?" Redirecting a fraction of the effort at the integration did more for reliability than the previous year of adding tests to already-safe code.`,
+        industryStory: `It is common to see a team proud of its high automated coverage number and baffled that incidents keep happening. Map risk instead of counting tests and the cause is usually obvious: the coverage is concentrated in the easy, stable parts of the product, while the genuinely dangerous area — a third-party integration that is hard and unglamorous to test — has almost none. Nobody ever asked "where does risk concentrate?"; they asked "where is testing easy?" Redirecting a fraction of the effort at the integration does more for reliability than a whole year of adding tests to already-safe code.`,
         visualAid: {
           type: 'flow',
           title: 'From business objective to quality investment (Northstar)',
@@ -232,7 +232,7 @@ Numbers focus effort but can distort behaviour. A hard target on "defects found"
         'I can pair each outcome objective with a leading activity that drives it',
       ],
       enhancements: {
-        industryStory: `I have watched two teams with identical skill get completely different results purely from how their objectives were framed. One was told to "hit 90% coverage"; it did, by carpeting the safe, easy code in tests, and its production incidents did not move. The other was told "cut the incidents that reach customers in checkout"; it wrote fewer tests, but pointed every one at the risky flow, and the incident rate fell within a quarter. Same people, same tools — the objective decided where the effort landed, and the effort decided the outcome.`,
+        industryStory: `Picture two teams with identical skill getting completely different results purely from how their objectives were framed. One is told to "hit 90% coverage"; it does, by carpeting the safe, easy code in tests, and its production incidents do not move. The other is told "cut the incidents that reach customers in checkout"; it writes fewer tests, but points every one at the risky flow, and the incident rate falls within a quarter. Same people, same tools — the objective decides where the effort lands, and the effort decides the outcome.`,
         visualAid: {
           type: 'matrix',
           title: 'Quality characteristics: where Northstar invests (illustrative, not universal)',
@@ -246,7 +246,7 @@ Numbers focus effort but can distort behaviour. A hard target on "defects found"
             [{ label: 'Medium', level: 'medium' }, { label: 'Low', level: 'low' }, { label: 'Medium', level: 'medium' }],
           ],
         },
-        davidTip: `The interview question I use to separate senior QA leaders from senior testers is "what are you trying to achieve, and how would you know?" Testers answer with activity — "run the regression, automate the smoke tests". Leaders answer with outcomes and evidence — "reduce customer-facing incidents in the highest-risk flow, measured by escaped defects and change failure rate, and here's the baseline I'd establish first." If your objectives cannot survive the follow-up "and how would you know if it worked?", they are not objectives yet — they are hopes with numbers attached.`,
+        davidTip: `The interview question that separates senior QA leaders from senior testers is "what are you trying to achieve, and how would you know?" Testers answer with activity — "run the regression, automate the smoke tests". Leaders answer with outcomes and evidence — "reduce customer-facing incidents in the highest-risk flow, measured by escaped defects and change failure rate, and here's the baseline I'd establish first." If your objectives cannot survive the follow-up "and how would you know if it worked?", they are not objectives yet — they are hopes with numbers attached.`,
         badGood: {
           label: 'writing a quality objective',
           bad: `"Improve overall product quality and increase test automation." — no outcome, no measure, no baseline, no trade-off; achievable in a report and meaningless in reality.`,
@@ -314,7 +314,7 @@ Lower-level coverage is cheaper and faster but requires developer buy-in and can
         'I can use level choices to move the right coverage onto developers',
       ],
       enhancements: {
-        industryStory: `A team I worked with treated its end-to-end suite as sacred — every new feature got a batch of UI tests, none were ever deleted, and the run had crept past eight hours and become so flaky that "just re-run it" was the standard response to a red build. When we classified what those tests actually verified, well over half were checking logic that lived inside a single service. We moved that down to unit tests, deleted the redundant UI tests, and kept a lean end-to-end layer for real journeys. The suite went from eight hours to under one, developers started trusting it again, and — the part everyone remembers — it began catching more real defects, because a fast reliable suite gets run and a slow flaky one gets ignored.`,
+        industryStory: `Consider a team that treats its end-to-end suite as sacred — every new feature gets a batch of UI tests, none are ever deleted, and the run has crept past eight hours and become so flaky that "just re-run it" is the standard response to a red build. Classify what those tests actually verify and, time and again, well over half turn out to be checking logic that lives inside a single service. Move that down to unit tests, delete the redundant UI tests, and keep a lean end-to-end layer for real journeys, and a suite like that goes from eight hours to under one, developers start trusting it again, and — the part everyone remembers — it begins catching more real defects, because a fast reliable suite gets run and a slow flaky one gets ignored.`,
         visualAid: {
           type: 'tree',
           title: 'Which level should own the risk?',
@@ -326,7 +326,7 @@ Lower-level coverage is cheaper and faster but requires developer buy-in and can
             { condition: 'the risk is unknown-unknowns in a high-risk area', outcome: 'continuous exploratory testing owns it' },
           ],
         },
-        davidTip: `The single most valuable rebalancing I see QA leaders make is dragging coverage *down* the levels and *onto* developers — and it is also the one that most needs engineering's buy-in, so it is as much a political move as a technical one. Do not announce "we're changing the test pyramid." Frame it as what it is for them: "I can make your builds faster and your releases safer by moving these checks into tests you own next to your code, and freeing my testers to catch the things your tests can't." Engineers say yes to faster and safer. They say no to a QA leader redesigning their testing by decree.`,
+        davidTip: `The single most valuable rebalancing QA leaders make is dragging coverage *down* the levels and *onto* developers — and it is also the one that most needs engineering's buy-in, so it is as much a political move as a technical one. Do not announce "we're changing the test pyramid." Frame it as what it is for them: "I can make your builds faster and your releases safer by moving these checks into tests you own next to your code, and freeing my testers to catch the things your tests can't." Engineers say yes to faster and safer. They say no to a QA leader redesigning their testing by decree.`,
         badGood: {
           label: 'deciding where a new check belongs',
           bad: `"It touches the checkout flow, so let's add it to the end-to-end suite." — reflexively reaching for the slowest, most expensive, most fragile level regardless of what the defect actually is.`,
@@ -385,7 +385,7 @@ For some risks — real-world scale, third-party behaviour, rare data combinatio
         'I can build a costed business case for the environment investment that matters most',
       ],
       enhancements: {
-        industryStory: `On one engagement the team was convinced its automation was hopeless — endless flaky failures, no confidence in green or red. Everyone assumed the tests were badly written. When we actually traced the failures, the overwhelming majority came from a shared environment where deployments and data changed underneath running tests. The tests were mostly fine; the ground they stood on was not. We stabilised and isolated the environment first, and the same "hopeless" suite suddenly looked reliable. The lesson stuck with me: when results can't be trusted, suspect the environment before you blame the tests.`,
+        industryStory: `Time and again a team becomes convinced its automation is hopeless — endless flaky failures, no confidence in green or red — and everyone assumes the tests are badly written. Trace the failures properly and the overwhelming majority often turn out to come from a shared environment where deployments and data changed underneath running tests. The tests are mostly fine; the ground they stand on is not. Stabilise and isolate the environment first, and the same "hopeless" suite suddenly looks reliable. It is a lesson worth holding onto: when results can't be trusted, suspect the environment before you blame the tests.`,
         visualAid: {
           type: 'comparison',
           title: 'An environment strategy makes deliberate choices (illustrative)',
@@ -397,7 +397,7 @@ For some risks — real-world scale, third-party behaviour, rare data combinatio
             ['Production', 'Real-world risks: scale, third parties', 'Is production — canary, flags, monitoring', 'Owning squad + SRE'],
           ],
         },
-        davidTip: `Environment work is deeply unglamorous, and that is exactly why it is chronically under-invested and therefore full of high-return opportunities. No executive gets excited about "stabilising staging" — until you show them their expensive testers are losing a day a week to it and that every quality metric they do care about is being computed on untrustworthy results. I have seen a single environment fix do more for a team's delivery and morale than a year of tooling initiatives. Do the arithmetic, put it in money and hours, and it stops being plumbing and starts being one of the strongest cases you can make.`,
+        davidTip: `Environment work is deeply unglamorous, and that is exactly why it is chronically under-invested and therefore full of high-return opportunities. No executive gets excited about "stabilising staging" — until you show them their expensive testers are losing a day a week to it and that every quality metric they do care about is being computed on untrustworthy results. A single environment fix can do more for a team's delivery and morale than a year of tooling initiatives. Do the arithmetic, put it in money and hours, and it stops being plumbing and starts being one of the strongest cases you can make.`,
         badGood: {
           label: 'raising the environment problem with leadership',
           bad: `"Staging is really flaky and it's annoying, can we get some budget to improve it?" — a complaint with no cost, no return and no priority; easy to nod at and defer forever.`,
@@ -457,7 +457,7 @@ Test data with no owner drifts into staleness and contamination — the same rot
         'I can name who owns test data and how it stays realistic, safe and predictable',
       ],
       enhancements: {
-        industryStory: `I have more than once walked into an organisation, asked "is there any real customer data in your test environments?", and watched the room go quiet. The honest answer was almost always yes — usually because someone, years ago, needed realistic data and copying production was the fastest path, and it simply never got undone. Nobody was reckless; it accreted. The organisations that handled it well were the ones whose QA leader raised it as a risk they had found and were closing, on their own initiative, before anyone external asked. The ones that handled it badly found out from an auditor. Same underlying problem; the difference was who surfaced it first.`,
+        industryStory: `Walk into an organisation, ask "is there any real customer data in your test environments?", and time and again the room goes quiet. The honest answer is almost always yes — usually because someone, years ago, needed realistic data and copying production was the fastest path, and it simply never got undone. Nobody was reckless; it accreted. The organisations that handle it well are the ones whose QA leader raises it as a risk they found and are closing, on their own initiative, before anyone external asks. The ones that handle it badly find out from an auditor. Same underlying problem; the difference is who surfaces it first.`,
         visualAid: {
           type: 'flow',
           title: 'A test-data lifecycle the strategy controls',
@@ -469,7 +469,7 @@ Test data with no owner drifts into staleness and contamination — the same rot
             { label: 'Tear down / own', detail: 'Clean up after tests; a named owner keeps data realistic and current' },
           ],
         },
-        davidTip: `The production-data-in-test problem is the closest thing QA has to a universal skeleton in the closet — I would estimate most organisations I have seen have it in some form, and almost none have consciously decided to. Here is the leadership move: do not treat discovering it as an embarrassment to bury. Treat it as a risk you found and are closing, and tell the exec that way. "I've identified that we have real customer data in test environments — here's the exposure and here's my plan to fix it" is a sentence that builds enormous trust. The QA leader who surfaces the uncomfortable risk is worth ten who quietly hope nobody asks.`,
+        davidTip: `The production-data-in-test problem is the closest thing QA has to a universal skeleton in the closet — most organisations have it in some form, and almost none have consciously decided to. Here is the leadership move: do not treat discovering it as an embarrassment to bury. Treat it as a risk you found and are closing, and tell the exec that way. "I've identified that we have real customer data in test environments — here's the exposure and here's my plan to fix it" is a sentence that builds enormous trust. The QA leader who surfaces the uncomfortable risk is worth ten who quietly hope nobody asks.`,
         badGood: {
           label: 'getting realistic data for testing payments',
           bad: `"We copy a chunk of production into staging so the data's realistic." — realistic and radioactive: real personal and financial data in a low-security environment, and a flakiness source as it shifts under tests.`,
@@ -533,7 +533,7 @@ A gate frames a decision, but for high-stakes releases *someone accountable stil
         'I can move gate criteria from human memory to automated enforcement',
       ],
       enhancements: {
-        industryStory: `A team I advised had a mandatory manual QA sign-off on every single release, and it had quietly become theatre — the tester signing off often had no time to check anything meaningful, so they signed to keep delivery moving. It added a day of latency and provided essentially no assurance, while everyone believed the org was "gated". We replaced it with automated gates on every change and reserved genuine exploratory sign-off for the handful of high-risk releases. Latency dropped, and — the part that surprised leadership — real issues started getting caught, because the scrutiny finally landed where a human could actually add judgement instead of being spread meaninglessly across everything.`,
+        industryStory: `Consider a team with a mandatory manual QA sign-off on every single release, one that has quietly become theatre — the tester signing off often has no time to check anything meaningful, so they sign to keep delivery moving. It adds a day of latency and provides essentially no assurance, while everyone believes the org is "gated". Replace it with automated gates on every change and reserve genuine exploratory sign-off for the handful of high-risk releases, and latency drops, and — the part that surprises leadership — real issues start getting caught, because the scrutiny finally lands where a human can actually add judgement instead of being spread meaninglessly across everything.`,
         visualAid: {
           type: 'matrix',
           title: 'Quality gate decision matrix — strictness follows risk (illustrative)',
@@ -623,7 +623,7 @@ The actual go/no-go call for a given release — weighing residual risk against 
         'I can design different release approaches for web, API and mobile surfaces',
       ],
       enhancements: {
-        industryStory: `I have watched the same QA team's stress level transform without a single change to how they tested — only to how the organisation released. When releases were large and infrequent, every one was a dreaded all-or-nothing event, and the testers carried the impossible expectation of catching everything beforehand because a miss meant a painful, wide-blast-radius incident. When the organisation moved to small, frequent releases behind feature flags with fast rollback, the pressure drained out of testing overnight: a defect that slipped now hit a sliver of traffic and was reversed in minutes, so testing could focus on reducing risk rather than eliminating it. The team did not get better at testing. The releases got better at containing what testing inevitably misses.`,
+        industryStory: `You'll see the same QA team's stress level transform without a single change to how they test — only to how the organisation releases. When releases are large and infrequent, every one is a dreaded all-or-nothing event, and the testers carry the impossible expectation of catching everything beforehand because a miss means a painful, wide-blast-radius incident. When the organisation moves to small, frequent releases behind feature flags with fast rollback, the pressure drains out of testing overnight: a defect that slips now hits a sliver of traffic and is reversed in minutes, so testing can focus on reducing risk rather than eliminating it. The team did not get better at testing. The releases got better at containing what testing inevitably misses.`,
         visualAid: {
           type: 'timeline',
           title: 'A progressive release of a high-risk change (Northstar payments)',
@@ -635,7 +635,7 @@ The actual go/no-go call for a given release — weighing residual risk against 
             { label: 'Safety net standing by', detail: 'Feature flag and fast rollback remain available for rapid recovery' },
           ],
         },
-        davidTip: `When I assess an organisation's quality, one of the first things I look at is not its test coverage but how fast it can recover from a bad release. A team that can roll back or kill a feature in minutes is operating with a completely different — and much healthier — risk posture than one facing a painful manual recovery, regardless of who has more tests. Recovery speed and blast-radius control are quality investments that live in the deployment pipeline, and they are frequently the highest-return safety improvement available to a QA leader with limited testing capacity. If you can't test your way to safety, you can often *ship* your way to it.`,
+        davidTip: `When you assess an organisation's quality, one of the first things worth looking at is not its test coverage but how fast it can recover from a bad release. A team that can roll back or kill a feature in minutes is operating with a completely different — and much healthier — risk posture than one facing a painful manual recovery, regardless of who has more tests. Recovery speed and blast-radius control are quality investments that live in the deployment pipeline, and they are frequently the highest-return safety improvement available to a QA leader with limited testing capacity. If you can't test your way to safety, you can often *ship* your way to it.`,
         badGood: {
           label: 'releasing a risky payments change with limited automation',
           bad: `"We'll do extra manual regression, then push it live to everyone on Friday and watch the support queue." — all-or-nothing, maximum blast radius, slow recovery, and a weekend of anxiety.`,
@@ -701,7 +701,7 @@ Hand over the one page and say: "This is our quality strategy on a page — the 
         'I have produced a dated, versioned QA Strategy v1 an exec could fund',
       ],
       enhancements: {
-        industryStory: `I have seen two strategy documents for genuinely similar organisations sit side by side: one was a beautifully formatted thirty-page document, and one was a single page with a two-page appendix. The thirty-pager had been signed off, filed, and never opened again — I could tell because it still described a product architecture that had changed a year earlier. The one-pager was dog-eared, referenced in stand-ups, and had visible version marks where it had been updated after an incident. Same intent, opposite fate. The short one won not because short is inherently better, but because short got read, and read got followed, and followed got maintained.`,
+        industryStory: `Picture two strategy documents for genuinely similar organisations sitting side by side: one a beautifully formatted thirty-page document, one a single page with a two-page appendix. The thirty-pager has been signed off, filed, and never opened again — you can tell because it still describes a product architecture that changed a year earlier. The one-pager is dog-eared, referenced in stand-ups, and carries visible version marks where it was updated after an incident. Same intent, opposite fate. The short one wins not because short is inherently better, but because short got read, and read got followed, and followed got maintained.`,
         visualAid: {
           type: 'comparison',
           title: 'The 40-page document vs the one-page strategy',
@@ -714,7 +714,7 @@ Hand over the one page and say: "This is our quality strategy on a page — the 
             ['Serves an exec?', 'No — too long to read or challenge', 'Yes — funded or challenged in ninety seconds'],
           ],
         },
-        davidTip: `The single most useful discipline I know for strategy documents is the one-page constraint, and it is useful precisely because it is painful. When you are forced to fit the whole strategy on a page, you cannot hide behind comprehensiveness — you have to choose, and the choosing is the strategy. Every time I have watched a QA leader struggle to get their strategy onto one page, the struggle was them discovering they had not actually decided their priorities; they had listed everything and called it a plan. The page does not just communicate the strategy. Writing it is how you find out whether you have one.`,
+        davidTip: `The single most useful discipline for strategy documents is the one-page constraint, and it is useful precisely because it is painful. When you are forced to fit the whole strategy on a page, you cannot hide behind comprehensiveness — you have to choose, and the choosing is the strategy. Time and again, a QA leader who struggles to get their strategy onto one page is discovering they had not actually decided their priorities; they had listed everything and called it a plan. The page does not just communicate the strategy. Writing it is how you find out whether you have one.`,
         badGood: {
           label: 'the opening of a QA strategy document',
           bad: `Page 1 is a table of contents; pages 2 to 6 are a glossary and a description of testing theory; the actual choices, if any, appear somewhere after page 20. — the reader gives up long before the strategy.`,
@@ -801,7 +801,7 @@ Over-communicate the trade-offs and the non-goals, because those are what get fo
             { label: 'Review and version', detail: 'Revisit quarterly and when context changes; keep it alive' },
           ],
         },
-        davidTip: `I have seen more good strategies die of poor communication than of poor thinking. The pattern is almost always the same: the leader did excellent analysis, wrote a solid strategy, presented it once, got polite nods, and assumed the job was done — then was blindsided months later when the very trade-offs they had chosen got thrown back at them as failures. The fix is unglamorous and relentless: involve people in the choices before they are final, tell each audience the version they need, say the non-goals loudest, and reference the strategy in real decisions until it is simply how the org thinks. Strategy is not a document you deliver. It is a shared understanding you maintain.`,
+        davidTip: `More good strategies die of poor communication than of poor thinking. The pattern is almost always the same: the leader did excellent analysis, wrote a solid strategy, presented it once, got polite nods, and assumed the job was done — then was blindsided months later when the very trade-offs they had chosen got thrown back at them as failures. The fix is unglamorous and relentless: involve people in the choices before they are final, tell each audience the version they need, say the non-goals loudest, and reference the strategy in real decisions until it is simply how the org thinks. Strategy is not a document you deliver. It is a shared understanding you maintain.`,
         badGood: {
           label: 'rolling out the finished strategy',
           bad: `Email the 30-page document to all-of-engineering with "Please review the attached QA strategy", get a handful of thumbs-up reactions, and consider it launched. — no tailoring, no involvement, no buy-in, and nobody will defend a trade-off they never engaged with.`,

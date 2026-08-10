@@ -76,7 +76,7 @@ To an executive: "AI can make parts of QA faster and sharper, but only where a h
             [{ label: 'Allow but do not invest', level: 'low' }, { label: 'Usually decline — cost > benefit', level: 'low' }, { label: 'Decline: risk with no real payoff', level: 'critical' }],
           ],
         },
-        davidTip: `The single most useful sentence I know for the AI conversation is: "fluent is not the same as correct." AI is engineered to sound confident, which makes its mistakes the hardest kind to catch — they read like the truth. A QA leader's instinct should be the opposite of a general user's: treat every AI output as an unverified claim from an over-confident junior. That is not cynicism about the technology; it is exactly the scepticism that makes QA valuable in the first place, pointed at a new source of plausible-but-wrong information.`,
+        davidTip: `The single most useful sentence for the AI conversation is: "fluent is not the same as correct." AI is engineered to sound confident, which makes its mistakes the hardest kind to catch — they read like the truth. A QA leader's instinct should be the opposite of a general user's: treat every AI output as an unverified claim from an over-confident junior. That is not cynicism about the technology; it is exactly the scepticism that makes QA valuable in the first place, pointed at a new source of plausible-but-wrong information.`,
         badGood: {
           label: 'responding to an executive AI mandate',
           bad: `"Great — I'll get the team onto AI this quarter and report back on how much faster we are." — accepts a vague mandate, invites tool-first adoption, and promises a speed outcome you cannot yet justify.`,
@@ -137,7 +137,7 @@ The warning sign is coverage that looks broader but incidents that do not fall �
         'I can explain why AI-first design affects juniors and seniors differently',
       ],
       enhancements: {
-        industryStory: `I have watched test-idea generation go both ways with the same tool. On one team it made a stagnant suite noticeably richer — the seniors used it to break their own habits and caught failure modes they had stopped imagining years ago. On another, the generated lists quietly became the ceiling: every feature got the same forty generic cases, incidents kept escaping in the messy edges the lists never understood, and nobody noticed because the coverage numbers looked healthier than ever. The tool was identical. The difference was entirely whether a human still owned the question "what does this not know about us?"`,
+        industryStory: `Test-idea generation tends to go one of two ways with the same tool. On one team it makes a stagnant suite noticeably richer — the seniors use it to break their own habits and catch failure modes they had stopped imagining years ago. On another, the generated lists quietly become the ceiling: every feature gets the same forty generic cases, incidents keep escaping in the messy edges the lists never understood, and nobody notices because the coverage numbers look healthier than ever. The tool is identical. The difference is entirely whether a human still owns the question "what does this not know about us?"`,
         visualAid: {
           type: 'comparison',
           title: 'Unaided vs AI-assisted test design — where the judgement sits',
@@ -150,7 +150,7 @@ The warning sign is coverage that looks broader but incidents that do not fall �
             ['Effect on skill', 'Builds the craft', 'Amplifies seniors; can erode juniors if unmanaged'],
           ],
         },
-        davidTip: `The best exploratory testers I have known have a quality that no model has: they carry the scar tissue of what has actually broken in *this* system. When someone tells me AI will replace test design, I ask them who is going to remember the tax-rounding bug from two years ago that no spec ever mentioned. AI is a superb way to make sure you have not forgotten the obvious. It is a terrible way to make sure you have not forgotten the specific — and the specific is where the incidents live.`,
+        davidTip: `The best exploratory testers have a quality that no model has: they carry the scar tissue of what has actually broken in *this* system. When someone claims AI will replace test design, the question to put to them is who is going to remember the tax-rounding bug from two years ago that no spec ever mentioned. AI is a superb way to make sure you have not forgotten the obvious. It is a terrible way to make sure you have not forgotten the specific — and the specific is where the incidents live.`,
         badGood: {
           label: 'using AI output as coverage evidence',
           bad: `"The AI generated a comprehensive test set, so we're well covered on this feature." — treats a fluent list as exhaustive and hides the absence of context-specific risk thinking.`,
@@ -205,7 +205,7 @@ Watch for: test count rising while escaped defects do not fall; flakiness climbi
         'I evaluate portability and lock-in before standardising on any AI automation tool',
       ],
       enhancements: {
-        industryStory: `The most expensive AI-automation failure I have seen was not a dramatic one — it was quiet. A team generated thousands of tests, watched their coverage numbers and test counts climb, and reported it proudly upward. Production incidents did not move. When someone finally audited a slice of the suite, a large share of the tests passed no matter what the application did — they asserted nothing real. The team had spent months building, running and maintaining a suite that produced confidence and nothing else. The lesson was not "AI is bad at automation"; it was that speed of authoring without a standard for what a test must prove is a machine for manufacturing false assurance.`,
+        industryStory: `The most expensive AI-automation failures are rarely dramatic ones — they are quiet. Picture a team that generates thousands of tests, watches their coverage numbers and test counts climb, and reports it proudly upward. Production incidents do not move. When someone finally audits a slice of the suite, a large share of the tests pass no matter what the application does — they assert nothing real. The team has spent months building, running and maintaining a suite that produces confidence and nothing else. The lesson is not "AI is bad at automation"; it is that speed of authoring without a standard for what a test must prove is a machine for manufacturing false assurance.`,
         visualAid: {
           type: 'flow',
           title: 'A review gate for AI-generated automation',
@@ -217,7 +217,7 @@ Watch for: test count rising while escaped defects do not fall; flakiness climbi
             { label: 'Then, and only then', detail: 'It enters the suite — a trusted, owned asset, not a liability' },
           ],
         },
-        davidTip: `I have never once been impressed by a test count, and AI has made me trust the number even less. If a team tells me their suite grew by a thousand tests, my only question is "and did anything you actually care about get safer?" AI-assisted automation is a real gift for the tedious authoring work — but the moment it becomes a way to produce volume for its own sake, it stops being a productivity tool and becomes a very efficient way to build technical debt. The discipline of "watch it fail first" is boring, unglamorous, and the whole game.`,
+        davidTip: `A test count is nothing to be impressed by, and AI is reason to trust the number even less. When a team reports that their suite grew by a thousand tests, the only question worth asking is "and did anything you actually care about get safer?" AI-assisted automation is a real gift for the tedious authoring work — but the moment it becomes a way to produce volume for its own sake, it stops being a productivity tool and becomes a very efficient way to build technical debt. The discipline of "watch it fail first" is boring, unglamorous, and the whole game.`,
         badGood: {
           label: 'scaling an AI automation pilot',
           bad: `"The pilot generated tests three times faster and they all pass — let's roll it out across the whole suite this quarter." — mistakes speed and green for value, and scales an unproven, possibly false-green process.`,
@@ -273,7 +273,7 @@ When a defect summary drives a severity call, a release decision or a customer c
         'I keep severity and release decisions — and their accountability — with a human',
       ],
       enhancements: {
-        industryStory: `The most useful thing AI has done in defect work, in my experience, is not diagnosis at all — it is compression. Handing it a quarter's worth of scattered incidents and getting back a themed picture of where the pain concentrates has genuinely shortened investigations that used to eat days. But the moment it moves from "here is the pattern" to "here is why," I treat it exactly as I would a confident junior with a hunch: interesting, worth a look, and not something I would ever repeat to an executive until an engineer had proven it. I have seen a plausible wrong root cause cost a team more time than having no theory at all, because at least "we don't know yet" keeps people looking.`,
+        industryStory: `The most useful thing AI does in defect work is not diagnosis at all — it is compression. Hand it a quarter's worth of scattered incidents and it returns a themed picture of where the pain concentrates, genuinely shortening investigations that used to eat days. But the moment it moves from "here is the pattern" to "here is why," treat it exactly as you would a confident junior with a hunch: interesting, worth a look, and not something to repeat to an executive until an engineer has proven it. A plausible wrong root cause can cost a team more time than having no theory at all, because at least "we don't know yet" keeps people looking.`,
         visualAid: {
           type: 'flow',
           title: 'Human-in-the-loop defect analysis',
@@ -362,7 +362,7 @@ Good signs: shadow usage on personal accounts falls because the sanctioned path 
             { label: 'A human owns the output', detail: 'Named accountability recorded (Lesson 7) — never "the tool decided"' },
           ],
         },
-        davidTip: `The word "governance" makes engineers and executives think of bureaucracy, and QA leaders are often nervous to propose it in a fast-moving company. Reframe it entirely: good governance is what lets you say *yes* safely. Without it, a cautious organisation defaults to "no" and a reckless one defaults to a data breach. The one-page model is not a brake — it is the thing that lets a nervous board and a sceptical security officer both get comfortable enough to let the team actually use the technology. I have never seen a strong QA leader held back by having a clear, light governance story. I have seen plenty held back by not having one.`,
+        davidTip: `The word "governance" makes engineers and executives think of bureaucracy, and QA leaders are often nervous to propose it in a fast-moving company. Reframe it entirely: good governance is what lets you say *yes* safely. Without it, a cautious organisation defaults to "no" and a reckless one defaults to a data breach. The one-page model is not a brake — it is the thing that lets a nervous board and a sceptical security officer both get comfortable enough to let the team actually use the technology. A strong QA leader is rarely held back by having a clear, light governance story; plenty are held back by not having one.`,
         badGood: {
           label: 'responding to shadow AI use',
           bad: `"Effective immediately, no one uses any AI tool for work until we've figured this out." — feels responsible, drives the exact same usage onto personal accounts, and destroys your visibility overnight.`,
@@ -440,7 +440,7 @@ You are not the Data Protection Officer or the security team, and you must not i
         'I anchor data rules in the organisation\'s real policy and escalate genuine grey areas to security and legal',
       ],
       enhancements: {
-        industryStory: `The exposures I have seen worry teams most were never the cinematic ones — no one deliberately uploaded the crown jewels. They were routine and thoughtless: a stack trace pasted to "get help with this error," with three customer email addresses sitting in the log lines; a config file shared for debugging, with a live key in it; a chunk of proprietary logic pasted with a "how do I make this cleaner?" Each person was just trying to do their job faster, and each had no rule telling them to stop. That is the whole risk in a sentence — it is not malice, it is a helpful person with no classification discipline and a text box that ships their data to a third party.`,
+        industryStory: `The exposures that worry teams most are never the cinematic ones — no one deliberately uploads the crown jewels. They are routine and thoughtless: a stack trace pasted to "get help with this error," with three customer email addresses sitting in the log lines; a config file shared for debugging, with a live key in it; a chunk of proprietary logic pasted with a "how do I make this cleaner?" Each person is just trying to do their job faster, and each has no rule telling them to stop. That is the whole risk in a sentence — it is not malice, it is a helpful person with no classification discipline and a text box that ships their data to a third party.`,
         visualAid: {
           type: 'tree',
           title: 'Can this data go into an AI tool?',
@@ -452,7 +452,7 @@ You are not the Data Protection Officer or the security team, and you must not i
             { condition: 'Is it a legal or breach-obligation question?', outcome: 'Not yours to rule on — follow the data-protection policy and escalate to security and legal' },
           ],
         },
-        davidTip: `If you take one thing from this whole module to your security team, make it this: you are not asking them to trust AI, you are asking them to help you control it. Security officers are trained to say no to unbounded risk, and ungoverned AI usage is exactly that — so their instinct to block is correct given what they can see. Your job is to change what they can see: give them a classification scheme, a governed tool and a clear boundary around QA's usage, and their rational "no" becomes a rational "yes, within these lines." I have watched that shift happen in a single meeting. The leaders who get it wrong are the ones who treat security as the obstacle rather than the co-author.`,
+        davidTip: `If you take one thing from this whole module to your security team, make it this: you are not asking them to trust AI, you are asking them to help you control it. Security officers are trained to say no to unbounded risk, and ungoverned AI usage is exactly that — so their instinct to block is correct given what they can see. Your job is to change what they can see: give them a classification scheme, a governed tool and a clear boundary around QA's usage, and their rational "no" becomes a rational "yes, within these lines." That shift can happen in a single meeting. The leaders who get it wrong are the ones who treat security as the obstacle rather than the co-author.`,
         badGood: {
           label: 'a tester needing help debugging a production error',
           bad: `Paste the full production stack trace — customer emails, tokens and all — into a public AI tool to get a fix quickly. Fast today; a potential personal-data breach that outlives the fix.`,
@@ -519,7 +519,7 @@ The failure signature is approvals with no evidence of engagement: AI outputs sa
         'I actively protect reviewer competence so human-in-the-loop stays genuine',
       ],
       enhancements: {
-        industryStory: `Automation bias is not a hypothetical for anyone who has watched a review queue. Long before modern AI, I saw it with static-analysis warnings and auto-generated reports: give a competent, busy person a stream of confident machine output to approve and the approval rate climbs toward 100% regardless of quality, because scrutinising every item is exhausting and the machine is usually right — until the once it is catastrophically wrong and sails through with all the rest. AI has poured fuel on this because its output is more fluent and more plausible than anything before it. The teams that stay safe are the ones that treat review as something to *design*, knowing their own reviewers will drift toward the rubber stamp unless the process stops them.`,
+        industryStory: `Automation bias is not a hypothetical for anyone who has watched a review queue. Long before modern AI, it showed up with static-analysis warnings and auto-generated reports: give a competent, busy person a stream of confident machine output to approve and the approval rate climbs toward 100% regardless of quality, because scrutinising every item is exhausting and the machine is usually right — until the once it is catastrophically wrong and sails through with all the rest. AI has poured fuel on this because its output is more fluent and more plausible than anything before it. The teams that stay safe are the ones that treat review as something to *design*, knowing their own reviewers will drift toward the rubber stamp unless the process stops them.`,
         visualAid: {
           type: 'flow',
           title: 'Human-in-the-loop that is real, not a rubber stamp',
@@ -531,7 +531,7 @@ The failure signature is approvals with no evidence of engagement: AI outputs sa
             { label: 'Human owns the consequence', detail: '"The AI decided" is never the account — a person answers for it' },
           ],
         },
-        davidTip: `When I imagine explaining a serious quality failure to a board or, worse, a regulator, the sentence "our AI tool made that call" is the one that ends careers and companies. No serious accountability regime accepts it, and it is a confession that no human was actually in control. So I use a simple test on any AI process a team shows me: if this produced a disaster tomorrow, whose name is on the decision, and could they honestly say they reviewed it? If the answer is "no one really" or "well, the tool," the process is not ready, however fast and clever it looks. Accountability is not a feature you add later; it is the thing that makes the whole system legitimate.`,
+        davidTip: `Imagine explaining a serious quality failure to a board or, worse, a regulator: the sentence "our AI tool made that call" is the one that ends careers and companies. No serious accountability regime accepts it, and it is a confession that no human was actually in control. So apply a simple test to any AI process: if this produced a disaster tomorrow, whose name is on the decision, and could they honestly say they reviewed it? If the answer is "no one really" or "well, the tool," the process is not ready, however fast and clever it looks. Accountability is not a feature you add later; it is the thing that makes the whole system legitimate.`,
         badGood: {
           label: 'reviewing a batch of AI-generated tests under deadline',
           bad: `Approve all sixty generated tests in ten minutes because they compile and pass, and merge — human-in-the-loop in name, rubber stamp in fact, automation bias unchecked.`,
@@ -597,7 +597,7 @@ Executives who have been sold AI hype are, underneath, hungry for someone credib
         'I can hold the line on honest measurement under pressure to report adoption as success',
       ],
       enhancements: {
-        industryStory: `The most common AI "success story" I am shown falls apart on one question. A team proudly reports how many tests AI generated, or what share of the team has adopted it, and I ask: "compared to before, did anything you actually care about get better — fewer escapes, faster feedback, lower cost net of the extra review?" Very often there is a pause, because no one captured the before. The gains were assumed, not measured, and buried inside them were review and maintenance costs no one had counted. It is rarely that AI delivered nothing; it is that no one could say, and "we couldn't tell you if it worked" is not a position a QA leader wants to be caught in when the licence renewal comes up.`,
+        industryStory: `The most common AI "success story" falls apart on one question. A team proudly reports how many tests AI generated, or what share of the team has adopted it — and the question that undoes it is: "compared to before, did anything you actually care about get better — fewer escapes, faster feedback, lower cost net of the extra review?" Very often there is a pause, because no one captured the before. The gains were assumed, not measured, and buried inside them were review and maintenance costs no one had counted. It is rarely that AI delivered nothing; it is that no one could say, and "we couldn't tell you if it worked" is not a position a QA leader wants to be caught in when the licence renewal comes up.`,
         visualAid: {
           type: 'comparison',
           title: 'Vanity AI metrics vs honest AI value',
@@ -610,7 +610,7 @@ Executives who have been sold AI hype are, underneath, hungry for someone credib
             ['Overall', '"We are using AI"', 'Would we still pay for it on these numbers without the hype?'],
           ],
         },
-        davidTip: `I have a deep distrust of any AI metric that only ever goes up and never costs anything, because real things have trade-offs and honest measurement shows them. When a QA leader shows me a scorecard that admits "this use paid off, this one didn't, and we stopped it," my confidence in *all* their numbers rises — because they have demonstrated they are measuring, not selling. The paradox of the hype cycle is that honesty is now a competitive advantage: in a room full of inflated AI claims, the person with the credible, caveated numbers is the one the board ends up trusting. Never trade that position for a better-looking slide.`,
+        davidTip: `Be deeply distrustful of any AI metric that only ever goes up and never costs anything, because real things have trade-offs and honest measurement shows them. When a QA leader presents a scorecard that admits "this use paid off, this one didn't, and we stopped it," confidence in *all* their numbers should rise — because they have demonstrated they are measuring, not selling. The paradox of the hype cycle is that honesty is now a competitive advantage: in a room full of inflated AI claims, the person with the credible, caveated numbers is the one the board ends up trusting. Never trade that position for a better-looking slide.`,
         badGood: {
           label: 'reporting AI results to the board',
           bad: `"AI adoption hit 90% and we generated over 5,000 tests this quarter — a huge success." — impressive, unfalsifiable, and one sharp question ("did quality improve?") away from collapse.`,
@@ -685,7 +685,7 @@ It starts from the truth (including the uncomfortable shadow usage), it sequence
         'I have assembled a coherent QA AI Strategy defensible to both executives and security',
       ],
       enhancements: {
-        industryStory: `The AI adoptions I have seen succeed were almost boringly sequenced: control the obvious risk first, prove one thing well, then extend. The ones that struggled tried to be transformational immediately — a big rollout, ambitious claims, no baseline, no governance — and either produced a mess that had to be unwound or quietly faded once the novelty wore off and nobody could show what it had achieved. The unglamorous truth of AI strategy is the same as the unglamorous truth of most strategy: sequence beats ambition. The leader who does the dull, correct steps in the right order ends up with durable value; the one who chases the impressive launch usually ends up explaining, a year later, where the money went.`,
+        industryStory: `The AI adoptions that succeed are almost boringly sequenced: control the obvious risk first, prove one thing well, then extend. The ones that struggle try to be transformational immediately — a big rollout, ambitious claims, no baseline, no governance — and either produce a mess that has to be unwound or quietly fade once the novelty wears off and nobody can show what it achieved. The unglamorous truth of AI strategy is the same as the unglamorous truth of most strategy: sequence beats ambition. The leader who does the dull, correct steps in the right order ends up with durable value; the one who chases the impressive launch usually ends up explaining, a year later, where the money went.`,
         visualAid: {
           type: 'timeline',
           title: 'A responsible QA AI adoption roadmap',

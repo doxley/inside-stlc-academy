@@ -62,7 +62,7 @@ Do not open by attacking the current metrics — you will sound defensive. Open 
         'I can spot Goodhart-style gaming and local optimisation before they distort behaviour',
       ],
       enhancements: {
-        industryStory: `[DAVID INPUT REQUIRED: A short, authentic story of a team you saw whose metrics looked excellent while quality was quietly getting worse — ideally the moment you realised the dashboard was measuring activity, not risk, and the single metric you swapped in that changed the conversation.]`,
+        industryStory: `[DAVID INPUT REQUIRED: A short, illustrative story of a team whose metrics looked excellent while quality was quietly getting worse — the moment it becomes clear the dashboard was measuring activity, not risk, and the single metric that, swapped in, changes the conversation. Keep it generalised or composite rather than a claimed first-hand account.]`,
         visualAid: {
           type: 'comparison',
           title: 'Vanity metric vs meaningful signal',
@@ -148,7 +148,7 @@ Executives instinctively want lagging outcomes — incidents, churn, failed chan
             { label: 'Lagging: incidents & churn', detail: 'Business harm; validate the leading signals against this' },
           ],
         },
-        davidTip: `When a QA leader shows me only lagging metrics, I know they can explain the past. When they show me only leading metrics, I know they're hopeful about the future. When they show me the two side by side — "here's the harm we suffered, and here are the early signals I watch to see the next one coming, and here's the evidence they're linked" — I know I'm looking at someone who can actually run a quality function. The pairing is the tell. Anyone can count what already broke.`,
+        davidTip: `When a QA leader shows only lagging metrics, it's a safe bet they can explain the past. When they show only leading metrics, they're hopeful about the future. When they show the two side by side — "here's the harm we suffered, and here are the early signals I watch to see the next one coming, and here's the evidence they're linked" — you're looking at someone who can actually run a quality function. The pairing is the tell. Anyone can count what already broke.`,
         badGood: {
           label: 'presenting the quarter to leadership',
           bad: `"Escaped defects were up 30% this quarter." — true, honest, and completely un-actionable: it is a rear-view mirror with no steering wheel attached.`,
@@ -303,7 +303,7 @@ The CTO wants "more automation". Reframe it: "More tests isn't the goal — a tr
             ['Tests automated this sprint', 'Rewards writing tests, not reducing risk or manual effort', 'Manual regression time removed / real risk newly covered'],
           ],
         },
-        davidTip: `I have never once been impressed by the size of a test suite, and I have often been alarmed by it. When a candidate tells me proudly that their suite has thousands of tests, my next question is always "and how long does it take, and how much of it do you trust?" — because the honest answer is usually "hours" and "not much". The best automation I have seen is almost always smaller than people expect: a lean, fast, ruthlessly trusted set of checks on the things that actually matter. Size is what you count when you cannot measure value.`,
+        davidTip: `The size of a test suite should never impress you, and it should often alarm you. When someone tells you proudly that their suite has thousands of tests, the next question to ask is always "and how long does it take, and how much of it do you trust?" — because the honest answer is usually "hours" and "not much". The best automation is almost always smaller than people expect: a lean, fast, ruthlessly trusted set of checks on the things that actually matter. Size is what you count when you cannot measure value.`,
         badGood: {
           label: 'reporting on automation to leadership',
           bad: `"We now have 1,800 automated tests, up from 1,500 — great progress on coverage." — reports a growing liability as an asset, hides that the suite is slow, flaky and untrusted, and invites more of the same.`,
@@ -557,7 +557,7 @@ Say it plainly: "I'm giving you a different view from the one my team uses, on p
             [{ label: 'Triage', level: 'medium' }, { label: 'By area', level: 'medium' }, { label: 'Core', level: 'high' }],
           ],
         },
-        davidTip: `When someone shows me "the QA dashboard", singular, I already know it's not working — because there is no such thing. The QA leaders who influence their organisations carry three different conversations in their head: what the team needs to act this week, what engineering leadership needs to invest wisely, and what the board needs to judge business risk. The metrics are almost incidental; the discipline is knowing whose decision you're serving. Show the board a flaky-test rate and you've told them you don't understand their job. Show your team a single traffic-light and you've told them you don't trust them with the detail.`,
+        davidTip: `When someone shows you "the QA dashboard", singular, you can already tell it's not working — because there is no such thing. The QA leaders who influence their organisations carry three different conversations in their head: what the team needs to act this week, what engineering leadership needs to invest wisely, and what the board needs to judge business risk. The metrics are almost incidental; the discipline is knowing whose decision you're serving. Show the board a flaky-test rate and you've told them you don't understand their job. Show your team a single traffic-light and you've told them you don't trust them with the detail.`,
         badGood: {
           label: 'presenting quality to the board',
           bad: `A twelve-metric dashboard: test cases, bugs found, automated tests, pass rate, flaky rate, feedback time, coverage percentage, defect counts by status… — the board can't tell what matters, so nothing changes and QA looks busy but unclear.`,
@@ -634,7 +634,7 @@ Bring it together: "I've replaced our activity counts with a small set of signal
         'I have assembled my Quality Metrics Framework with three reconciling dashboards and the narrative that ties them together',
       ],
       enhancements: {
-        industryStory: `[DAVID INPUT REQUIRED: A short, authentic story of a time you had to tell a leadership team difficult news about quality — how you framed it (or wish you had framed it), and how the way you told the story, more than the news itself, shaped whether they trusted you afterwards.]`,
+        industryStory: `[DAVID INPUT REQUIRED: A short, illustrative story of a QA leader having to tell a leadership team difficult news about quality — how they framed it, and how the way the story was told, more than the news itself, shaped whether they were trusted afterwards. Keep it generalised or composite rather than a claimed first-hand account.]`,
         visualAid: {
           type: 'tree',
           title: 'How to narrate a metric depending on the audience and the news',
@@ -646,7 +646,7 @@ Bring it together: "I've replaced our activity counts with a small set of signal
             { condition: 'The data is thin or ambiguous', outcome: 'Say so; narrate the uncertainty honestly rather than over-claiming a story the numbers can\'t support' },
           ],
         },
-        davidTip: `The QA leaders who get promoted are almost never the ones with the best metrics — they're the ones who tell the best story about their metrics. I've watched a leader with a genuinely worrying dashboard hold a board's confidence completely, because every number arrived as "here's the risk, here's what I recommend, here's how we'll know it worked." And I've watched a leader with good numbers lose the room by reciting them without a story. Learn to deliver bad news early and with a recommendation and you become the person leadership trusts most in the building — because you're the one who tells them the truth in time to do something about it.`,
+        davidTip: `The QA leaders who get promoted are almost never the ones with the best metrics — they're the ones who tell the best story about their metrics. You'll see a leader with a genuinely worrying dashboard hold a board's confidence completely, because every number arrives as "here's the risk, here's what I recommend, here's how we'll know it worked." And you'll see a leader with good numbers lose the room by reciting them without a story. Learn to deliver bad news early and with a recommendation and you become the person leadership trusts most in the building — because you're the one who tells them the truth in time to do something about it.`,
         badGood: {
           label: 'the quarterly quality update to leadership',
           bad: `"Escaped defects were 18 last quarter, 24 this quarter. Change failure rate is 14%. Coverage is at 71%. Any questions?" — a recitation of numbers with no trend framing, no risk, no recommendation, and no decision to make; the audience nods and nothing changes.`,

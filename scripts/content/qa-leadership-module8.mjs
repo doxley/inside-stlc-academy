@@ -77,7 +77,7 @@ When a CTO asks for "more automation," they are describing a solution, not a pro
             { label: 'Dead asset', detail: 'Slow, distrusted, un-killable — and the mandate says "add more"' },
           ],
         },
-        davidTip: `The phrase I have learned to fear most in a quality review is "we just need more automation." It is almost always a solution in search of a problem, and it is almost always said by someone measuring the wrong thing. The strongest QA leaders I meet do the opposite of what feels ambitious: they arrive wanting to *delete* tests, not add them, and they treat every new automated test as a liability that has to justify its lifetime maintenance cost before it earns a place. Ambition in automation looks like a small, fast, trusted suite — not a big one.`,
+        davidTip: `The phrase to fear most in a quality review is "we just need more automation." It is almost always a solution in search of a problem, and it is almost always said by someone measuring the wrong thing. The strongest QA leaders do the opposite of what feels ambitious: they arrive wanting to *delete* tests, not add them, and they treat every new automated test as a liability that has to justify its lifetime maintenance cost before it earns a place. Ambition in automation looks like a small, fast, trusted suite — not a big one.`,
         badGood: {
           label: 'responding to a "more automation" mandate',
           bad: `"Great — I'll put together a plan to get us to three thousand tests by year end." Accepts a volume target, commits to unbounded maintenance, and guarantees the next failed programme.`,
@@ -147,7 +147,7 @@ Teams routinely automate the wrong 80%: easy, low-value, unstable UI checks — 
         'I can produce a ranked candidate matrix that others can apply without me',
       ],
       enhancements: {
-        industryStory: `A team I worked with was proud of a large UI suite covering "every customer journey." When we mapped it against risk, most of it re-checked stable, low-impact paths while the one integration that actually caused their incidents — a boundary between two services — had no automated coverage at all, because it was unglamorous and hard to see in the UI. Nothing about their skill was lacking; they had simply automated what was easy to picture instead of what mattered. Re-sorting the same effort against value and stability found the missing coverage and let us delete a third of the suite in the same week.`,
+        industryStory: `Consider a team proud of a large UI suite covering "every customer journey." Map it against risk and a familiar picture emerges: most of it re-checks stable, low-impact paths, while the one integration that actually causes the incidents — a boundary between two services — has no automated coverage at all, because it is unglamorous and hard to see in the UI. Nothing about the team's skill is lacking; they have simply automated what was easy to picture instead of what mattered. Re-sorting the same effort against value and stability surfaces the missing coverage and can let a team delete a third of the suite in the same week.`,
         visualAid: {
           type: 'matrix',
           title: 'Automation candidate matrix (illustrative — score your own)',
@@ -161,7 +161,7 @@ Teams routinely automate the wrong 80%: easy, low-value, unstable UI checks — 
             [{ label: 'Low', level: 'low' }, { label: 'Low', level: 'low' }, { label: 'No — exploratory instead', level: 'low' }],
           ],
         },
-        davidTip: `The question I most want to hear a QA leader ask a squad is not "what shall we automate?" but "where should this test live?" It sounds small; it is the whole game. The leaders who ask it end up with fast, cheap, trusted suites concentrated at the right levels. The leaders who don't end up automating everything through the one interface they can all see — the UI — and wondering, a year later, why the suite takes six hours and nobody believes it. Push the risk down to the cheapest level that covers it, every time.`,
+        davidTip: `The most valuable question a QA leader can ask a squad is not "what shall we automate?" but "where should this test live?" It sounds small; it is the whole game. The leaders who ask it end up with fast, cheap, trusted suites concentrated at the right levels. The leaders who don't end up automating everything through the one interface they can all see — the UI — and wondering, a year later, why the suite takes six hours and nobody believes it. Push the risk down to the cheapest level that covers it, every time.`,
         badGood: {
           label: 'choosing what to automate for checkout',
           bad: `"Let's automate every checkout journey end-to-end through the UI so we cover what the customer really does." Slow, flaky, expensive, and it tests business rules and integrations at the most costly possible level.`,
@@ -230,7 +230,7 @@ If your exploratory testers spend most of their time maintaining automation, if 
         'I can decline an automation request with a defensible reason and a paired alternative',
       ],
       enhancements: {
-        industryStory: `I have watched more than one team, under pressure to raise an "automation coverage" number, quietly redirect their best exploratory testers into writing and maintaining UI scripts. Coverage went up; escaped defects went up too, because the surprising, high-impact bugs those testers used to find were no longer being hunted — they were being scripted around. The lesson stuck with me: an automation target that is not carefully bounded does not just add weak tests, it starves the strongest testing you have. The fix was never technical; it was ring-fencing exploration as protected time that no coverage target was allowed to touch.`,
+        industryStory: `It is common to see a team, under pressure to raise an "automation coverage" number, quietly redirect its best exploratory testers into writing and maintaining UI scripts. Coverage goes up; escaped defects go up too, because the surprising, high-impact bugs those testers used to find are no longer being hunted — they are being scripted around. The lesson is a hard one: an automation target that is not carefully bounded does not just add weak tests, it starves the strongest testing you have. The fix is never technical; it is ring-fencing exploration as protected time that no coverage target is allowed to touch.`,
         visualAid: {
           type: 'tree',
           title: 'Should we automate this? A leader\'s decision',
@@ -244,7 +244,7 @@ If your exploratory testers spend most of their time maintaining automation, if 
             { condition: 'It is valuable and stable but currently hard to automate', outcome: 'Invest to make it automatable — do not skip a high-value check' },
           ],
         },
-        davidTip: `The most senior thing I ever hear a QA leader say in a review is "we decided not to automate that, and here's why." It stops the room, because everyone expects QA to argue for more automation, not less. But that "no" is exactly what protects the suite from bloat and protects the exploratory testing that actually catches the dangerous bugs. If you can defend a "don't automate" decision in the language of maintenance cost and risk, you will be trusted with far bigger automation decisions than someone who says yes to everything.`,
+        davidTip: `The most senior thing a QA leader can say in a review is "we decided not to automate that, and here's why." It stops the room, because everyone expects QA to argue for more automation, not less. But that "no" is exactly what protects the suite from bloat and protects the exploratory testing that actually catches the dangerous bugs. If you can defend a "don't automate" decision in the language of maintenance cost and risk, you will be trusted with far bigger automation decisions than someone who says yes to everything.`,
         badGood: {
           label: 'responding to "automate the onboarding flow fully"',
           bad: `"Sure, we'll automate the whole onboarding journey." Signs up to rewrite brittle UI tests every sprint, checks a factual proxy for an experiential quality, and crowds out exploratory testing.`,
@@ -311,7 +311,7 @@ Avoid jargon; talk in feedback and cost. "Right now most of our automated checks
         'I can plan an incremental shift of coverage down without a big-bang rewrite',
       ],
       enhancements: {
-        industryStory: `The most memorable distribution turnaround I have seen did not delete a single test in its first month. The team simply agreed a rule: no new test goes in at the UI level if the risk can be covered lower down, and every new feature ships with unit and contract coverage. Nothing dramatic happened for weeks — and then people noticed the run-time had stopped climbing, the flaky-rate had stopped rising, and the new features were the ones nobody worried about. Only then, with trust rebuilding, did they start working the legacy UI suite down. The lesson: you change a distribution at the margin first, and let the compound effect do the heavy lifting.`,
+        industryStory: `The most effective distribution turnarounds often delete not a single test in their first month. The team simply agrees a rule: no new test goes in at the UI level if the risk can be covered lower down, and every new feature ships with unit and contract coverage. Nothing dramatic happens for weeks — and then people notice the run-time has stopped climbing, the flaky-rate has stopped rising, and the new features are the ones nobody worries about. Only then, with trust rebuilding, does the team start working the legacy UI suite down. The lesson: you change a distribution at the margin first, and let the compound effect do the heavy lifting.`,
         visualAid: {
           type: 'comparison',
           title: 'Inverted vs healthy testing distribution',
@@ -324,7 +324,7 @@ Avoid jargon; talk in feedback and cost. "Right now most of our automated checks
             ['UI / end-to-end', '~1,800 tests, 6h, 25% flaky', 'A thin layer of critical journeys', 'Slowest, costliest, brittle — use sparingly'],
           ],
         },
-        davidTip: `When I look at a struggling automation programme, I don't ask how many tests there are — I ask what shape it is. Nine times out of ten the struggling ones are top-heavy: a mountain of UI tests balanced on almost nothing. And nine times out of ten the person who built it did so because the UI was the only level they had the access and mandate to test at. That tells you the real fix is not a tool or a ratio — it is getting developers to own the base of the pyramid. A distribution problem is usually an ownership problem wearing a technical disguise.`,
+        davidTip: `When you look at a struggling automation programme, don't ask how many tests there are — ask what shape it is. Nine times out of ten the struggling ones are top-heavy: a mountain of UI tests balanced on almost nothing. And nine times out of ten the person who built it did so because the UI was the only level they had the access and mandate to test at. That tells you the real fix is not a tool or a ratio — it is getting developers to own the base of the pyramid. A distribution problem is usually an ownership problem wearing a technical disguise.`,
         badGood: {
           label: 'proposing how to improve the suite',
           bad: `"Let's migrate all 1,800 UI tests to a faster framework so the run-time comes down." Keeps every test at the most brittle level; buys a slightly faster fragile suite and a huge migration cost.`,
@@ -394,7 +394,7 @@ A year later: developers touch the tests, failures are diagnosable, flakiness is
         'I can run a written, criteria-based framework decision that outlives one engineer',
       ],
       enhancements: {
-        industryStory: `I have sat in more than one review where a team was on its third automation framework in four years, each migration launched with genuine conviction that *this* tool would finally fix the flakiness and the maintenance load. It never did, because the problem was never the tool — it was a UI-heavy distribution and a suite only QA touched. Each migration cost months and reset trust to zero. The eventual fix cost far less than any of the migrations: they kept the tool they had, pushed coverage down to levels developers would own, and the "framework problem" evaporated. Tool churn is very often strategy avoidance with a budget.`,
+        industryStory: `It is common to sit in a review with a team on its third automation framework in four years, each migration launched with genuine conviction that *this* tool would finally fix the flakiness and the maintenance load. It never does, because the problem was never the tool — it is a UI-heavy distribution and a suite only QA touches. Each migration costs months and resets trust to zero. The eventual fix costs far less than any of the migrations: keep the tool you have, push coverage down to levels developers will own, and the "framework problem" evaporates. Tool churn is very often strategy avoidance with a budget.`,
         visualAid: {
           type: 'matrix',
           title: 'Framework decision matrix (illustrative — weight and score for your context)',
@@ -408,7 +408,7 @@ A year later: developers touch the tests, failures are diagnosable, flakiness is
             [{ label: 'Fine', level: 'medium' }, { label: 'Good', level: 'high' }, { label: 'Excellent', level: 'high' }],
           ],
         },
-        davidTip: `When a candidate spends a whole interview evangelising a specific framework, I get cautious — not because the tool is bad, but because tool passion often stands in for strategy. The QA leaders I trust with a programme talk about frameworks almost boringly: "it fits our architecture, our developers will co-own it, it's cheap to maintain, it'll still exist in three years." That flatness is a good sign. Tools are replaceable plumbing in service of a strategy; a leader who treats them as the strategy will migrate you into the same problem, twice.`,
+        davidTip: `When a candidate spends a whole interview evangelising a specific framework, be cautious — not because the tool is bad, but because tool passion often stands in for strategy. The QA leaders you can trust with a programme talk about frameworks almost boringly: "it fits our architecture, our developers will co-own it, it's cheap to maintain, it'll still exist in three years." That flatness is a good sign. Tools are replaceable plumbing in service of a strategy; a leader who treats them as the strategy will migrate you into the same problem, twice.`,
         badGood: {
           label: 'making a framework decision',
           bad: `"Everyone's moving to this tool and it looks fantastic in the demos — let's migrate the whole suite to it." Hype-led, ignores ownership and maintenance, and re-creates the existing strategy problem in new syntax.`,
@@ -497,7 +497,7 @@ Handing everything to developers with no QA guidance drifts to shallow coverage;
             { label: 'Death', detail: 'Owner burns out or leaves; nobody else understands it; the suite is abandoned' },
           ],
         },
-        davidTip: `Whenever I hear "we need to hire someone to maintain the automation," I get uneasy — because it usually means one person already owns a suite the whole team breaks, and the proposed fix is a second person to own the same orphan. The suites that survive are the ones where ownership follows the code: the developer who broke a test helps fix it, because it lives with their work. QA's job is not to be the sole mechanic of a machine everyone else drives carelessly; it is to set the standard, own the strategy and the critical layer, and refuse to let a flaky test stay in the trusted run. Get ownership right and you rarely need the extra headcount.`,
+        davidTip: `The phrase "we need to hire someone to maintain the automation" should make you uneasy — because it usually means one person already owns a suite the whole team breaks, and the proposed fix is a second person to own the same orphan. The suites that survive are the ones where ownership follows the code: the developer who broke a test helps fix it, because it lives with their work. QA's job is not to be the sole mechanic of a machine everyone else drives carelessly; it is to set the standard, own the strategy and the critical layer, and refuse to let a flaky test stay in the trusted run. Get ownership right and you rarely need the extra headcount.`,
         badGood: {
           label: 'handling a flaky, overloaded automation suite',
           bad: `"Dan owns the suite, so let's get Dan a second pair of hands and tell everyone to be more careful not to break the tests." Doubles the orphan, keeps developers disengaged, and does nothing about flakiness or trust.`,
@@ -568,7 +568,7 @@ Talk in cost, risk and time, never test counts. "This automation investment pays
         'I can use ROI reasoning both to justify investment and to decline investing more than is warranted',
       ],
       enhancements: {
-        industryStory: `I once helped a team that was convinced it needed a bigger automation budget to keep up. When we actually costed their existing suite across build, run, maintain and diagnose, a striking share of the total was people investigating flaky failures that turned out to be nothing — pure waste with no return at all. We had not found a case for more budget; we had found a case for a smaller, trusted suite. Cutting and stabilising freed more capacity than any budget increase would have bought. The number that changes minds is almost never "tests written" — it is "hours spent diagnosing failures that weren't real."`,
+        industryStory: `Consider a team convinced it needs a bigger automation budget to keep up. Cost the existing suite honestly across build, run, maintain and diagnose, and a striking share of the total turns out to be people investigating flaky failures that came to nothing — pure waste with no return at all. That is not a case for more budget; it is a case for a smaller, trusted suite. Cutting and stabilising frees more capacity than any budget increase would have bought. The number that changes minds is almost never "tests written" — it is "hours spent diagnosing failures that weren't real."`,
         visualAid: {
           type: 'flow',
           title: 'Reasoning about automation ROI',
@@ -582,7 +582,7 @@ Talk in cost, risk and time, never test counts. "This automation investment pays
             { label: 'Decision', detail: 'Invest, hold, or delete — and say which returns are numbers vs judgement' },
           ],
         },
-        davidTip: `The ROI conversation is where QA leaders either win or lose the automation argument, and most lose it by fighting on the wrong ground — arguing for coverage against a leadership that only hears cost. Flip it. Cost the full lifetime of what you already have, put the flaky-diagnosis waste in plain figures, and suddenly you are the person *saving* money by proposing a leaner, trusted suite. I have never seen a CFO argue against "we'll cover the same risk faster and cheaper." Lead with the return and the cost you'll avoid, and "more automation" becomes your recommendation to make, not a demand to resist.`,
+        davidTip: `The ROI conversation is where QA leaders either win or lose the automation argument, and most lose it by fighting on the wrong ground — arguing for coverage against a leadership that only hears cost. Flip it. Cost the full lifetime of what you already have, put the flaky-diagnosis waste in plain figures, and suddenly you are the person *saving* money by proposing a leaner, trusted suite. A CFO will rarely argue against "we'll cover the same risk faster and cheaper." Lead with the return and the cost you'll avoid, and "more automation" becomes your recommendation to make, not a demand to resist.`,
         badGood: {
           label: 'justifying automation investment to leadership',
           bad: `"Automating these thousand tests will only take a few weeks of effort and give us much better coverage." Prices build only, ignores lifetime cost and flakiness, sells coverage instead of return.`,
@@ -653,7 +653,7 @@ A roadmap is only as good as its ability to survive a sceptical room and be hand
         'I can produce a defensible, executable roadmap with a "deliberately not doing" list',
       ],
       enhancements: {
-        industryStory: `The most successful automation turnaround I have been close to spent its entire first phase adding nothing. The team quarantined the flaky tests, deleted the ones they could not stabilise, and moved ownership so no single person carried the suite — and the whole time, executives kept asking where the new coverage was. The leader held the line: "we don't add to a suite nobody trusts." Then the suite went green and honest, developers started acting on red again, and the later phases — pushing coverage down, scaling on the stable base — went two or three times faster than anyone expected, precisely because they were building on trust instead of on rot. The discipline to add nothing first is what made everything after it cheap.`,
+        industryStory: `The most successful automation turnarounds spend their entire first phase adding nothing. The team quarantines the flaky tests, deletes the ones it cannot stabilise, and moves ownership so no single person carries the suite — and the whole time, executives keep asking where the new coverage is. The leader holds the line: "we don't add to a suite nobody trusts." Then the suite goes green and honest, developers start acting on red again, and the later phases — pushing coverage down, scaling on the stable base — go two or three times faster than anyone expected, precisely because they are building on trust instead of on rot. The discipline to add nothing first is what makes everything after it cheap.`,
         visualAid: {
           type: 'timeline',
           title: 'Automation transformation roadmap — phases and their goal',
@@ -665,7 +665,7 @@ A roadmap is only as good as its ability to survive a sceptical room and be hand
             { label: 'Phase 4 — Sustain', detail: 'Budgeted maintenance; watched vital signs; flakiness discipline held; distribution defended forever' },
           ],
         },
-        davidTip: `If you show me an automation roadmap whose success metric is a number of tests, I know it will fail before you finish presenting it — because it has re-created the exact thinking that broke the last one. The roadmaps that work read almost the opposite of what an anxious executive expects: they add nothing at first, they delete more than they build early on, and their headline goals are feedback speed and trust. The single most impressive thing a QA leader can put in front of me is a confident "here's what we are deliberately not doing" — because a roadmap is defined as much by its refusals as by its phases, and refusing "add 1,000 tests" to a broken suite is the most senior refusal there is.`,
+        davidTip: `An automation roadmap whose success metric is a number of tests will fail before the presentation is finished — because it has re-created the exact thinking that broke the last one. The roadmaps that work read almost the opposite of what an anxious executive expects: they add nothing at first, they delete more than they build early on, and their headline goals are feedback speed and trust. The single most impressive thing a QA leader can put on the table is a confident "here's what we are deliberately not doing" — because a roadmap is defined as much by its refusals as by its phases, and refusing "add 1,000 tests" to a broken suite is the most senior refusal there is.`,
         badGood: {
           label: 'the headline of an automation roadmap',
           bad: `"Roadmap goal: grow the automated suite from 1,800 to 3,000 tests over the year, adding ~250 tests per quarter." A count target on a distrusted base — the failure mode dressed as a plan.`,
