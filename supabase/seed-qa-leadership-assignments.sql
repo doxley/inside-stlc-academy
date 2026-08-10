@@ -76,8 +76,7 @@ from (values
   (11, 'individual-development-plan',            'qal-m11-assignment-brief'),
   (12, 'qa-current-state-assessment-template',   'qal-m12-assignment-brief')
 ) as v(module_number, template_slug, brief_slug)
-from public.modules m
+join public.modules m on m.module_number = v.module_number
 join public.courses c on c.id = m.course_id
 where a.module_id = m.id
-  and c.slug = 'qa-leadership-academy'
-  and m.module_number = v.module_number;
+  and c.slug = 'qa-leadership-academy';
