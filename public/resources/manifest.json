@@ -1078,5 +1078,402 @@
         "pdf": "istqb-ai-prompt-pack.pdf"
       }
     ]
+  },
+  "qa-leadership-academy": {
+    "courseTitle": "QA Leadership Academy",
+    "items": [
+      {
+        "slug": "qa-leader-first-30-days-checklist",
+        "title": "QA Leader — First 30 Days Checklist",
+        "category": "Checklists",
+        "docx": "qa-leader-first-30-days-checklist.docx",
+        "pdf": "qa-leader-first-30-days-checklist.pdf"
+      },
+      {
+        "slug": "qa-maturity-assessment",
+        "title": "QA Maturity Assessment",
+        "category": "Templates",
+        "docx": "qa-maturity-assessment.docx",
+        "pdf": "qa-maturity-assessment.pdf"
+      },
+      {
+        "slug": "qa-capability-heatmap",
+        "title": "QA Capability Heatmap",
+        "category": "Templates",
+        "docx": "qa-capability-heatmap.docx",
+        "pdf": "qa-capability-heatmap.pdf"
+      },
+      {
+        "slug": "qa-current-state-assessment-template",
+        "title": "QA Current-State Assessment Template",
+        "category": "Templates",
+        "docx": "qa-current-state-assessment-template.docx",
+        "pdf": "qa-current-state-assessment-template.pdf"
+      },
+      {
+        "slug": "qa-strategy-template",
+        "title": "QA Strategy Template",
+        "category": "Templates",
+        "docx": "qa-strategy-template.docx",
+        "pdf": "qa-strategy-template.pdf"
+      },
+      {
+        "slug": "quality-objectives-worksheet",
+        "title": "Quality Objectives Worksheet",
+        "category": "Templates",
+        "docx": "quality-objectives-worksheet.docx",
+        "pdf": "quality-objectives-worksheet.pdf"
+      },
+      {
+        "slug": "quality-gate-decision-matrix",
+        "title": "Quality Gate Decision Matrix",
+        "category": "Templates",
+        "docx": "quality-gate-decision-matrix.docx",
+        "pdf": "quality-gate-decision-matrix.pdf"
+      },
+      {
+        "slug": "quality-risk-workshop-template",
+        "title": "Quality Risk Workshop Template",
+        "category": "Templates",
+        "docx": "quality-risk-workshop-template.docx",
+        "pdf": "quality-risk-workshop-template.pdf"
+      },
+      {
+        "slug": "product-risk-matrix",
+        "title": "Product Risk Matrix",
+        "category": "Templates",
+        "docx": "product-risk-matrix.docx",
+        "pdf": "product-risk-matrix.pdf"
+      },
+      {
+        "slug": "release-risk-assessment",
+        "title": "Release Risk Assessment",
+        "category": "Templates",
+        "docx": "release-risk-assessment.docx",
+        "pdf": "release-risk-assessment.pdf"
+      },
+      {
+        "slug": "go-no-go-decision-template",
+        "title": "Go / No-Go Decision Template",
+        "category": "Templates",
+        "docx": "go-no-go-decision-template.docx",
+        "pdf": "go-no-go-decision-template.pdf"
+      },
+      {
+        "slug": "qa-metrics-catalogue",
+        "title": "QA Metrics Catalogue",
+        "category": "Templates",
+        "docx": "qa-metrics-catalogue.docx",
+        "pdf": "qa-metrics-catalogue.pdf"
+      },
+      {
+        "slug": "executive-quality-dashboard",
+        "title": "Executive Quality Dashboard",
+        "category": "Templates",
+        "docx": "executive-quality-dashboard.docx",
+        "pdf": "executive-quality-dashboard.pdf"
+      },
+      {
+        "slug": "metric-definition-template",
+        "title": "Metric Definition Template",
+        "category": "Templates",
+        "docx": "metric-definition-template.docx",
+        "pdf": "metric-definition-template.pdf"
+      },
+      {
+        "slug": "quality-health-scorecard",
+        "title": "Quality Health Scorecard",
+        "category": "Templates",
+        "docx": "quality-health-scorecard.docx",
+        "pdf": "quality-health-scorecard.pdf"
+      },
+      {
+        "slug": "automation-assessment",
+        "title": "Automation Assessment",
+        "category": "Automation Resources",
+        "docx": "automation-assessment.docx",
+        "pdf": "automation-assessment.pdf"
+      },
+      {
+        "slug": "automation-candidate-matrix",
+        "title": "Automation Candidate Matrix",
+        "category": "Automation Resources",
+        "docx": "automation-candidate-matrix.docx",
+        "pdf": "automation-candidate-matrix.pdf"
+      },
+      {
+        "slug": "automation-framework-decision-matrix",
+        "title": "Automation Framework Decision Matrix",
+        "category": "Automation Resources",
+        "docx": "automation-framework-decision-matrix.docx",
+        "pdf": "automation-framework-decision-matrix.pdf"
+      },
+      {
+        "slug": "automation-roi-worksheet",
+        "title": "Automation ROI Worksheet",
+        "category": "Automation Resources",
+        "docx": "automation-roi-worksheet.docx",
+        "pdf": "automation-roi-worksheet.pdf"
+      },
+      {
+        "slug": "automation-roadmap",
+        "title": "Automation Roadmap",
+        "category": "Automation Resources",
+        "docx": "automation-roadmap.docx",
+        "pdf": "automation-roadmap.pdf"
+      },
+      {
+        "slug": "ai-qa-use-case-matrix",
+        "title": "AI QA Use-Case Matrix",
+        "category": "Templates",
+        "docx": "ai-qa-use-case-matrix.docx",
+        "pdf": "ai-qa-use-case-matrix.pdf"
+      },
+      {
+        "slug": "ai-risk-assessment",
+        "title": "AI Risk Assessment",
+        "category": "Templates",
+        "docx": "ai-risk-assessment.docx",
+        "pdf": "ai-risk-assessment.pdf"
+      },
+      {
+        "slug": "ai-governance-checklist",
+        "title": "AI Governance Checklist",
+        "category": "Checklists",
+        "docx": "ai-governance-checklist.docx",
+        "pdf": "ai-governance-checklist.pdf"
+      },
+      {
+        "slug": "ai-pilot-template",
+        "title": "AI Pilot Template",
+        "category": "Templates",
+        "docx": "ai-pilot-template.docx",
+        "pdf": "ai-pilot-template.pdf"
+      },
+      {
+        "slug": "ai-adoption-roadmap",
+        "title": "AI Adoption Roadmap",
+        "category": "Templates",
+        "docx": "ai-adoption-roadmap.docx",
+        "pdf": "ai-adoption-roadmap.pdf"
+      },
+      {
+        "slug": "qa-skills-matrix",
+        "title": "QA Skills Matrix",
+        "category": "Templates",
+        "docx": "qa-skills-matrix.docx",
+        "pdf": "qa-skills-matrix.pdf"
+      },
+      {
+        "slug": "individual-development-plan",
+        "title": "Individual Development Plan",
+        "category": "Templates",
+        "docx": "individual-development-plan.docx",
+        "pdf": "individual-development-plan.pdf"
+      },
+      {
+        "slug": "team-capability-heatmap",
+        "title": "Team Capability Heatmap",
+        "category": "Templates",
+        "docx": "team-capability-heatmap.docx",
+        "pdf": "team-capability-heatmap.pdf"
+      },
+      {
+        "slug": "career-progression-framework",
+        "title": "QA Career Progression Framework",
+        "category": "Templates",
+        "docx": "career-progression-framework.docx",
+        "pdf": "career-progression-framework.pdf"
+      },
+      {
+        "slug": "qa-job-description-template",
+        "title": "QA Job Description Template",
+        "category": "Templates",
+        "docx": "qa-job-description-template.docx",
+        "pdf": "qa-job-description-template.pdf"
+      },
+      {
+        "slug": "cv-screening-scorecard",
+        "title": "CV Screening Scorecard",
+        "category": "Templates",
+        "docx": "cv-screening-scorecard.docx",
+        "pdf": "cv-screening-scorecard.pdf"
+      },
+      {
+        "slug": "interview-question-bank",
+        "title": "QA Interview Question Bank",
+        "category": "Templates",
+        "docx": "interview-question-bank.docx",
+        "pdf": "interview-question-bank.pdf"
+      },
+      {
+        "slug": "technical-assessment-rubric",
+        "title": "Technical Assessment Rubric",
+        "category": "Templates",
+        "docx": "technical-assessment-rubric.docx",
+        "pdf": "technical-assessment-rubric.pdf"
+      },
+      {
+        "slug": "behavioural-interview-scorecard",
+        "title": "Behavioural Interview Scorecard",
+        "category": "Templates",
+        "docx": "behavioural-interview-scorecard.docx",
+        "pdf": "behavioural-interview-scorecard.pdf"
+      },
+      {
+        "slug": "final-candidate-decision-matrix",
+        "title": "Final Candidate Decision Matrix",
+        "category": "Templates",
+        "docx": "final-candidate-decision-matrix.docx",
+        "pdf": "final-candidate-decision-matrix.pdf"
+      },
+      {
+        "slug": "onboarding-checklist",
+        "title": "QA Onboarding Checklist",
+        "category": "Checklists",
+        "docx": "onboarding-checklist.docx",
+        "pdf": "onboarding-checklist.pdf"
+      },
+      {
+        "slug": "stakeholder-map",
+        "title": "Stakeholder Map",
+        "category": "Templates",
+        "docx": "stakeholder-map.docx",
+        "pdf": "stakeholder-map.pdf"
+      },
+      {
+        "slug": "difficult-conversation-planner",
+        "title": "Difficult Conversation Planner",
+        "category": "Templates",
+        "docx": "difficult-conversation-planner.docx",
+        "pdf": "difficult-conversation-planner.pdf"
+      },
+      {
+        "slug": "executive-quality-update",
+        "title": "Executive Quality Update",
+        "category": "Templates",
+        "docx": "executive-quality-update.docx",
+        "pdf": "executive-quality-update.pdf"
+      },
+      {
+        "slug": "release-risk-communication-template",
+        "title": "Release Risk Communication Template",
+        "category": "Templates",
+        "docx": "release-risk-communication-template.docx",
+        "pdf": "release-risk-communication-template.pdf"
+      },
+      {
+        "slug": "one-to-one-template",
+        "title": "1:1 Template",
+        "category": "Templates",
+        "docx": "one-to-one-template.docx",
+        "pdf": "one-to-one-template.pdf"
+      },
+      {
+        "slug": "coaching-plan",
+        "title": "Coaching Plan",
+        "category": "Templates",
+        "docx": "coaching-plan.docx",
+        "pdf": "coaching-plan.pdf"
+      },
+      {
+        "slug": "performance-conversation-planner",
+        "title": "Performance Conversation Planner",
+        "category": "Templates",
+        "docx": "performance-conversation-planner.docx",
+        "pdf": "performance-conversation-planner.pdf"
+      },
+      {
+        "slug": "team-retrospective-guide",
+        "title": "Team Retrospective Guide",
+        "category": "Templates",
+        "docx": "team-retrospective-guide.docx",
+        "pdf": "team-retrospective-guide.pdf"
+      },
+      {
+        "slug": "qal-m1-assignment-brief",
+        "title": "Module 1 Assignment — From Tester to QA Leader",
+        "category": "Assignment Briefs",
+        "docx": "qal-m1-assignment-brief.docx",
+        "pdf": "qal-m1-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m2-assignment-brief",
+        "title": "Module 2 Assignment — Assessing QA Maturity & Capability",
+        "category": "Assignment Briefs",
+        "docx": "qal-m2-assignment-brief.docx",
+        "pdf": "qal-m2-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m3-assignment-brief",
+        "title": "Module 3 Assignment — Building High-Performing QA Teams",
+        "category": "Assignment Briefs",
+        "docx": "qal-m3-assignment-brief.docx",
+        "pdf": "qal-m3-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m4-assignment-brief",
+        "title": "Module 4 Assignment — Hiring Great Testers",
+        "category": "Assignment Briefs",
+        "docx": "qal-m4-assignment-brief.docx",
+        "pdf": "qal-m4-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m5-assignment-brief",
+        "title": "Module 5 Assignment — QA Strategy",
+        "category": "Assignment Briefs",
+        "docx": "qal-m5-assignment-brief.docx",
+        "pdf": "qal-m5-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m6-assignment-brief",
+        "title": "Module 6 Assignment — Risk-Based Quality Leadership",
+        "category": "Assignment Briefs",
+        "docx": "qal-m6-assignment-brief.docx",
+        "pdf": "qal-m6-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m7-assignment-brief",
+        "title": "Module 7 Assignment — Metrics That Actually Matter",
+        "category": "Assignment Briefs",
+        "docx": "qal-m7-assignment-brief.docx",
+        "pdf": "qal-m7-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m8-assignment-brief",
+        "title": "Module 8 Assignment — Automation Strategy for QA Leaders",
+        "category": "Assignment Briefs",
+        "docx": "qal-m8-assignment-brief.docx",
+        "pdf": "qal-m8-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m9-assignment-brief",
+        "title": "Module 9 Assignment — AI Strategy for QA Leaders",
+        "category": "Assignment Briefs",
+        "docx": "qal-m9-assignment-brief.docx",
+        "pdf": "qal-m9-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m10-assignment-brief",
+        "title": "Module 10 Assignment — Stakeholder Management & Influence",
+        "category": "Assignment Briefs",
+        "docx": "qal-m10-assignment-brief.docx",
+        "pdf": "qal-m10-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m11-assignment-brief",
+        "title": "Module 11 Assignment — Coaching, Performance & Difficult Conversations",
+        "category": "Assignment Briefs",
+        "docx": "qal-m11-assignment-brief.docx",
+        "pdf": "qal-m11-assignment-brief.pdf"
+      },
+      {
+        "slug": "qal-m12-assignment-brief",
+        "title": "Module 12 Assignment — Building the QA Transformation Roadmap",
+        "category": "Assignment Briefs",
+        "docx": "qal-m12-assignment-brief.docx",
+        "pdf": "qal-m12-assignment-brief.pdf"
+      }
+    ]
   }
 }
