@@ -146,6 +146,9 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
     (lessonProgress ?? []).filter((p: { status: string }) => p.status === 'completed').map((p: { lesson_id: string }) => p.lesson_id)
   );
   const hasLessons = lessonList.length > 0;
+  // Count only THIS module's completed lessons — lessonProgress spans every
+  // module the student has touched, so counting the raw set showed e.g. "8 / 6".
+  const moduleLessonCompletedCount = lessonList.filter((l) => completedLessonIds.has(l.id)).length;
 
   return (
     <div className="p-6 lg:p-8 max-w-4xl mx-auto">
@@ -175,7 +178,7 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>Lessons</CardTitle>
-                <span className="text-sm text-gray-500">{completedLessonIds.size} / {lessonList.length} complete</span>
+                <span className="text-sm text-gray-500">{moduleLessonCompletedCount} / {lessonList.length} complete</span>
               </div>
             </CardHeader>
             <div className="space-y-2">
