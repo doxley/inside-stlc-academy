@@ -11,6 +11,7 @@ import { ResourceDownloadCard } from '@/components/module/ResourceDownloadCard';
 import { ModuleStartTracker } from '@/components/module/ModuleStartTracker';
 import { GuidedLessonLayout } from '@/components/module/GuidedLessonLayout';
 import { loadVaultItems } from '@/lib/resourceVault.server';
+import { isModuleUnlocked, isModuleGatingComplete } from '@/lib/drip';
 import { PracticalTaskCard } from '@/components/module/PracticalTaskCard';
 import { MarkCompleteButton } from '@/components/module/MarkCompleteButton';
 import { Download, Upload, HelpCircle, CheckCircle2, Circle } from 'lucide-react';
@@ -24,20 +25,69 @@ export default async function ModulePage({ params }: { params: Promise<{ courseI
 
   const db = createAdminClient();
 
-  const { data: enrolment } = await db.from('enrolments').select('id').eq('user_id', user.id).eq('course_id', courseId).eq('status', 'active').single();
+  const { data: enrolment } = await db.from('enrolments').select('id, enrolled_at').eq('user_id', user.id).eq('course_id', courseId).eq('status', 'active').single();
   if (!enrolment) notFound();
 
-  const [{ data: module }, { data: course }, { data: resources }, { data: quiz }, { data: progress }, { data: lessons }, { data: lessonProgress }] = await Promise.all([
+  const [{ data: module }, { data: course }, { data: resources }, { data: quiz }, { data: progress }, { data: lessons }, { data: lessonProgress }, { data: allCourseModules }, { data: moduleUnlocks }] = await Promise.all([
     db.from('modules').select('*').eq('id', moduleId).single(),
-    db.from('courses').select('title, slug').eq('id', courseId).single(),
+    db.from('courses').select('title, slug, drip_enabled, completion_gating').eq('id', courseId).single(),
     db.from('resources').select('*').eq('module_id', moduleId).eq('visible_to_students', true).order('sort_order'),
     db.from('quizzes').select('*, quiz_questions(*, quiz_answers(*))').eq('module_id', moduleId).single(),
     db.from('module_progress').select('*').eq('user_id', user.id).eq('module_id', moduleId).single(),
     db.from('lessons').select('id, lesson_number, title, estimated_time').eq('module_id', moduleId).eq('status', 'published').order('lesson_number'),
     db.from('lesson_progress').select('lesson_id, status').eq('user_id', user.id),
+    db.from('modules').select('id, module_number, status, unlock_day').eq('course_id', courseId).order('module_number'),
+    db.from('module_unlocks').select('module_id').eq('user_id', user.id),
   ]);
 
   if (!module) notFound();
+
+  // ── Enforce module gating (drip + completion gating) on direct navigation ──
+  // The course page hides links to locked modules, but a deep link would still
+  // load; this makes the lock real.
+  {
+    const courseRowForGate = course as { drip_enabled?: boolean; completion_gating?: boolean } | null;
+    const orderedModules = (allCourseModules ?? []) as { id: string; module_number: number; status: string; unlock_day: number | null }[];
+    const manualUnlockIds = (moduleUnlocks ?? []).map((u: { module_id: string }) => u.module_id);
+    const idx = orderedModules.findIndex((m) => m.id === moduleId);
+    const prevModule = idx > 0 ? orderedModules[idx - 1] : null;
+
+    let previousComplete = true;
+    if ((courseRowForGate?.completion_gating ?? false) && prevModule) {
+      const [{ data: prevAssignment }, { data: prevQuiz }, { data: prevProg }] = await Promise.all([
+        db.from('assignments').select('id').eq('module_id', prevModule.id).maybeSingle(),
+        db.from('quizzes').select('id').eq('module_id', prevModule.id).maybeSingle(),
+        db.from('module_progress').select('status').eq('user_id', user.id).eq('module_id', prevModule.id).maybeSingle(),
+      ]);
+      const prevAssignmentId = (prevAssignment as { id: string } | null)?.id ?? null;
+      const prevQuizId = (prevQuiz as { id: string } | null)?.id ?? null;
+      const [passedAssignmentIds, passedQuizIds] = await Promise.all([
+        prevAssignmentId
+          ? db.from('assignment_submissions').select('id').eq('user_id', user.id).eq('assignment_id', prevAssignmentId).eq('status', 'passed').limit(1).then(({ data }) => new Set(data && data.length ? [prevAssignmentId] : []))
+          : Promise.resolve(new Set<string>()),
+        prevQuizId
+          ? db.from('quiz_attempts').select('id').eq('user_id', user.id).eq('quiz_id', prevQuizId).eq('passed', true).limit(1).then(({ data }) => new Set(data && data.length ? [prevQuizId] : []))
+          : Promise.resolve(new Set<string>()),
+      ]);
+      previousComplete = isModuleGatingComplete({
+        assignmentId: prevAssignmentId,
+        quizId: prevQuizId,
+        passedAssignmentIds,
+        passedQuizIds,
+        moduleProgressStatus: (prevProg as { status: string } | null)?.status ?? null,
+      });
+    }
+
+    const unlocked = isModuleUnlocked(
+      module as Module,
+      enrolment as { enrolled_at: string },
+      courseRowForGate?.drip_enabled ?? false,
+      manualUnlockIds,
+      courseRowForGate?.completion_gating ?? false,
+      previousComplete
+    );
+    if (!unlocked) redirect(`/dashboard/course/${courseId}`);
+  }
 
   if ((module as Module).status === 'coming_soon') {
     return (
