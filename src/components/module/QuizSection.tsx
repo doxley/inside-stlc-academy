@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/Button';
 import { formatDate } from '@/lib/utils';
+import { Check, X } from 'lucide-react';
 import type { Quiz, QuizQuestion, QuizAnswer, QuizAttempt } from '@/types';
 
 interface Props {
@@ -89,6 +90,59 @@ export function QuizSection({ quiz, userId, bestAttempt, quizPassed }: Props) {
             Pass mark: {quiz.pass_mark}%
           </p>
         </div>
+
+        {/* Per-question review: what you chose, and the correct answer. */}
+        <div className="space-y-5 mb-6">
+          <p className="text-sm font-semibold text-gray-900">Review your answers</p>
+          {questions.map((question, idx) => {
+            const selectedId = answers[question.id];
+            const correctAnswer = question.quiz_answers.find(a => a.is_correct);
+            const gotItRight = !!selectedId && !!correctAnswer && selectedId === correctAnswer.id;
+            return (
+              <div key={question.id}>
+                <div className="flex items-start gap-2 mb-2">
+                  <span className="text-sm font-semibold text-gray-900">{idx + 1}.</span>
+                  <span className="text-sm font-semibold text-gray-900 flex-1">{question.question_text}</span>
+                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${gotItRight ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                    {gotItRight ? 'Correct' : 'Incorrect'}
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {question.quiz_answers.map(answer => {
+                    const isCorrect = answer.is_correct;
+                    const isChosen = selectedId === answer.id;
+                    const cls = isCorrect
+                      ? 'border-green-400 bg-green-50'
+                      : isChosen
+                      ? 'border-red-400 bg-red-50'
+                      : 'border-gray-200';
+                    return (
+                      <div key={answer.id} className={`flex items-center gap-3 p-3 rounded-lg border ${cls}`}>
+                        <span className="flex-shrink-0">
+                          {isCorrect ? (
+                            <Check className="w-4 h-4 text-green-600" />
+                          ) : isChosen ? (
+                            <X className="w-4 h-4 text-red-600" />
+                          ) : (
+                            <span className="inline-block w-4 h-4" />
+                          )}
+                        </span>
+                        <span className="text-sm text-gray-800 flex-1">{answer.answer_text}</span>
+                        {isChosen && (
+                          <span className="text-xs text-gray-500 flex-shrink-0">Your answer</span>
+                        )}
+                        {isCorrect && !isChosen && (
+                          <span className="text-xs text-green-700 flex-shrink-0">Correct answer</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
         {!result.passed && (
           <Button variant="secondary" onClick={() => { setState('idle'); setAnswers({}); setResult(null); }}>
             Try again
