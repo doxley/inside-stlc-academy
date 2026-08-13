@@ -30,6 +30,7 @@ export interface Course {
   drip_enabled: boolean;
   drip_type: 'none' | 'days_after_enrolment' | 'manual';
   default_module_gap_days: number;
+  completion_gating: boolean;
   created_at: string;
   updated_at: string;
 }

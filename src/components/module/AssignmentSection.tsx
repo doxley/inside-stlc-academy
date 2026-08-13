@@ -36,6 +36,9 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const [uploaded, setUploaded] = useState(false);
+  // Lets a student submit a new version even after a submission exists
+  // (e.g. an improved take after a pass, or replacing a practice upload).
+  const [showResubmit, setShowResubmit] = useState(false);
 
   function notifyAdmin(submissionId: string) {
     fetch('/api/notifications/submission', {
@@ -139,6 +142,9 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
   }
 
   const canResubmit = latestSubmission?.status === 'needs_changes';
+  // Show the upload area when there's no submission, the tutor asked for changes,
+  // or the student has chosen to submit another version.
+  const showUpload = !latestSubmission || canResubmit || showResubmit;
 
   if (uploaded) {
     return (
@@ -249,8 +255,15 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
         </div>
       )}
 
-      {/* Upload area — show if no submission yet, or needs_changes */}
-      {(!latestSubmission || canResubmit) && (
+      {/* Offer a fresh submission even after a completed/passed one. */}
+      {latestSubmission && !canResubmit && !showResubmit && (
+        <Button variant="ghost" size="sm" onClick={() => setShowResubmit(true)} className="text-xs">
+          <Upload className="w-3.5 h-3.5" /> Submit another version
+        </Button>
+      )}
+
+      {/* Upload area — show if no submission yet, needs_changes, or resubmitting */}
+      {showUpload && (
         <div>
           {canResubmit && (
             <p className="text-sm text-yellow-700 bg-yellow-50 border border-yellow-200 px-3 py-2 rounded-lg mb-3 flex items-center gap-2">
