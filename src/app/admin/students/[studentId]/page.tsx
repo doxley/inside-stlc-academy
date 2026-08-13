@@ -9,6 +9,7 @@ import { ResendInviteButton } from '@/components/admin/ResendInviteButton';
 import { formatDate, formatRelativeTime, getActivityStatus, getSubmissionStatusColour, getSubmissionStatusLabel } from '@/lib/utils';
 import { ArrowLeft, User, BookOpen } from 'lucide-react';
 import { ManualUnlockButton } from '@/components/admin/ManualUnlockButton';
+import { RemoveEnrolmentButton } from '@/components/admin/RemoveEnrolmentButton';
 import { isModuleUnlocked } from '@/lib/drip';
 import type { Course, Enrolment, ModuleUnlock } from '@/types';
 import type { Module, ModuleProgress, AssignmentSubmission, Assignment } from '@/types';
@@ -103,7 +104,14 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
             {enrolments.map((e) => (
               <div key={e.id} className="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-0">
                 <span className="text-sm font-medium text-gray-800">{e.courses?.title}</span>
-                <span className="text-xs text-gray-400">Enrolled {formatDate(e.enrolled_at)}</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-gray-400">Enrolled {formatDate(e.enrolled_at)}</span>
+                  <RemoveEnrolmentButton
+                    studentId={studentId}
+                    courseId={e.course_id}
+                    courseTitle={e.courses?.title ?? 'this course'}
+                  />
+                </div>
               </div>
             ))}
           </div>
