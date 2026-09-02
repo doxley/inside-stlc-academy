@@ -13,12 +13,9 @@ export default async function AdminAssignmentsPage({
   const { status: filterStatus, submission: selectedId } = await searchParams;
   const db = createAdminClient();
 
-  // assignment_submissions has two FKs to profiles (user_id, reviewed_by),
-  // so the embed must name the one we want (the submitting student) or
-  // PostgREST rejects the query as ambiguous.
   let query = db
     .from('assignment_submissions')
-    .select('*, assignments(title, module_id), profiles!user_id(id, first_name, last_name, email)')
+    .select('*, assignments(title, module_id)')
     .order('submitted_at', { ascending: false });
 
   if (filterStatus) query = query.eq('status', filterStatus);
@@ -26,8 +23,19 @@ export default async function AdminAssignmentsPage({
   const { data: submissions, error } = await query;
   if (error) console.error('admin/assignments: failed to load submissions', error);
 
-  type FullSub = AssignmentSubmission & { assignments: Assignment; profiles: Profile };
-  const typed = (submissions ?? []) as FullSub[];
+  // Profiles are fetched separately — the FK from assignment_submissions.user_id
+  // points to auth.users, not profiles, so PostgREST cannot resolve the embed.
+  const userIds = [...new Set((submissions ?? []).map((s: { user_id: string }) => s.user_id))];
+  const { data: profilesData } = userIds.length > 0
+    ? await db.from('profiles').select('id, first_name, last_name, email').in('id', userIds)
+    : { data: [] };
+  const profileMap = new Map((profilesData ?? []).map((p: Profile) => [p.id, p]));
+
+  type FullSub = AssignmentSubmission & { assignments: Assignment; profiles: Profile | null };
+  const typed = (submissions ?? []).map((s: AssignmentSubmission & { assignments: Assignment }) => ({
+    ...s,
+    profiles: profileMap.get(s.user_id) ?? null,
+  })) as FullSub[];
   const selected = selectedId ? typed.find(s => s.id === selectedId) : null;
 
   const statusFilters = [
