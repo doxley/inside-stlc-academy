@@ -48,12 +48,13 @@ export function LessonProse({ content }: { content: string }) {
     const line = rawLines[i].trim();
 
     // Fenced code block — consume until the closing fence, preserving whitespace.
-    if (line.startsWith('```')) {
+    // Accepts ``` or ~~~ fences (~~~ is safe inside JS template-literal content).
+    if (line.startsWith('```') || line.startsWith('~~~')) {
       flushBullets(`ul-${i}`);
       const lang = line.slice(3).trim();
       const codeLines: string[] = [];
       i++;
-      while (i < rawLines.length && rawLines[i].trim() !== '```') {
+      while (i < rawLines.length && !/^(```|~~~)/.test(rawLines[i].trim())) {
         codeLines.push(rawLines[i]);
         i++;
       }
