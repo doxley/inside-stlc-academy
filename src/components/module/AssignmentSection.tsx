@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { useDropzone, type FileRejection } from 'react-dropzone';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/Button';
+import { LessonProse } from '@/components/module/LessonProse';
 import { Badge } from '@/components/ui/Badge';
 import { formatDate, getSubmissionStatusColour, getSubmissionStatusLabel } from '@/lib/utils';
 import { Upload, FileText, FileType, AlertCircle, Library } from 'lucide-react';
@@ -184,8 +185,8 @@ export function AssignmentSection({ assignment, userId, courseId, latestSubmissi
       )}
 
       {assignment.instructions && (
-        <div className="p-4 bg-gray-50 rounded-lg text-sm text-gray-700">
-          {assignment.instructions}
+        <div className="p-4 bg-gray-50 rounded-lg">
+          <LessonProse content={assignment.instructions} />
         </div>
       )}
 
