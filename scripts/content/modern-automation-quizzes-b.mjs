@@ -358,8 +358,9 @@ const res = await request.post('/api/orders', {
       title: 'Reflection & Knowledge Check',
       questions: [
         {
-          text: 'What does this workflow fragment cause to happen?',
-          codeNote: `~~~yaml
+          text: `What does this workflow fragment cause to happen?
+
+~~~yaml
 on:
   pull_request:
     branches: [main]
@@ -389,8 +390,9 @@ jobs:
           ],
         },
         {
-          text: 'What is the effect of this caching step, and its main limitation?',
-          codeNote: `~~~yaml
+          text: `What is the effect of this caching step, and its main limitation?
+
+~~~yaml
 - uses: actions/cache@v4
   with:
     path: ~/.npm
@@ -413,8 +415,9 @@ jobs:
           ],
         },
         {
-          text: 'What does this matrix configuration do?',
-          codeNote: `~~~yaml
+          text: `What does this matrix configuration do?
+
+~~~yaml
 strategy:
   matrix:
     shard: [1, 2, 3, 4]
@@ -489,8 +492,9 @@ steps:
       title: 'Reflection & Knowledge Check',
       questions: [
         {
-          text: 'An assistant generates this test for a login page. What is the most serious problem a reviewer should catch?',
-          codeNote: `~~~ts
+          text: `An assistant generates this test for a login page. What is the most serious problem a reviewer should catch?
+
+~~~ts
 test('login works', async ({ page }) => {
   await page.goto('/login');
   await page.fillForm({ email: 'a@b.com', password: 'pw' });

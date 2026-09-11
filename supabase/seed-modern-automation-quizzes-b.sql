@@ -71,7 +71,16 @@ select 1;
 
 with m as (select mo.id from public.modules mo join public.courses c on c.id = mo.course_id where c.slug = 'modern-test-automation-bootcamp' and mo.module_number = 9),
 newq as (insert into public.quizzes (module_id, title, pass_mark) select id, $qz$Reflection & Knowledge Check$qz$, 70 from m where not exists (select 1 from public.quizzes where module_id = (select id from m)) returning id),
-q1 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$What does this request-context code assert?$qz$, 'multiple_choice', 1 from newq returning id),
+q1 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$What does this request-context code assert?
+
+~~~ts
+const res = await request.post('/api/orders', {
+  data: { sku: 'ABC-1', qty: 2 },
+});
+expect(res.status()).toBe(201);
+const body = await res.json();
+expect(body).toHaveProperty('id');
+~~~$qz$, 'multiple_choice', 1 from newq returning id),
 a1 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q1.id, v.t, v.c from q1, (values ($qz$That creating an order returns HTTP 201 and a JSON body containing an `id`, testing the API directly without a browser$qz$, true), ($qz$That the order appears in the UI order list after the request completes$qz$, false), ($qz$That the response takes fewer than 201 milliseconds to arrive$qz$, false), ($qz$That exactly two orders were created, one per unit of `qty`$qz$, false)) as v(t, c) returning question_id),
 q2 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$Which assertion most meaningfully verifies a `GET /api/users/42` response, beyond just checking it did not error?$qz$, 'multiple_choice', 2 from newq returning id),
 a2 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q2.id, v.t, v.c from q2, (values ($qz$Assert the status is 200 and that the parsed body’s `id` equals 42 and expected fields are present with the right types$qz$, true), ($qz$Assert only that `res.ok()` is true, since a 2xx status means the data must be correct$qz$, false), ($qz$Assert that the raw response text is non-empty, which proves the user exists$qz$, false), ($qz$Assert that the request completed without throwing, and treat any returned body as valid$qz$, false)) as v(t, c) returning question_id),
@@ -87,7 +96,13 @@ q7 as (insert into public.quiz_questions (quiz_id, question_text, question_type,
 a7 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q7.id, v.t, v.c from q7, (values ($qz$That the order is actually gone afterwards — a follow-up GET should now return 404, confirming the side effect rather than just the acknowledgement$qz$, true), ($qz$Nothing; a 200 status is a complete proof that the resource was deleted$qz$, false), ($qz$It should also assert the response time, which is the real measure of a delete$qz$, false), ($qz$It should assert the response body contains the full deleted record for auditing$qz$, false)) as v(t, c) returning question_id),
 q8 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$When is testing at the API layer clearly preferable to driving the same behaviour through the UI?$qz$, 'multiple_choice', 8 from newq returning id),
 a8 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q8.id, v.t, v.c from q8, (values ($qz$When you are verifying business rules, validation and status codes of an endpoint, where the API layer is faster, more stable and more precise than clicking through screens$qz$, true), ($qz$Whenever a UI exists, because UI tests provide no value once an API test covers the same endpoint$qz$, false), ($qz$Only when the UI has no automated coverage at all, as a temporary stopgap$qz$, false), ($qz$Never; any behaviour reachable through the UI must be tested exclusively through the UI$qz$, false)) as v(t, c) returning question_id),
-q9 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$This request-context call is expected to be rejected for bad input. Which assertion correctly captures that intent?$qz$, 'multiple_choice', 9 from newq returning id),
+q9 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$This request-context call is expected to be rejected for bad input. Which assertion correctly captures that intent?
+
+~~~ts
+const res = await request.post('/api/orders', {
+  data: { sku: '', qty: -5 },
+});
+~~~$qz$, 'multiple_choice', 9 from newq returning id),
 a9 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q9.id, v.t, v.c from q9, (values ($qz$`expect(res.status()).toBe(400)` — verify the API rejects invalid input with a client-error status rather than silently accepting it$qz$, true), ($qz$`expect(res.ok()).toBeTruthy()` — the request went through, so it should be treated as a success$qz$, false), ($qz$`expect(res.status()).toBe(201)` — the endpoint should create the order and correct the values itself$qz$, false), ($qz$`await expect(page).toHaveURL(’/error’)` — check the browser was redirected to an error page$qz$, false)) as v(t, c) returning question_id),
 q10 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$Why should an API test that creates a resource typically clean it up (or run against isolated data), even though the assertions have already passed?$qz$, 'multiple_choice', 10 from newq returning id),
 a10 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q10.id, v.t, v.c from q10, (values ($qz$Leftover resources accumulate and can make later runs collide or assert against stale data, so cleanup keeps the suite repeatable$qz$, true), ($qz$Uncleaned resources cause Playwright to mark the passing test as failed on the next run$qz$, false), ($qz$Cleanup is only a stylistic nicety and has no effect on other tests’ reliability$qz$, false), ($qz$The API will refuse further requests until previously created resources are deleted$qz$, false)) as v(t, c) returning question_id),
@@ -97,15 +112,44 @@ select 1;
 
 with m as (select mo.id from public.modules mo join public.courses c on c.id = mo.course_id where c.slug = 'modern-test-automation-bootcamp' and mo.module_number = 12),
 newq as (insert into public.quizzes (module_id, title, pass_mark) select id, $qz$Reflection & Knowledge Check$qz$, 70 from m where not exists (select 1 from public.quizzes where module_id = (select id from m)) returning id),
-q1 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$What does this workflow fragment cause to happen?$qz$, 'multiple_choice', 1 from newq returning id),
+q1 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$What does this workflow fragment cause to happen?
+
+~~~yaml
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npx playwright test
+~~~$qz$, 'multiple_choice', 1 from newq returning id),
 a1 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q1.id, v.t, v.c from q1, (values ($qz$On every pull request targeting `main`, it checks out the code, installs dependencies and browsers, then runs the Playwright suite on an Ubuntu runner$qz$, true), ($qz$It runs the Playwright suite once per day on a schedule against the `main` branch$qz$, false), ($qz$It runs only when someone pushes directly to `main`, not on pull requests$qz$, false), ($qz$It deploys the application to production after the tests pass$qz$, false)) as v(t, c) returning question_id),
 q2 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$Why is `npx playwright install --with-deps` typically required in CI but not on a developer’s machine?$qz$, 'multiple_choice', 2 from newq returning id),
 a2 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q2.id, v.t, v.c from q2, (values ($qz$A fresh CI runner has no browsers or their system libraries, so they must be installed each run, whereas a developer machine usually already has them$qz$, true), ($qz$The flag upgrades Playwright to the latest version, which developers do manually$qz$, false), ($qz$CI cannot run `npm ci`, so browser installation replaces it$qz$, false), ($qz$It is only needed to enable video recording, which developers rarely use$qz$, false)) as v(t, c) returning question_id),
-q3 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$What is the effect of this caching step, and its main limitation?$qz$, 'multiple_choice', 3 from newq returning id),
+q3 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$What is the effect of this caching step, and its main limitation?
+
+~~~yaml
+- uses: actions/cache@v4
+  with:
+    path: ~/.npm
+    key: npm-${{ hashFiles('package-lock.json') }}
+~~~$qz$, 'multiple_choice', 3 from newq returning id),
 a3 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q3.id, v.t, v.c from q3, (values ($qz$It restores the npm download cache when the lockfile is unchanged, speeding up `npm ci`; it does not cache the Playwright browser binaries, which live elsewhere$qz$, true), ($qz$It caches the Playwright browsers, so the install step can be removed entirely$qz$, false), ($qz$It caches the test results so unchanged tests are skipped on the next run$qz$, false), ($qz$It disables installation completely whenever the cache key matches$qz$, false)) as v(t, c) returning question_id),
 q4 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$A team wants a failing Playwright suite to block a pull request from merging. Beyond adding the workflow, what else is required?$qz$, 'multiple_choice', 4 from newq returning id),
 a4 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q4.id, v.t, v.c from q4, (values ($qz$A branch protection rule that marks the test job a required status check, so the merge is blocked until it passes$qz$, true), ($qz$Nothing else; any failing workflow automatically prevents merging by default$qz$, false), ($qz$A manual reviewer must re-run the tests locally and confirm before each merge$qz$, false), ($qz$The workflow must be renamed to `required.yml` for GitHub to enforce it$qz$, false)) as v(t, c) returning question_id),
-q5 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$What does this matrix configuration do?$qz$, 'multiple_choice', 5 from newq returning id),
+q5 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$What does this matrix configuration do?
+
+~~~yaml
+strategy:
+  matrix:
+    shard: [1, 2, 3, 4]
+steps:
+  - run: npx playwright test --shard=${{ matrix.shard }}/4
+~~~$qz$, 'multiple_choice', 5 from newq returning id),
 a5 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q5.id, v.t, v.c from q5, (values ($qz$It splits the suite into four shards run as four parallel jobs, each executing a quarter of the tests, to cut wall-clock time$qz$, true), ($qz$It runs the entire suite four times over to detect flaky tests through repetition$qz$, false), ($qz$It runs the suite on four different browsers, one per shard number$qz$, false), ($qz$It retries the suite up to four times if the first run fails$qz$, false)) as v(t, c) returning question_id),
 q6 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$After sharding a suite across four parallel jobs, how do you obtain a single combined test report?$qz$, 'multiple_choice', 6 from newq returning id),
 a6 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q6.id, v.t, v.c from q6, (values ($qz$Have each shard upload its blob report as an artifact, then a final job downloads them all and merges them into one report$qz$, true), ($qz$The last shard to finish automatically overwrites the others with a complete report$qz$, false), ($qz$Sharded runs cannot be reported together; you must read four separate reports$qz$, false), ($qz$Set a flag so shard 1 alone produces the full report for the whole suite$qz$, false)) as v(t, c) returning question_id),
@@ -123,7 +167,16 @@ select 1;
 
 with m as (select mo.id from public.modules mo join public.courses c on c.id = mo.course_id where c.slug = 'modern-test-automation-bootcamp' and mo.module_number = 14),
 newq as (insert into public.quizzes (module_id, title, pass_mark) select id, $qz$Reflection & Knowledge Check$qz$, 70 from m where not exists (select 1 from public.quizzes where module_id = (select id from m)) returning id),
-q1 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$An assistant generates this test for a login page. What is the most serious problem a reviewer should catch?$qz$, 'multiple_choice', 1 from newq returning id),
+q1 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$An assistant generates this test for a login page. What is the most serious problem a reviewer should catch?
+
+~~~ts
+test('login works', async ({ page }) => {
+  await page.goto('/login');
+  await page.fillForm({ email: 'a@b.com', password: 'pw' });
+  await page.clickButton('Sign in');
+  await expect(page).toBeTruthy();
+});
+~~~$qz$, 'multiple_choice', 1 from newq returning id),
 a1 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q1.id, v.t, v.c from q1, (values ($qz$It uses hallucinated APIs (`page.fillForm`, `page.clickButton` do not exist) and a meaningless assertion (`expect(page).toBeTruthy()` is always true), so it would not even represent a real, passing test of login$qz$, true), ($qz$The email address is not a real inbox, so the test cannot authenticate$qz$, false), ($qz$The only issue is the missing `await` on the final expect$qz$, false), ($qz$It is fine as written; these are standard Playwright convenience methods$qz$, false)) as v(t, c) returning question_id),
 q2 as (insert into public.quiz_questions (quiz_id, question_text, question_type, sort_order) select id, $qz$An AI-written test passes reliably. On review you find its single assertion is `await expect(page.locator('body')).toBeVisible()` after submitting a payment form. Why should this test not be trusted?$qz$, 'multiple_choice', 2 from newq returning id),
 a2 as (insert into public.quiz_answers (question_id, answer_text, is_correct) select q2.id, v.t, v.c from q2, (values ($qz$The assertion is true for essentially any page that loads, so the test would stay green even if the payment silently failed — it verifies nothing about the behaviour under test$qz$, true), ($qz$Asserting on the body element is slower than asserting on a specific locator$qz$, false), ($qz$The test is trustworthy precisely because it passes reliably; reliability is the goal$qz$, false), ($qz$The problem is only that `body` should be selected with a data-testid instead$qz$, false)) as v(t, c) returning question_id),
