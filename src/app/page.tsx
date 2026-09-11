@@ -57,6 +57,17 @@ const courses = [
     cta: 'View Course',
   },
   {
+    title: 'Modern Test Automation Bootcamp',
+    badge: 'Flagship',
+    description:
+      'Build production-style test automation with Playwright, TypeScript, APIs, Git, GitHub Actions and AI — then prove it with three portfolio projects and a capstone framework.',
+    stats: ['16 Modules', '90+ Lessons', '3 Real Projects'],
+    price: '£199',
+    href: '/course/modern-test-automation-bootcamp',
+    enrolSlug: 'modern-test-automation-bootcamp',
+    cta: 'View Course',
+  },
+  {
     title: 'Practical Test Automation with Playwright',
     badge: 'Professional',
     description:
@@ -103,7 +114,6 @@ const courses = [
 ];
 
 const comingSoon = [
-  { title: 'Modern Test Automation Bootcamp', description: 'Hands-on automation with modern frameworks and real projects.' },
   { title: 'Performance Testing Essentials', description: 'Learn load, stress, and performance testing fundamentals.' },
   { title: 'Mobile Testing Essentials', description: 'Master the essentials of testing modern mobile applications.' },
 ];
