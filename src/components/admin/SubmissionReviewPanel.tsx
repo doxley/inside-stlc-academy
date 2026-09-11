@@ -10,7 +10,7 @@ import type { AssignmentSubmission, Assignment, Profile } from '@/types';
 
 type FullSub = AssignmentSubmission & {
   assignments: Assignment;
-  profiles: Profile;
+  profiles: Profile | null;
 };
 
 interface Props {
