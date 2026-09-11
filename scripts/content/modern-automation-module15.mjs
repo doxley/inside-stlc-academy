@@ -1,0 +1,561 @@
+// Modern Test Automation Bootcamp — Module 15: Working in a Real Automation Team.
+// A judgement-and-collaboration module: where automation fits in delivery, how to
+// review test code well, how a whole team owns quality and flaky tests, how to
+// communicate quality and risk honestly, and how to set an automation strategy you
+// can defend. Every lesson reinforces that automation exists to give timely, useful
+// evidence about product risk — not to hand out a pass/fail rubber stamp.
+export default {
+  courseSlug: 'modern-test-automation-bootcamp',
+  moduleNumber: 15,
+  lessonsPrefix: 'modern-automation',
+  enhPrefix: 'modern-automation',
+  enhSep: '-',
+  lessons: [
+    {
+      lessonNumber: 1,
+      title: 'Automation in the Delivery Lifecycle',
+      estimatedTime: '18 minute read',
+      lessonOverview: `Automation is not a phase that happens after development — on a healthy team it is designed alongside a user story and finished as part of it. This lesson is about deciding what to automate for a story, when to do it (shift-left), and treating a story as not done until its automation is done too.`,
+      learningObjectives: [
+        'Decide what is worth automating for a given user story, and at which layer',
+        'Apply shift-left thinking so testability and automation are discussed before code, not after',
+        'Make automated coverage part of a story’s definition of done rather than a follow-up ticket',
+      ],
+      lessonNotes: `## Automation is part of building the feature
+The old model — build first, then throw the feature to a separate test phase, then automate later "when there is time" — reliably produces two things: a backlog of never-written automation, and a suite that always lags behind the product. On a modern delivery team, automation is designed with the story and delivered inside the same slice of work.
+
+That does not mean automating everything the moment code exists. It means asking, while the story is still being shaped, three questions:
+
+- **What could go wrong here that matters?** The risks, not the requirements list.
+- **Which of those risks is worth catching automatically, and at which layer?** Some belong in a unit test, some in an API test, a few in an end-to-end browser test.
+- **What would make this feature hard to test, and can we change that now?** A stable role or label to target, a way to seed data, a test hook — cheap to add during development, expensive to retrofit.
+
+## Shift-left: decide before you build
+"Shift-left" is simply moving those questions earlier — to the point where they are cheap to act on. A missing test hook discussed in refinement is a one-line change; the same hook requested after the feature ships is a change-request, a review and a redeploy. Shifting left is not about testing more, it is about deciding *what* and *how* to test while the decision is still cheap.
+
+Concretely, on a team that shifts left you will see:
+
+- Testability raised in story refinement, not discovered in the test-writing sprint.
+- The developer and tester agreeing the key automated checks *before* the code is written, so the code is built to be checkable.
+- Automation written in the same pull request as the feature, reviewed together.
+
+## The three amigos
+A well-known lightweight practice for this is the "three amigos": before a story is built, three perspectives look at it together —
+
+- **Business / product** — what problem this solves and what "correct" means to a user.
+- **Development** — how it will be built and where the technical risk sits.
+- **Testing / quality** — how we will know it works, what could break, and what is hard to verify.
+
+Fifteen minutes of this conversation surfaces the ambiguous acceptance criteria and the untestable corners *before* anyone writes code. The tester’s job in the room is not to plan every test case; it is to ask the questions that change the design — "what happens when this times out?", "how would we even reproduce that state?" — while changing the design is still free.
+
+## Automation as part of 'done'
+If a story is marked done while its automation sits in a separate "automate later" ticket, the automation usually never lands, and the suite falls permanently behind. A workable definition of done makes the relevant automated coverage a condition of the story being complete — reviewed in the same pull request, green in the same pipeline. "Relevant" is the important word: done does not mean a test at every layer, it means the coverage the team agreed the story needed, at the layers that made sense.
+
+## A green suite is still not a good suite
+Building automation into the lifecycle makes the suite timely; it does not make it meaningful. A story can ship with a green test that asserts almost nothing. The point of shifting left and defining done is to get *useful evidence about risk* delivered with the feature — not to tick an "has tests" box. Every later lesson in this module comes back to that distinction.
+
+## Key takeaway
+Design automation alongside the story, decide what and how to test while the decision is still cheap (shift-left, with the three amigos), and make the agreed automated coverage part of the definition of done — so your suite stays timely and actually reflects the product, rather than trailing behind it as a backlog of good intentions.`,
+      workedExample: `Consider a user story: "As a customer I can apply a discount code at checkout." Rather than automating blindly after the fact, the team decides coverage by risk and layer during refinement.
+
+The risks worth catching, and where each belongs:
+
+~~~text
+Risk                                  Best layer          Why there
+------------------------------------  ------------------  --------------------------------
+Code validation logic (expiry, caps)  Unit                Fast, exhaustive, no browser needed
+Discount applied to order total       API / integration   Real calculation, no UI flakiness
+Invalid code shows an error           End-to-end (UI)     User-visible behaviour that matters
+Happy path: code reduces the price    End-to-end (UI)     One honest full-journey check
+~~~
+
+Only the last two need a browser test — the rest are cheaper and more reliable lower down. The single end-to-end check is deliberately thin and high-value:
+
+~~~ts
+import { test, expect } from '@playwright/test';
+
+test('a valid discount code reduces the order total', async ({ page }) => {
+  await page.goto('/checkout');
+  await page.getByLabel('Discount code').fill('SAVE10');
+  await page.getByRole('button', { name: 'Apply code' }).click();
+
+  // Assert the outcome the user cares about, not just that a request fired.
+  await expect(page.getByText('Discount applied: -£10.00')).toBeVisible();
+  await expect(page.getByTestId('order-total')).toHaveText('£90.00');
+});
+~~~
+
+This test lands in the same pull request as the discount feature, is reviewed alongside it, and must be green before the story is done. Note the testable hook — a stable \`order-total\` test id — was agreed in refinement, so the developer built it in rather than the tester retrofitting a brittle text selector afterwards.`,
+      commonMistakes: `- Automating everything through the UI because that is where the feature is visible, instead of pushing logic checks down to unit and API layers
+- Marking a story done and raising a separate "add automation" ticket that never reaches the top of the backlog
+- Treating shift-left as "test earlier" (more work, sooner) rather than "decide what and how to test while it is still cheap to change the design"
+- Turning the three amigos into a status meeting instead of a short conversation that changes the story before it is built`,
+      realWorldTip: `On a delivery team, the cheapest testability improvements are the ones agreed before a line of code is written: a stable selector, a way to seed a known state, an endpoint that returns a deterministic response in test mode. Raise those in refinement as concrete asks on the story, not as complaints after the fact. A tester who reliably turns up to refinement with "what would make this hard to verify?" changes more about the eventual suite’s quality than any amount of clever test code written later.`,
+      exercise: `Take a real (or recent) user story from your team and design its automated coverage by risk. Produce a short table listing each risk worth catching, the layer you would catch it at (unit / API / end-to-end) and one line of justification, then write the single most valuable end-to-end test for it as a Playwright spec. Deliverable: the risk-to-layer table plus the one spec, and a note of one testability hook you would ask a developer to add during refinement.`,
+      reflectionQuestion: `Think of the last feature your team shipped. Was its automation designed alongside the story or bolted on afterwards — and how did that timing show up in the quality and brittleness of the resulting tests?`,
+      knowledgeCheck: `What does "shift-left" actually move earlier? (Answer: the decisions about what and how to test — and about testability — to the point where they are still cheap to act on, not simply doing more testing sooner)`,
+      completionChecklist: [
+        'I can choose what to automate for a story by risk, and place each check at the right layer',
+        'I can raise testability and coverage in refinement so the code is built to be checkable',
+        'I treat the agreed automated coverage as part of a story’s definition of done',
+      ],
+      enhancements: {
+        industryStory: `A team consistently closed stories with a note reading "automation to follow" and a linked ticket. Those tickets piled up in a column everyone stopped reading, and within two quarters the automated suite covered barely half of what had shipped — every regression escaped through a gap the team had promised to fill and never did. When they changed their definition of done so a story could not be closed without its agreed automated coverage in the same pull request, the backlog of automation debt stopped growing almost overnight, because the coverage was now written while the feature was fresh in everyone’s mind rather than reconstructed months later.`,
+        visualAid: {
+          type: 'flow',
+          title: 'A story with automation built in',
+          steps: [
+            { label: 'Refinement (three amigos)', detail: 'Agree what "correct" means and what is hard to test; ask for testability hooks.' },
+            { label: 'Decide coverage by risk', detail: 'Map each risk to a layer — unit, API or end-to-end — before coding.' },
+            { label: 'Build feature + tests together', detail: 'Automation lands in the same pull request as the code it checks.' },
+            { label: 'Review together', detail: 'Feature code and test code reviewed in one place, held to shared standards.' },
+            { label: 'Done = green agreed coverage', detail: 'The story is not complete until its automation passes in the pipeline.' },
+          ],
+        },
+        davidTip: `In refinement, ask one deceptively simple question of every story: "how would we reproduce the failure case on demand?" If the honest answer is "we could not easily", you have found the testability gap while it is still a cheap conversation rather than an expensive retrofit.`,
+      },
+    },
+    {
+      lessonNumber: 2,
+      title: 'Code Review for Test Code',
+      estimatedTime: '19 minute read',
+      lessonOverview: `Test code is production code and deserves the same review rigour — but the questions are different. Reviewing a test well means asking whether its assertions are meaningful, whether it will be reliable, and whether the next person can read and trust it. This lesson covers those questions, shared standards, and how to give review feedback that improves the test rather than the reviewer’s mood.`,
+      learningObjectives: [
+        'Review a test for meaningful assertions, reliability and readability, not just whether it passes',
+        'Apply a shared team standard so reviews are consistent rather than a matter of taste',
+        'Give review feedback that is specific, kind and actionable',
+      ],
+      lessonNotes: `## A passing test is where review starts, not ends
+The most common failure in test review is approving a test because "it is green and it tests the new feature". Green only proves the test ran without failing today. Review is where you decide whether it is *worth having tomorrow*. Three questions carry most of the weight.
+
+## 1. Are the assertions meaningful?
+A test is only as good as what it actually checks. Look past the setup and the clicks to the assertions and ask: if the feature broke, would *this* assertion go red?
+
+- An assertion that the page loaded, when the story is about a calculation, tests the wrong thing.
+- \`expect(response.status()).toBe(200)\` proves the server answered, not that it answered correctly.
+- A test with no assertion at all — just actions — passes forever and proves nothing.
+
+The sharpest reviewer’s move is to imagine the bug the test is meant to catch and check the assertion would actually catch it.
+
+## 2. Is it reliable?
+A test that fails intermittently is worse than no test, because it trains the team to ignore red. In review, look for the classic sources of flakiness:
+
+- Fixed waits (\`waitForTimeout\`) instead of web-first assertions that wait for a real condition.
+- Selectors coupled to volatile markup — deep CSS paths, generated class names — rather than roles and labels.
+- Order dependence or shared mutable state between tests.
+- Assertions on values that legitimately change (timestamps, live data) without controlling them.
+
+## 3. Is it readable?
+The next person to see this test will be someone debugging it at speed when it goes red in six months. Can they tell, in ten seconds, what it verifies and why? Look for a clear title that states the behaviour, setup that reads top-to-bottom, and no cleverness that obscures intent. A test is also documentation of how the feature is meant to behave; an unreadable test fails at that job even when it passes.
+
+## Shared standards make review objective
+Without an agreed standard, review degenerates into competing personal preferences, and authors cannot predict what will be asked of them. A short, written team standard — locators in priority order, no fixed waits, one clear behaviour per test, assertion required, naming convention — turns most review comments from "I would prefer…" into "this is our standard, here". It also lets a linter or a shared config enforce the mechanical parts so humans review the judgement, not the formatting.
+
+## Giving good feedback
+Review feedback is a collaboration, not a verdict. What separates feedback that improves the test from feedback that just stings:
+
+- **Be specific.** "This selector is brittle" helps less than "this depends on the generated class \`.css-1x2y3z\`; a role locator would survive a restyle."
+- **Explain the why.** People adopt a change they understand and resist one they are simply told to make.
+- **Separate must-fix from preference.** Flag "this assertion does not actually test the behaviour" as blocking; flag a naming nit as optional, and say so.
+- **Ask, do not decree, when you are unsure.** "What does this assert if the discount is zero?" invites a fix and might teach you something you missed.
+- **Praise the good.** A comment noting a genuinely well-chosen assertion is not fluff; it tells the author what to keep doing.
+
+## Key takeaway
+Review test code as seriously as production code, but against test-specific questions — are the assertions meaningful, will it be reliable, can the next person read it — hold it to a written shared standard so review is consistent rather than personal, and give feedback that is specific, reasoned and kind so the test gets better and the author keeps writing tests.`,
+      workedExample: `A reviewer receives this test in a pull request. On the surface it passes and "covers" the discount feature — but a good review does not stop there.
+
+Walking the three questions across the diff:
+
+- **Meaningful?** It clicks Apply and then asserts the page still shows a heading. If the discount silently failed to apply, this test would stay green. The assertion tests the wrong thing.
+- **Reliable?** It waits a fixed three seconds and targets a generated CSS class. Both are classic flake sources.
+- **Readable?** The title says "test checkout" — it does not say what behaviour is verified.
+
+A focused review comment might read:
+
+~~~text
+Blocking: this asserts the heading is visible, but the story is that the
+discount reduces the total. If the discount failed, this test would still
+pass. Please assert the discounted total (there's a stable order-total test
+id). Also: swap waitForTimeout(3000) for a web-first assertion — our standard
+is no fixed waits — and target a role/label rather than the generated class,
+which changes on every restyle.
+
+Nit (optional): rename to describe the behaviour, e.g.
+'valid discount code reduces the order total'.
+~~~
+
+The comment is specific (names the exact selector and hook), reasoned (says *why* each change matters), split into blocking versus optional, and points at the shared standard rather than personal taste. It gives the author everything needed to fix the test rather than a vague "please improve this".`,
+      commonMistakes: `- Approving a test because it is green and touches the new code, without checking the assertion would actually fail when the feature breaks
+- Reviewing test code more loosely than production code — as if it "does not count" — so brittle, meaningless tests accrue
+- Leaving vague feedback ("this is flaky", "not great") that the author cannot act on
+- Blocking a pull request over naming preferences while missing that the central assertion tests nothing`,
+      realWorldTip: `On a delivery team, write the test-review standard down and keep it to one page — locator priority, no fixed waits, an assertion that maps to the behaviour, one behaviour per test, a naming convention. Enforce the mechanical parts with a linter and a shared Playwright config so human reviewers spend their attention on the judgement calls a tool cannot make. And normalise reviewing tests as thoroughly as features: a team that waves tests through review is quietly deciding that its safety net does not deserve scrutiny, and it will find out the hard way when the net has holes.`,
+      exercise: `Find a real test in your codebase (or write a deliberately weak one) and review it in writing against the three questions — meaningful assertions, reliability, readability. Produce review comments in the good-feedback style: specific, reasoned, and split into blocking versus optional. Deliverable: the original test, your written review comments, and the improved test after applying your own feedback.`,
+      reflectionQuestion: `Think of the last test you approved in review. Did you actually check that its central assertion would go red if the feature broke — or did you approve it because it was green and looked plausible?`,
+      knowledgeCheck: `Why is "it passes and covers the new feature" not enough to approve a test in review? (Answer: passing only proves it ran today; review must also confirm the assertion is meaningful, the test is reliable, and it is readable enough to trust and maintain)`,
+      completionChecklist: [
+        'I can review a test for meaningful assertions, reliability and readability, not just a green result',
+        'I can apply a written shared standard so my reviews are consistent rather than personal taste',
+        'I can write review feedback that is specific, reasoned, kind and split into must-fix versus preference',
+      ],
+      enhancements: {
+        badGood: {
+          label: 'a weak test vs the same test after review',
+          bad: `~~~ts
+// Passes, "covers" checkout — and proves almost nothing.
+test('test checkout', async ({ page }) => {
+  await page.goto('/checkout');
+  await page.getByLabel('Discount code').fill('SAVE10');
+  await page.locator('.css-1x2y3z').click();      // brittle generated class
+  await page.waitForTimeout(3000);                 // fixed wait — flake source
+  await expect(page.getByRole('heading')).toBeVisible(); // asserts the wrong thing
+});
+~~~`,
+          good: `~~~ts
+// Title states the behaviour; assertion maps to the actual outcome.
+test('a valid discount code reduces the order total', async ({ page }) => {
+  await page.goto('/checkout');
+  await page.getByLabel('Discount code').fill('SAVE10');
+  await page.getByRole('button', { name: 'Apply code' }).click();
+
+  // Web-first assertion waits for the real condition — no fixed wait needed.
+  await expect(page.getByText('Discount applied: -£10.00')).toBeVisible();
+  await expect(page.getByTestId('order-total')).toHaveText('£90.00');
+});
+~~~`,
+        },
+        davidTip: `When you review a test, try to name the exact bug it is supposed to catch, then check the assertion would catch that bug. If you cannot name the bug, or the assertion would survive it, you have found the review comment that matters — everything else is secondary.`,
+        miniChallenge: `Draft your team’s one-page test-review standard: locator priority, the no-fixed-waits rule, "one behaviour per test, assertion required", and a naming convention. Then mark which items a linter or shared config could enforce automatically, so human review is freed for judgement.`,
+      },
+    },
+    {
+      lessonNumber: 3,
+      title: 'Shared Ownership & Flaky-Test Culture',
+      estimatedTime: '18 minute read',
+      lessonOverview: `Quality is a property of the whole team, not a department. This lesson is about who really owns the tests and the build — spoiler: everyone who commits to the codebase — and about the corrosive culture that grows when a flaky suite is treated as "the QA person’s problem" rather than a shared signal the team keeps honest.`,
+      learningObjectives: [
+        'Explain why whole-team ownership of quality outperforms a "QA owns all tests" model',
+        'Establish a clear norm for who fixes a red build and how fast',
+        'Recognise and dismantle a flaky-test culture before it destroys trust in the suite',
+      ],
+      lessonNotes: `## The "QA owns all tests" trap
+It is tempting, especially on a team with a dedicated tester, to let quality become that person’s job: developers write features, the tester writes and maintains all the tests, and a red pipeline is "something for QA to look at". This fails predictably:
+
+- The tester becomes a bottleneck — every story waits on one person’s automation.
+- Developers write code that is hard to test, because testing is not their concern.
+- The suite lags behind the product, because one person cannot keep pace with a whole team’s output.
+- When a test goes red, nobody who could fix it quickly feels responsible for it.
+
+The alternative is whole-team ownership: the people who write the code also write and maintain its tests, and a dedicated tester (where there is one) raises the team’s testing capability — coaching, tooling, hard-to-find risks, exploratory testing — rather than being the sole author of every check. Quality is built by everyone, not inspected in by one.
+
+## Who fixes a red build?
+A shared suite needs a shared, explicit rule for a red build, or the answer defaults to "someone, eventually", which means "no-one". A workable norm on most teams:
+
+- **The build going red is the team’s highest-priority signal.** A red main pipeline blocks new work until it is green, because every commit on top of red is built on unknown ground.
+- **Whoever’s change turned it red owns getting it green** — by fixing forward or reverting. Not "raise a ticket"; fix or revert, now.
+- **If it is unclear whose change caused it, the team swarms** rather than each person assuming it is someone else’s.
+
+The specifics can vary; what cannot vary is that the rule is explicit and the team actually honours it. An agreed norm that everyone ignores is worse than none, because it lets people believe the problem is handled when it is not.
+
+## How flaky-test culture takes hold
+A flaky test is one that passes and fails without the code changing. One flaky test is an annoyance. The danger is what it does to the team’s *relationship with red*:
+
+1. A test fails intermittently. Someone re-runs it; it passes. "Just a flaky test."
+2. Re-running on red becomes a reflex. Red stops meaning "something is broken" and starts meaning "try again".
+3. Because red no longer reliably means broken, a *real* failure gets re-run and ignored too — and a genuine bug sails through.
+
+The moment the team’s instinct on a red build is "re-run it" rather than "read it", the suite has stopped being a safety net and become theatre. The whole value of automation — timely, trustworthy evidence about risk — is gone, even though the tests are all still there and mostly green.
+
+## Keeping the suite honest
+Dismantling flaky-test culture is a team discipline, not a tooling fix:
+
+- **Treat a flaky test as a defect, not a nuisance.** It gets a ticket, an owner and a deadline like any bug.
+- **Quarantine, do not ignore.** Move a known-flaky test out of the blocking suite into a visible quarantine so it stops eroding trust — but with a commitment to fix or delete it, not to leave it there forever.
+- **Never make re-run-on-red the norm.** If a test is so unreliable that re-running is routine, it is failing at its one job and must be fixed or removed.
+- **Delete tests that earn their keep no longer.** A test nobody trusts and nobody fixes is negative value; removing it is a legitimate, sometimes correct, decision.
+
+## Green is only trustworthy if red is trusted
+This module’s recurring theme lands hard here. Automation gives useful evidence only when the team believes a red result. A team that re-runs its way past red has quietly decided its green means nothing either — because a suite you only believe when it agrees with you is not evidence, it is decoration.
+
+## Key takeaway
+Quality belongs to the whole team: the people who write code write and maintain its tests, a red build is the team’s shared top-priority signal with an explicit fix-or-revert rule, and flaky tests are treated as defects to fix or quarantine — because the moment the team’s reflex on red becomes "re-run it", the suite stops being evidence and green stops meaning anything.`,
+      workedExample: `Consider two teams facing the same event: the main pipeline goes red on a Tuesday afternoon.
+
+~~~text
+Team A — "QA owns tests"           Team B — whole-team ownership
+--------------------------------   --------------------------------------
+Red is "for QA to look at".        Red blocks new work for everyone.
+Developers keep merging on red.    No one merges onto red main.
+The tester triages alone, later.   Whoever's change caused it fixes or reverts.
+Flaky test? Re-run until green.    Flaky test gets a ticket and a quarantine.
+Red slowly stops meaning much.     Red reliably means "stop and read me".
+~~~
+
+Team B also makes the shared rule visible in tooling rather than trusting memory. A simple quarantine convention keeps known-flaky tests from eroding trust in the blocking suite while they are being fixed:
+
+~~~ts
+import { test, expect } from '@playwright/test';
+
+// Quarantined: known-flaky, tracked in JIRA-1234, owner assigned, due this sprint.
+// Tagged so CI runs it non-blocking and reports it, instead of it silently
+// re-running and training everyone to ignore red.
+test('flaky: live price ticker updates within 5s @quarantine', async ({ page }) => {
+  await page.goto('/markets');
+  await expect(page.getByTestId('ticker')).not.toHaveText('—');
+});
+
+// Blocking suite runs everything EXCEPT @quarantine:
+//   npx playwright test --grep-invert @quarantine
+// Quarantine runs separately and visibly:
+//   npx playwright test --grep @quarantine
+~~~
+
+The quarantined test is not deleted and not ignored — it is isolated, owned, dated and still reported. The blocking suite stays trustworthy, so a red there still means "stop and read me", which is the entire point.`,
+      commonMistakes: `- Letting one person own all the tests, so they become a bottleneck and the rest of the team disowns quality
+- Having no explicit rule for who fixes a red build, so it defaults to "someone eventually" and rots
+- Re-running a red pipeline until it passes and calling the problem solved
+- Leaving known-flaky tests in the blocking suite indefinitely, quietly training the team to distrust every red result`,
+      realWorldTip: `On a delivery team, the health of the suite is measured less by coverage than by the team’s reflex when the build goes red. If that reflex is "read it and fix it", the suite is a safety net; if it is "re-run it", the suite is already decoration no matter how many tests it has. Make the red-build rule explicit, put quarantine in the tooling so flaky tests cannot silently erode trust, and treat "we re-run that one, it’s always flaky" as a defect report the day you first hear it — because by the time re-running is a habit, the suite has already stopped being believed.`,
+      exercise: `Write your team’s red-build and flaky-test policy as a short, concrete document: who fixes a red main build and how fast, the fix-or-revert rule, how a flaky test is quarantined (with owner and deadline), and when a test is deleted rather than fixed. Then implement the tooling side — a \`@quarantine\` tag and the two commands that run the blocking suite and the quarantine separately. Deliverable: the one-page policy plus the working tag-and-command setup.`,
+      reflectionQuestion: `When your team’s pipeline goes red, what is the honest first reflex — to read the failure and fix it, or to re-run and hope? What does that reflex reveal about how much the team actually trusts its own tests?`,
+      knowledgeCheck: `Why is habitual "re-run on red" so corrosive even when most failures really are flaky? (Answer: it trains the team to stop believing red, so a genuine failure gets re-run and ignored too — which also means green no longer proves anything)`,
+      completionChecklist: [
+        'I can explain why whole-team ownership beats a "QA owns all tests" model',
+        'I can state and defend a clear rule for who fixes a red build and how fast',
+        'I can spot flaky-test culture forming and quarantine or fix rather than re-run past it',
+      ],
+      enhancements: {
+        industryStory: `A team with one dedicated tester let every automated test become that person’s responsibility. Developers merged freely onto a red pipeline because "the failures are usually just flaky ones QA is dealing with", and re-running until green was routine. The habit held right up until a real regression — a broken payment path — failed the suite, got re-run twice, passed once on a timing fluke, and shipped. The post-incident change was not a new tool: it was a rule that a red build blocks all merges, that whoever broke it fixes or reverts, and that flaky tests are quarantined and owned rather than re-run. Within a few weeks red meant "broken" again, and the team could once more trust green to mean something.`,
+        visualAid: {
+          type: 'comparison',
+          title: 'Two cultures around a red build',
+          headers: ['Situation', 'QA-owns-tests culture', 'Whole-team ownership'],
+          rows: [
+            ['Who owns a test', 'The tester writes and maintains all tests', 'Whoever writes the code writes its tests'],
+            ['Main build goes red', '"One for QA to look at later"', 'Blocks new work; break it, you fix or revert it'],
+            ['A test is flaky', 'Re-run until it passes', 'Ticket, owner, quarantine, deadline'],
+            ['What red comes to mean', 'Eventually: "try again"', 'Reliably: "stop and read me"'],
+            ['What green then proves', 'Progressively nothing', 'That the code actually passed its checks'],
+          ],
+        },
+        davidTip: `The single best health metric for a suite is not coverage percentage — it is what people do in the first thirty seconds after the build goes red. Watch that reflex on your own team honestly; it tells you whether you have a safety net or an expensive decoration.`,
+      },
+    },
+    {
+      lessonNumber: 4,
+      title: 'Communicating Quality & Risk',
+      estimatedTime: '18 minute read',
+      lessonOverview: `Automation produces evidence; someone still has to interpret it and tell the team, the product owner and leadership what it means for the decision in front of them. This lesson is about reporting results as evidence about risk rather than a pass/fail rubber stamp, and tailoring that message to the audience without ever overstating what green proves.`,
+      learningObjectives: [
+        'Report test results as evidence about product risk, not a binary pass/fail verdict',
+        'Tailor the same underlying evidence for developers, product owners and leadership',
+        'Communicate what green does and does not prove, honestly and without hedging into uselessness',
+      ],
+      lessonNotes: `## "All green" is not a status report
+The weakest possible quality report is a single traffic light: "all tests pass, we are good to ship". It invites a decision it cannot actually support, because a green suite only proves that the checks you wrote passed — not that the product is low-risk, and certainly not that it is bug-free. Your job when you report is to translate results into *what we now know about risk*, so the people deciding can decide well.
+
+A useful report answers three questions the traffic light cannot:
+
+- **What did we actually test, and how well?** Which areas have strong coverage, which are thin, which are untested.
+- **What do we now believe about the risk of shipping?** Where you are confident, where you are not, and why.
+- **What is still unknown?** The corners no automation touched, the things only a human noticed, the assumptions the mocks bake in.
+
+## Automation is evidence, not a verdict
+The mental shift that makes reporting honest: a test suite is an *instrument that gathers evidence*, like a set of measurements, not a *judge that issues verdicts*. A green run is a measurement that came back within tolerance on the dimensions you chose to measure. It says nothing about the dimensions you did not measure. Framing results as evidence keeps you — and your audience — from the fatal shortcut of "green, therefore safe".
+
+This framing also protects you. When you present green as evidence about specific risks rather than a guarantee, a bug that later escapes is a gap in coverage you can point to and close, not a broken promise you made. "Our checks did not cover this path" is a true and improvable statement; "the tests said it was fine" was never true.
+
+## Same evidence, different audience
+The underlying facts are the same; what each audience needs from them differs sharply.
+
+- **Developers** want detail and reproduction: which test, which assertion, which build, how to reproduce, likely cause. Precision and a link to the failing run. They can act on raw signal.
+- **Product owners** want risk in terms of features and users: "the discount flow is well covered and behaving; the refund path has thin coverage and one open question about partial refunds." They are deciding scope and release, so speak in features and user impact, not test names.
+- **Leadership** want confidence, trend and the honest caveat: "we are confident in the core journeys; our automated coverage of the new billing area is still building, so there is more residual risk there than usual." They are deciding on the basis of risk appetite; give them a clear, bounded picture, not a spreadsheet of test counts.
+
+The failure mode at every level is the same: reporting activity (number of tests, pass rate) instead of meaning (what we know about risk). "1,240 tests, 100% pass" tells leadership nothing useful; "core journeys well covered and green, billing coverage still thin" tells them exactly what they need to weigh.
+
+## Honesty without uselessness
+Reporting risk honestly does not mean drowning every statement in caveats until it says nothing. The skill is a clear headline with the load-bearing caveat attached: "I am confident in the core purchase journey — it is well covered and green. My reservation is the new partial-refund logic, which has one open question and thin automated coverage; I would want a focused look there before release." That is honest, bounded and actionable. Endless hedging is as useless to a decision-maker as false confidence — it just fails in the opposite direction.
+
+## Never let green become a rubber stamp
+The through-line of this whole course arrives at the moment it matters most: when a stakeholder asks "are we good to ship?", the green suite is *input to that judgement, not the judgement itself*. If your role becomes rubber-stamping releases because the pipeline is green, automation has been turned from evidence into a liability — it is now manufacturing false confidence. Your value is in interpreting the evidence and naming the residual risk, which is precisely the thing a green tick cannot do on its own.
+
+## Key takeaway
+Report test results as evidence about product risk — what you tested, what you now believe, what is still unknown — tailored to whether the audience is a developer, a product owner or leadership; keep the message honest but decisive, with a clear headline and the load-bearing caveat; and never let a green suite become a rubber stamp, because interpreting the evidence and naming the residual risk is the judgement a green tick can never make for you.`,
+      workedExample: `The same release, the same underlying evidence, reported three ways for three audiences. The facts do not change; the framing does.
+
+The raw situation: core purchase journey has strong end-to-end and API coverage and is green; the new partial-refund feature has only happy-path coverage and one unresolved question about rounding on split refunds.
+
+~~~text
+To a DEVELOPER (precise, reproducible, actionable):
+  refund-partial.spec.ts is green but only covers the single-item path.
+  No coverage for multi-item split refunds; rounding on split totals is
+  untested. Repro for the rounding question: refund 2 of 3 items on order
+  #4821 — is £3.33 + £3.33 + £3.34 or three-way even? Need a decision before
+  I can assert it.
+
+To a PRODUCT OWNER (features and user impact):
+  The purchase journey is well covered and behaving. Partial refunds work for
+  the simple case, but we've only tested refunding a whole item — splitting a
+  refund across items isn't covered yet, and there's an open question on how
+  rounding should work. Low risk on core buying; a real gap on partial refunds.
+
+To LEADERSHIP (confidence, bounded caveat, decision-relevant):
+  Confident in the core purchase flow — strong automated coverage, all green.
+  The new refunds area is the residual risk: coverage is still building and one
+  behaviour needs a product decision. I'd be comfortable shipping the purchase
+  changes now and holding partial refunds for a focused pass.
+~~~
+
+None of the three says "all green, ship it". Each translates the same evidence into what that audience must decide, states confidence where it is earned, and names the one caveat that actually bears weight. The green result is input to a judgement in every case — never the judgement itself.`,
+      commonMistakes: `- Reporting a pass rate or a test count as if it were a measure of quality or safety
+- Presenting "all green" as permission to ship, letting the suite become a rubber stamp for a decision it cannot make
+- Giving every audience the same report — raw test names to leadership, or vague reassurance to developers who need reproduction detail
+- Hedging so heavily ("it might be fine, hard to say, some risk everywhere") that the report gives a decision-maker nothing to act on`,
+      realWorldTip: `On a delivery team, the quickest way to lose credibility with leadership is to report green as a guarantee and then have a bug escape — you have spent trust you will not easily get back. The quickest way to build credibility is to report risk honestly and be right about where it sits: "confident here, reservation there". When you frame results as evidence about specific risks, an escaped bug becomes a coverage gap you predicted the shape of and can close, rather than a promise you broke. Say what you know, say what you do not, and never let the green tick do your thinking for you in front of stakeholders.`,
+      exercise: `Take a recent or hypothetical release with mixed coverage — one well-tested area and one thin one — and write three short reports of the same evidence: one for a developer, one for a product owner, one for leadership. Each must state what was tested, your confidence, and the load-bearing caveat, without any of them reducing to "all green, ship it". Deliverable: the three reports plus one sentence naming the residual risk you would flag to the release decision-maker.`,
+      reflectionQuestion: `The last time you reported test results to someone deciding whether to ship, did you hand them evidence about risk they could weigh — or a green tick they could hide behind? What would have changed if you had framed it as evidence?`,
+      knowledgeCheck: `Why is "all tests pass, we're good to ship" a poor quality report? (Answer: it presents a green suite as a verdict when it is only evidence about the risks you happened to test; it says nothing about untested areas, and it invites a release decision the tests cannot actually support)`,
+      completionChecklist: [
+        'I can report results as evidence about product risk rather than a binary pass/fail',
+        'I can tailor the same evidence for developers, product owners and leadership',
+        'I can state confidence and the load-bearing caveat honestly without hedging into uselessness',
+      ],
+      enhancements: {
+        industryStory: `A team fell into the habit of a one-line release report — "suite green, cleared to ship" — and leadership grew to treat that line as a guarantee. When a defect escaped in an area the suite had never covered, the conversation was ugly: leadership believed "the tests said it was fine", and the team had no honest ground to stand on because that was, in effect, what they had said. They changed their reporting to name coverage and residual risk every release — "confident here, thin there, this area still building" — and the next escaped bug was a very different conversation, because it landed exactly where the team had already flagged the coverage as thin. Framing results as evidence about risk turned an escape from a broken promise into a predicted, improvable gap.`,
+        badGood: {
+          label: 'rubber-stamp report vs evidence-about-risk report',
+          bad: `~~~text
+Release report:
+  All 1,240 automated tests passing. 100% green. Good to ship. ✅
+~~~`,
+          good: `~~~text
+Release report:
+  Core purchase journey: strong coverage, all green — confident.
+  Partial refunds (new): happy path only; split-refund rounding untested and
+    needs a product decision — this is the residual risk.
+  Recommendation: ship purchase changes; hold partial refunds for a focused
+    pass. Green here is evidence the paths we tested behave — not proof the
+    untested refund paths are safe.
+~~~`,
+        },
+        davidTip: `Before you send any quality report, delete the pass count and the percentage, then see whether the report still says anything. If it collapses without those numbers, you were reporting activity, not risk — rewrite it around what you now know and what you still do not.`,
+      },
+    },
+    {
+      lessonNumber: 5,
+      title: 'Your Automation Strategy on a Team',
+      estimatedTime: '20 minute read',
+      lessonOverview: `Everything in this course comes together in a strategy: deciding, as a team, how coverage is distributed across the test pyramid, what trade-offs you are consciously making, and — the hardest and most senior skill — confidently declining to automate things that are not worth automating.`,
+      learningObjectives: [
+        'Decide how coverage is distributed across the pyramid and justify the shape',
+        'Reason explicitly about the trade-offs your strategy makes',
+        'Say no to low-value automation with a clear, defensible rationale',
+      ],
+      lessonNotes: `## A strategy is a set of deliberate choices
+An automation strategy is not "automate as much as possible". It is a set of conscious decisions about where the team spends its limited testing effort to get the most useful evidence about risk per unit of cost. If you cannot say what your strategy is *choosing not to do*, you do not have a strategy — you have an aspiration to test everything, which no team achieves and which produces a slow, brittle, expensive suite.
+
+## The pyramid as a budget, not a law
+The test pyramid — many fast unit tests, fewer integration/API tests, a small number of end-to-end tests — is a heuristic for spending your effort where it pays off, not a rule to obey for its own sake:
+
+- **Unit (broad base)** — fast, precise, cheap to run and maintain. Push logic here: calculations, validation, edge cases of a single function. This is where most of your assertions should live.
+- **Integration / API (middle)** — verifies pieces work together and contracts hold, without a browser’s cost and flakiness. Ideal for business logic that spans components.
+- **End-to-end / UI (thin top)** — expensive, slower, more fragile, but the only layer that proves a real user journey works through the real stack. Reserve it for a small number of high-value journeys.
+
+The shape matters because cost and fragility rise as you go up. A suite shaped like an inverted pyramid — most coverage driven through slow, flaky UI tests — is expensive to run, painful to maintain, and gives slow feedback. When you find yourself writing a UI test, the first question is always "could this risk be caught more cheaply one layer down?" Often it can, and should be.
+
+## Trade-offs are the strategy
+Every choice in an automation strategy trades one thing for another, and a senior view names the trade rather than pretending it away:
+
+- **Speed vs realism.** Lower-layer tests are fast but test in isolation; end-to-end tests are realistic but slow. You buy fast feedback at the base and pay for realism sparingly at the top.
+- **Coverage vs maintenance.** Every test is an asset when it catches a bug and a liability every day it needs maintaining. More tests is not automatically better; the right question is whether each test earns its ongoing cost.
+- **Confidence vs cost.** You could chase near-total coverage, but the last increments cost enormously for little added evidence. Strategy is choosing where "enough" is for each area, by its risk.
+- **Automated vs human.** Some things are cheaper and better checked by a person — exploratory testing, visual judgement, one-off checks. Automation is not always the answer, and a strategy says where it is not.
+
+## Saying no to low-value automation
+The most senior and most under-practised skill in test automation is declining to automate something. Not every test that *can* be written *should* be. A test is low-value — and a candidate for "no" — when:
+
+- It covers a scenario so unlikely or low-impact that a failure would barely matter.
+- It duplicates evidence you already have more cheaply at a lower layer.
+- It is so tied to volatile detail that it will cost more in maintenance than it will ever save in caught bugs.
+- It exists to raise a coverage number rather than to catch a real risk.
+- It automates a one-off check that a human could do once, faster, and never needs again.
+
+Saying no well is not obstruction; it is stewardship of the team’s limited effort. It requires a rationale you can state plainly: "this scenario is low risk and already covered at the API layer, so a UI test for it would add maintenance cost without adding evidence — I would rather spend that effort on the refund path, which is high risk and thin." Delivered like that, "no" is a stronger contribution than another green test nobody needed, and a team that cannot say it ends up maintaining a bloated suite that is slow, flaky and no more trustworthy for its size.
+
+## The whole course in one line
+A green test is not automatically a good test; automation exists to give timely, useful evidence about product quality and risk. A strategy is how you make that true at the level of a whole suite — spending effort where the evidence is worth its cost, declining where it is not, and keeping the suite small, fast and trusted enough that its results still mean something.
+
+## Key takeaway
+An automation strategy is a set of deliberate choices: distribute coverage across the pyramid so most assertions live in fast, cheap lower layers and only high-value journeys reach the fragile top; name the trade-offs you are making rather than pretending there are none; and treat confidently saying no to low-value automation as a senior skill, because a small, fast, trusted suite gives better evidence about risk than a large, slow, bloated one.`,
+      workedExample: `Consider a team planning coverage for a new billing area with several sub-features of very different risk. Strategy shows in how they distribute effort — and in what they decline.
+
+Mapping each candidate to a layer, or to "no", by risk and cost:
+
+~~~text
+Candidate                              Decision           Rationale
+-------------------------------------  -----------------  ------------------------------------
+Tax calculation (many edge cases)      Unit — heavy       High risk, pure logic, cheap here
+Invoice totals across line items       API / integration  Spans components; no browser needed
+Core "pay an invoice" journey          End-to-end — 1     High value, must work through the stack
+Every field's inline validation        Unit only          Push down; a UI test each = bloat
+Exact pixel position of the logo       No (human/visual)  Low risk; a person spots this faster
+Refund rounding on split payments      API + 1 e2e        High risk, currently thin — invest here
+Retiring-next-quarter legacy export    No                 Low value; effort better spent elsewhere
+~~~
+
+Two rows are deliberate "no"s, each with a rationale a colleague could challenge and the team could defend. The shape that results is a broad unit base, a solid API middle, and a deliberately thin end-to-end top — a healthy pyramid, not by obedience to a diagram but because each choice put the evidence where it was worth its cost.
+
+A tag scheme makes the shape runnable and the trade-offs visible in the pipeline:
+
+~~~ts
+import { test, expect } from '@playwright/test';
+
+// One high-value end-to-end journey — the thin, expensive top of the pyramid.
+// Tagged @critical so it runs on every push; broader flows run less often.
+test('a customer can pay an outstanding invoice @critical', async ({ page }) => {
+  await page.goto('/billing/invoices');
+  await page.getByRole('link', { name: 'Invoice INV-2043' }).click();
+  await page.getByRole('button', { name: 'Pay now' }).click();
+  await page.getByLabel('Card number').fill('4242 4242 4242 4242');
+  await page.getByRole('button', { name: 'Confirm payment' }).click();
+
+  await expect(page.getByRole('heading', { name: 'Payment received' })).toBeVisible();
+  await expect(page.getByTestId('invoice-status')).toHaveText('Paid');
+});
+~~~
+
+The strategy is legible from the outside: most logic lives in fast lower-layer tests, only a handful of journeys like this one reach the browser, and the things the team chose not to automate are chosen on purpose, with reasons anyone can read.`,
+      commonMistakes: `- Treating "automate everything" as a strategy, which yields a slow, brittle, unmaintainable suite and no clear priorities
+- Building an inverted pyramid — most coverage pushed through slow, flaky UI tests — because the UI is where features are visible
+- Measuring the strategy by coverage percentage or test count rather than by whether the evidence is worth its cost
+- Being unable to say no, so the suite bloats with low-value tests that add maintenance cost without adding trust`,
+      realWorldTip: `On a delivery team, the ability to say a clear, reasoned no is what separates a senior automation voice from a junior one. Anyone can write another test; deciding which tests are worth the team’s finite effort — and defending that decision in a planning meeting — is the harder and more valuable skill. Keep a short, written statement of your strategy: the pyramid shape you are aiming for, the areas that must have real end-to-end coverage (usually money, auth, data loss), and the kinds of things you deliberately do not automate. When someone proposes a low-value test, you are not saying no on instinct — you are pointing at an agreed strategy, which is far easier for a team to accept and far harder to argue with.`,
+      exercise: `For one area of your product, write a one-page automation strategy. Include: the pyramid shape you are aiming for and why; a table mapping each candidate check to a layer or to a deliberate "no", with a one-line rationale for each; and the areas you consider must-have real end-to-end coverage. Then write the single most valuable end-to-end test for that area, tagged so it can be run as part of a critical subset. Deliverable: the one-page strategy, the mapping table with at least two justified "no"s, and the one tagged spec.`,
+      reflectionQuestion: `Look at your current suite honestly: is its shape the result of deliberate choices about where evidence is worth its cost, or the accumulated residue of "we could test this, so we did"? What would you delete tomorrow if the only rule was "every test must earn its maintenance cost"?`,
+      knowledgeCheck: `Why is "automate everything" not an automation strategy? (Answer: a strategy is a set of deliberate choices about where limited effort buys the most useful evidence about risk; "everything" makes no choices, produces a slow, brittle, unmaintainable suite, and never says what is not worth automating)`,
+      completionChecklist: [
+        'I can decide how coverage is distributed across the pyramid and justify the shape by risk and cost',
+        'I can name the trade-offs my strategy makes rather than pretending they do not exist',
+        'I can say no to low-value automation with a clear, defensible rationale',
+      ],
+      enhancements: {
+        industryStory: `A team measured its testing purely by coverage percentage and grew proud of a large suite — most of it end-to-end UI tests, because that was where features were visible. The suite took nearly an hour to run, failed intermittently on a different test each time, and blocked releases for reasons no one could quickly diagnose. When a new lead reshaped the strategy — pushing logic checks down to fast unit and API tests, keeping only a dozen high-value journeys at the UI layer, and deleting dozens of low-value tests outright — the suite shrank, ran in minutes, stopped flaking, and caught more real bugs than before. The lesson the team took away was that a smaller, faster, trusted suite is worth far more than a large one, and that deleting a test can be as valuable a contribution as writing one.`,
+        visualAid: {
+          type: 'comparison',
+          title: 'Deciding whether a candidate test earns its place',
+          headers: ['Ask about the candidate', 'If yes', 'If no'],
+          rows: [
+            ['Does it catch a real, material risk?', 'It is a candidate worth costing', 'Decline — it raises a number, not confidence'],
+            ['Is it cheapest to catch at this layer?', 'Write it here', 'Push it down a layer where it is cheaper'],
+            ['Will it cost more to maintain than it saves?', 'Decline or simplify', 'Keep it'],
+            ['Could a human do this once, faster?', 'Leave it to a person', 'Automate it'],
+            ['Is this a must-protect area (money, auth, data)?', 'Ensure real end-to-end coverage', 'Lighter coverage may be enough'],
+          ],
+        },
+        davidTip: `The most senior thing you can say in a test-planning meeting is often "let’s not automate that, and here’s why". Come with the rationale — low risk, already covered cheaper, or maintenance heavier than the bug it would catch — and a clear no protects the suite’s speed and trust far more than another green test ever could.`,
+        miniChallenge: `Audit your current suite and find three tests you would delete under the rule "every test must earn its maintenance cost". Write the one-line rationale for removing each. If you cannot find three, you may have an unusually disciplined suite — or you may not be looking hard enough.`,
+      },
+    },
+  ],
+};
