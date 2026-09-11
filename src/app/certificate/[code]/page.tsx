@@ -41,6 +41,12 @@ export default async function CertificatePage({ params }: { params: Promise<{ co
         <p className="text-gray-500 mb-2">has successfully completed</p>
         <h2 className="text-xl sm:text-2xl font-semibold text-brand-700 mb-8">{course?.title}</h2>
 
+        {certificate.grade === 'distinction' && (
+          <p className="inline-block text-sm font-semibold uppercase tracking-[0.15em] text-gold-600 border border-gold-500 rounded-full px-4 py-1 mb-8">
+            Awarded with Distinction
+          </p>
+        )}
+
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-sm text-gray-500 border-t border-gray-200 pt-6">
           <div>
             <p className="font-semibold text-navy-900">{issued}</p>

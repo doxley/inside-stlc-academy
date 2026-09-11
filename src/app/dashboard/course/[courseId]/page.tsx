@@ -7,6 +7,8 @@ import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Badge } from '@/components/ui/Badge';
 import { ChevronRight, Clock, CheckCircle2, Lock, Circle, Calendar, GraduationCap } from 'lucide-react';
 import { isModuleUnlocked, getModuleUnlockDate, formatUnlockDate, isModuleGatingComplete } from '@/lib/drip';
+import { BOOTCAMP_SLUG, computeSkills, computeGrade } from '@/lib/courseProgress';
+import { CourseProgressPanel } from '@/components/dashboard/CourseProgressPanel';
 import type { Module, ModuleProgress, Course, Enrolment } from '@/types';
 
 export default async function CoursePage({ params }: { params: Promise<{ courseId: string }> }) {
@@ -57,6 +59,21 @@ export default async function CoursePage({ params }: { params: Promise<{ courseI
   const totalCount = (modules ?? []).length;
   const percent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
+  // Bootcamp-only: skills panel + weighted grade, derived from real data.
+  const isBootcamp = c.slug === BOOTCAMP_SLUG;
+  const moduleList = (modules ?? []) as Module[];
+  const completedModuleNumbers = new Set<number>(
+    moduleList.filter((m) => progressMap.get(m.id)?.status === 'completed').map((m) => m.module_number)
+  );
+  const passedQuizModules = new Set<number>(
+    moduleList.filter((m) => { const q = quizByModule.get(m.id); return q ? passedQuizIds.has(q) : false; }).map((m) => m.module_number)
+  );
+  const passedAssignmentModules = new Set<number>(
+    moduleList.filter((m) => { const a = assignmentByModule.get(m.id); return a ? passedAssignmentIds.has(a) : false; }).map((m) => m.module_number)
+  );
+  const bootcampSkills = isBootcamp ? computeSkills(completedModuleNumbers) : [];
+  const bootcampGrade = isBootcamp ? computeGrade({ passedQuizModules, passedAssignmentModules }) : null;
+
   return (
     <div className="p-6 lg:p-8 max-w-4xl mx-auto">
       <div className="mb-8">
@@ -72,6 +89,10 @@ export default async function CoursePage({ params }: { params: Promise<{ courseI
         </div>
         <ProgressBar value={percent} />
       </Card>
+
+      {isBootcamp && bootcampGrade && (
+        <CourseProgressPanel skills={bootcampSkills} grade={bootcampGrade} />
+      )}
 
       {(questionCount ?? 0) > 0 && (
         <Link href={`/dashboard/course/${courseId}/exam`} className="block mb-8">
