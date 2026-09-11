@@ -5,6 +5,18 @@ existing "Practical Test Automation with Playwright" course or any other course
 or student data. The course row is seeded as `draft` and only becomes visible
 when you publish it in the final step.
 
+## Option A — one-shot (recommended)
+Run the single file **`seed-modern-automation-all.sql`**. It concatenates every
+step below in the correct order, wrapped in one `BEGIN … COMMIT` transaction, so
+the whole course seeds **atomically** (all or nothing), then prints the
+verification counts and publishes. Its final `update … set status='published'`
+line is clearly marked — delete/comment it to seed now and publish later.
+(Prerequisites in section 0 must already be applied; if not, the transaction
+errors and rolls back cleanly.)
+
+## Option B — step by step
+Run the individual files in the order below (useful if you want to review each).
+
 ## 0. Prerequisites (already applied in production for the other courses)
 These should already exist; listed for completeness. Safe to re-run.
 - `lessons-schema.sql`
