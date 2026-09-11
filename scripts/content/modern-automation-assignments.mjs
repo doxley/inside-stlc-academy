@@ -573,7 +573,7 @@ Build a single, coherent Playwright + TypeScript repository that demonstrates th
 
 ## Deliverables
 - A public GitHub repo link (this is what you submit), with a green CI run.
-- All twelve technical elements above present and working from a clean clone.
+- All thirteen technical elements above present and working from a clean clone.
 - A README plus a written strategy/risk/limitations section and an AI-usage declaration.
 
 ## Assessment rubric
