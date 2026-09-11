@@ -16,9 +16,9 @@ import { CourseCard } from '@/components/marketing/CourseCard';
 import { ComingSoonCard } from '@/components/marketing/ComingSoonCard';
 
 const stats = [
-  { value: '6', label: 'Courses' },
-  { value: '60+', label: 'Modules' },
-  { value: '150+', label: 'Resources' },
+  { value: '8', label: 'Courses' },
+  { value: '90+', label: 'Modules' },
+  { value: '200+', label: 'Resources' },
   { value: 'Certificates', label: 'Available' },
 ];
 
