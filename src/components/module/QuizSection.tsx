@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/Button';
+import { LessonProse } from '@/components/module/LessonProse';
 import { formatDate } from '@/lib/utils';
 import { Check, X } from 'lucide-react';
 import type { Quiz, QuizQuestion, QuizAnswer, QuizAttempt } from '@/types';
@@ -102,7 +103,7 @@ export function QuizSection({ quiz, userId, bestAttempt, quizPassed }: Props) {
               <div key={question.id}>
                 <div className="flex items-start gap-2 mb-2">
                   <span className="text-sm font-semibold text-gray-900">{idx + 1}.</span>
-                  <span className="text-sm font-semibold text-gray-900 flex-1">{question.question_text}</span>
+                  <div className="flex-1"><LessonProse content={question.question_text} /></div>
                   <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${gotItRight ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                     {gotItRight ? 'Correct' : 'Incorrect'}
                   </span>
@@ -158,9 +159,10 @@ export function QuizSection({ quiz, userId, bestAttempt, quizPassed }: Props) {
     <div className="space-y-6">
       {questions.map((question, idx) => (
         <div key={question.id}>
-          <p className="text-sm font-semibold text-gray-900 mb-3">
-            {idx + 1}. {question.question_text}
-          </p>
+          <div className="mb-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-brand-600 mb-1">Question {idx + 1}</p>
+            <LessonProse content={question.question_text} />
+          </div>
           <div className="space-y-2">
             {question.quiz_answers.map(answer => (
               <label

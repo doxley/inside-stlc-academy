@@ -1,0 +1,766 @@
+// Modern Test Automation Bootcamp — Module 14: AI-Assisted Test Automation.
+// Playwright + TypeScript module on using AI coding assistants (Claude, Codex/GPT
+// and equivalents) as an engineering tool for test automation. Treated
+// conceptually so the skills transfer across tools and the course depends on no
+// paid AI product. The running theme: AI accelerates a competent engineer and
+// endangers an uncritical one — human accountability and evidence-based
+// verification are non-negotiable.
+export default {
+  courseSlug: 'modern-test-automation-bootcamp',
+  moduleNumber: 14,
+  lessonsPrefix: 'modern-automation',
+  enhPrefix: 'modern-automation',
+  enhSep: '-',
+  lessons: [
+    {
+      lessonNumber: 1,
+      title: 'AI as an Engineering Tool',
+      estimatedTime: '16 minute read',
+      lessonOverview: `AI coding assistants can draft a Playwright test in seconds, and that speed is real — but it is speed, not judgement. This lesson sets the honest baseline for the whole module: what these tools are genuinely good and bad at for test automation, and why the right mental model is a fast, confident pair, not a magic button.`,
+      learningObjectives: [
+        'Describe what AI assistants are genuinely good and bad at for test automation',
+        'Adopt a pair-programming mindset where you stay the accountable engineer',
+        'Reject the "magic button" model and set realistic expectations for AI-generated code',
+      ],
+      lessonNotes: `## What we mean by "AI" here
+Throughout this module "an AI assistant" means any large-language-model coding tool — Claude, Codex/GPT, and the equivalents your team may use — reached through an editor, a chat window or a command line. The specific product matters far less than the skill of using one well, and everything here is deliberately tool-agnostic: prompt one, review its output, verify against reality. Those skills transfer whichever assistant your team standardises on, and none of them depends on you paying for a particular one.
+
+## What AI is genuinely good at
+Used for the right jobs, an assistant is a real accelerator:
+
+- **Boilerplate and scaffolding** — a page object skeleton, a fixture, the shape of a spec file. Repetitive structure it produces quickly and usually correctly.
+- **First drafts from a clear description** — "a test that logs in and asserts the dashboard heading" comes back as runnable code you then refine.
+- **Explaining unfamiliar code or errors** — pasting a stack trace or a dense selector and asking "what is this doing?" is often faster than reading the docs cold.
+- **Mechanical refactors** — renaming, extracting a helper, converting a pattern across a file — under your review.
+
+## What AI is genuinely bad at
+The same tool is unreliable, or actively dangerous, at other jobs:
+
+- **Knowing your application** — it has never seen your app. It guesses selectors, routes and data, and a confident guess reads exactly like a fact.
+- **Judging risk** — it does not know what matters to your users or what a failure would cost. It cannot decide what is worth testing.
+- **Meaningful assertions** — it will happily write a test that runs green while asserting almost nothing, because "passing" is easy and "correct" is hard.
+- **Being reliably right** — it can invent APIs, methods and options that do not exist, stated with total confidence.
+
+## The mindset: a pair, not a button
+The productive model is pair programming with a fast, widely-read, tireless colleague who has never seen your codebase and will never say "I am not sure". You bring the context, the risk judgement and the accountability; the assistant brings speed and breadth. You drive. Treating it as a magic button — prompt, paste, ship — is how uncritical engineers get burned, because the output looks finished long before it is correct.
+
+## The theme of the whole module
+AI accelerates a competent engineer and endangers an uncritical one. Every lesson that follows is really about staying the competent, accountable engineer while going faster: giving good context, reviewing hard, and verifying against real evidence rather than trusting a plausible-looking green tick.
+
+## Key takeaway
+An AI assistant is a fast pair, not a magic button: excellent at boilerplate, first drafts and explanation, unreliable at knowing your app, judging risk and writing meaningful assertions — so use it to go faster while you remain the engineer who understands, reviews and is accountable for every line.`,
+      workedExample: `The same task, two mindsets. First the "magic button" — prompt, paste, ship:
+
+~~~ts
+// Prompt: "write a Playwright test that logs in and checks the dashboard"
+// Pasted verbatim and committed without review:
+import { test, expect } from '@playwright/test';
+
+test('login', async ({ page }) => {
+  await page.goto('/login');
+  await page.fill('#username', 'admin');
+  await page.fill('#password', 'password');
+  await page.click('#login-btn');
+  await expect(page).toHaveURL(/dashboard/); // asserts a URL, not that login worked
+});
+~~~
+
+It may even pass. But the selectors are guessed (\`#login-btn\` might not exist), the credentials are invented, and the only assertion is a URL that could change on a redirect the app performs whether or not the user is genuinely signed in.
+
+Now the "pair" mindset — the same draft, driven and verified by an engineer who knows the app:
+
+~~~ts
+import { test, expect } from '@playwright/test';
+
+test('a registered user can sign in and reach their dashboard', async ({ page }) => {
+  await page.goto('/login');
+  // Real, role-based locators confirmed against the running app:
+  await page.getByLabel('Email').fill(process.env.TEST_USER_EMAIL!);
+  await page.getByLabel('Password').fill(process.env.TEST_USER_PASSWORD!);
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  // Assert something only a genuinely signed-in user would see:
+  await expect(page.getByRole('heading', { name: 'Your dashboard' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible();
+});
+~~~
+
+The AI wrote a first draft in both cases. The difference is entirely the engineer: real locators verified against the app, credentials from configuration rather than invented, and an assertion that proves the user is actually authenticated. The speed came from the tool; the correctness came from you.`,
+      commonMistakes: `- Treating a plausible-looking generated test as a finished one because it runs green
+- Asking the AI to decide *what* to test, when risk judgement is the one thing it cannot do
+- Assuming the assistant knows your application’s selectors, routes and data — it is guessing
+- Pasting generated code straight into a commit without reading it as critically as a colleague’s pull request`,
+      realWorldTip: `On a delivery team, the engineers who get the most from AI treat it exactly like a keen junior pair: happy to hand it the boring scaffolding, quick to accept a first draft, and relentless about reviewing everything it produces before it counts. The ones who get burned treat it as an oracle. Set the team expectation early — AI output is a draft to be reviewed, never evidence in itself — because the tool’s confidence is uniform whether it is right or wrong, and only a human who knows the app can tell the difference.`,
+      exercise: `Take one small automation task you understand well — say, a login test for an app you know. Ask an AI assistant to generate it from a one-line description, and paste its raw output unchanged into a scratch file. Then, without running it yet, annotate every line you cannot personally vouch for: guessed selectors, invented data, weak assertions. Deliverable: the raw generated test plus your annotations, and a one-paragraph note on how much of it you would actually trust.`,
+      reflectionQuestion: `Think about a time you accepted a suggestion — from a tool or a colleague — because it sounded confident. What would have to be true for you to trust an AI-generated test as much as one you wrote yourself, and is that bar ever fully reachable?`,
+      knowledgeCheck: `What is the one thing an AI assistant fundamentally cannot do for your test suite, no matter how good the tool? (Answer: judge what is worth testing — it has no knowledge of your users, your risk, or the cost of a failure, so deciding what matters remains a human responsibility)`,
+      completionChecklist: [
+        'I can describe concrete tasks AI is good at and tasks it is bad at for test automation',
+        'I treat AI output as a draft to review, not evidence in itself',
+        'I keep risk judgement and accountability with myself, not the tool',
+      ],
+      enhancements: {
+        industryStory: `A team under deadline pressure started generating Playwright specs wholesale and merging them once they went green. Coverage numbers climbed and everyone felt fast — until a release where a broken checkout shipped behind a wall of passing tests. Investigation showed dozens of the generated tests asserted only that a page loaded or a URL changed, never that the feature worked. The tool had optimised for "passes", not "proves". The team did not stop using AI; they changed the rule to "AI drafts, a human reviews and strengthens every assertion before merge", and their green suite started meaning something again.`,
+        davidTip: `When you pick up an AI assistant for the first time, deliberately ask it to do something you already know the answer to — a test for a feature you understand inside out. Watching where it guesses, invents and hand-waves on familiar ground teaches you exactly how much to trust it on unfamiliar ground. Calibrate on the known before you rely on it for the unknown.`,
+        visualAid: {
+          type: 'comparison',
+          title: 'Good and bad jobs for an AI assistant in test automation',
+          headers: ['Task', 'AI is good at it because…', 'AI is bad at it because…'],
+          rows: [
+            ['Scaffolding a page object', 'It is repetitive structure', '—'],
+            ['Explaining a stack trace', 'It has read millions of them', '—'],
+            ['Choosing what to test', '—', 'It cannot judge your risk'],
+            ['Picking real selectors', '—', 'It has never seen your app'],
+            ['Writing strong assertions', '—', 'Passing is easy; proving is hard'],
+          ],
+        },
+      },
+    },
+    {
+      lessonNumber: 2,
+      title: 'Context & Planning Before Coding',
+      estimatedTime: '17 minute read',
+      lessonOverview: `An assistant is only as good as the context you give it, and its single biggest weakness is that it has never seen your application. This lesson is about closing that gap before you ask for a line of code: describing the app, the risk and the existing patterns, and planning the test in words so the AI generates against reality rather than a plausible guess.`,
+      learningObjectives: [
+        'Give an AI assistant the context it lacks: the app, the risk and existing patterns',
+        'Plan a test in plain language before asking for any generated code',
+        'Use repository analysis to ground the AI in how your codebase already works',
+      ],
+      lessonNotes: `## The context gap
+The model has read a great deal of Playwright code in general and none of *your* Playwright code in particular. Left to guess, it will invent selectors, assume a folder structure, and reach for patterns that may contradict your team’s. Almost every hallucinated selector and wrong assumption traces back to one root cause: it did not have the context, so it filled the gap with a confident guess. Your job before generating is to close that gap.
+
+## Three kinds of context to supply
+Good context for a test comes in three parts:
+
+- **The application** — what the feature does, the page it lives on, the real element names and roles, the route it calls. If you can copy the relevant markup or the API response shape, do.
+- **The risk** — what actually matters here, and what a failure would cost. "This is the checkout total; if it is wrong we overcharge customers" tells the AI what the assertion must genuinely prove.
+- **The existing patterns** — how your repo already writes tests: your page objects, your fixtures, your locator conventions. An assistant shown two of your existing specs will match their style far more closely than one working from nothing.
+
+## Plan in words first
+Before you ask for code, write the test as a short plan in plain language — arrange, act, assert. "Given a signed-in user with an empty basket, when they add one item, then the basket count shows 1 and the item appears in the basket." Planning first does two things: it forces *you* to decide what the test proves (the AI cannot), and it gives the assistant a precise target so its draft is close to right rather than close to plausible. A vague prompt yields a vague, guess-filled test; a planned prompt yields a draft worth refining.
+
+## Repository analysis grounds the AI
+Modern assistants can be pointed at your actual files — an editor integration or a command-line tool that reads the repo. Use that. Ask it to read your existing \`fixtures\` and one representative spec before writing a new one, so it mirrors your real conventions instead of a generic template. Grounding the model in the repository is the difference between "here is a Playwright test" and "here is a test that fits *this* codebase".
+
+## Planning is still your judgement
+None of this hands the thinking to the tool. Deciding what the feature is, what the risk is, and what a meaningful assertion looks like is engineering judgement, and it stays with you. The context and the plan are how you *transmit* that judgement to the assistant so its speed works in service of your intent rather than against it.
+
+## Key takeaway
+An AI assistant’s worst failures come from missing context, so close the gap first: describe the application, the risk and your existing patterns, plan the test in plain language before generating, and point the tool at your real repository — so its speed builds on your judgement instead of substituting a guess for it.`,
+      workedExample: `A weak, context-free prompt versus a planned, grounded one — and the code each tends to produce.
+
+The context-free prompt is just "write a Playwright test for adding to basket". The assistant guesses everything:
+
+~~~ts
+// Generated from a vague prompt — every specific is invented.
+test('add to basket', async ({ page }) => {
+  await page.goto('/products');
+  await page.click('.add-to-cart');          // guessed class
+  await expect(page.locator('.cart-count')).toHaveText('1'); // guessed selector
+});
+~~~
+
+Now the planned prompt supplies the three kinds of context and a plain-language plan. You might write to the assistant:
+
+~~~text
+Context — the app: our product page lists items; each has a button
+labelled "Add to basket". The basket count is a link in the header with
+an accessible name like "Basket, 1 item".
+Context — the risk: if the count is wrong, customers see the wrong number
+of items and lose trust at checkout, so the assertion must prove the count.
+Context — our patterns: we use getByRole locators and a signed-in fixture
+called \`shopper\`. Here is an existing spec to match: [paste one].
+Plan: given a signed-in shopper on the product page, when they add the
+first item, then the header basket shows "1 item" and that item is listed
+in the basket drawer.
+~~~
+
+Grounded like that, the draft comes back close to your real codebase:
+
+~~~ts
+import { test, expect } from './fixtures'; // your shopper fixture
+
+test('adding an item updates the header basket count', async ({ shopper: page }) => {
+  await page.goto('/products');
+  await page.getByRole('button', { name: 'Add to basket' }).first().click();
+
+  // Assertion proves the count, which the risk note said was what mattered:
+  await expect(page.getByRole('link', { name: /Basket, 1 item/ })).toBeVisible();
+  await page.getByRole('link', { name: /Basket/ }).click();
+  await expect(page.getByRole('listitem')).toHaveCount(1);
+});
+~~~
+
+The second draft still needs your review — but it is built from your real element names, your fixture and an assertion aimed at the stated risk, because you transmitted the context the tool could never have guessed.`,
+      commonMistakes: `- Prompting for code before you can state, in one sentence, what the test must prove
+- Giving no application context, so the AI invents selectors, routes and data
+- Ignoring your repository’s existing patterns, so the generated test clashes with your conventions
+- Treating the plan as optional busywork, when planning is where the human judgement the AI lacks actually happens`,
+      realWorldTip: `On a delivery team, the highest-leverage habit is to keep a short, reusable "context block" for each area of the app — the key pages, the real accessible names, the fixtures, a link to one exemplary spec — and paste it in before generating anything in that area. It takes a minute and it collapses the AI’s guessing dramatically. Teams that do this get drafts that fit the codebase; teams that skip it spend the time they saved on generation fixing invented selectors instead.`,
+      exercise: `Choose a feature you are about to write a test for. Before touching the AI, write a plan of no more than five lines in arrange-act-assert form, and assemble a context block: the real page and element names, the risk in one sentence, and one existing spec that shows your conventions. Then generate a draft using that context. Deliverable: your plan, your context block, and the generated draft — plus a note on how much closer to correct it was than a draft from a bare prompt would have been.`,
+      reflectionQuestion: `When you plan a test in plain language before generating it, who is doing the actual testing thinking — you or the tool? What does that tell you about where the value of an AI assistant really sits?`,
+      knowledgeCheck: `Why does supplying application context and existing patterns dramatically reduce hallucinated selectors? (Answer: the AI hallucinates when it must fill a gap it has no knowledge of; giving it the real element names, routes and conventions removes the gap, so it matches reality instead of guessing)`,
+      completionChecklist: [
+        'I supply the application, the risk and existing patterns before generating a test',
+        'I plan a test in plain language before asking for any code',
+        'I point the AI at my real repository so it mirrors our conventions',
+      ],
+      enhancements: {
+        badGood: {
+          label: 'context-free prompt vs planned, grounded prompt',
+          bad: `~~~text
+Prompt: "write a playwright test for the search feature"
+→ AI guesses the input selector, the results selector, and what "working"
+  means. The draft asserts only that some results element is visible —
+  it never checks the results actually match the query.
+~~~`,
+          good: `~~~text
+Prompt with context + plan:
+"Context: the search box has label 'Search products'; results render as a
+list of <article> with an <h3> product name. Risk: if search returns
+irrelevant results customers cannot find products. Patterns: getByRole,
+our \`shopper\` fixture, match spec X.
+Plan: given a shopper, when they search 'tent', then every visible result
+name contains 'tent' (case-insensitive) and there is at least one result."
+→ Draft asserts the results are relevant, not merely present.
+~~~`,
+        },
+        davidTip: `Write your arrange-act-assert plan as a comment at the top of the empty spec file, then ask the assistant to implement it. The plan stays in the file as documentation of intent, the AI has a precise target, and the next reviewer can check the code against the plan in seconds. It is the cheapest way to keep human intent and generated code side by side.`,
+      },
+    },
+    {
+      lessonNumber: 3,
+      title: 'Generating Tests with AI',
+      estimatedTime: '18 minute read',
+      lessonOverview: `With a plan and real context in hand, generation is where the speed pays off. This lesson is about prompting well for a Playwright test, scaffolding the supporting cast — page objects, fixtures, test data — and, crucially, iterating: the first draft is a starting point to refine against the running app, never the finished article.`,
+      learningObjectives: [
+        'Prompt effectively for a Playwright test and its supporting page objects, fixtures and data',
+        'Scaffold structure quickly while keeping locators and assertions under your control',
+        'Iterate on a generated draft against the running application rather than accepting it as-is',
+      ],
+      lessonNotes: `## Generation is a starting line, not a finish line
+A good prompt with good context gives you a draft in seconds. That draft is a starting line. The value of the tool is that it writes the obvious structure so you can spend your attention on the parts that need judgement — the locators, the assertions, the edge cases. Treat every generation as "draft, then refine", and the speed is real; treat it as "generate, then ship", and you are back to the magic-button trap of Lesson 1.
+
+## Prompting for a test
+The best prompts are specific about outcome and grounded in your reality (Lesson 2). Ask for role-based locators explicitly — models will otherwise reach for brittle CSS. A prompt like "using getByRole and getByLabel, write a test that…" steers the draft toward the conventions you actually want. Ask for web-first assertions (\`toBeVisible\`, \`toHaveText\`) rather than manual waits, and the draft will usually oblige.
+
+## Scaffolding the supporting cast
+Tests rarely stand alone. An assistant is well suited to generating the surrounding structure once you describe it:
+
+- **Page objects** — "a page object for the checkout page exposing fillCard, applyPromo and pay" gives you a clean skeleton to fill with real locators.
+- **Fixtures** — a signed-in-user fixture, a seeded-data fixture: the boilerplate is repetitive and the AI does it quickly.
+- **Test data** — factory functions or realistic sample records. Ask for a builder that produces valid data with sensible defaults.
+
+For all of these the same rule holds: the AI produces the shape, you verify the specifics. A generated page object with an invented \`#pay-button\` selector is worse than no page object, because it hides the guess behind a tidy method name.
+
+## Iterating against the running app
+This is the step uncritical engineers skip. A generated test that has never touched the running application is a hypothesis, not a test. Run it. When a locator does not resolve, that is the app telling you the AI guessed — fix it against what is really on the page, using \`getByRole\` and the accessibility tree rather than another guess. When an assertion passes suspiciously easily, check it proves what you meant. Two or three cycles of run-observe-refine turn a plausible draft into a real test, and each cycle is grounded in evidence from the actual app rather than in the model’s confidence.
+
+## The human still owns the locators and assertions
+Let the assistant own the structure; you own the two things that decide whether the test is any good — the locators (do they find the real elements?) and the assertions (do they prove the real outcome?). Keep those under your direct control and generation becomes a genuine accelerator instead of a source of tidy-looking debt.
+
+## Key takeaway
+Prompt specifically and let the AI scaffold the test, page objects, fixtures and data fast — then iterate against the running application, because a generated draft is a hypothesis until real evidence confirms its locators resolve and its assertions prove what you intended.`,
+      workedExample: `Generating a page object and a spec, then refining them against the running app.
+
+You describe the structure and ask for role-based locators. The assistant drafts a page object:
+
+~~~ts
+// Draft page object from the AI — structure is good, some locators are guesses.
+import { type Page, type Locator } from '@playwright/test';
+
+export class CheckoutPage {
+  readonly page: Page;
+  readonly cardNumber: Locator;
+  readonly payButton: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.cardNumber = page.getByLabel('Card number');          // verify
+    this.payButton = page.getByRole('button', { name: 'Pay' }); // verify — real label may differ
+  }
+
+  async pay(card: string) {
+    await this.cardNumber.fill(card);
+    await this.payButton.click();
+  }
+}
+~~~
+
+You run a spec that uses it and watch it fail: the real button reads "Pay now", not "Pay". That failure is evidence, not a nuisance — the app just corrected the AI’s guess. You refine:
+
+~~~ts
+// Refined against the running app: the button name is what the page actually renders.
+this.payButton = page.getByRole('button', { name: 'Pay now' });
+~~~
+
+Now the spec that drives it, generated and then strengthened:
+
+~~~ts
+import { test, expect } from '@playwright/test';
+import { CheckoutPage } from './pages/checkout-page';
+
+test('a shopper can pay and see an order confirmation', async ({ page }) => {
+  const checkout = new CheckoutPage(page);
+  await page.goto('/checkout');
+
+  await checkout.pay('4242 4242 4242 4242');
+
+  // Assertion refined from the AI’s weak default (a URL check) to a real outcome:
+  await expect(page.getByRole('heading', { name: 'Order confirmed' })).toBeVisible();
+  await expect(page.getByText(/Order #\\d+/)).toBeVisible();
+});
+~~~
+
+The AI gave you the page object skeleton and the spec structure in seconds. The iteration — running it, letting the app correct the guessed button name, and replacing a weak URL assertion with a real confirmation check — is what made it a test worth keeping.`,
+      commonMistakes: `- Accepting a generated page object whose tidy method names hide invented selectors
+- Prompting for a test without asking for role-based locators, then getting brittle CSS you have to unpick
+- Never running the draft against the app, so guessed locators and weak assertions survive into the suite
+- Generating test data with the AI and not checking it is actually valid for your domain’s rules`,
+      realWorldTip: `On a delivery team, the productive rhythm is generate-run-refine in tight loops rather than one big generation followed by a long debugging session. Ask for a small piece — one page object, one spec — run it immediately, and let each failure steer the next prompt with real information from the app ("the button is actually labelled 'Pay now', regenerate using that"). Feeding the assistant genuine evidence from the running application, rather than more guesses, is what turns it from a plausible-code generator into a useful pair.`,
+      exercise: `Pick a feature with a form. Prompt an AI assistant to generate a page object and a spec, explicitly asking for getByRole/getByLabel locators and web-first assertions. Run the spec against the real app and record every point where a locator failed to resolve or an assertion passed too easily. Refine each one against what the app actually shows. Deliverable: the initial generated files, a short list of what the running app corrected, and the refined, passing versions.`,
+      reflectionQuestion: `When your generated test failed because a locator did not resolve, was that a problem with the tool or a useful piece of evidence? How does reframing failures as evidence change the way you iterate with an AI assistant?`,
+      knowledgeCheck: `Why must a generated test be run against the real application before you trust it? (Answer: until it runs, its locators and assumptions are the AI’s guesses; running it against the app produces real evidence that either confirms the locators resolve and assertions hold, or reveals the guesses so you can fix them)`,
+      completionChecklist: [
+        'I can prompt for a Playwright test using role-based locators and web-first assertions',
+        'I can scaffold page objects, fixtures and test data while keeping locators under my control',
+        'I iterate a generated draft against the running app instead of accepting it as-is',
+      ],
+      enhancements: {
+        miniChallenge: `Ask the assistant to generate a test-data builder for your domain — say, a function that produces a valid order with sensible defaults and overridable fields. Then deliberately hunt for a domain rule it got wrong (a total that does not match line items, a status that cannot follow another). Fixing that is a concrete example of the human supplying the domain knowledge the AI lacks.`,
+        davidTip: `When a generated locator fails, resist the urge to ask the AI to "try another selector" — it will just guess again. Instead open Playwright’s codegen or the trace viewer, find the real accessible name yourself, and feed *that* back. One piece of real evidence ends the guessing loop that ten more prompts would prolong.`,
+        visualAid: {
+          type: 'flow',
+          title: 'The generate-run-refine loop',
+          steps: [
+            { label: 'Prompt with context', detail: 'Plan plus real element names, ask for role-based locators.' },
+            { label: 'Generate a small piece', detail: 'One spec or page object, not the whole suite.' },
+            { label: 'Run against the real app', detail: 'The app is the source of truth, not the model.' },
+            { label: 'Feed evidence back', detail: 'Real labels and failures, not another guess.' },
+            { label: 'Refine locators and assertions', detail: 'These two you own; keep them under your control.' },
+          ],
+        },
+      },
+    },
+    {
+      lessonNumber: 4,
+      title: 'Debugging & Refactoring with AI',
+      estimatedTime: '17 minute read',
+      lessonOverview: `An assistant that has read millions of stack traces is genuinely useful for explaining a failure or a trace and for proposing a refactor. The power is real and so is the risk: an explanation can be plausibly wrong and a refactor can silently change behaviour. This lesson is about using AI to understand and reshape code while verifying every step against evidence.`,
+      learningObjectives: [
+        'Use an AI assistant to explain a test failure, error or Playwright trace',
+        'Refactor tests and page objects with AI while verifying each change is behaviour-preserving',
+        'Distinguish a plausible explanation from a verified one',
+      ],
+      lessonNotes: `## Explaining a failure
+Pasting a stack trace, an error message or a description of a Playwright trace and asking "why did this fail?" is one of the strongest uses of an assistant. It has seen the shape of the error many times and can often point you straight at the likely cause — a locator resolving to two elements, a race between navigation and assertion, a fixture not awaited. This is genuine acceleration: you get a hypothesis in seconds instead of minutes of squinting.
+
+The catch is in the word *hypothesis*. The explanation is a plausible story, not a verified fact. Models can produce a confident, well-reasoned account of a cause that is simply not what happened. So take the explanation as a lead to check against the trace, the DOM and the actual behaviour — never as a conclusion to act on blind.
+
+## Reading a trace with AI
+Playwright’s trace viewer is the real evidence: the DOM snapshots, the action log, the network. An assistant can help you interpret what you are seeing — "the click landed but the element was detached a moment later" — but you are looking at the trace while it does. The pairing works because you supply the ground truth from the trace and the AI supplies pattern-matching over it. Ask it to explain what the trace shows; then confirm the explanation against the snapshots yourself.
+
+## Refactoring safely
+Assistants are good at mechanical reshaping: extracting a helper, converting duplicated setup into a fixture, tidying a sprawling page object. The danger is that a refactor is supposed to preserve behaviour, and an AI-proposed one can quietly change it — a subtly different locator, a dropped await, an assertion that now checks something else.
+
+The discipline that makes AI refactoring safe is the same that makes any refactoring safe, only more so because you did not write the change:
+
+- **Refactor in small steps**, each independently reviewable.
+- **Run the tests after every step**, so a behaviour change shows up immediately and is attributable to one change.
+- **Read the diff as if reviewing a stranger’s pull request** — because, in effect, you are.
+
+A green suite after a refactor is necessary but not sufficient: it tells you the tests you have still pass, not that behaviour is unchanged where you have no test. Where the refactor touches something under-tested, verify by hand.
+
+## Verify, do not trust
+The thread through both debugging and refactoring is the same: the AI gives you a fast, plausible move, and you confirm it against real evidence before it counts. An unverified explanation can send you fixing the wrong thing; an unverified refactor can ship a behaviour change behind a green tick. Speed from the tool, verification from you.
+
+## Key takeaway
+Use an AI assistant to explain failures and traces and to propose refactors — it is fast and often right — but treat every explanation as a hypothesis to confirm against the trace and every refactor as a stranger’s pull request: small steps, tests after each, diff read carefully, because a plausible answer is not a verified one.`,
+      workedExample: `Using AI to explain a flaky failure, then verifying the fix rather than trusting the story.
+
+A test fails intermittently with a timeout. You paste the error and the relevant lines. The assistant offers a plausible explanation:
+
+~~~text
+AI: "The click races the navigation. getByText('Saved') is asserted before
+the async save completes, so it sometimes times out. Add a wait."
+~~~
+
+That is a reasonable hypothesis — but "add a wait" is exactly the kind of plausible-but-wrong fix to check. You open the trace and see the real story: the locator \`getByText('Saved')\` matches two elements (a toast and a status badge), so it is strict-mode ambiguity, not a race. The AI’s explanation was confident and wrong; the trace was right.
+
+The verified fix targets what the evidence actually showed:
+
+~~~ts
+// Not a sleep bolted on from a plausible guess, but a fix for the real cause:
+// the assertion now targets exactly one element, confirmed in the trace.
+await expect(page.getByRole('status')).toHaveText('Saved');
+~~~
+
+Now a safe AI-assisted refactor. You ask the assistant to extract duplicated login setup into a fixture. It proposes:
+
+~~~ts
+// Proposed fixture — read it like a stranger’s PR before trusting it.
+import { test as base } from '@playwright/test';
+
+export const test = base.extend<{ signedIn: void }>({
+  signedIn: [async ({ page }, use) => {
+    await page.goto('/login');
+    await page.getByLabel('Email').fill(process.env.TEST_USER_EMAIL!);
+    await page.getByLabel('Password').fill(process.env.TEST_USER_PASSWORD!);
+    await page.getByRole('button', { name: 'Sign in' }).click();
+    await expect(page.getByRole('heading', { name: 'Your dashboard' })).toBeVisible();
+    await use();
+  }, { auto: true }],
+});
+~~~
+
+Before adopting it you run the suite, then read the diff: does it preserve the original assertion that login actually succeeded? It does — the \`toBeVisible\` guard is still there, so the fixture cannot silently pass for a failed login. Green suite plus a carefully read diff, one small step, and you keep it. Had the AI dropped that guard, the tests would still be green while the fixture quietly masked broken logins — which is exactly why you read the change instead of trusting it.`,
+      commonMistakes: `- Acting on the AI’s explanation of a failure without confirming it against the trace or DOM
+- Accepting a "just add a wait" suggestion that treats a symptom instead of the real cause
+- Taking a large AI refactor in one step, so a behaviour change is impossible to attribute
+- Reading a green suite after a refactor as proof behaviour is unchanged, even where you have no test`,
+      realWorldTip: `On a delivery team, the fastest debuggers use AI to generate hypotheses and the trace viewer to test them — never the other way round. Ask the assistant "what could cause this?" to get three candidate causes quickly, then let the evidence eliminate two of them. For refactors, insist that anything an AI reshapes goes through the same review as human-written code, because the reviewer’s scrutiny is the only thing standing between a tidy diff and a silent behaviour change nobody chose.`,
+      exercise: `Take a test that is failing or flaky. Ask an AI assistant to explain the failure, and write down its hypothesis. Then open the Playwright trace and confirm or refute that hypothesis from the evidence. Separately, ask the AI to refactor one duplicated piece of setup into a fixture, adopt it in small steps running the suite after each, and read the final diff line by line. Deliverable: the AI’s hypothesis versus what the trace actually showed, and the refactor diff with a note confirming it preserves behaviour.`,
+      reflectionQuestion: `An AI gave you a confident, well-argued explanation for a failure that turned out to be wrong. What does that experience teach you about the difference between a plausible answer and a verified one — and how will it change what you do with the next explanation?`,
+      knowledgeCheck: `After an AI refactor leaves your suite green, what have you actually proven, and what have you not? (Answer: you have proven the tests you have still pass; you have not proven behaviour is unchanged where you have no test, so under-tested areas the refactor touched still need manual verification)`,
+      completionChecklist: [
+        'I use AI explanations of failures as hypotheses to verify against the trace',
+        'I refactor with AI in small, individually verified, behaviour-preserving steps',
+        'I read every AI-generated change as critically as a stranger’s pull request',
+      ],
+      enhancements: {
+        industryStory: `A team hit an intermittent failure and the assistant confidently diagnosed a timing race, suggesting a fixed wait. They added it; the flakiness moved but did not go away. Only when someone opened the trace did the real cause appear — a locator matching two elements — which no amount of waiting would fix. They removed the wait, tightened the locator, and the flakiness vanished. The lesson they drew was not "the AI is useless" but "the AI gives you a lead and the trace gives you the truth"; from then on every AI failure diagnosis was checked against a trace before anyone changed code.`,
+        badGood: {
+          label: 'acting on a plausible explanation vs verifying it',
+          bad: `~~~ts
+// AI said "it's a race, add a wait" — symptom patched, cause unknown.
+await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(1000); // guess dressed up as a fix
+await expect(page.getByText('Saved')).toBeVisible(); // still ambiguous
+~~~`,
+          good: `~~~ts
+// Trace showed strict-mode ambiguity, not a race. Fix the real cause.
+await page.getByRole('button', { name: 'Save' }).click();
+await expect(page.getByRole('status')).toHaveText('Saved'); // one element, web-first wait
+~~~`,
+        },
+      },
+    },
+    {
+      lessonNumber: 5,
+      title: 'Reviewing AI-Generated Tests',
+      estimatedTime: '19 minute read',
+      lessonOverview: `This is the critical skill of the whole module. AI-generated tests fail in a particular, dangerous way: they run green while proving nothing. Learning to spot hallucinated APIs, invented selectors, and assertions that are weak or subtly wrong — the green-but-wrong test — is what separates an engineer who is accelerated by AI from one who is quietly endangered by it.`,
+      learningObjectives: [
+        'Spot hallucinated APIs, methods and options that do not exist in Playwright',
+        'Detect invented selectors and assertions that are weak, wrong or absent',
+        'Recognise the green-but-wrong test and the false confidence it creates',
+      ],
+      lessonNotes: `## Why AI-generated tests need harder review, not less
+It is tempting to review generated code less carefully because it looks clean and it passes. That instinct is exactly backwards. AI code deserves *more* scrutiny than human code, because it is produced by a process optimised for plausibility and fluency, not correctness — and its most dangerous failures are the ones that still go green. A green test that proves nothing is worse than a red one, because it actively tells you something is fine when it is not.
+
+## The four things to hunt for
+When you review an AI-generated test, look specifically for these:
+
+- **Hallucinated APIs** — methods and options that do not exist. \`page.waitForSelector\` with an invented option, \`expect(...).toBeVisibleWithin(...)\`, a \`page.getByTestId\` config that Playwright never had. These usually fail loudly, but not always, and a hallucinated call inside a rarely-run branch can lurk.
+- **Invented selectors** — \`#submit-btn\`, \`.user-profile\`, a \`data-testid\` that is not in your app. The AI cannot know your markup, so it guesses; a guessed selector that happens not to resolve fails, but one that accidentally matches the wrong element passes and lies.
+- **Weak or wrong assertions** — the heart of the problem. An assertion that checks a URL instead of an outcome, checks visibility instead of content, or checks the wrong value entirely. These pass and prove almost nothing.
+- **Tests that assert nothing meaningful** — a test that performs a flow and then asserts only that a page loaded, or asserts a truism like \`expect(true).toBeTruthy()\` the model added to make it "pass".
+
+## The green-but-wrong test
+The signature failure of AI-generated tests is the green-but-wrong test: it runs, it passes, and it does not prove what its name claims. A test called "user is charged the correct amount" that only asserts the checkout page is visible is green and wrong. It is more dangerous than no test, because it creates false confidence — a stakeholder sees the green tick and believes the charge is verified. Your review is the only thing that catches this, because the tooling never will; passing is exactly what the tooling reports.
+
+## How to review for it
+Read each test against one question: *if the feature were broken, would this test fail?* For every assertion, imagine the specific bug it should catch and check that it would. A test named for an outcome must assert that outcome, not a proxy for it. If you cannot point to the line that would go red when the thing the test is named for breaks, the test does not earn its green.
+
+## The accountability line
+Reviewing AI-generated tests is not optional quality polish; it is the point at which you take responsibility for code a machine drafted. Merge an unreviewed generated test and you have not saved time, you have inserted a plausible lie into your suite under your name. The skill in this lesson is the one that keeps AI an accelerator rather than a liability.
+
+## Key takeaway
+The critical skill with AI is reviewing what it produces: hunt for hallucinated APIs, invented selectors and weak or absent assertions, and judge every test by whether it would actually fail if the feature broke — because the signature danger of AI-generated tests is the green-but-wrong test that passes while proving nothing and manufactures false confidence.`,
+      workedExample: `A green-but-wrong AI-generated test, and the review that saves you.
+
+The AI was asked for a test that "the customer is charged the correct total". It returns this, and it passes:
+
+~~~ts
+import { test, expect } from '@playwright/test';
+
+test('customer is charged the correct total', async ({ page }) => {
+  await page.goto('/checkout');
+  await page.getByRole('button', { name: 'Pay now' }).click();
+  await expect(page).toHaveURL(/confirmation/); // green — and proves nothing about the total
+});
+~~~
+
+Apply the review question: *if the total were wrong, would this test fail?* No. The app redirects to \`/confirmation\` whether the total is £10 or £1,000. The test is named for a charge it never checks — green and wrong, and worse than absent because its name reassures everyone the charge is verified.
+
+The corrected test asserts the outcome its name promises:
+
+~~~ts
+import { test, expect } from '@playwright/test';
+
+test('customer is charged the exact basket total shown at checkout', async ({ page }) => {
+  await page.goto('/checkout');
+
+  // Capture the total the customer was shown, so we assert against a real value.
+  const shownTotal = await page.getByTestId('order-total').textContent();
+  expect(shownTotal).toBe('£42.00');
+
+  await page.getByRole('button', { name: 'Pay now' }).click();
+
+  // Assert the confirmation shows the same amount that was actually charged.
+  await expect(page.getByRole('heading', { name: 'Order confirmed' })).toBeVisible();
+  await expect(page.getByTestId('charged-amount')).toHaveText('£42.00');
+});
+~~~
+
+Now if the charged amount diverges from the total the customer saw, the final assertion goes red. The test would fail if the feature broke — which is the whole test the first version failed. Nothing but a human reading the test against its own name would have caught the difference, because both versions are equally green.`,
+      commonMistakes: `- Reviewing AI-generated tests less carefully than human ones because they look clean and pass
+- Trusting a green tick as evidence, when the green-but-wrong test is green precisely because it proves nothing
+- Missing a hallucinated method or option that sits in a branch the happy-path run never exercises
+- Accepting an assertion on a proxy (a URL, mere visibility) for a test named after a real outcome (a charge, a saved value)`,
+      realWorldTip: `On a delivery team, make "would this fail if the feature broke?" the standard question in review for every test, and apply it hardest to generated ones. A useful habit is to break the feature deliberately — change the total, corrupt the data — and confirm the test goes red; a generated test that stays green when you sabotage the thing it names is a green-but-wrong test caught before it ever manufactures false confidence in production. Teams that adopt this stop shipping tests that lie, whether a human or an AI wrote them.`,
+      exercise: `Generate three tests with an AI assistant for features you understand. For each, apply the review question "if this feature were broken, would this test fail?" and then prove your answer by deliberately breaking the feature (or the assertion’s expected value) and running it. Rewrite any test that stays green when the feature is broken. Deliverable: the three original generated tests, a note of which were green-but-wrong, and the corrected versions with evidence they now go red when the feature breaks.`,
+      reflectionQuestion: `Why is a green-but-wrong test more dangerous than having no test at all? Think about who reads the green tick and what they conclude from it.`,
+      knowledgeCheck: `What single question best exposes a green-but-wrong AI-generated test? (Answer: "if the feature this test is named for were broken, would this test fail?" — if you cannot identify the line that would go red, the test does not prove what it claims, however green it runs)`,
+      completionChecklist: [
+        'I can spot hallucinated Playwright APIs, methods and options in generated code',
+        'I can detect invented selectors and weak, wrong or absent assertions',
+        'I judge every test by whether it would fail if the feature it names were broken',
+      ],
+      enhancements: {
+        badGood: {
+          label: 'green-but-wrong vs a test that proves the outcome',
+          bad: `~~~ts
+// Named for saving a profile, but asserts only that a button was clickable.
+test('profile changes are saved', async ({ page }) => {
+  await page.goto('/profile');
+  await page.getByLabel('Display name').fill('Ada Lovelace');
+  await page.getByRole('button', { name: 'Save' }).click();
+  await expect(page.getByRole('button', { name: 'Save' })).toBeVisible(); // green, proves nothing
+});
+~~~`,
+          good: `~~~ts
+// Asserts the change actually persisted — the outcome the name promises.
+test('profile changes are saved and persist after reload', async ({ page }) => {
+  await page.goto('/profile');
+  await page.getByLabel('Display name').fill('Ada Lovelace');
+  await page.getByRole('button', { name: 'Save' }).click();
+  await expect(page.getByRole('status')).toHaveText('Profile saved');
+
+  await page.reload(); // prove it persisted, not just that a toast appeared
+  await expect(page.getByLabel('Display name')).toHaveValue('Ada Lovelace');
+});
+~~~`,
+        },
+        davidTip: `Keep a personal checklist for reviewing generated tests and run every one through it: does every API call exist, does every selector resolve to the intended element, and would each assertion fail if the feature broke? The discipline of a literal checklist matters more with AI output than with your own, because AI code arrives looking finished and its confidence is uniform whether it is right or wrong.`,
+        visualAid: {
+          type: 'comparison',
+          title: 'Four failure modes of AI-generated tests and how to catch each',
+          headers: ['Failure mode', 'What it looks like', 'How you catch it'],
+          rows: [
+            ['Hallucinated API', 'A method or option Playwright never had', 'Type-check and run; verify against the docs'],
+            ['Invented selector', 'A #id or data-testid not in your app', 'Confirm it resolves to the intended element'],
+            ['Weak assertion', 'Checks a URL or visibility, not the outcome', 'Ask: would it fail if the feature broke?'],
+            ['Asserts nothing', 'A flow with no meaningful check', 'Break the feature; see if it stays green'],
+          ],
+        },
+      },
+    },
+    {
+      lessonNumber: 6,
+      title: 'Security, Privacy & Accountability',
+      estimatedTime: '17 minute read',
+      lessonOverview: `Using AI responsibly is not only about code quality; it is about what you put into the tool and who answers for what comes out. This lesson covers the hard lines — never pasting secrets, customer data or proprietary code into external services — the data and intellectual-property risk that follows, and the non-negotiable principle that you, not the AI, are accountable for the code you ship.`,
+      learningObjectives: [
+        'Apply firm rules about what must never be pasted into an external AI tool',
+        'Reason about the data and intellectual-property risk of AI assistants',
+        'Own accountability for AI-written code and verify it against evidence rather than trust',
+      ],
+      lessonNotes: `## What must never go into an external tool
+When an AI assistant runs as an external service, whatever you paste leaves your control and may be logged, retained or used to train future models — you generally cannot know which. That makes some categories simply off-limits:
+
+- **Secrets** — API keys, passwords, tokens, connection strings, certificates. A key pasted into a chat window must be treated as compromised and rotated.
+- **Customer and personal data** — real names, emails, addresses, payment details, health or financial records. Pasting these can breach data-protection law and your users’ trust in one keystroke.
+- **Proprietary code and confidential information** — source your company has not open-sourced, unreleased plans, security details. Once it is in an external service it may be irrecoverable.
+
+The safe default is to assume anything you paste could become public, and to share only what you would be comfortable seeing outside the company. Reach for realistic-but-synthetic data — fake names, test cards, dummy tokens — whenever you need to show the AI a shape.
+
+## Reducing the shape without the substance
+You rarely need the real thing to get help. Instead of a genuine record, paste a structurally identical fake. Instead of the real key, paste \`process.env.API_KEY\` and describe it. Instead of the whole proprietary module, extract the small, non-sensitive slice the question actually needs. The assistant helps just as well with a faithful stand-in, and you have leaked nothing.
+
+## Know your tool’s data boundary
+Not all tools are equal: some are external services that retain input, some are enterprise deployments with contractual data-handling guarantees, some run locally. The rules above are the safe default for an external tool; where your organisation provides a vetted deployment with a clear data boundary, follow its policy. The engineering skill is knowing which kind you are using and never assuming a stronger boundary than you have been told you have.
+
+## Accountability does not transfer
+Here is the principle that outlives every tool: you are accountable for the code you ship, whoever — or whatever — drafted it. "The AI wrote it" is not a defence for a bug, a security hole or a test that proves nothing, any more than "I copied it from a forum" would be. When you commit AI-generated code under your name, you are asserting that you have read it, understood it, and stand behind it. That is the deal, and it does not change because the draft came fast.
+
+## Evidence over trust
+Accountability in practice means verification. You do not trust that the generated test is correct because it looks right or runs green; you confirm it against evidence — it resolves the real elements, it fails when the feature breaks, it proves the outcome it names (Lesson 5). Evidence-based verification is how you honour the accountability you cannot delegate. Trust is not a control; evidence is.
+
+## Key takeaway
+Never paste secrets, customer data or proprietary code into an external AI tool — assume anything you share could become public and use synthetic stand-ins — and remember that accountability never transfers: you own the code the AI drafts, so verify it against real evidence rather than trusting it because it looks right.`,
+      workedExample: `Getting AI help with a failing authenticated test without leaking anything real.
+
+The unsafe instinct is to paste the actual failure with the real token and a real customer in it:
+
+~~~text
+// DO NOT do this — real secret and real personal data pasted into an external tool.
+"My test fails. Here's the request:
+Authorization: Bearer sk_live_9f3a1c7b2e4d... (real production key)
+Body: { email: 'jane.doe@realcustomer.com', card: '4716 5522 9012 3345' }"
+~~~
+
+That single message may have leaked a live key (now compromised and needing rotation) and a real customer’s email and card. None of it was necessary to get help.
+
+The safe version shares the *shape* with synthetic values and configuration references:
+
+~~~ts
+// Reproduce the failure with fake-but-faithful data and no real secrets.
+import { test, expect } from '@playwright/test';
+
+test('an authenticated user can load their orders', async ({ page, request }) => {
+  // Secret comes from configuration, never pasted — describe it, don't reveal it.
+  const token = process.env.TEST_API_TOKEN!; // a test-environment token, not production
+
+  const response = await request.get('/api/orders', {
+    headers: { Authorization: \`Bearer \${token}\` },
+  });
+  expect(response.ok()).toBeTruthy();
+
+  // Synthetic customer — same shape, no real personal data.
+  const body = await response.json();
+  expect(body.customer.email).toBe('test.user@example.test');
+});
+~~~
+
+You can describe the failure to the assistant using this synthetic version — "the token is a valid test token, the response 401s intermittently" — and get exactly the same quality of help, having disclosed no secret and no personal data. The skill is separating the *shape* of the problem, which the AI needs, from the *sensitive substance*, which it never does.`,
+      commonMistakes: `- Pasting a real API key, token or connection string into an external chat to "just get it working"
+- Sharing a genuine customer record because it was the failing example to hand, when a synthetic one would do
+- Copying a proprietary module wholesale into an external tool instead of extracting the small non-sensitive slice
+- Committing AI-generated code and treating "the AI wrote it" as cover for a defect you are actually accountable for`,
+      realWorldTip: `On a delivery team, agree explicit rules for AI use and write them down: which tool is sanctioned, what its data boundary is, and a hard list of what never gets pasted (secrets, personal data, unreleased source). Pair that with the cultural norm that AI-generated code goes through the same review and ownership as anything else — the author’s name on the commit means the author read and verified it. Treat a secret that reaches an external tool as compromised and rotate it immediately; the cost of rotation is trivial next to the cost of assuming it was fine.`,
+      exercise: `Take a real failing scenario that involves authentication or customer data. Rewrite it into a form you could safely share with an external AI tool: secrets replaced by configuration references, personal data replaced by synthetic-but-faithful values, proprietary logic reduced to the minimal shape the question needs. Deliverable: the sanitised reproduction, and a short note listing exactly what sensitive substance you removed and what shape you kept.`,
+      reflectionQuestion: `You ship a piece of AI-generated code and it later causes an incident. In what sense is "the AI wrote it" no different from "I found it on a forum" — and what does that tell you about what committing code under your name actually means?`,
+      knowledgeCheck: `If a live secret is accidentally pasted into an external AI tool, what should you assume and do? (Answer: assume it is compromised and rotate it immediately — you cannot know whether it was logged, retained or exposed, so the only safe response is to treat it as public and replace it)`,
+      completionChecklist: [
+        'I never paste secrets, customer data or proprietary code into an external AI tool',
+        'I share the shape of a problem with synthetic stand-ins, not its sensitive substance',
+        'I own accountability for AI-written code and verify it against evidence, not trust',
+      ],
+      enhancements: {
+        industryStory: `A team debugging a payment integration pasted a failing request, complete with a live gateway key, into an external assistant to get quick help. The fix worked and nobody thought more of it — until a routine security review flagged the key as potentially exposed and it had to be rotated across every service that used it, an afternoon of scramble that a one-line synthetic placeholder would have avoided entirely. The team adopted two rules the same week: secrets never leave configuration, and any secret that touches an external tool is rotated on sight. The help the AI gave was real; so was the avoidable risk, and the difference was entirely in what was pasted.`,
+        davidTip: `Build a tiny "sanitise before you paste" reflex: before any snippet goes into an external tool, scan it for a key, a real email, a real card, a customer name, or anything proprietary, and swap each for a synthetic equivalent. It takes seconds and it becomes automatic. The engineers who never leak data are not the cautious ones who agonise each time — they are the ones for whom sanitising is muscle memory.`,
+        visualAid: {
+          type: 'comparison',
+          title: 'What to share with an external AI tool — and what never to',
+          headers: ['Category', 'Never paste the real thing', 'Safe stand-in to share instead'],
+          rows: [
+            ['Secrets', 'API keys, tokens, passwords', 'process.env references; described, not shown'],
+            ['Personal data', 'Real names, emails, cards', 'Synthetic-but-faithful fake values'],
+            ['Proprietary code', 'Whole confidential modules', 'The minimal non-sensitive slice'],
+            ['The problem shape', '—', 'Structure, error type, behaviour — always fine'],
+          ],
+        },
+      },
+    },
+    {
+      lessonNumber: 7,
+      title: 'A Responsible AI Workflow',
+      estimatedTime: '18 minute read',
+      lessonOverview: `The final lesson pulls the module into a single, repeatable way of working: where AI genuinely fits in a day’s test automation, a plan-generate-review-verify loop you can run for every task, and the personal rules that keep you the accountable engineer while the tool makes you faster. This is the differentiator made durable — a workflow, not a trick.`,
+      learningObjectives: [
+        'Place AI where it genuinely helps in day-to-day test automation and keep it out of where it does not',
+        'Run a plan-generate-review-verify loop as your default for AI-assisted work',
+        'Write your own rules for using AI responsibly on a real delivery team',
+      ],
+      lessonNotes: `## Where AI fits in a real day
+By now the pattern of the module is clear, and it maps onto a working day cleanly. AI earns its place at the fast, mechanical, well-scoped moments — scaffolding a page object, drafting a spec from a plan you wrote, explaining a trace, proposing a refactor, generating faithful test data. It has no place at the moments that are pure judgement — deciding what is worth testing, weighing risk, deciding whether a green suite is trustworthy enough to release on. Put crudely: let the AI type, keep the deciding for yourself.
+
+## The loop: plan → generate → review → verify
+Everything in this module composes into one loop you can run for any task:
+
+- **Plan** — decide, in plain language, what the test must prove and what the risk is (Lesson 2). This is yours; the AI cannot do it.
+- **Generate** — give the AI the plan and real context, and let it draft the test, page object or fixture fast (Lessons 2–3).
+- **Review** — read the draft harder than human code: hallucinated APIs, invented selectors, weak or absent assertions, and above all the green-but-wrong test (Lesson 5).
+- **Verify** — run it against the real app, confirm the locators resolve and that it fails when the feature breaks; confirm any refactor preserves behaviour (Lessons 3–4).
+
+The loop is small and repeatable, and its shape encodes the module’s theme: the human bookends — plan and verify — are where accountability lives, and the AI works in the fast middle under your review. Skip the bookends and you are back to the magic button.
+
+## Speed with a floor under it
+Run this loop and AI is a genuine accelerator: the generation is fast, and the plan-review-verify around it means the speed never comes at the cost of a suite that lies. The loop is what lets you go faster *and* keep the evidence honest — the two things an uncritical user gives up when they trade review for velocity. A competent engineer running the loop ships more, sooner, without lowering the bar; that is the whole promise of using AI well.
+
+## Your personal rules
+Turn the module into a short set of rules you actually follow. They will be your own, but strong ones tend to include: plan before generating; never paste secrets or real data into an external tool; review generated tests harder than my own; run every generated test against the real app before trusting it; ask "would this fail if the feature broke?" of every assertion; and own everything I commit regardless of what drafted it. Write yours down, because a rule you have articulated is one you keep under deadline pressure, when the temptation to just ship the green draft is strongest.
+
+## The line that outlasts the tools
+Tools will change; the specific assistant your team uses in two years may not exist today. What lasts is the stance: AI accelerates a competent engineer and endangers an uncritical one, so stay the competent, accountable engineer — plan, review, verify, own the result — and let the tool make that engineer faster rather than replacing them.
+
+## Key takeaway
+Make AI a durable part of your practice through one repeatable loop — plan and verify as the human bookends where accountability lives, generate and review as the fast middle — governed by personal rules you have written down; run that and AI accelerates you without ever lowering the bar, because the tools will change but the accountable, evidence-driven engineer is what makes any of them worth using.`,
+      workedExample: `The full loop on one task, start to finish — the module in a single flow.
+
+Task: verify that applying a valid promo code reduces the order total.
+
+Plan (yours, in words, before any code):
+
+~~~text
+Arrange: a signed-in shopper with one £50 item in the basket, on checkout.
+Act: enter the promo code SAVE10 and apply it.
+Assert: the displayed total drops from £50.00 to £45.00 (a real 10% off),
+and a confirmation of the applied code is shown.
+Risk: if the discount is miscalculated, customers are over- or under-charged,
+so the assertion must check the exact new total, not merely that "a discount applied".
+~~~
+
+Generate (AI, given the plan and your real element names). It drafts:
+
+~~~ts
+import { test, expect } from './fixtures'; // your shopper fixture
+
+test('applying a valid promo code reduces the order total by the discount', async ({ shopper: page }) => {
+  await page.goto('/checkout');
+  await expect(page.getByTestId('order-total')).toHaveText('£50.00');
+
+  await page.getByLabel('Promo code').fill('SAVE10');
+  await page.getByRole('button', { name: 'Apply' }).click();
+
+  // Assertions target the exact outcome the plan named:
+  await expect(page.getByRole('status')).toHaveText('Code SAVE10 applied');
+  await expect(page.getByTestId('order-total')).toHaveText('£45.00');
+});
+~~~
+
+Review (you, harder than for your own code): the APIs exist; the selectors match your real markup; the assertions check the exact total (£45.00), not a vague "discount applied". No green-but-wrong here — the final assertion targets the risk the plan named.
+
+Verify (you, against the real app): run it, confirm the locators resolve and it passes for the right reason; then deliberately break it — change the expected total to £44.00 — and confirm it goes red. It fails when the number is wrong, so the test genuinely proves the discount. The loop is complete: fast generation in the middle, your judgement on both ends, and evidence that the test would catch the bug it exists to catch.`,
+      commonMistakes: `- Running generation without the plan or the verify step, which is the magic button in disguise
+- Letting AI creep into the judgement calls — what to test, whether to release — where only a human belongs
+- Keeping the loop in your head instead of writing rules you will still follow under deadline pressure
+- Measuring the win as "tests generated" rather than "trustworthy evidence produced faster"`,
+      realWorldTip: `On a delivery team, make the plan-generate-review-verify loop explicit in how you work and review: a generated test arrives in a pull request with its plan visible and evidence it fails when the feature breaks, and the reviewer checks the bookends as much as the code. Agree a short team charter for AI use — the sanctioned tool, the data rules, the ownership norm — so the standard does not depend on each person’s discipline on a bad day. The teams that get durable value from AI are the ones who turned it into a shared, written workflow rather than a private habit that erodes under pressure.`,
+      exercise: `Write your own personal AI-use charter — five to eight rules covering planning, data safety, review depth, verification, and ownership — grounded in this module. Then run the full plan-generate-review-verify loop on one real task from your work, keeping a brief record of each stage. Deliverable: your written charter, and the four artefacts from the loop (plan, generated draft, review notes, and evidence the verified test goes red when the feature breaks).`,
+      reflectionQuestion: `The specific AI tools you use will change over the next few years. Which parts of your workflow are about a particular tool, and which parts would still be true with any assistant — and what does that tell you about what is worth committing to memory?`,
+      knowledgeCheck: `In the plan-generate-review-verify loop, which stages are the human’s and which is the AI’s, and why does that division matter? (Answer: plan, review and verify are the human’s — they carry the judgement and accountability the AI lacks — while generate is the AI’s fast contribution; the division matters because keeping the human on both ends is what makes the loop an accelerator rather than a magic button)`,
+      completionChecklist: [
+        'I know where AI genuinely helps day to day and where it must stay out',
+        'I run a plan-generate-review-verify loop as my default for AI-assisted work',
+        'I have written my own rules for using AI responsibly and own everything I commit',
+      ],
+      enhancements: {
+        davidTip: `Print your AI-use rules and keep them where you will see them, because the moment you need them is the moment you are least inclined to follow them — the end of a long day with a green generated draft and a deadline. A rule you decided calmly in advance is far easier to keep than a judgement you have to make under pressure. That is the entire reason to write them down rather than "just remember".`,
+        visualAid: {
+          type: 'flow',
+          title: 'The plan → generate → review → verify loop',
+          steps: [
+            { label: 'Plan (human)', detail: 'Decide what the test must prove and the risk. The AI cannot.' },
+            { label: 'Generate (AI)', detail: 'Draft fast from your plan and real context.' },
+            { label: 'Review (human)', detail: 'Hunt hallucinated APIs, invented selectors, weak assertions.' },
+            { label: 'Verify (human)', detail: 'Run against the real app; confirm it fails when the feature breaks.' },
+            { label: 'Own it (human)', detail: 'Commit under your name means you read, verified and stand behind it.' },
+          ],
+        },
+        miniChallenge: `Take a test a teammate or an earlier you generated and merged, and run it back through the full loop as if reviewing it fresh. Note anything the original process missed — a weak assertion, an unverified locator, a missing plan. The gap between "was merged" and "would survive the loop" is a concrete measure of how much the workflow protects you.`,
+      },
+    },
+  ],
+};

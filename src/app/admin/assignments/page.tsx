@@ -29,7 +29,7 @@ export default async function AdminAssignmentsPage({
   const { data: profilesData } = userIds.length > 0
     ? await db.from('profiles').select('id, first_name, last_name, email').in('id', userIds)
     : { data: [] };
-  const profileMap = new Map((profilesData ?? []).map((p: Profile) => [p.id, p]));
+  const profileMap = new Map(((profilesData ?? []) as Profile[]).map((p) => [p.id, p]));
 
   type FullSub = AssignmentSubmission & { assignments: Assignment; profiles: Profile | null };
   const typed = (submissions ?? []).map((s: AssignmentSubmission & { assignments: Assignment }) => ({

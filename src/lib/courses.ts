@@ -19,6 +19,12 @@ export interface CourseConfig {
    * pre-creating products. Set via env so secrets stay out of source.
    */
   stripePriceId?: string;
+  /** Optional launch/promotional price label, e.g. "£149" (full price shown struck through). */
+  promoPriceLabel?: string;
+  /** Launch/promotional amount in pence, charged when launchActive is true. */
+  promoAmount?: number;
+  /** When true, the launch price above is the active (charged & displayed) price. */
+  launchActive?: boolean;
   route: string;
 }
 
@@ -86,7 +92,29 @@ export const COURSES: CourseConfig[] = [
     stripePriceId: process.env.STRIPE_PRICE_QA_LEADERSHIP,
     route: '/course/qa-leadership-academy',
   },
+  {
+    slug: 'modern-test-automation-bootcamp',
+    title: 'Modern Test Automation Bootcamp',
+    priceLabel: '£199',
+    amount: 19900,
+    currency: 'gbp',
+    // Launch price capability (£149) — dormant by default; set launchActive
+    // true to charge/display it.
+    promoPriceLabel: '£149',
+    promoAmount: 14900,
+    launchActive: false,
+    stripePriceId: process.env.STRIPE_PRICE_MODERN_AUTOMATION,
+    route: '/course/modern-test-automation-bootcamp',
+  },
 ];
+
+/** The price actually charged/displayed for a course (launch price when active). */
+export function getActivePrice(config: CourseConfig): { amount: number; label: string } {
+  if (config.launchActive && config.promoAmount != null) {
+    return { amount: config.promoAmount, label: config.promoPriceLabel ?? config.priceLabel };
+  }
+  return { amount: config.amount, label: config.priceLabel };
+}
 
 export function getCourseConfig(slug: string): CourseConfig | undefined {
   return COURSES.find((c) => c.slug === slug);

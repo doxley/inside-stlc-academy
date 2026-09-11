@@ -1,0 +1,545 @@
+// Modern Test Automation Bootcamp — Module 13: Reporting, Observability & Maintenance.
+// Playwright + TypeScript module on turning test runs into trustworthy evidence:
+// reporters, failure artefacts (traces, screenshots, video), a repeatable debugging
+// method, keeping a suite healthy, and communicating results honestly. Every lesson
+// reinforces that a green run is evidence about risk, not a guarantee of quality.
+export default {
+  courseSlug: 'modern-test-automation-bootcamp',
+  moduleNumber: 13,
+  lessonsPrefix: 'modern-automation',
+  enhPrefix: 'modern-automation',
+  enhSep: '-',
+  lessons: [
+    {
+      lessonNumber: 1,
+      title: 'Reporters',
+      estimatedTime: '16 minute read',
+      lessonOverview: `A test run only helps if someone can read its result. Playwright's reporters turn the same run into a live terminal summary, a shareable HTML report, or machine-readable JSON — and choosing the right one for the audience is the difference between a result people act on and a wall of output nobody reads.`,
+      learningObjectives: [
+        'Describe what the list, line, dot, html, json and blob reporters each produce',
+        'Configure different reporters for local runs and for CI in playwright.config.ts',
+        'Choose a reporter based on who is reading the result and where',
+      ],
+      lessonNotes: `## A run needs an audience
+Every automated run ends in a verdict, but the verdict is worthless if it lands somewhere no one looks or in a form no one can parse. A reporter is the thing that decides *how* the result is presented: a scrolling list a human watches locally, a rich HTML page a teammate opens after CI, or a JSON file another tool ingests. Playwright ships several, and you pick per context.
+
+## The built-in reporters
+- **\`list\`** — one line per test as it runs, with status and duration. Readable, verbose, good for watching a local run unfold. The default when not in CI.
+- **\`line\`** — a single updating line plus failures printed in full. Compact; good for larger suites where per-test output would scroll away.
+- **\`dot\`** — one character per test (\`·\` pass, \`F\` fail). The most compact; common in CI logs where you only care about the shape of the run and the failures.
+- **\`html\`** — a self-contained web report with every test, its steps, timings, and attached traces, screenshots and video. This is the one humans actually investigate failures in.
+- **\`json\`** — the whole run as a JSON document. Not for reading; for feeding dashboards, flaky-test trackers or custom tooling.
+- **\`junit\`** — JUnit XML, the format most CI systems and test-management tools understand for native pass/fail display.
+- **\`blob\`** — an opaque bundle of the run's raw data. Its purpose is *merging*: when you shard a suite across many machines, each shard emits a blob and you combine them into one report afterwards.
+
+## Configure more than one at once
+Reporters are set in \`playwright.config.ts\`, and you can run several together — an array of \`[name, options]\` pairs. A common shape is a human-facing reporter plus a machine-facing one: \`list\` for the console and \`html\` for investigation, or \`dot\` plus \`junit\` plus \`html\` in CI.
+
+## Human here, machine there
+The core judgement is: **who reads this, and where?** Locally, you want something you can watch and an HTML report you can open on a failure. In CI, you want a compact console format, a machine format your platform displays natively (\`junit\`), and the HTML report published as an artefact for humans to open later. Use \`process.env.CI\` to switch between the two.
+
+## Key takeaway
+Reporters turn one run into the right artefact for each audience — \`list\`/\`line\`/\`dot\` for the console, \`html\` for humans investigating a failure, \`json\`/\`junit\` for tooling, \`blob\` for merging sharded runs — so configure a human-facing and a machine-facing reporter together and switch them by whether the run is local or CI.`,
+      workedExample: `Different reporters for local and CI runs, set in the config:
+
+~~~ts
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  reporter: process.env.CI
+    ? [
+        ['dot'],                                   // compact console output in CI logs
+        ['junit', { outputFile: 'results.xml' }],  // your CI platform renders this natively
+        ['html', { open: 'never' }],               // published as an artefact for humans
+      ]
+    : [
+        ['list'],                                   // readable, per-test output locally
+        ['html', { open: 'on-failure' }],           // opens the report only when something fails
+      ],
+});
+~~~
+
+Locally you get a \`list\` you can watch and an HTML report that pops open only when a test fails — no ceremony on a green run, a full investigation surface on a red one. In CI the console stays terse with \`dot\`, your platform gets \`junit\` XML to show native pass/fail, and \`html\` is generated with \`open: 'never'\` so the machine does not try to launch a browser — you publish that folder as a build artefact and open it by hand when you need to dig in. One config, two audiences, chosen by \`process.env.CI\`.`,
+      commonMistakes: `- Leaving \`html\` on its default \`open: 'on-failure'\` in CI, so the run tries to launch a browser on a headless agent
+- Emitting only a console reporter in CI, so a failure leaves no HTML report to investigate after the fact
+- Producing \`json\` output and expecting a human to read it, instead of feeding it to a tool
+- Using \`list\` on a two-thousand-test suite, so real failures scroll off the top of the log`,
+      realWorldTip: `On a delivery team, treat the HTML report as the failure investigation surface and make sure CI always publishes it as an artefact — a red build with no attached report forces everyone to reproduce locally before they can even start. Keep the console reporter compact (\`dot\` or \`line\`) so the CI log stays skimmable, and add \`junit\` only if your platform actually consumes it; an unread XML file is just noise. The reporter list is part of your pipeline's usability, not an afterthought.`,
+      exercise: `Configure \`playwright.config.ts\` to use two different reporter sets: one for local development (something readable plus an HTML report that opens on failure) and one for CI (a compact console reporter, a machine format, and an HTML report generated but not opened). Run the suite both ways — locally and with \`CI=1\` set — and confirm the output differs. Deliverable: the config plus a two-line note on which reporter each audience relies on.`,
+      reflectionQuestion: `Think about the last time a CI run failed and you had to investigate. What information did you wish the reporter had surfaced immediately, and which reporter would have given it to you?`,
+      knowledgeCheck: `Which reporter's purpose is to be merged across sharded runs rather than read directly? (Answer: blob)`,
+      completionChecklist: [
+        'I can describe what list, line, dot, html, json, junit and blob each produce',
+        'I can configure different reporters for local and CI runs in playwright.config.ts',
+        'I choose a reporter based on who reads the result and where',
+      ],
+      enhancements: {
+        badGood: {
+          label: 'one reporter for all vs audience-appropriate reporters',
+          bad: `~~~ts
+// A single reporter used everywhere — verbose locally, and no artefact to investigate in CI.
+export default defineConfig({
+  reporter: 'list',
+});
+~~~`,
+          good: `~~~ts
+// Human-facing and machine-facing reporters, switched by environment.
+export default defineConfig({
+  reporter: process.env.CI
+    ? [['dot'], ['html', { open: 'never' }], ['junit', { outputFile: 'results.xml' }]]
+    : [['list'], ['html', { open: 'on-failure' }]],
+});
+~~~`,
+        },
+        davidTip: `Set \`open: 'never'\` for the HTML reporter in CI explicitly — the default tries to open a browser, which either hangs a headless agent or prints a confusing error. Publish the \`playwright-report\` folder as an artefact and link it from the build summary so a failing run is one click from a full report.`,
+        visualAid: {
+          type: 'comparison',
+          title: 'Choosing a reporter by audience',
+          headers: ['Reporter', 'Reads like', 'Best for'],
+          rows: [
+            ['list', 'One line per test', 'Watching a local run'],
+            ['dot', 'One char per test', 'Compact CI console logs'],
+            ['html', 'A web page with traces', 'A human investigating a failure'],
+            ['junit', 'XML', 'CI platforms showing native pass/fail'],
+            ['json', 'A data document', 'Dashboards and custom tooling'],
+            ['blob', 'An opaque bundle', 'Merging sharded runs into one report'],
+          ],
+        },
+      },
+    },
+    {
+      lessonNumber: 2,
+      title: 'Traces, Screenshots & Video',
+      estimatedTime: '18 minute read',
+      lessonOverview: `When a test fails, the question is always "what actually happened?" Playwright can answer it by capturing evidence — a full trace, a screenshot, a video — automatically, and only when it is useful. This lesson configures those artefacts and shows how to read a trace in the trace viewer, the single most valuable debugging tool the framework gives you.`,
+      learningObjectives: [
+        'Configure trace, screenshot and video capture to fire on failure or retry, not always',
+        'Open a recorded trace in the Playwright trace viewer and read its timeline',
+        'Use captured evidence to reconstruct a failure you cannot reproduce locally',
+      ],
+      lessonNotes: `## Evidence, captured automatically
+A failure message tells you *that* a test failed; it rarely tells you *why*. Playwright closes that gap by recording what happened during the run. Three artefacts matter:
+
+- **Trace** — a complete recording of the test: every action, a DOM snapshot before and after each step, network calls, console logs, and the source line that triggered each action. This is the rich one.
+- **Screenshot** — a still image, usually at the moment of failure.
+- **Video** — a recording of the browser for the whole test.
+
+## Capture on failure, not always
+Recording everything for every test is slow and produces gigabytes of artefacts nobody looks at. The right setting captures evidence only when it is worth having. The idiomatic value is \`'on-first-retry'\`:
+
+~~~ts
+use: {
+  trace: 'on-first-retry',
+  screenshot: 'only-on-failure',
+  video: 'retain-on-failure',
+},
+~~~
+
+\`trace: 'on-first-retry'\` means: run the test normally; if it fails and Playwright retries it, record a trace of that retry. You pay the tracing cost only for tests that actually failed once, and you get a full trace of the failing run to investigate. \`screenshot: 'only-on-failure'\` and \`video: 'retain-on-failure'\` follow the same principle — keep the artefact only when the test failed.
+
+## The other trace modes
+- \`'off'\` — never trace.
+- \`'on'\` — trace every test always (slow; use only when hunting something specific).
+- \`'retain-on-failure'\` — trace every test but keep only the failures' traces.
+- \`'on-first-retry'\` — trace only the first retry of a failing test. The usual production choice, because it costs nothing on the green majority.
+
+Retries are what make \`'on-first-retry'\` work, so it pairs with \`retries: process.env.CI ? 2 : 0\` in the config.
+
+## Reading a trace
+A trace on its own is a \`.zip\`. You open it with the trace viewer:
+
+~~~bash
+npx playwright show-trace path/to/trace.zip
+~~~
+
+The viewer gives you a timeline of every action along the top; click any action and you see the DOM snapshot *at that moment*, the network and console at that point, and the exact line of test code that ran. You can scrub back and forth through the test as it happened. For a failure you cannot reproduce — especially a CI-only one — this is how you see what the machine saw.
+
+## Evidence proves the failure, not the fix
+A trace tells you precisely what happened; it does not tell you whether your fix is correct. Read the trace to form a hypothesis, change the code, and re-run to confirm. The artefact is an input to your judgement, not a substitute for it.
+
+## Key takeaway
+Configure \`trace: 'on-first-retry'\`, \`screenshot: 'only-on-failure'\` and \`video: 'retain-on-failure'\` so evidence is captured only when a test fails, then open the trace with \`npx playwright show-trace\` and read its timeline of actions, DOM snapshots and network to reconstruct exactly what happened — especially for failures you cannot reproduce locally.`,
+      workedExample: `Configuring failure evidence, then reading a trace from a CI-only failure:
+
+~~~ts
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  retries: process.env.CI ? 2 : 0,   // retries are what 'on-first-retry' needs
+  use: {
+    trace: 'on-first-retry',          // trace the first retry of any failing test
+    screenshot: 'only-on-failure',    // keep a screenshot only when it failed
+    video: 'retain-on-failure',       // keep the video only when it failed
+  },
+});
+~~~
+
+With this in place, a green run produces no trace, no screenshot and no video — no cost, no clutter. When a test fails in CI, it is retried, that retry is traced, and the trace is attached to the HTML report (and downloadable as a build artefact). To investigate, download it and open the viewer:
+
+~~~bash
+npx playwright show-trace playwright-report/data/<hash>.zip
+~~~
+
+Now walk the timeline. Suppose the failing step is a click on a "Continue" button. In the snapshot just before the failed action you might see the button is present but overlaid by a cookie banner the local environment never showed — so the click landed on the banner, not the button. You could not reproduce that locally because your machine had already dismissed the banner. The trace showed you what the CI browser actually saw, and the fix — dismiss or wait out the banner — follows directly from that evidence.`,
+      commonMistakes: `- Setting \`trace: 'on'\` in CI, which slows every run and stores traces for tests that never failed
+- Using \`trace: 'on-first-retry'\` with \`retries: 0\`, so no retry ever happens and no trace is ever captured
+- Capturing evidence but never publishing it as a CI artefact, so the trace is deleted with the build agent
+- Reading a screenshot alone when a trace was available — the screenshot shows the end state, the trace shows how you got there`,
+      realWorldTip: `On a delivery team, the trace viewer is the fastest route from a red CI build to a diagnosis, so wire it up once and make sure every failure attaches a trace to the published report. When someone reports a CI-only flake, the first question should be "have you opened the trace?" — nine times out of ten the DOM snapshot and network panel show the cause (a late-loading element, a stray dialog, a slow request) without anyone reproducing it locally at all. A team that reads traces spends minutes on failures that would otherwise cost an afternoon of guesswork.`,
+      exercise: `Set \`trace: 'on-first-retry'\`, \`screenshot: 'only-on-failure'\`, \`video: 'retain-on-failure'\` and \`retries: 2\` in your config. Write a test that fails deliberately (assert on text that is not present), run it, then open the resulting trace with \`npx playwright show-trace\`. Deliverable: a short note describing three things the trace showed you about the moment of failure — the action, the DOM snapshot, and one network or console detail.`,
+      reflectionQuestion: `A test passes locally every time but fails intermittently in CI. Before Playwright's trace, how would you have investigated it — and what does having a trace of the exact failing run change about that investigation?`,
+      knowledgeCheck: `What command opens a recorded trace file in the trace viewer? (Answer: npx playwright show-trace <file>)`,
+      completionChecklist: [
+        'I can configure trace, screenshot and video to capture only on failure or retry',
+        'I can open a trace with show-trace and read its action timeline and DOM snapshots',
+        'I use a captured trace to diagnose a failure I cannot reproduce locally',
+      ],
+      enhancements: {
+        industryStory: `A team spent a fortnight blaming "flaky infrastructure" for a login test that failed roughly once a day in CI and never locally. When they finally enabled \`trace: 'on-first-retry'\` and opened a captured trace, the DOM snapshot before the failing click showed a promotional modal that appeared only for accounts created that day — a date-dependent banner that intercepted the click. The cause was in plain sight in the trace the whole time; the fortnight of guesswork was simply the cost of not capturing evidence. After that the rule was non-negotiable: every failing test in CI attaches a trace, and no flake is triaged until someone has opened it.`,
+        davidTip: `\`trace: 'on-first-retry'\` is the setting you want in almost every real project: it costs nothing on passing tests and gives you a full recording of exactly the runs that failed. Reach for \`trace: 'on'\` only in a short, deliberate debugging session on a specific test — never leave it on for the whole suite.`,
+        visualAid: {
+          type: 'comparison',
+          title: 'Failure artefacts and when to use each',
+          headers: ['Artefact', 'What it shows', 'Config value'],
+          rows: [
+            ['Screenshot', 'A still of the end state', "screenshot: 'only-on-failure'"],
+            ['Video', 'The whole run as it played', "video: 'retain-on-failure'"],
+            ['Trace', 'Actions, DOM snapshots, network, console', "trace: 'on-first-retry'"],
+          ],
+        },
+      },
+    },
+    {
+      lessonNumber: 3,
+      title: 'Debugging Failures Fast',
+      estimatedTime: '17 minute read',
+      lessonOverview: `Debugging a failing test is a skill with a method, not a matter of poking until it goes green. This lesson gives you a repeatable sequence — read the error, reproduce, use the trace, bisect — that turns most failures from an open-ended hunt into a short, deterministic investigation.`,
+      learningObjectives: [
+        'Follow a repeatable four-step method for diagnosing a failing test',
+        'Reproduce a failure deterministically before attempting a fix',
+        'Bisect to isolate whether a failure is in the test, the app, or a shared change',
+      ],
+      lessonNotes: `## Method beats guesswork
+The slowest way to debug is to change something, re-run, and hope. The fastest is a fixed sequence you apply every time, so you are always answering the next concrete question rather than staring at red. Four steps:
+
+## Step 1 — Read the error properly
+Playwright's error messages are specific; read the whole thing, not just the first red line. A locator error tells you *what* it was looking for and often *what it found instead*; an assertion error tells you expected versus actual; a timeout tells you which action never completed. Note whether it is a **timeout** (something never happened), an **assertion** (something happened but was wrong), or an **error thrown by the app** (a real bug surfaced). Those three point at very different causes.
+
+## Step 2 — Reproduce it deterministically
+You cannot fix what you cannot reproduce. Run just the failing test, and prefer a mode that lets you see it:
+
+~~~bash
+npx playwright test tests/checkout.spec.ts -g "applies a discount" --headed
+~~~
+
+If it fails only in CI, do not try to fix it blind — open the trace from the failing CI run (Lesson 2). Reproducing means either seeing the failure yourself or holding a trace of the exact run that failed. Guessing at a cause you have not observed is where afternoons disappear.
+
+## Step 3 — Use the trace
+Open the trace and go to the failing action. Look at the DOM snapshot just before it: was the element present? Visible? Covered by something? Check the network panel: did a request the page depends on still be in flight? Check the console: did the app throw? The trace usually turns "it fails sometimes" into "the element was not yet attached because this request had not resolved" — a specific, fixable statement.
+
+## Step 4 — Bisect to isolate
+If the cause is still not obvious, narrow the search space by halving it:
+
+- **Is it the test or the app?** Run the same user journey by hand. If it breaks by hand, it is a real bug; if it only breaks in automation, it is a test or timing issue.
+- **When did it start?** If it passed yesterday, \`git\` history bisects it: which change between the last green run and now could cause this? Playwright's \`--last-failed\` re-runs only what failed, tightening the loop.
+- **Which step?** Comment out or isolate later steps to find the first one that fails; the cause is at or just before it.
+
+## Distinguish the three failure types
+Most wasted time comes from misreading which kind of failure you have. A timeout is usually timing or a wrong locator; an assertion failure is usually a real behaviour difference; an app-thrown error is usually a genuine bug. Naming the type in Step 1 aims Steps 2–4 correctly.
+
+## A fix confirmed is a fix re-run
+When you have a fix, re-run the failing test several times — not once. A single green run after a change to a flaky test proves very little; the failure was intermittent, so the fix must be shown to hold across repeated runs before you believe it.
+
+## Key takeaway
+Debug with a method — read the whole error and name its type, reproduce it deterministically (headed locally or via the CI trace), read the trace at the failing action, and bisect test-versus-app and when-it-started — then confirm the fix by re-running several times rather than trusting a single green.`,
+      workedExample: `Applying the method to a real-looking timeout failure:
+
+~~~text
+Error: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: 'Place order' })
+  - locator resolved to <button disabled ...>Place order</button>
+~~~
+
+**Step 1 — read it.** This is a timeout, but the call log is the gift: the locator *did* resolve — to a button that is \`disabled\`. So the element exists; it is just not clickable. That reframes the whole investigation from "the button is missing" to "the button never became enabled".
+
+**Step 2 — reproduce.** Run just this test headed and watch:
+
+~~~bash
+npx playwright test -g "places an order" --headed
+~~~
+
+You see the form filled but the button staying greyed out — the test proceeds before a required field's async validation completes.
+
+**Step 3 — trace.** The trace's network panel confirms a \`/validate-address\` request still in flight at the moment of the click; the button enables only once it resolves.
+
+**Step 4 — fix and confirm.** The fix is a web-first assertion that waits for the real precondition instead of guessing:
+
+~~~ts
+const placeOrder = page.getByRole('button', { name: 'Place order' });
+await expect(placeOrder).toBeEnabled();   // wait for the real precondition
+await placeOrder.click();
+~~~
+
+Then re-run several times to confirm the intermittency is gone:
+
+~~~bash
+npx playwright test -g "places an order" --repeat-each=5
+~~~
+
+The method took you from a bare timeout to a precise cause and a targeted fix without a single blind change.`,
+      commonMistakes: `- Reading only the first line of the error and missing the call log that says what the locator actually found
+- Trying to fix a CI-only failure without opening its trace, so you are guessing at a cause you have never seen
+- Adding a fixed \`waitForTimeout\` to "fix" a timing failure instead of asserting on the real precondition
+- Declaring a flaky test fixed after one green run, when the failure was intermittent to begin with`,
+      realWorldTip: `On a delivery team, write the four steps somewhere shared and make them the expected first response to a red build — it stops the well-meaning but slow habit of immediately re-running CI hoping it passes. The single highest-leverage habit is reproducing before fixing: an engineer who opens the trace and names the failure type in the first five minutes will out-debug one who spends an hour changing locators at random. And re-run confirmed fixes with \`--repeat-each\`; a fix that holds five times is a fix, a fix that holds once is a coincidence.`,
+      exercise: `Take a genuinely failing test (or write one that fails intermittently, e.g. clicks a button before it is enabled). Debug it by explicitly working the four steps in order and writing one sentence for each: what the error said and its type, how you reproduced it, what the trace showed at the failing action, and how you isolated the cause. Fix it, then confirm with \`--repeat-each=5\`. Deliverable: the four-sentence log plus the fixed test.`,
+      reflectionQuestion: `Recall a failure you debugged by trial and error. Which of the four steps, applied first, would have shortened it the most — and why did you skip it at the time?`,
+      knowledgeCheck: `You have a timeout on a click and the call log shows the locator resolved to a disabled button. What is the failure really telling you? (Answer: the element exists but never became enabled, so the fix is to wait for the enabling precondition, not to find the element)`,
+      completionChecklist: [
+        'I can read a Playwright error fully and name whether it is a timeout, assertion or app error',
+        'I reproduce a failure deterministically before changing anything',
+        'I bisect to isolate test-versus-app and when a failure started, then confirm the fix by re-running',
+      ],
+      enhancements: {
+        badGood: {
+          label: 'guess-and-repair vs the method',
+          bad: `~~~ts
+// A blind timing patch: papers over the symptom, understands nothing, stays flaky.
+await page.waitForTimeout(3000);            // hope three seconds is enough
+await page.getByRole('button', { name: 'Place order' }).click();
+~~~`,
+          good: `~~~ts
+// The trace showed the button enables only after address validation resolves.
+// Assert the real precondition — deterministic, and self-documenting.
+const placeOrder = page.getByRole('button', { name: 'Place order' });
+await expect(placeOrder).toBeEnabled();
+await placeOrder.click();
+~~~`,
+        },
+        davidTip: `\`npx playwright test --last-failed\` re-runs only the tests that failed last time, and \`--repeat-each=N\` runs each the given number of times. Together they are your debugging loop: reproduce with \`--last-failed --headed\`, then prove the fix with \`--repeat-each\`. Tightening this loop is worth more than any single clever fix.`,
+        visualAid: {
+          type: 'flow',
+          title: 'The four-step debugging method',
+          steps: [
+            { label: 'Read the error', detail: 'Whole message and call log; name the type — timeout, assertion, or app error.' },
+            { label: 'Reproduce it', detail: 'Run the one test headed locally, or open the trace of the failing CI run.' },
+            { label: 'Use the trace', detail: 'Inspect the DOM snapshot, network and console at the failing action.' },
+            { label: 'Bisect', detail: 'Test or app? When did it start? Which step? Then confirm the fix by re-running.' },
+          ],
+        },
+      },
+    },
+    {
+      lessonNumber: 4,
+      title: 'Keeping a Suite Healthy',
+      estimatedTime: '18 minute read',
+      lessonOverview: `A test suite is a living asset that rots without care. Flaky tests erode trust, dead and duplicate tests slow every run and hide real signal, and unowned tests fester. This lesson is the maintenance discipline: triage and quarantine flakes, assign ownership, and prune what no longer earns its place.`,
+      learningObjectives: [
+        'Triage a flaky test and quarantine it without disabling coverage silently',
+        'Assign clear ownership so failures have a responsible person',
+        'Prune dead, duplicate and low-value tests to keep the suite fast and trustworthy',
+      ],
+      lessonNotes: `## Trust is the suite's real asset
+A suite exists to give a team confidence. The moment people start ignoring red — "oh, that one's always flaky" — the suite has failed at its only job, regardless of how many tests it contains. Maintenance is the work of keeping the signal trustworthy, and it has three fronts: flakes, ownership, and pruning.
+
+## Flaky-test triage
+A flaky test passes and fails without the code changing. It is worse than a failing test, because it teaches people to ignore results. When you find one:
+
+1. **Confirm it is flaky**, not a real intermittent bug in the app — run it repeatedly (\`--repeat-each\`) and check whether the app itself is behaving inconsistently. A "flake" that is actually a race condition in the product is a bug worth keeping red.
+2. **Diagnose the cause** with the trace (Lesson 3): usually a missing wait, a hard-coded timeout, test-order dependence, or shared state.
+3. **Fix it properly** where you can — a web-first assertion instead of a sleep, isolation instead of shared data.
+
+## Quarantine, visibly
+If you cannot fix a flake immediately, do not delete it and do not leave it failing at random. **Quarantine** it: mark it so it no longer breaks the main build, but is still tracked and still runs somewhere. Playwright's tags and \`test.fixme\` make this explicit:
+
+~~~ts
+test('exports a report @quarantine', async ({ page }) => {
+  test.fixme(true, 'Flaky: JIRA-1234 — races with async export; owner: payments team');
+  // ... test body ...
+});
+~~~
+
+The rule is: quarantine must be **visible and time-boxed**, with a ticket and an owner. A silent \`test.skip\` with no trail is how coverage quietly disappears and no one notices until production does.
+
+## Ownership
+Every test should have someone responsible for it — a team, if not a person. An unowned test that starts failing gets ignored because "it's not mine". Encode ownership: a tag (\`@team-checkout\`), a folder structure that maps to teams, or a \`CODEOWNERS\` entry. When a test fails, it must be obvious who investigates.
+
+## Pruning dead and duplicate tests
+Tests are not free. Every one costs runtime, maintenance and attention, and a suite full of low-value tests hides the failures that matter. Prune deliberately:
+
+- **Dead tests** — testing a removed feature, or skipped for so long no one remembers why. Delete them; the git history keeps them if needed.
+- **Duplicates** — three tests exercising the same path with trivially different data. Keep one, or parametrise.
+- **Low-value tests** — asserting on things that never break or that a cheaper unit test already covers. A slow end-to-end test earning no signal is a liability.
+
+Pruning is not vandalism; a smaller suite that everyone trusts and that runs fast is worth more than a large one people ignore.
+
+## A green suite you do not trust is worthless
+This is the through-line: the point of maintenance is not test count, it is trust. A hundred trustworthy tests beat a thousand where half the reds are shrugged off. Health is measured by whether people believe the result and act on it.
+
+## Key takeaway
+Keep the suite trustworthy: triage flakes and quarantine visibly with a ticket and owner rather than silently skipping, give every test a responsible owner so failures get investigated, and prune dead, duplicate and low-value tests — because a smaller suite people trust and act on is worth far more than a large one they have learned to ignore.`,
+      workedExample: `Quarantining a flake honestly and encoding ownership, versus letting it rot:
+
+~~~ts
+import { test, expect } from '@playwright/test';
+
+// Ownership is explicit in the tag, so a failure has a responsible team.
+test.describe('report export @team-payments', () => {
+  test('downloads a PDF report', async ({ page }) => {
+    await page.goto('/reports');
+    await page.getByRole('button', { name: 'Export PDF' }).click();
+    await expect(page.getByText('Your download is ready')).toBeVisible();
+  });
+
+  // Quarantined VISIBLY: still in the file, still tracked, no longer breaking main.
+  test('emails a report to the account owner @quarantine', async ({ page }) => {
+    test.fixme(
+      true,
+      'Flaky since 2026-08: races with the async email job. Ticket QA-4471. Owner: @team-payments. Review by 2026-10-01.',
+    );
+    await page.goto('/reports');
+    await page.getByRole('button', { name: 'Email me' }).click();
+    await expect(page.getByText('Report sent')).toBeVisible();
+  });
+});
+~~~
+
+The passing test carries a \`@team-payments\` tag, so when it fails the owner is unambiguous. The flaky test is not deleted and not silently skipped — it is marked \`test.fixme\` with a reason that names the cause, a ticket, an owner and a review date. It still appears in the report as skipped, so it stays on everyone's radar; run a scheduled job that filters \`--grep @quarantine\` and the team sees exactly what is parked and for how long. Contrast a bare \`test.skip(true)\` with no comment: that removes coverage with no trail, and six months later nobody knows whether the feature is even tested.`,
+      commonMistakes: `- Silently \`skip\`ing a flaky test with no ticket, owner or date, so coverage vanishes without anyone deciding it should
+- Treating every intermittent failure as "flaky infrastructure" without checking whether the app itself has a race condition
+- Leaving tests unowned, so a failure sits red for weeks because it is nobody's job to look
+- Hoarding duplicate and dead tests, slowing every run and burying the failures that actually matter`,
+      realWorldTip: `On a delivery team, run a lightweight "suite health" review on a cadence — flakes quarantined this iteration, quarantine tickets past their review date, tests skipped longest, slowest tests earning least. Make quarantine a visible, time-boxed state with a ticket, never a quiet skip, and give the review teeth: a quarantined test with no progress by its review date is either fixed or deleted, not renewed indefinitely. The teams whose suites stay trustworthy are the ones who treat maintenance as scheduled work, not something done grudgingly when the build finally becomes unbearable.`,
+      exercise: `Audit a real or sample suite for health. Identify one flaky test and quarantine it properly (tag, \`test.fixme\` with a reason, ticket, owner and review date), find one dead or duplicate test and remove or merge it, and add an ownership tag to a describe block that lacks one. Deliverable: the diff plus a short table listing each test you touched, the action taken, and why.`,
+      reflectionQuestion: `Think of a suite where people routinely ignore certain red results. What did that cost the team in missed real failures, and what would it have taken to keep those tests trustworthy instead?`,
+      knowledgeCheck: `Why is quarantining a flaky test with a ticket and owner better than silently skipping it? (Answer: it stops the flake breaking the main build while keeping the lost coverage visible, tracked and owned, so it gets fixed rather than forgotten)`,
+      completionChecklist: [
+        'I can triage a flaky test and quarantine it visibly with a ticket and owner',
+        'I can assign ownership so every failing test has someone responsible',
+        'I prune dead, duplicate and low-value tests to keep the suite fast and trusted',
+      ],
+      enhancements: {
+        industryStory: `A team's end-to-end suite grew to fifteen hundred tests, of which perhaps forty flaked on any given run. People stopped reading the results — a red build meant "re-run it", not "investigate". The suite was technically enormous and practically useless, and a genuine checkout regression sailed through because its failure looked like just more noise. The recovery was unglamorous: they quarantined every flake with a ticket, deleted two hundred dead and duplicate tests, tagged the rest with owning teams, and instituted a fortnightly health review. The suite shrank and got faster, and — the point — people started trusting red again. Trust, not count, was what they had actually lost.`,
+        davidTip: `A quarantined test needs an expiry, not just a skip. Put a review date in the \`test.fixme\` reason and run a scheduled \`--grep @quarantine\` job so the parked tests stay visible. A quarantine with no deadline is just a slow deletion nobody admitted to.`,
+        visualAid: {
+          type: 'comparison',
+          title: 'Silent skip versus visible quarantine',
+          headers: ['Aspect', 'Silent test.skip', 'Visible quarantine'],
+          rows: [
+            ['Breaks the main build', 'No', 'No'],
+            ['Coverage loss is tracked', 'No', 'Yes — ticket and owner'],
+            ['Has a review date', 'No', 'Yes'],
+            ['Likely to be fixed', 'Rarely — forgotten', 'Yes — on someone’s list'],
+          ],
+        },
+      },
+    },
+    {
+      lessonNumber: 5,
+      title: 'Communicating Results',
+      estimatedTime: '17 minute read',
+      lessonOverview: `A test run is only as valuable as the decision it informs. This closing lesson is about turning a run into a quality signal people trust — reporting the right thing to the right audience, and being scrupulously honest about what green means: a green run is evidence about risk, not a guarantee that the product is good.`,
+      learningObjectives: [
+        'Report a test run as a decision-useful quality signal, tailored to its audience',
+        'State honestly what a green run does and does not prove',
+        'Frame results in terms of risk and coverage rather than a raw pass count',
+      ],
+      lessonNotes: `## The result is an input to a decision
+Nobody runs tests for their own sake. A run exists to help someone decide: is this safe to release? Where is the risk? What should we look at? If your reporting does not make that decision easier, the run's value is lost between the pipeline and the people. Communicating results well is therefore part of the testing work, not an afterthought bolted on at the end.
+
+## Report to the audience, not to yourself
+Different people need different things from the same run:
+
+- **Engineers** need the failing tests, the traces, and enough detail to fix fast. Give them the HTML report and the artefacts.
+- **A release decision-maker** needs the risk picture: what passed, what failed, what is not covered, and what that means for shipping. They do not need three hundred green lines; they need "these two flows failed, this area has no coverage, here is the risk".
+- **The wider team or stakeholders** need a trustworthy headline: a plain statement of what the run does and does not tell them, without false reassurance.
+
+Tailoring is not spin — it is choosing the true facts each audience needs to act.
+
+## What to actually report
+A useful result summary says more than a pass count:
+
+- **What ran and what failed** — with the failures front and centre, not buried.
+- **What is not covered** — the honest gaps. A run of the flows you have automated says nothing about the flows you have not.
+- **Flakiness and confidence** — if reds are being re-run to green, say so; that is a confidence signal in itself.
+- **The risk implication** — translate the numbers into "here is what we know and do not know about the product's readiness".
+
+## The line that runs through the whole course
+A green run is **evidence about risk, not a guarantee of quality**. It says: the behaviours we chose to check, under the conditions we set up, worked this time. It does not say the product is good, that untested paths work, that the assumptions in the tests match production, or that a user will be happy. Reporting green as "everything works" is the single most damaging thing a tester can do, because it converts a bounded piece of evidence into a false promise — and when production breaks anyway, it is the testing that loses credibility.
+
+## Say what green means, every time
+The discipline is to attach the caveat to the claim. "All automated checks passed" is honest. "Everything works" is not. State the scope: *these* flows, under *these* conditions, passed — and name what remains unknown. That honesty is what makes people trust the green when it matters, precisely because they know you will tell them when it means less than it looks.
+
+## Green is a floor, not a ceiling
+A passing suite clears a bar: the known, automated risks did not fire. It is a floor beneath the release, not a ceiling over quality. Exploratory testing, real-world use and the risks you never automated all live above that floor. Communicate the floor as a floor, and you give people a signal they can build real decisions on.
+
+## Key takeaway
+Turn a run into a decision-useful signal by reporting the right facts to each audience — failures and traces for engineers, a risk-and-coverage picture for decision-makers — and be relentlessly honest that a green run is bounded evidence about the risks you chose to check, not a guarantee the product is good; that honesty is exactly what makes people trust the signal when it counts.`,
+      workedExample: `The same run, reported two ways — one dishonest, one decision-useful:
+
+Consider a nightly run: 480 tests, 478 passed, 2 failed, 3 reds re-run to green, and the payments refund flow has no automated coverage at all.
+
+**The damaging version** — a headline that overpromises:
+
+~~~text
+Nightly run: 478/480 passing (99.6%). Quality looks great, good to ship.
+~~~
+
+This buries the two failures in a percentage, hides that three tests only passed on re-run, says nothing about the refund flow that is not tested, and — worst — converts bounded evidence into "good to ship". When a refund bug reaches production, the testing looks negligent.
+
+**The decision-useful version** — the same facts, framed for a release decision:
+
+~~~text
+Nightly run — release-readiness summary
+
+WHAT FAILED (action needed):
+  - Checkout: "applies expired coupon" — real bug, ticket QA-5012, blocks release of coupons.
+  - Login: "SSO timeout" — under investigation, may be environment.
+
+CONFIDENCE CAVEATS:
+  - 3 tests passed only on retry (possible flakiness): listed in the report.
+
+COVERAGE GAPS (unknown risk):
+  - Refund flow has NO automated coverage — this run says nothing about it.
+    Recommend exploratory testing before releasing refund changes.
+
+BOTTOM LINE:
+  478 automated checks passed, meaning the behaviours we automated worked under
+  test conditions. That is evidence the known risks we chose to check did not fire
+  tonight. It is NOT a guarantee the product is good — the refund flow is untested
+  and two real failures need fixing before this ships.
+~~~
+
+The second version reports the same run, but it leads with failures, surfaces the flakiness, names the coverage gap, and states plainly what green does and does not prove. A release decision-maker can act on it; the first version would let them ship a refund bug with a smile.`,
+      commonMistakes: `- Reporting a pass percentage as a headline, so two important failures vanish into a reassuring-looking number
+- Presenting green as "everything works" instead of "the automated checks we chose passed under test conditions"
+- Omitting coverage gaps, so the audience assumes untested flows are safe because the run was green
+- Giving every audience the same raw output — engineers drown in summary, decision-makers drown in detail`,
+      realWorldTip: `On a delivery team, make "what does green mean here?" a habit in every release conversation, and answer it out loud: which flows this covers, which it does not, and what still needs a human's eyes. The testers who are trusted are the ones who volunteer the limits of their evidence — who say "this passed, but we have no coverage of refunds" before anyone asks. It feels like undercutting your own work, but it is the opposite: honest scoping is what makes people believe your green when you say it is safe, because they have learned you will also tell them when it is not.`,
+      exercise: `Take a real or invented test run (some passes, at least one real failure, at least one re-run-to-green, and one flow you know is not covered) and write two summaries of it: a short engineer-facing one and a short release-decision-facing one. The decision-facing summary must lead with failures, name the coverage gap, and include an explicit statement of what the green result does and does not prove. Deliverable: both summaries, no more than a screen each.`,
+      reflectionQuestion: `Recall a time a green suite was reported as "everything works" and something still broke for users. What did that do to how much people trusted testing afterwards, and how would honest scoping of the green result have changed it?`,
+      knowledgeCheck: `A green run is evidence about what, and specifically not a guarantee of what? (Answer: it is bounded evidence that the risks you chose to check did not fire under test conditions; it is not a guarantee that the product is good or that untested paths work)`,
+      completionChecklist: [
+        'I can report a run as a decision-useful signal tailored to its audience',
+        'I state plainly what a green run does and does not prove',
+        'I frame results in terms of risk and coverage rather than a raw pass count',
+      ],
+      enhancements: {
+        industryStory: `A tester proudly reported a release candidate as "100% green, all tests passing, ready to go", and the team shipped. Within hours users hit a broken password-reset flow — one that had never been automated, so no test had ever exercised it. The run had been perfectly honest about what it checked; the *reporting* had turned bounded evidence into a blanket guarantee, and when reality diverged it was testing's credibility that took the hit. The lasting fix was not more tests but better communication: every release summary from then on led with failures, named the untested flows explicitly, and stated in one line what the green did and did not cover. The green stopped being oversold, and — the point — people started trusting it again.`,
+        davidTip: `Get in the habit of ending every result report with one sentence that scopes the green: "these flows passed under test conditions; here is what we did not cover." It costs you a line and buys you credibility, because the caveat is what proves you are reporting evidence honestly rather than selling reassurance.`,
+        visualAid: {
+          type: 'comparison',
+          title: 'What a green run does and does not prove',
+          headers: ['A green run IS evidence that…', 'A green run is NOT proof that…'],
+          rows: [
+            ['The behaviours you automated worked this run', 'The product is good or users will be happy'],
+            ['The risks you chose to check did not fire', 'Risks you did not automate are absent'],
+            ['The app behaved under your test conditions', 'It behaves under real production conditions'],
+            ['Known regressions did not reappear', 'Untested and unknown paths work'],
+          ],
+        },
+      },
+    },
+  ],
+};

@@ -1,0 +1,482 @@
+// Module 1: Thinking Like an Automation Engineer
+// Course: Modern Test Automation Bootcamp
+// Consumed by the content build pipeline. Do not import framework code here.
+
+export default {
+  courseSlug: 'modern-test-automation-bootcamp',
+  moduleNumber: 1,
+  lessonsPrefix: 'modern-automation',
+  enhPrefix: 'modern-automation',
+  enhSep: '-',
+  lessons: [
+    {
+      lessonNumber: 1,
+      title: 'What Test Automation Is Actually For',
+      estimatedTime: '20 min',
+      lessonOverview:
+        'Automation exists to give a team timely, useful evidence about product quality and risk — not to "prove the app works". This lesson separates checking from testing and reframes what a green run really tells you.',
+      learningObjectives: [
+        'Explain the purpose of automation as fast, repeatable evidence about risk rather than proof of correctness',
+        'Distinguish checking (confirming known facts) from testing (exploring the unknown)',
+        'Judge what a passing suite does and does not tell you',
+      ],
+      lessonNotes: `## The question automation answers
+When someone asks "do the tests pass?", what they usually want to know is: *is it safe to ship right now?* Automation earns its place only when it helps answer that question quickly and honestly.
+
+A useful mental model: automation is an **evidence machine**. Every run produces evidence about the state of the product. Good evidence is timely (you get it before the decision, not after), relevant (it covers the risks people actually care about), and trustworthy (a green result means green). A suite that is slow, tests the wrong things, or flakes fails on all three counts — regardless of how many tests it contains.
+
+## Checking versus testing
+This distinction, drawn from the wider testing craft, is the spine of the whole module.
+
+- **Checking** is confirming a fact you already know how to state: "given a valid login, the user reaches the dashboard." It is algorithmic and can be automated.
+- **Testing** is the human activity of exploring, questioning, and learning about the product — noticing that the dashboard loads but the currency is wrong, or asking what happens on a slow network.
+
+Automated tests are, strictly, automated **checks**. That is not a criticism — checks are enormously valuable at scale. But it reframes expectations: a machine confirms the things you thought to encode. It does not notice the bug you never imagined.
+
+## Why "proving it works" is the wrong frame
+No suite proves an application works. It can only show that specific behaviours held under specific conditions at a specific moment. Treating green as proof leads to **false confidence** — the most expensive failure mode in automation, because people stop looking precisely when they feel safest.
+
+A healthier framing: each check reduces uncertainty about one risk. The value of the suite is the sum of the uncertainty it removes, weighted by how much anyone cares.
+
+## Key takeaway
+Automation is there to give a team fast, trustworthy evidence about risk so humans can make better shipping decisions — not to prove the application is correct.`,
+      workedExample: `Consider two tests for the same checkout flow. Both go green. Only one is useful.
+
+~~~ts
+// Test A: technically passes, tells you almost nothing
+test('checkout page loads', async ({ page }) => {
+  await page.goto('/checkout');
+  // no assertion about price, tax, or the order actually being placed
+});
+
+// Test B: encodes a risk someone cares about
+test('applies tax and places the order for a UK customer', async ({ page }) => {
+  await addItemToBasket(page, 'SKU-100', { price: 20.0 });
+  await page.goto('/checkout');
+  await expect(page.getByTestId('tax')).toHaveText('£4.00'); // 20% VAT
+  await expect(page.getByTestId('total')).toHaveText('£24.00');
+  await placeOrder(page);
+  await expect(page.getByRole('heading', { name: 'Order confirmed' })).toBeVisible();
+});
+~~~
+
+Test A produces a green tick and zero evidence about whether customers can buy anything. Test B removes real uncertainty: pricing, tax, and order placement all held. When you write a check, ask "what risk does its green result retire?" If you cannot answer, the check is decoration.`,
+      commonMistakes: `- Writing assertions that confirm the page rendered rather than that the behaviour was correct.
+- Treating the count of tests as a quality metric — 500 shallow checks can retire less risk than 20 sharp ones.
+- Announcing "all tests pass, we're good to ship" as if green were proof rather than partial evidence.
+- Automating a check before you can state, in one sentence, which risk it addresses.`,
+      realWorldTip: `On a delivery team, the phrase to normalise is "what does green actually tell us?" When a colleague says the suite is passing, the senior response is to ask which risks are covered and which are not. Pair automation with a short, living note of the risks you have deliberately left to exploratory testing or manual checks — that honesty is what stops the suite from becoming a comfort blanket.`,
+      exercise: `Pick any feature in an app you know (a login, a search, a basket). Write down three risks a user or the business would genuinely care about. For each, draft a one-line description of a check that would produce evidence about that risk, and note one risk you would deliberately leave to a human. Produce a short list: three candidate checks (each named after its risk) plus one explicitly manual concern.`,
+      reflectionQuestion:
+        'Think of a time a green build was followed by a production incident. Which risk had no check — and would you have known to write one?',
+      knowledgeCheck: `Q: What is the difference between a check and a test?
+A: A check confirms a fact you already know how to state and can be automated; testing is the human activity of exploring and questioning the product to learn things you did not already know. Automated tests are automated checks.`,
+      completionChecklist: [
+        'I can explain automation as an evidence machine rather than a proof of correctness',
+        'I can distinguish checking from testing and say why it matters',
+        'I can name the specific risk that a given check retires',
+      ],
+      enhancements: {
+        industryStory:
+          'Consider a team whose dashboard proudly showed 100% green for months. A billing bug still reached production: invoices rendered, so every check passed, but the totals were wrong by a rounding error nobody had encoded an assertion for. The tests confirmed exactly what they were told to confirm and nothing more. The team had mistaken coverage of screens for coverage of risk.',
+        badGood: {
+          label: 'How you describe a passing suite',
+          bad: 'All the tests are green, so the release is good to go.',
+          good: 'The suite is green, which covers login, checkout, and search regression. Payment retries and the new export flow are not automated yet — I have exploratory notes on those before we ship.',
+        },
+        davidTip:
+          'Get into the habit of naming a check after the risk it retires, not the page it visits. "places order with correct VAT" ages far better than "checkout test", and it forces you to know why the check exists before you write a line of it.',
+        visualAid: {
+          type: 'comparison',
+          title: 'Checking versus testing',
+          headers: ['Aspect', 'Checking (automatable)', 'Testing (human)'],
+          rows: [
+            ['Goal', 'Confirm a known fact holds', 'Learn something new about the product'],
+            ['Nature', 'Algorithmic, repeatable', 'Exploratory, judgement-led'],
+            ['Finds', 'Regressions in known behaviour', 'Risks and bugs nobody imagined'],
+            ['Green means', 'This encoded behaviour still holds', 'Not applicable — testing is an activity, not a result'],
+          ],
+        },
+      },
+    },
+
+    {
+      lessonNumber: 2,
+      title: 'What to Automate — and What to Leave Manual',
+      estimatedTime: '20 min',
+      lessonOverview:
+        'Not everything worth testing is worth automating. This lesson gives you a practical way to weigh a candidate check by stability, value, frequency, and risk — and to recognise a poor candidate before you sink time into it.',
+      learningObjectives: [
+        'Apply four lenses — stability, value, frequency, risk — to decide whether a check is a good automation candidate',
+        'Recognise the traits of a poor candidate and choose a better alternative',
+        'Justify leaving certain concerns to manual or exploratory testing',
+      ],
+      lessonNotes: `## Automation is an investment, not a default
+Every automated check has an ongoing cost (you will meet the full cost in Lesson 3). So the question is never "can we automate this?" — almost anything can be automated. The question is "should we, given what it costs and what it returns?"
+
+Four lenses make that judgement concrete.
+
+- **Stability** — how settled is the behaviour and its interface? Automating a screen that is redesigned every sprint means rewriting the check every sprint. Settled behaviour is cheap to keep green.
+- **Value** — what would it cost the business if this broke unnoticed? A silent checkout failure is catastrophic; a misaligned footer is not.
+- **Frequency** — how often do you need this evidence? A check you rely on every single build pays back fast. A one-off migration verification may not be worth encoding at all.
+- **Risk** — how likely is this to break, and how quietly? Complex, frequently changed, integration-heavy paths are exactly where a fast regression signal earns its keep.
+
+A strong candidate scores well across several lenses: stable interface, high business value, needed on every build, and genuinely prone to regression.
+
+## What makes a poor candidate
+- Behaviour still in flux — automate it and you maintain a moving target.
+- One-off or rarely repeated checks — the human does it faster than you can encode it.
+- Things that need human judgement — visual polish, tone, "does this feel right", exploratory hunches.
+- Deeply flaky dependencies you cannot control — automating over an unstable third party manufactures false alarms.
+
+## Push the check to where it is cheapest
+Often the answer is not "automate or not" but "automate this *lower down*". A pricing rule is far cheaper and steadier to check as a unit test on the calculation than as a full browser journey. You will develop this instinct properly in Lesson 4; for now, notice when a UI candidate is really a logic candidate wearing a UI costume.
+
+## Key takeaway
+Automate checks that are stable, valuable, frequently needed, and genuinely at risk — and be willing to leave judgement-heavy or throwaway concerns to a human.`,
+      workedExample: `Score three candidates before writing anything. A simple table beats a gut feeling.
+
+~~~ts
+// A lightweight scoring sketch — the discipline matters more than the maths.
+type Lens = 'stability' | 'value' | 'frequency' | 'risk';
+type Candidate = { name: string; scores: Record<Lens, 1 | 2 | 3> };
+
+const candidates: Candidate[] = [
+  { name: 'VAT calculation on checkout', scores: { stability: 3, value: 3, frequency: 3, risk: 3 } },
+  { name: 'Marketing banner copy', scores: { stability: 1, value: 1, frequency: 1, risk: 1 } },
+  { name: 'New "gift wrap" toggle (in active design)', scores: { stability: 1, value: 2, frequency: 2, risk: 2 } },
+];
+
+// VAT calc: automate now, ideally as a unit/integration check on the calculator.
+// Banner copy: leave to a human eyeball; automating it is pure maintenance cost.
+// Gift wrap: wait — the interface is unstable, revisit once the design settles.
+~~~
+
+The scoring is not the point; the *conversation* is. Making the four lenses explicit turns "let's automate everything" into a defensible set of choices you can explain to a sceptical lead.`,
+      commonMistakes: `- Automating brand-new UI while it is still being designed, then blaming the framework for the churn.
+- Skipping high-value paths because they are "hard to automate" — difficulty and importance are different axes.
+- Encoding one-off manual checks that a person would complete faster than you can write the automation.
+- Automating over a flaky external dependency and treating the resulting false alarms as "just how it is".`,
+      realWorldTip: `On a real team, the automation backlog is a prioritisation problem, not a completeness problem. Keep a visible list of candidates scored against the four lenses and pull from the top. When a stakeholder asks "why isn't X automated yet?", you can point at where it sits and why — which is far stronger than a vague promise to get to everything eventually.`,
+      exercise: `Take five behaviours from a product you know and score each from 1 to 3 on stability, value, frequency, and risk. Sort them. Produce a ranked shortlist that names the top two you would automate first, the one you would deliberately leave manual, and a one-line reason for each decision.`,
+      reflectionQuestion:
+        'Which is more tempting on your team right now: automating something because it is easy, or because it is valuable — and what does that tell you?',
+      knowledgeCheck: `Q: Name a trait that makes a check a poor automation candidate.
+A: Instability (behaviour or interface still changing), a one-off or rarely repeated need, reliance on human judgement, or an uncontrollable flaky dependency — any of these usually costs more to automate than it returns.`,
+      completionChecklist: [
+        'I can score a candidate check against stability, value, frequency, and risk',
+        'I can articulate why a specific check should stay manual',
+        'I can recognise when a UI candidate is really a lower-level logic candidate',
+      ],
+      enhancements: {
+        industryStory:
+          'Teams often discover their flakiest, most-hated tests are the ones written against features that were still being designed. The behaviour changed weekly, the checks broke weekly, and eventually people started ignoring the failures — which quietly disabled the safety net for everything else too. The fix was rarely a better tool; it was waiting for the interface to settle before investing.',
+        davidTip:
+          'When you feel the urge to automate something immediately, ask "will this behaviour still look the same in three sprints?" If the honest answer is no, note it as a candidate and move on. Restraint is a senior automation skill.',
+        miniChallenge:
+          'Find one existing check in a codebase you have access to that scores low on all four lenses. Write two sentences arguing for deleting it, and what you would trust instead.',
+        visualAid: {
+          type: 'flow',
+          title: 'Deciding on an automation candidate',
+          steps: [
+            { label: 'State the risk', detail: 'What breaks, and who cares if it does silently?' },
+            { label: 'Score the four lenses', detail: 'Stability, value, frequency, risk — 1 to 3 each.' },
+            { label: 'Choose the level', detail: 'Could this be checked lower down (unit/API) more cheaply?' },
+            { label: 'Automate, defer, or leave manual', detail: 'Commit to a decision you can justify aloud.' },
+          ],
+        },
+      },
+    },
+
+    {
+      lessonNumber: 3,
+      title: 'The True Cost of Automation',
+      estimatedTime: '22 min',
+      lessonOverview:
+        'The cost of a check is not the hour it takes to write it — it is the years you maintain it. This lesson covers maintenance, flakiness, and false confidence, and why a green suite can be worth less than nothing.',
+      learningObjectives: [
+        'Account for the total cost of ownership of an automated check, not just its authoring cost',
+        'Explain how flakiness and false confidence actively destroy value',
+        'Decide when the right move is to delete or rewrite a check rather than keep it',
+      ],
+      lessonNotes: `## The iceberg
+Writing a check is the tip. Below the waterline sit the real costs:
+
+- **Maintenance** — every product change risks breaking checks that must then be read, understood, and fixed. This cost recurs for the life of the check.
+- **Runtime** — slow suites delay the very feedback automation exists to provide. A check that adds two minutes to every build, ten times a day, taxes the whole team.
+- **Triage** — someone has to look at each failure and decide "real bug or noise?" That human time is often the largest cost of all.
+- **Trust erosion** — this is the expensive one, below.
+
+The authoring cost is a one-off. Everything else recurs. A check you write in an hour may cost days over its life — which is fine if it retires real risk, and a slow leak if it does not.
+
+## Flakiness is a tax on everyone
+A **flaky** check passes and fails without the product changing — timing races, test-order dependence, shared state, unstable environments. Flakiness is not a minor annoyance; it is corrosive:
+
+- People start re-running failures instead of investigating them.
+- Re-running trains the team to ignore red. The day a *real* failure appears, it looks like more noise and gets waved through.
+- A suite the team no longer trusts provides no evidence at all, however green it looks.
+
+One reliable check is worth more than ten flaky ones. Flakiness must be treated as a defect in the check, fixed or deleted — never tolerated as background weather.
+
+## Why a green suite can be worthless
+A suite can be green and useless when it checks the wrong things, checks them shallowly, or is so flaky that green carries no signal. Worse than useless is a suite that manufactures **false confidence**: it looks thorough, so people stop testing the things it does not actually cover. The comfort it provides is real; the safety it provides is not.
+
+## Total cost of ownership
+For any check, weigh (authoring + lifetime maintenance + runtime + triage) against (risk retired × how often anyone acts on it). If the left side dominates, the professional move is to delete or rewrite — pruning a suite is as much a part of the craft as growing it.
+
+## Key takeaway
+The true cost of a check is its whole lifetime of maintenance, runtime, and triage; flakiness and false confidence can push a green suite's value below zero, so be as willing to delete checks as to write them.`,
+      workedExample: `The same intent, written two ways, with very different lifetime costs.
+
+~~~ts
+// High-cost, flaky: races the app and couples to brittle detail.
+test('order confirmation appears', async ({ page }) => {
+  await placeOrder(page);
+  await page.waitForTimeout(2000); // hard-coded wait: sometimes too short, sometimes wasteful
+  const banner = page.locator('.MuiAlert-root.css-1h2xYz'); // couples to a generated class name
+  expect(await banner.count()).toBeGreaterThan(0);
+});
+
+// Low-cost, stable: waits on the real signal, asserts on intent.
+test('order confirmation appears', async ({ page }) => {
+  await placeOrder(page);
+  await expect(
+    page.getByRole('status').filter({ hasText: 'Order confirmed' })
+  ).toBeVisible(); // auto-waits, and survives styling changes
+});
+~~~
+
+The first version fails intermittently (the wait races the render) and breaks whenever styling changes (the generated class churns). Each failure costs triage time and chips at trust. The second waits on the behaviour, not the clock, and asserts on meaning, not markup — so it stays quiet until something real breaks. Same green tick; wildly different total cost of ownership.`,
+      commonMistakes: `- Judging a check by how long it took to write rather than how much it will cost to keep.
+- Tolerating flakiness with a "just re-run it" culture, which quietly trains everyone to ignore red.
+- Hard-coded sleeps and assertions on generated class names or exact markup — cheap to write, expensive forever.
+- Never deleting anything, so the suite accretes low-value checks that slow every build and drown real signals.`,
+      realWorldTip: `Mature teams track flakiness as a first-class defect: a flaky check gets a ticket, gets quarantined out of the blocking path, and is fixed or deleted within a set window — it does not sit red-then-green for months. Equally, budget time each iteration to prune. A suite that only ever grows will eventually cost more attention than it returns, and the team stops trusting it long before anyone admits it.`,
+      exercise: `Take one UI check (yours or an example) and estimate its total cost of ownership: authoring time, how often it runs, how often it has failed for non-bug reasons, and roughly how long each triage takes. Produce a short written verdict: keep as-is, rewrite to be stable, push to a lower level, or delete — with one sentence of justification.`,
+      reflectionQuestion:
+        'On your team, what happens when a test goes red — is it investigated, or re-run? What does the honest answer reveal about how much the suite is trusted?',
+      knowledgeCheck: `Q: Why can a fully green suite still be worthless?
+A: Because green only means the encoded checks passed. If those checks cover the wrong things, cover them shallowly, or are so flaky that green carries no signal, the suite retires little real risk — and if it looks thorough, it can create false confidence that stops people testing what it misses.`,
+      completionChecklist: [
+        'I can account for the lifetime cost of a check, not just its authoring cost',
+        'I can explain why flakiness erodes trust and destroys evidence',
+        'I can decide when to delete or rewrite a check rather than keep it',
+      ],
+      enhancements: {
+        badGood: {
+          label: 'Reacting to an intermittent failure',
+          bad: "It's flaky, just hit re-run — it'll go green on the second try.",
+          good: "It's failing intermittently, so I've quarantined it out of the blocking path and raised a ticket. Either we make it wait on a real signal or we delete it — we can't have a check the team learns to ignore.",
+        },
+        davidTip:
+          'Never write a hard-coded sleep to "fix" a timing failure. It hides a race rather than resolving it, and it taxes every future run. Wait on the actual condition you care about — the element being visible, the request completing — and the flakiness usually disappears with it.',
+        industryStory:
+          'A common pattern: a suite grows for a year, nobody ever removes anything, and builds creep from four minutes to nineteen. Developers start pushing without waiting for results because the feedback arrives too late to be useful. The suite was still green — it had simply become too slow and too noisy to change anyone\'s behaviour, which is the same as providing no evidence at all.',
+        visualAid: {
+          type: 'comparison',
+          title: 'Authoring cost versus total cost of ownership',
+          headers: ['Cost', 'Paid once (authoring)', 'Paid for the life of the check'],
+          rows: [
+            ['Writing the check', 'Yes', 'No'],
+            ['Fixing it when the product changes', 'No', 'Yes, repeatedly'],
+            ['Runtime added to every build', 'No', 'Yes, every run'],
+            ['Triage of each failure', 'No', 'Yes, per failure'],
+            ['Trust erosion from flakiness', 'No', 'Yes, compounding'],
+          ],
+        },
+      },
+    },
+
+    {
+      lessonNumber: 4,
+      title: 'The Test Pyramid (and Why UI-Only Suites Fail)',
+      estimatedTime: '22 min',
+      lessonOverview:
+        'The test pyramid is a heuristic for putting each check at the level where it is cheapest and steadiest. This lesson explains pragmatic layering, why UI-only suites collapse under their own weight, and why the pyramid is guidance, not dogma.',
+      learningObjectives: [
+        'Describe the layers — unit, integration, API, UI — and the trade-offs between them',
+        'Explain why suites weighted entirely towards the UI become slow and flaky',
+        'Apply "push the check down" to move a candidate to a cheaper, steadier level without treating the shape as a rule',
+      ],
+      lessonNotes: `## What the pyramid actually says
+The pyramid is a claim about **proportions**, not a law. Prefer many fast, focused checks low down and fewer, broader checks high up, because cost and fragility rise as you climb.
+
+- **Unit** — one function or component in isolation. Milliseconds to run, pinpoint failures, cheap to maintain. Best for logic: pricing rules, validation, state transitions.
+- **Integration** — a few units together, often with a real database or module boundary. Slower, but catches wiring mistakes units miss.
+- **API / service** — a whole service through its interface, no browser. Fast relative to UI, stable (contracts change less than markup), and excellent for business rules and error handling.
+- **UI / end-to-end** — the real thing through a browser. The only layer that proves the pieces work together *for a user* — and the slowest, most brittle, most expensive to maintain.
+
+Each layer answers a different question. Higher layers give more realistic evidence at a higher price. The art is buying just enough realism.
+
+## Why UI-only suites fail
+A suite made only of end-to-end checks — sometimes called an **ice-cream cone**, the pyramid upside down — reliably collapses:
+
+- **Slow** — every check boots the whole stack, so feedback arrives too late to guide work.
+- **Flaky** — the more moving parts a check spans, the more ways it fails for reasons unrelated to the bug you care about.
+- **Vague** — when a broad journey goes red, it says *something* broke, not *what*. Diagnosis is slow.
+- **Expensive** — the same logic gets re-verified through the UI over and over, at the highest cost per assertion.
+
+Teams that live here spend their days nursing the suite instead of getting evidence from it.
+
+## Pushing tests down
+The core technique: verify each risk at the lowest level that can honestly answer the question. A VAT rule belongs in a unit check on the calculator, not a browser journey through checkout. Keep a **thin** layer of UI checks for the genuinely end-to-end concerns — a user really can log in, search, and buy — and let the layers beneath carry the detail.
+
+## Not dogma
+The exact shape is context-dependent. An API-heavy backend may be widest at the service layer; a thin client over a rich backend legitimately looks different. The durable principle is not "match this silhouette" but "put each check where it is cheapest and steadiest while still answering the question honestly."
+
+## Key takeaway
+Favour many fast, focused checks low down and a thin layer of end-to-end checks on top; push each check to the cheapest level that honestly answers its question, and treat the pyramid's shape as a heuristic, not a target.`,
+      workedExample: `The same VAT rule, verified at two levels. Notice which one you would want to run on every keystroke.
+
+~~~ts
+// Unit level: milliseconds, exact, cheap to keep green.
+import { calculateVat } from './pricing';
+
+test('applies 20% VAT to a standard-rated item', () => {
+  expect(calculateVat({ net: 20.0, rate: 'standard' })).toBe(4.0);
+  expect(calculateVat({ net: 0, rate: 'standard' })).toBe(0);
+});
+
+// UI level: seconds, whole stack, valuable but expensive — use sparingly.
+test('checkout shows correct VAT for a UK customer', async ({ page }) => {
+  await addItemToBasket(page, 'SKU-100', { net: 20.0 });
+  await page.goto('/checkout');
+  await expect(page.getByTestId('tax')).toHaveText('£4.00');
+});
+~~~
+
+Verify the many VAT edge cases — zero-rated, reduced, rounding — at the unit level, where each takes milliseconds and points straight at the fault. Keep just **one** UI check to prove the calculated tax actually reaches the customer's screen. Pushing the detail down turns a slow, flaky pile of browser journeys into a fast unit suite plus a thin, trustworthy end-to-end layer.`,
+      commonMistakes: `- Verifying business logic through the browser because "that's how the user sees it", multiplying slow, flaky checks for something a unit check nails instantly.
+- Treating the pyramid as a strict quota to hit rather than a heuristic to reason with.
+- Skipping the integration layer entirely, so unit checks pass, UI checks pass, and the wiring between them is never exercised.
+- Building broad end-to-end journeys that assert on everything, so a failure tells you the day is ruined but not where to look.`,
+      realWorldTip: `On a delivery team the pyramid is a conversation with developers, not a QA-only concern. The cheapest, steadiest checks usually live closest to the code, so the people writing the code are best placed to write them. Your job as an automation engineer is often to push logic-level risks down to where they belong and to defend a small, sharp set of end-to-end checks against the constant temptation to add "just one more" broad journey.`,
+      exercise: `Take a feature with real logic (discounts, tax, eligibility, permissions). List the distinct behaviours worth checking, then assign each to a layer — unit, integration, API, or UI — with a one-line reason. Produce the mapping and identify which single end-to-end check you would keep to prove the whole flow works for a user.`,
+      reflectionQuestion:
+        'If your current suite is heavy at the top, what is really driving that — the architecture, the team\'s skills, or simply that UI checks feel more "real"?',
+      knowledgeCheck: `Q: Why do UI-only ("ice-cream cone") suites tend to fail?
+A: End-to-end checks are slow, flaky, and vague because each spans the whole stack; a suite made only of them gives late feedback, fails for reasons unrelated to real bugs, and struggles to pinpoint what broke — so the team spends more time maintaining it than getting evidence from it.`,
+      completionChecklist: [
+        'I can describe each layer and the trade-offs between them',
+        'I can explain why a UI-only suite becomes slow, flaky, and vague',
+        'I can push a check to the lowest level that honestly answers its question',
+      ],
+      enhancements: {
+        industryStory:
+          'A recognisable trajectory: a team automates entirely through the browser because it feels like the most realistic testing. For a while it works. Then the suite hits an hour, flakes daily, and a single failing journey takes an afternoon to diagnose. The rescue is rarely a faster browser tool — it is moving the bulk of the logic checks down to unit and API level and keeping only a handful of end-to-end journeys for the things that genuinely need the whole stack.',
+        davidTip:
+          'When a UI check keeps breaking, ask "what is this actually verifying?" Nine times out of ten it is business logic that would sit far more happily one or two layers down. Move it, and keep the browser for what only the browser can prove.',
+        visualAid: {
+          type: 'comparison',
+          title: 'Choosing a layer',
+          headers: ['Layer', 'Speed', 'Stability', 'Best for'],
+          rows: [
+            ['Unit', 'Milliseconds', 'High', 'Logic: rules, validation, state transitions'],
+            ['Integration', 'Fast', 'Medium-high', 'Wiring between units, real DB or module boundaries'],
+            ['API / service', 'Moderate', 'High (contracts change slowly)', 'Business rules and error handling without a browser'],
+            ['UI / end-to-end', 'Slow', 'Low', 'A thin layer proving the whole flow works for a user'],
+          ],
+        },
+      },
+    },
+
+    {
+      lessonNumber: 5,
+      title: "The Automation Engineer's Mindset & Workflow",
+      estimatedTime: '22 min',
+      lessonOverview:
+        'This lesson pulls the module together into a way of working: reading code before writing tests, moving in small verified steps, using version control as a safety net, and always framing your work in terms of risk and evidence. It also maps how the rest of the Bootcamp builds on this foundation.',
+      learningObjectives: [
+        'Adopt a habit of reading and understanding code before automating against it',
+        'Work in small, verified steps under version control rather than large speculative changes',
+        'Frame every automation decision in terms of the risk it addresses and the evidence it produces',
+      ],
+      lessonNotes: `## An automation engineer is an engineer
+The mindset that separates a senior automation engineer from a script-writer is engineering discipline applied to testing. Four habits carry most of the weight.
+
+## Read the code first
+You cannot write a good check for behaviour you do not understand. Before automating a flow, read how it works — where the logic lives, what it depends on, where it can fail. This tells you *which layer* a risk belongs at (Lesson 4) and *which risks* are worth encoding (Lessons 1 and 2). Reading code is not a developer-only skill; it is core to writing checks that are sharp rather than superstitious.
+
+## Small steps, verified
+Change one thing, confirm it does what you expect, then move on. A check written and run in small increments is easy to trust; a hundred lines written blind and run once at the end is a debugging session waiting to happen. This applies to the checks themselves and to the code under test — small, observable steps beat large speculative leaps every time.
+
+## Version control is your safety net
+Commit small, coherent changes with messages that say *why*. Version control lets you experiment without fear — you can always return to a known-good state — and it turns your test suite into shared, reviewable, revertible work rather than files on one machine. Branching, reviewing, and reverting are everyday tools of the trade, not ceremony.
+
+## Think in risk and evidence
+Every habit above serves one goal: producing timely, useful evidence about risk. Before you write a check, you should be able to say which risk it retires (Lesson 1), why it is worth the cost (Lessons 2 and 3), and which layer it belongs at (Lesson 4). If you cannot, stop and answer those first. That framing is the through-line of the entire Bootcamp — and remember the founding idea of this module: a green check is not automatically a good check.
+
+## How the rest of the Bootcamp fits
+With this mindset in place, later modules add the craft:
+
+- **Framework fundamentals** — the syntax and structure to express these checks well.
+- **Reliable selectors and waiting** — how to make checks stable rather than flaky (Lesson 3 made this matter).
+- **Structuring a suite** — patterns that keep a growing suite maintainable.
+- **CI and reporting** — delivering the evidence to the team quickly and legibly.
+
+Every one of those builds on the questions you have learned to ask here.
+
+## Key takeaway
+Work like an engineer: read the code before you automate it, move in small verified steps under version control, and frame every check by the risk it retires and the evidence it produces — because a passing check only matters if it was a good check to begin with.`,
+      workedExample: `Contrast two ways of adding a check for a new discount feature.
+
+~~~ts
+// Speculative: written blind, all at once, committed in one lump.
+// - No reading of how discounts are actually applied
+// - Asserts on the UI total only, so a wrong calculation and a wrong
+//   display are indistinguishable when it fails
+// - One giant commit: "add discount tests"
+
+// Engineered: read first, build in steps, commit with intent.
+// Step 1 — read pricing.ts, learn discounts are applied before VAT.
+// Step 2 — add a unit check for that ordering, run it, commit:
+test('applies discount before VAT', () => {
+  expect(priceLine({ net: 100, discount: 0.1, vatRate: 'standard' }))
+    .toEqual({ net: 90, vat: 18, gross: 108 });
+});
+// git commit -m "test: pin discount-before-VAT ordering (regression risk in pricing.ts)"
+
+// Step 3 — add one thin UI check that the discounted total reaches the user, run it, commit.
+~~~
+
+The engineered version reads before writing, so the check pins the *actual* rule; it works in small verified steps, so each is easy to trust; and it commits with a message that records the risk, so the next engineer understands why the check exists. Same feature, but one approach produces evidence you can rely on and the other produces hopeful green.`,
+      commonMistakes: `- Automating a flow you have not read, so the checks encode your assumptions rather than the real behaviour.
+- Writing large swathes of test code and running them only at the very end, turning a small mistake into a long hunt.
+- Committing rarely and in big lumps with messages like "fixes", losing the ability to revert cleanly or explain intent.
+- Measuring your own progress by tests written rather than risk retired.`,
+      realWorldTip: `On a delivery team, your automation lives in the same repository, review process, and CI pipeline as the product code — it is engineering work, held to engineering standards. The automation engineers who earn trust are the ones who read the code, raise small reviewable changes, write commit messages that explain the risk, and can say in a sentence what evidence their work gives the team. That credibility is what lets you push a check down a layer or delete a flaky one without a fight.`,
+      exercise: `Choose a small behaviour in a codebase you can access. Read the relevant code first and note in two or three lines how it works and where it could fail. Then add a single focused check in small steps, running as you go, and make a commit with a message that states the risk it retires. Produce the code, your short reading notes, and the commit message.`,
+      reflectionQuestion:
+        'Which of the four habits — reading code, small steps, version control, thinking in risk — is weakest for you right now, and what would practising it deliberately change about your work?',
+      knowledgeCheck: `Q: Why read the code before automating against a feature?
+A: Because a check can only be as good as your understanding of the behaviour. Reading the code tells you which risks are real, which layer each belongs at, and where the behaviour can fail — so your checks are sharp and intentional rather than superstitious confirmations of what you assumed.`,
+      completionChecklist: [
+        'I can read and summarise how a feature works before writing a check for it',
+        'I can work in small, verified steps committed with clear intent',
+        'I can state, for any check I write, the risk it retires and the evidence it gives the team',
+      ],
+      enhancements: {
+        davidTip:
+          'Treat your commit messages as notes to the next engineer, who might be you in six months. "test: pin discount-before-VAT ordering" tells a story; "add tests" tells nothing. The habit costs seconds and pays back every time someone has to understand why a check exists.',
+        badGood: {
+          label: 'Starting work on automating a new feature',
+          bad: 'Open the app, click through the feature, and start writing browser checks that reproduce what you clicked.',
+          good: 'Read how the feature is implemented, note where it can fail, decide which risks belong at which layer, then add checks in small committed steps — each naming the risk it retires.',
+        },
+        miniChallenge:
+          'Take a check you have written before and rewrite its history as three small commits instead of one, each with a message that names the risk it addresses. Notice how much clearer the intent becomes.',
+        visualAid: {
+          type: 'flow',
+          title: 'The engineer\'s loop for a new check',
+          steps: [
+            { label: 'Read', detail: 'Understand how the behaviour works and where it can fail.' },
+            { label: 'Frame', detail: 'Name the risk and choose the cheapest honest layer.' },
+            { label: 'Step', detail: 'Write and run a small increment; confirm it does what you expect.' },
+            { label: 'Commit', detail: 'Record the change with a message that states the risk it retires.' },
+            { label: 'Review', detail: 'Raise it like product code — small, legible, revertible.' },
+          ],
+        },
+      },
+    },
+  ],
+};

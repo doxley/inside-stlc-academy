@@ -262,6 +262,7 @@ export interface Certificate {
   course_id: string;
   certificate_code: string;
   status: CertificateStatus;
+  grade: 'pass' | 'distinction' | null;
   issued_at: string | null;
 }
 
