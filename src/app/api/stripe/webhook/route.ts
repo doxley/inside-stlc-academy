@@ -66,6 +66,12 @@ export async function POST(req: Request) {
 async function fulfilCheckout(session: Stripe.Checkout.Session) {
   const db = createAdminClient();
 
+  // Service purchases (CV Review and its add-ons) are fulfilled separately.
+  if (session.metadata?.service) {
+    await fulfilService(db, session);
+    return;
+  }
+
   const slug = session.metadata?.course_slug;
   const email = session.customer_details?.email ?? session.customer_email ?? undefined;
   if (!slug || !email) return;
@@ -105,6 +111,9 @@ async function fulfilCheckout(session: Stripe.Checkout.Session) {
     amount: session.amount_total,
     currency: session.currency ?? 'gbp',
     status: 'completed',
+    product_label: course.title,
+    terms_accepted_at: session.metadata?.terms_accepted_at ?? null,
+    terms_version: session.metadata?.terms_version ?? null,
   });
 
   // Grant access — an active enrolment is the access record.
@@ -135,6 +144,99 @@ async function fulfilCheckout(session: Stripe.Checkout.Session) {
       courseTitle: course.title,
       amountLabel,
       adminUrl: `${siteUrl}/admin/purchases`,
+    }),
+  ]);
+}
+
+// ─────────────────────────────────────────────────────────────
+// Fulfilment: paid services (CV Review + add-ons). Idempotent.
+// ─────────────────────────────────────────────────────────────
+async function fulfilService(
+  db: ReturnType<typeof createAdminClient>,
+  session: Stripe.Checkout.Session
+) {
+  const email = session.customer_details?.email ?? session.customer_email ?? undefined;
+  if (!email) return;
+
+  // Idempotency — skip if this session was already recorded.
+  const { data: existing } = await db
+    .from('payments')
+    .select('id')
+    .eq('stripe_session_id', session.id)
+    .maybeSingle();
+  if (existing) return;
+
+  const userId = await resolveUserId(db, session.client_reference_id, email);
+  if (!userId) return;
+
+  const paymentIntentId =
+    typeof session.payment_intent === 'string'
+      ? session.payment_intent
+      : session.payment_intent?.id ?? null;
+
+  const productLabel = session.metadata?.product_label ?? 'Service';
+
+  await db.from('payments').insert({
+    user_id: userId,
+    course_id: null,
+    provider: 'stripe',
+    provider_payment_id: paymentIntentId,
+    stripe_session_id: session.id,
+    amount: session.amount_total,
+    currency: session.currency ?? 'gbp',
+    status: 'completed',
+    product_label: productLabel,
+    terms_accepted_at: session.metadata?.terms_accepted_at ?? null,
+    terms_version: session.metadata?.terms_version ?? null,
+  });
+
+  const siteUrl = getSiteUrl();
+  const amountLabel =
+    session.amount_total != null
+      ? `${(session.currency ?? 'gbp').toUpperCase()} ${(session.amount_total / 100).toFixed(2)}`
+      : undefined;
+
+  // ── Amend add-on: flag the existing review ──
+  if (session.metadata?.service === 'cv-review-amend') {
+    const reviewId = session.metadata?.cv_review_id;
+    if (reviewId) {
+      await db.from('cv_reviews').update({ amend_addon: true }).eq('id', reviewId);
+    }
+    await sendAdminEnrolmentNotification({
+      studentEmail: email,
+      courseTitle: 'CV Review — Amend add-on purchased',
+      amountLabel,
+      adminUrl: `${siteUrl}/admin/cv-reviews/${reviewId ?? ''}`,
+    });
+    return;
+  }
+
+  // ── New CV review order ──
+  const express = session.metadata?.express === 'true';
+  const { data: review } = await db
+    .from('cv_reviews')
+    .insert({
+      user_id: userId,
+      email,
+      status: 'awaiting_upload',
+      express,
+      stripe_session_id: session.id,
+      amount_total: session.amount_total,
+    })
+    .select('id')
+    .single();
+
+  await Promise.all([
+    sendPurchaseConfirmation({
+      to: email,
+      courseTitle: express ? 'CV Review (Express)' : 'CV Review',
+      dashboardUrl: review ? `${siteUrl}/dashboard/cv-review/${review.id}` : `${siteUrl}/dashboard`,
+    }),
+    sendAdminEnrolmentNotification({
+      studentEmail: email,
+      courseTitle: express ? 'CV Review (Express) — new order' : 'CV Review — new order',
+      amountLabel,
+      adminUrl: `${siteUrl}/admin/cv-reviews`,
     }),
   ]);
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface EnrolButtonProps {
   slug: string;
@@ -29,7 +30,7 @@ export function EnrolButton({
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug }),
+        body: JSON.stringify({ slug, termsAccepted: true }),
       });
 
       // Parse defensively — an empty/non-JSON body should not throw a
@@ -63,6 +64,10 @@ export function EnrolButton({
       <button type="button" onClick={handleEnrol} disabled={loading} className={className ?? DEFAULT_CLASS}>
         {loading ? 'Redirecting…' : label}
       </button>
+      <span className="text-xs text-gray-400 mt-2 max-w-xs text-center">
+        By enrolling you agree to our{' '}
+        <Link href="/terms" target="_blank" className="underline hover:text-gray-200">Terms &amp; Refund Policy</Link>.
+      </span>
       {error && <span className="text-red-400 text-sm mt-2">{error}</span>}
     </span>
   );

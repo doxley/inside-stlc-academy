@@ -3,6 +3,7 @@ import type Stripe from 'stripe';
 import { createClient } from '@/lib/supabase/server';
 import { getStripe, getSiteUrl } from '@/lib/stripe';
 import { getCourseConfig } from '@/lib/courses';
+import { TERMS_VERSION } from '@/lib/services';
 
 // The Stripe SDK requires the Node.js runtime (not Edge).
 export const runtime = 'nodejs';
@@ -19,8 +20,9 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: Request) {
   try {
     let slug: string | undefined;
+    let termsAccepted: boolean | undefined;
     try {
-      ({ slug } = await req.json());
+      ({ slug, termsAccepted } = await req.json());
     } catch {
       return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
     }
@@ -82,6 +84,8 @@ export async function POST(req: Request) {
         course_slug: course.slug,
         course_title: course.title,
         user_id: userId ?? '',
+        terms_accepted_at: termsAccepted ? new Date().toISOString() : '',
+        terms_version: termsAccepted ? TERMS_VERSION : '',
       },
     });
 

@@ -113,6 +113,46 @@ export async function sendAdminSubmissionNotification(opts: {
   });
 }
 
+/** Notify the admin that a CV has been uploaded and is awaiting review. */
+export async function sendAdminCvSubmissionNotification(opts: {
+  studentEmail: string;
+  express: boolean;
+  isFollowUp: boolean;
+  reviewUrl: string;
+}): Promise<void> {
+  await send({
+    to: adminEmail(),
+    subject: `${opts.isFollowUp ? 'CV follow-up' : 'New CV'} uploaded${opts.express ? ' (Express)' : ''}: ${opts.studentEmail}`,
+    html: shell(`
+      <h2 style="margin:0 0 12px">${opts.isFollowUp ? 'Amended CV uploaded for follow-up' : 'New CV uploaded for review'}</h2>
+      <ul>
+        <li><strong>Customer:</strong> ${opts.studentEmail}</li>
+        <li><strong>Turnaround:</strong> ${opts.express ? 'Express (24h)' : 'Standard (48h)'}</li>
+      </ul>
+      <p>It's ready for you to review in the admin dashboard.</p>
+      ${button(opts.reviewUrl, 'Open CV review')}
+    `),
+  });
+}
+
+/** Notify the customer that their CV review (or follow-up) has been delivered. */
+export async function sendCvReviewReadyNotification(opts: {
+  to: string;
+  isFollowUp: boolean;
+  dashboardUrl: string;
+}): Promise<void> {
+  await send({
+    to: opts.to,
+    subject: opts.isFollowUp ? 'Your CV follow-up review is ready' : 'Your CV review is ready',
+    html: shell(`
+      <h2 style="margin:0 0 12px">Your ${opts.isFollowUp ? 'follow-up ' : ''}CV review is ready</h2>
+      <p>We've completed your ${opts.isFollowUp ? 'follow-up ' : ''}CV review. Log in to read your score, what's working well, and your prioritised improvements.</p>
+      ${button(opts.dashboardUrl, 'View your review')}
+      <p style="color:#6b7280;font-size:13px">For your privacy, your uploaded CV file is deleted from our systems once your review is complete.</p>
+    `),
+  });
+}
+
 /**
  * Notify a learner that their submission has been reviewed. Deliberately does
  * NOT include the status or feedback text — the learner logs in to read it in
