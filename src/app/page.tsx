@@ -14,9 +14,8 @@ import { SiteNav } from '@/components/marketing/SiteNav';
 import { SiteFooter } from '@/components/marketing/SiteFooter';
 import { CourseBrowser } from '@/components/marketing/CourseBrowser';
 import { ComingSoonCard } from '@/components/marketing/ComingSoonCard';
-
-// Category order for the homepage filter bar.
-const CATEGORIES = ['Get Started', 'Automation & Technical', 'AI for QA', 'Certification', 'Career & Job Search'];
+import { getCourseConfig, CATEGORY_ORDER } from '@/lib/courses';
+import { CV_REVIEW } from '@/lib/services';
 
 const stats = [
   { value: '8', label: 'Courses' },
@@ -25,9 +24,8 @@ const stats = [
   { value: 'Certificates', label: 'Available' },
 ];
 
-const courses = [
+const courseCards = [
   {
-    category: 'Get Started',
     title: '90-Day Software Testing Career Roadmap',
     badge: 'Beginner Path',
     description:
@@ -39,7 +37,6 @@ const courses = [
     cta: 'View Course',
   },
   {
-    category: 'AI for QA',
     title: 'AI for QA Testers',
     badge: 'New',
     description:
@@ -51,7 +48,6 @@ const courses = [
     cta: 'View Course',
   },
   {
-    category: 'Career & Job Search',
     title: 'QA Interview Accelerator',
     badge: 'Career',
     description:
@@ -63,7 +59,6 @@ const courses = [
     cta: 'View Course',
   },
   {
-    category: 'Automation & Technical',
     title: 'Modern Test Automation Bootcamp',
     badge: 'Flagship',
     description:
@@ -75,7 +70,6 @@ const courses = [
     cta: 'View Course',
   },
   {
-    category: 'Automation & Technical',
     title: 'Practical Test Automation with Playwright',
     badge: 'Professional',
     description:
@@ -87,7 +81,6 @@ const courses = [
     cta: 'View Course',
   },
   {
-    category: 'Automation & Technical',
     title: 'API Testing Masterclass',
     badge: 'Professional',
     description:
@@ -99,7 +92,6 @@ const courses = [
     cta: 'View Course',
   },
   {
-    category: 'Certification',
     title: 'ISTQB Foundation Masterclass',
     badge: 'Certification',
     description:
@@ -111,7 +103,6 @@ const courses = [
     cta: 'View Course',
   },
   {
-    category: 'Career & Job Search',
     title: 'QA Leadership Academy',
     badge: 'Leadership Edition',
     description:
@@ -123,7 +114,6 @@ const courses = [
     cta: 'View Course',
   },
   {
-    category: 'Career & Job Search',
     title: 'CV Review Service',
     badge: 'Service',
     description:
@@ -134,6 +124,18 @@ const courses = [
     cta: 'Learn more',
   },
 ];
+
+// Attach each card's category from the single source of truth
+// (courses.ts for courses, services.ts for services).
+const browserItems = courseCards.map((c) => ({
+  ...c,
+  category:
+    'enrolSlug' in c && c.enrolSlug
+      ? getCourseConfig(c.enrolSlug)?.category ?? 'Career & Job Search'
+      : c.href === CV_REVIEW.route
+        ? CV_REVIEW.category
+        : 'Career & Job Search',
+}));
 
 const comingSoon = [
   { title: 'Performance Testing Essentials', description: 'Learn load, stress, and performance testing fundamentals.' },
@@ -224,7 +226,7 @@ export default function LandingPage() {
           Structured written lessons, practical exercises, templates and portfolio-building tasks —
           plus professional services. Filter by what you need.
         </p>
-        <CourseBrowser items={courses} categories={CATEGORIES} />
+        <CourseBrowser items={browserItems} categories={CATEGORY_ORDER} />
       </section>
 
       {/* Coming Soon */}

@@ -4,9 +4,28 @@
 // `slug` column in the Supabase `courses` table.
 // ─────────────────────────────────────────────────────────────
 
+// Catalogue categories — shared by courses and services; drives the homepage
+// filter bar (order matters). Add a new category here, then tag items with it.
+export type CourseCategory =
+  | 'Get Started'
+  | 'Automation & Technical'
+  | 'AI for QA'
+  | 'Certification'
+  | 'Career & Job Search';
+
+export const CATEGORY_ORDER: CourseCategory[] = [
+  'Get Started',
+  'Automation & Technical',
+  'AI for QA',
+  'Certification',
+  'Career & Job Search',
+];
+
 export interface CourseConfig {
   slug: string;
   title: string;
+  /** Catalogue category (for grouping/filtering in the UI). */
+  category: CourseCategory;
   /** Display price, e.g. "£99". */
   priceLabel: string;
   /** Amount charged, in the smallest currency unit (pence). */
@@ -31,6 +50,7 @@ export interface CourseConfig {
 export const COURSES: CourseConfig[] = [
   {
     slug: '90-day-software-testing-career-roadmap',
+    category: 'Get Started',
     title: '90-Day Software Testing Career Roadmap',
     priceLabel: '£99',
     amount: 9900,
@@ -40,6 +60,7 @@ export const COURSES: CourseConfig[] = [
   },
   {
     slug: 'ai-for-qa-testers',
+    category: 'AI for QA',
     title: 'AI for QA Testers',
     priceLabel: '£99',
     amount: 9900,
@@ -49,6 +70,7 @@ export const COURSES: CourseConfig[] = [
   },
   {
     slug: 'qa-interview-accelerator',
+    category: 'Career & Job Search',
     title: 'QA Interview Accelerator',
     priceLabel: '£49',
     amount: 4900,
@@ -58,6 +80,7 @@ export const COURSES: CourseConfig[] = [
   },
   {
     slug: 'practical-test-automation-playwright',
+    category: 'Automation & Technical',
     title: 'Practical Test Automation with Playwright',
     priceLabel: '£149',
     amount: 14900,
@@ -67,6 +90,7 @@ export const COURSES: CourseConfig[] = [
   },
   {
     slug: 'api-testing-masterclass',
+    category: 'Automation & Technical',
     title: 'API Testing Masterclass',
     priceLabel: '£99',
     amount: 9900,
@@ -76,6 +100,7 @@ export const COURSES: CourseConfig[] = [
   },
   {
     slug: 'istqb-foundation-masterclass',
+    category: 'Certification',
     title: 'ISTQB Foundation Masterclass',
     priceLabel: '£79',
     amount: 7900,
@@ -85,6 +110,7 @@ export const COURSES: CourseConfig[] = [
   },
   {
     slug: 'qa-leadership-academy',
+    category: 'Career & Job Search',
     title: 'QA Leadership Academy',
     priceLabel: '£199',
     amount: 19900,
@@ -94,6 +120,7 @@ export const COURSES: CourseConfig[] = [
   },
   {
     slug: 'modern-test-automation-bootcamp',
+    category: 'Automation & Technical',
     title: 'Modern Test Automation Bootcamp',
     priceLabel: '£199',
     amount: 19900,

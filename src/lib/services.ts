@@ -3,9 +3,13 @@
 // Amounts are in the smallest currency unit (pence).
 // ─────────────────────────────────────────────────────────────
 
+import type { CourseCategory } from './courses';
+
 export interface ServiceConfig {
   slug: string;
   title: string;
+  /** Catalogue category (shared taxonomy with courses). */
+  category: CourseCategory;
   priceLabel: string;
   amount: number;
   currency: string;
@@ -24,6 +28,7 @@ export interface ServiceConfig {
 export const CV_REVIEW: ServiceConfig = {
   slug: 'cv-review',
   title: 'CV Review',
+  category: 'Career & Job Search',
   priceLabel: '£49',
   amount: 4900,
   currency: 'gbp',
