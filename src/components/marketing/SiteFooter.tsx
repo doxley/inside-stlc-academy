@@ -8,6 +8,8 @@ export function SiteFooter() {
         <Image src="/logo.png" alt="Inside STLC Academy" width={120} height={36} className="h-8 w-auto opacity-70" />
         <div className="flex items-center gap-6">
           <a href="mailto:info@insidestlc.com" className="hover:text-white transition-colors">info@insidestlc.com</a>
+          <Link href="/services/cv-review" className="hover:text-white transition-colors">CV Review</Link>
+          <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
           <Link href="/login" className="hover:text-white transition-colors">Log in</Link>
         </div>
       </div>

@@ -312,6 +312,58 @@ export interface MockExamResult {
   taken_at: string;
 }
 
+// ── CV Review Service ─────────────────────────────────────────
+export type CvReviewStatus =
+  | 'awaiting_upload'
+  | 'submitted'
+  | 'in_review'
+  | 'delivered'
+  | 'followup_submitted'
+  | 'completed'
+  | 'cancelled';
+
+export interface CvReviewAiDraft {
+  score: number;
+  good: string;
+  improve: string;
+  summary: string;
+  amendedCv?: string;
+  model?: string;
+  generatedAt?: string;
+}
+
+export interface CvReview {
+  id: string;
+  user_id: string;
+  email: string | null;
+  status: CvReviewStatus;
+  express: boolean;
+  amend_addon: boolean;
+  cv_file_path: string | null;
+  cv_file_name: string | null;
+  followup_file_path: string | null;
+  followup_file_name: string | null;
+  score: number | null;
+  review_good: string | null;
+  review_improve: string | null;
+  review_summary: string | null;
+  amended_cv: string | null;
+  followup_notes: string | null;
+  ai_draft: CvReviewAiDraft | null;
+  ai_model: string | null;
+  ai_generated_at: string | null;
+  submitted_at: string | null;
+  due_at: string | null;
+  delivered_at: string | null;
+  followup_submitted_at: string | null;
+  completed_at: string | null;
+  cv_deleted_at: string | null;
+  stripe_session_id: string | null;
+  amount_total: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export type PaymentStatus = 'pending' | 'completed' | 'refunded' | 'failed';
 
 export interface Payment {
